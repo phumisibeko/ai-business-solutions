@@ -34,7 +34,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:cen
 .ntab.on-wf{background:rgba(61,107,255,.15);color:#3d6bff;border-color:#3d6bff;}
 .nav-cta{padding:.42rem 1.1rem;border-radius:100px;font-size:.78rem;font-weight:600;background:var(--ge);color:white;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:opacity .2s;}
 .nav-cta:hover{opacity:.85;}
+.ptool-count-ge{font-size:.63rem;padding:.18rem .5rem;border-radius:4px;background:rgba(232,98,42,.1);color:var(--ge);}
+.ptool-count-wf{font-size:.63rem;padding:.18rem .5rem;border-radius:4px;background:rgba(61,107,255,.1);color:var(--wf);}
+.sp-home{font-size:.65rem;color:#5a5550;margin-bottom:.65rem;display:flex;align-items:center;gap:.3rem;}
+.stars-h{color:#f59e0b;}
+.price-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.03em;}
+.btn-note-h{font-size:.63rem;color:#5a5550;margin-top:.4rem;text-align:center;}
+.launch-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:.3rem;font-size:.85rem;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;cursor:pointer;}
+.nav-logo span{color:var(--ge);}
 @media(max-width:768px){nav{padding:.75rem 1rem;}.nav-center{display:none;}}
+.urgency-badge{display:inline-flex;align-items:center;background:#1a0d00;border:1px solid rgba(232,98,42,.4);padding:.35rem 1rem;border-radius:100px;font-size:.72rem;color:#e8622a;font-weight:600;margin-bottom:1.75rem;}
+.btn-note-home{font-size:.65rem;color:#5a5550;margin-top:.4rem;text-align:center;}
+.launch-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.85rem;}
+.launch-btn span{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.03em;}
 
 /* VIEWS */
 .view{display:none;padding-top:60px;min-height:100vh;}
@@ -127,7 +140,8 @@ textarea{resize:vertical;min-height:90px;}
 .card-icon{font-size:1.2rem;margin-bottom:.5rem;}
 .card-name{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.03em;margin-bottom:.25rem;}
 .card-desc{font-size:.73rem;color:var(--text2);line-height:1.4;margin-bottom:.4rem;}
-.card-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;}
+.card-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;opacity:0;transition:opacity .2s;margin-top:.3rem;}
+.ge-card:hover .card-price,.wf-card:hover .card-price{opacity:1;}
 .cp-ge{color:var(--ge2);}.cp-wf{color:var(--wf2);}
 .card-num{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);margin-bottom:.4rem;}
 
@@ -184,7 +198,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="showView('home',null)">AIBS<span>OS</span></div>
+  <div class="nav-logo" onclick="showView('home',null)">AI BUSINESS SOLUTIONS <span>OS</span></div>
   <div class="nav-center">
     <button class="ntab on-home" onclick="showView('home',this)">Home</button>
     <button class="ntab" onclick="showView('ge',this)">⚡ Growth Engine</button>
@@ -200,32 +214,40 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div class="hero-glow"></div>
     <div class="hero-badge"><div class="ldot"></div>&nbsp;Intelligent Systems · Live on aibsos.com</div>
     <h1>WE BUILD AI THAT<span class="acc">THINKS WITH YOU</span></h1>
-    <p class="hero-sub">Intelligent systems that help your business know what to do, why to do it, and how to make money from it.</p>
-    <div class="hero-price-badge">💳 Pay per result · No subscription · Instant output</div>
+    <p class="hero-sub">Intelligent systems that help your business know what to do, why to do it — and act on it immediately.</p>
+    <div class="urgency-badge">One result. One payment. No subscription. Instant output.</div>
     <div class="hero-products">
-      <div class="phc phc-ge">
+      <div class="phc phc-ge" onclick="showView('ge',document.querySelector('.ntab:nth-child(2)'))" style="cursor:pointer;">
         <div class="phc-tag c-ge">// 01 · GROWTH ENGINE</div>
         <div class="phc-name">GROWTH ENGINE</div>
-        <div class="phc-desc">AI revenue & sales intelligence. Know exactly what to sell, who to sell to, and how to close.</div>
+        <div class="phc-desc">AI revenue &amp; sales intelligence. Know what to sell, who to target, and exactly how to close the deal.</div>
         <div class="phc-tools">
-          <span class="ptool">What Do I Sell?</span><span class="ptool">Pain Finder</span>
-          <span class="ptool">Proposal Gen</span><span class="ptool">Objection Handler</span>
-          <span class="ptool">Client Prep</span><span class="ptool">ROI Calculator</span>
+          <span class="ptool">What Do I Sell?</span>
+          <span class="ptool">Pain Finder</span>
+          <span class="ptool">Proposal Gen</span>
+          <span class="ptool">Objections</span>
+          <span class="ptool">Client Prep</span>
+          <span class="ptool-count-ge">+1 more</span>
         </div>
-        <div class="phc-price phc-price-ge">R75 · $4 · ₦6,500 per result</div>
-        <button class="launch-btn lbtn-ge" onclick="showView('ge',null)">Launch ↗</button>
+        <div class="sp-home"><span class="stars-h">&#9733;&#9733;&#9733;&#9733;&#9733;</span>&nbsp;AI-powered sales intelligence</div>
+        <button class="launch-btn lbtn-ge" onclick="showView('ge',null)"><span id="price-ge-home" class="price-h">$17</span>&nbsp;— Start Now</button>
+        <div class="btn-note-h">Secure payment via Paystack · Instant result</div>
       </div>
-      <div class="phc phc-wf">
+      <div class="phc phc-wf" onclick="showView('wf',document.querySelector('.ntab.wf-tab'))" style="cursor:pointer;">
         <div class="phc-tag c-wf">// 02 · WORKFORGE</div>
         <div class="phc-name">WORKFORGE</div>
         <div class="phc-desc">12 AI tools for everyday work. Done in 60 seconds. Paste your problem, get a finished result.</div>
         <div class="phc-tools">
-          <span class="ptool">Cover Letters</span><span class="ptool">Proposals</span>
-          <span class="ptool">Email Replies</span><span class="ptool">Captions</span>
-          <span class="ptool">Meeting Notes</span><span class="ptool">+ 7 more</span>
+          <span class="ptool">Cover Letter</span>
+          <span class="ptool">Email Reply</span>
+          <span class="ptool">Captions</span>
+          <span class="ptool">Contract Check</span>
+          <span class="ptool">Meeting Notes</span>
+          <span class="ptool-count-wf">+7 more</span>
         </div>
-        <div class="phc-price phc-price-wf">R75 · $4 · ₦6,500 per result</div>
-        <button class="launch-btn lbtn-wf" onclick="showView('wf',null)">Launch ↗</button>
+        <div class="sp-home"><span class="stars-h">&#9733;&#9733;&#9733;&#9733;&#9733;</span>&nbsp;Work done in 60 seconds, guaranteed</div>
+        <button class="launch-btn lbtn-wf" onclick="showView('wf',null)"><span id="price-wf-home" class="price-h">$4</span>&nbsp;— Get My Result</button>
+        <div class="btn-note-h">Secure payment via Paystack · Instant result</div>
       </div>
     </div>
   </section>
@@ -248,26 +270,21 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
         <button class="ptab" onclick="showGE('ge-comp',this)">🎯 Competitive</button>
         <button class="ptab" onclick="showGE('ge-roi',this)">💰 ROI</button>
       </div>
-      <div class="ptopbar-price">R75 · $4 · ₦6,500 per result</div>
+      <div class="ptopbar-price">Pay per result</div>
     </div>
 
     <div id="ge-home" class="tpanel active">
       <div class="sl" style="margin-top:.5rem;">Growth Engine · 6 AI products</div>
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">YOUR AI SALES INTELLIGENCE SYSTEM</h2>
-      <p style="color:var(--text2);font-size:.875rem;margin-bottom:.75rem;max-width:560px;">Know what to sell, who to target, how to pitch, and how to close. Each result costs <strong style="color:var(--ge);">R75 / $4 / ₦6,500</strong> — paid before generating.</p>
-      <div class="curr-row">
-        <span class="curr-label">Display currency:</span>
-        <button class="cbtn on" onclick="setCurr('ZAR',this)">ZAR</button>
-        <button class="cbtn" onclick="setCurr('USD',this)">USD</button>
-        <button class="cbtn" onclick="setCurr('NGN',this)">NGN</button>
-      </div>
+      <p style="color:var(--text2);font-size:.875rem;margin-bottom:.75rem;max-width:560px;">Know what to sell, who to target, how to pitch, and how to close. Pay before generating — instant result.</p>
+
       <div class="ge-grid">
-        <div class="ge-card" onclick="showGE('ge-sell',null)"><div class="card-icon">🤖</div><div class="card-name">WHAT DO I SELL?</div><div class="card-desc">CEO-level sell strategy — problem, impact, top solutions, revenue opportunity.</div><div class="card-price cp-ge" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="ge-card" onclick="showGE('ge-pain',null)"><div class="card-icon">🔍</div><div class="card-name">PAIN FINDER</div><div class="card-desc">Identify pain points for any business. Matched recommendations with fit scores.</div><div class="card-price cp-ge" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="ge-card" onclick="showGE('ge-proposal',null)"><div class="card-icon">📄</div><div class="card-name">PROPOSAL GEN</div><div class="card-desc">Complete, persuasive business proposal. Ready to send in seconds.</div><div class="card-price cp-ge" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="ge-card" onclick="showGE('ge-prep',null)"><div class="card-icon">⚡</div><div class="card-name">CLIENT PREP</div><div class="card-desc">Pre-meeting sales pack. Pain points, questions, ROI, objections, follow-up email.</div><div class="card-price cp-ge" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="ge-card" onclick="showGE('ge-obj',null)"><div class="card-icon">🛡</div><div class="card-name">OBJECTION HANDLER</div><div class="card-desc">Type what the client said. Get 3 confident, commercially grounded responses.</div><div class="card-price cp-ge" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="ge-card" onclick="showGE('ge-comp',null)"><div class="card-icon">🎯</div><div class="card-name">COMPETITIVE INTEL</div><div class="card-desc">Your differentiators, competitor gaps, and the winning pitch.</div><div class="card-price cp-ge" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
+        <div class="ge-card" onclick="showGE('ge-proposal',null)"><div class="card-icon">📄</div><div class="card-name">PROPOSAL GEN</div><div class="card-desc">Complete, persuasive business proposal. Ready to send in seconds.</div><div class="card-price cp-ge">Pay per result</div></div>
+        <div class="ge-card" onclick="showGE('ge-sell',null)"><div class="card-icon">🤖</div><div class="card-name">WHAT DO I SELL?</div><div class="card-desc">CEO-level sell strategy — problem, impact, top solutions, revenue opportunity.</div><div class="card-price cp-ge">Pay per result</div></div>
+        <div class="ge-card" onclick="showGE('ge-obj',null)"><div class="card-icon">🛡</div><div class="card-name">OBJECTION HANDLER</div><div class="card-desc">Type what the client said. Get 3 confident, commercially grounded responses.</div><div class="card-price cp-ge">Pay per result</div></div>
+        <div class="ge-card" onclick="showGE('ge-prep',null)"><div class="card-icon">⚡</div><div class="card-name">CLIENT PREP</div><div class="card-desc">Pre-meeting sales pack. Pain points, questions, ROI, objections, follow-up email.</div><div class="card-price cp-ge">Pay per result</div></div>
+        <div class="ge-card" onclick="showGE('ge-pain',null)"><div class="card-icon">🔍</div><div class="card-name">PAIN FINDER</div><div class="card-desc">Identify pain points for any business. Matched recommendations with fit scores.</div><div class="card-price cp-ge">Pay per result</div></div>
+        <div class="ge-card" onclick="showGE('ge-comp',null)"><div class="card-icon">🎯</div><div class="card-name">COMPETITIVE INTEL</div><div class="card-desc">Your differentiators, competitor gaps, and the winning pitch.</div><div class="card-price cp-ge">Pay per result</div></div>
       </div>
     </div>
 
@@ -275,11 +292,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div id="ge-sell" class="tpanel">
       <div class="tool-title">🤖 WHAT DO I SELL?</div>
       <div class="tool-desc">Enter the company you're targeting. Get a CEO-level AI strategy — their pain, the business impact, your top solutions, and the revenue opportunity.</div>
-      <div class="pay-notice">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — you'll pay via Paystack before your result is generated.</div>
-      <div class="fr"><div class="fg"><label>Company name</label><input id="sell-co" placeholder="e.g. Shoprite, Standard Bank, any business"></div><div class="fg"><label>Industry</label><select id="sell-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div></div>
+      <div class="pay-notice">💳 Pay via Paystack before your result is generated.</div>
+      <div class="fr"><div class="fg"><label>Company name</label><input id="sell-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="sell-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div></div>
       <div class="fr"><div class="fg"><label>Company size</label><select id="sell-sz"><option>Under 50 employees</option><option>50–200 employees</option><option>200–500 employees</option><option>500–2000 employees</option><option>2000+ employees</option></select></div><div class="fg"><label>What you sell / offer</label><input id="sell-off" placeholder="e.g. HR software, consulting, training, SaaS"></div></div>
       <div class="fg"><label>Additional context (optional)</label><textarea id="sell-ctx" placeholder="Anything you know about this company..."></textarea></div>
-      <button class="run-btn rbtn-ge" onclick="initPay('sell','ge')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-ge" onclick="initPay('sell','ge')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-sell"></div>
     </div>
 
@@ -287,11 +304,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div id="ge-pain" class="tpanel">
       <div class="tool-title">🔍 PAIN FINDER</div>
       <div class="tool-desc">Identify the real pain points of any business in any industry. Get matched solutions with fit scores and talking points.</div>
-      <div class="pay-notice">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
-      <div class="fr"><div class="fg"><label>Company / description</label><input id="pain-co" placeholder="e.g. A mid-size retail chain in Joburg"></div><div class="fg"><label>Industry</label><select id="pain-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div></div>
+      <div class="pay-notice">💳 Pay via Paystack before your result is generated.</div>
+      <div class="fr"><div class="fg"><label>Company / description</label><input id="pain-co" placeholder="e.g. A mid-size retail business"></div><div class="fg"><label>Industry</label><select id="pain-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div></div>
       <div class="fr"><div class="fg"><label>Company size</label><select id="pain-sz"><option>Under 50</option><option>50–200</option><option>200–500</option><option>500–2000</option><option>2000+</option></select></div><div class="fg"><label>What you're selling them</label><input id="pain-off" placeholder="e.g. AI tools, training, consulting"></div></div>
       <div class="fg"><label>Known challenges (optional)</label><textarea id="pain-ctx" placeholder="Anything they've mentioned..."></textarea></div>
-      <button class="run-btn rbtn-ge" onclick="initPay('pain','ge')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-ge" onclick="initPay('pain','ge')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-pain"></div>
     </div>
 
@@ -299,12 +316,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div id="ge-proposal" class="tpanel">
       <div class="tool-title">📄 PROPOSAL GENERATOR</div>
       <div class="tool-desc">Generate a complete, CEO-ready business proposal. Persuasive, professional, tailored to your prospect.</div>
-      <div class="pay-notice">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
-      <div class="fr"><div class="fg"><label>Your company name</label><input id="prop-you" placeholder="e.g. AIBS OS"></div><div class="fg"><label>Prospect / client name</label><input id="prop-cl" placeholder="e.g. Acme Corp"></div></div>
-      <div class="fr"><div class="fg"><label>Industry</label><select id="prop-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div><div class="fg"><label>Contact name & title</label><input id="prop-con" placeholder="e.g. Sarah Dlamini, HR Director"></div></div>
+      <div class="pay-notice">💳 Pay via Paystack before your result is generated.</div>
+      <div class="fr"><div class="fg"><label>Your company name</label><input id="prop-you" placeholder="e.g. Apex Solutions"></div><div class="fg"><label>Prospect / client name</label><input id="prop-cl" placeholder="e.g. Global Retail Co"></div></div>
+      <div class="fr"><div class="fg"><label>Industry</label><select id="prop-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div><div class="fg"><label>Contact name & title</label><input id="prop-con" placeholder="e.g. Sarah Miller, HR Director"></div></div>
       <div class="fg"><label>Main challenge to solve</label><textarea id="prop-prob" placeholder="What problem does this client have that you're solving?"></textarea></div>
-      <div class="fr"><div class="fg"><label>Your proposed solution</label><input id="prop-sol" placeholder="e.g. AI-powered HR automation"></div><div class="fg"><label>Proposed investment / price</label><input id="prop-price" placeholder="e.g. R25,000/month"></div></div>
-      <button class="run-btn rbtn-ge" onclick="initPay('proposal','ge')">💳 Pay R75 &amp; Generate →</button>
+      <div class="fr"><div class="fg"><label>Your proposed solution</label><input id="prop-sol" placeholder="e.g. AI-powered HR automation"></div><div class="fg"><label>Proposed investment / price</label><input id="prop-price" placeholder="e.g. $2,500/month"></div></div>
+      <button class="run-btn rbtn-ge" onclick="initPay('proposal','ge')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-proposal"></div>
     </div>
 
@@ -312,11 +329,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div id="ge-prep" class="tpanel">
       <div class="tool-title">⚡ CLIENT PREP ENGINE</div>
       <div class="tool-desc">Pre-meeting sales pack in 60 seconds. Pain points, smart questions, ROI framing, objections, and a follow-up email.</div>
-      <div class="pay-notice">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
-      <div class="fr"><div class="fg"><label>Company name</label><input id="prep-co" placeholder="e.g. Discovery Health"></div><div class="fg"><label>Industry</label><select id="prep-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div></div>
-      <div class="fr"><div class="fg"><label>Company size</label><select id="prep-sz"><option>Under 50</option><option>50–200</option><option>200–500</option><option>500–2000</option><option>2000+</option></select></div><div class="fg"><label>What you're selling</label><input id="prep-off" placeholder="e.g. AI ops platform, training, software"></div></div>
+      <div class="pay-notice">💳 Pay via Paystack before your result is generated.</div>
+      <div class="fr"><div class="fg"><label>Company name</label><input id="prep-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="prep-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Logistics & Supply Chain</option><option>Professional Services</option><option>Hospitality & Tourism</option><option>Agriculture</option><option>Other</option></select></div></div>
+      <div class="fr"><div class="fg"><label>Company size</label><select id="prep-sz"><option>Under 50</option><option>50–200</option><option>200–500</option><option>500–2000</option><option>2000+</option></select></div><div class="fg"><label>What you're selling</label><input id="prep-off" placeholder="e.g. AI business platform"></div></div>
       <div class="fg"><label>Meeting context / intel</label><textarea id="prep-ctx" placeholder="Who you're meeting, what they said, their situation..."></textarea></div>
-      <button class="run-btn rbtn-ge" onclick="initPay('prep','ge')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-ge" onclick="initPay('prep','ge')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-prep"></div>
     </div>
 
@@ -324,7 +341,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div id="ge-obj" class="tpanel">
       <div class="tool-title">🛡 OBJECTION HANDLER</div>
       <div class="tool-desc">Type exactly what the client said. Get 3 confident, commercially grounded responses that move the deal forward.</div>
-      <div class="pay-notice">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>What did the client say?</label><textarea id="obj-said" style="min-height:75px;" placeholder="e.g. 'We don't have budget for this right now'"></textarea></div>
       <div class="fr"><div class="fg"><label>What you're selling</label><input id="obj-off" placeholder="e.g. AI business software"></div><div class="fg"><label>Context</label><input id="obj-ctx" placeholder="e.g. Retail, 200 staff, budget-conscious"></div></div>
       <div style="margin-bottom:1rem;">
@@ -338,7 +355,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
           <button class="obj-quick" onclick="qObj('We\'re not ready to decide now')">Not ready</button>
         </div>
       </div>
-      <button class="run-btn rbtn-ge" onclick="initPay('objections','ge')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-ge" onclick="initPay('objections','ge')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-objections"></div>
     </div>
 
@@ -346,11 +363,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div id="ge-comp" class="tpanel">
       <div class="tool-title">🎯 COMPETITIVE INTEL</div>
       <div class="tool-desc">Understand your position. Find the gaps, your differentiators, and the winning pitch against competition.</div>
-      <div class="pay-notice">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
-      <div class="fr"><div class="fg"><label>Your business / product</label><input id="comp-you" placeholder="e.g. AI-powered HR platform"></div><div class="fg"><label>Target market</label><input id="comp-mkt" placeholder="e.g. Mid-size companies in South Africa"></div></div>
+      <div class="pay-notice">💳 Pay via Paystack before your result is generated.</div>
+      <div class="fr"><div class="fg"><label>Your business / product</label><input id="comp-you" placeholder="e.g. AI-powered HR platform"></div><div class="fg"><label>Target market</label><input id="comp-mkt" placeholder="e.g. Mid-size companies globally"></div></div>
       <div class="fg"><label>Known competitors</label><input id="comp-comp" placeholder="e.g. Sage, SAP, local providers — or leave blank"></div>
       <div class="fg"><label>Your strengths</label><textarea id="comp-str" placeholder="What do you do better, faster, or cheaper?"></textarea></div>
-      <button class="run-btn rbtn-ge" onclick="initPay('competitive','ge')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-ge" onclick="initPay('competitive','ge')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-competitive"></div>
     </div>
 
@@ -358,12 +375,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div id="ge-roi" class="tpanel">
       <div class="tool-title">💰 ROI CALCULATOR</div>
       <div class="tool-desc">Show clients what your solution will make or save them. Turn every recommendation into a number.</div>
-      <div class="pay-notice">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
-      <div class="fr"><div class="fg"><label>Client company</label><input id="roi-co" placeholder="e.g. Acme Corp"></div><div class="fg"><label>Industry</label><select id="roi-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Professional Services</option><option>Other</option></select></div></div>
-      <div class="fr"><div class="fg"><label>Number of employees</label><input id="roi-emp" type="number" placeholder="e.g. 150"></div><div class="fg"><label>Monthly revenue / payroll (optional)</label><input id="roi-rev" placeholder="e.g. R2,000,000 or $100,000"></div></div>
+      <div class="pay-notice">💳 Pay via Paystack before your result is generated.</div>
+      <div class="fr"><div class="fg"><label>Client company</label><input id="roi-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="roi-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking & Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education & Training</option><option>FMCG / Consumer Goods</option><option>Professional Services</option><option>Other</option></select></div></div>
+      <div class="fr"><div class="fg"><label>Number of employees</label><input id="roi-emp" type="number" placeholder="e.g. 150"></div><div class="fg"><label>Monthly revenue / payroll (optional)</label><input id="roi-rev" placeholder="e.g. $100,000/month"></div></div>
       <div class="fg"><label>What your solution does for them</label><textarea id="roi-sol" placeholder="e.g. Automates admin, reduces errors, speeds up onboarding..."></textarea></div>
-      <div class="fg"><label>Your price / investment</label><input id="roi-pr" placeholder="e.g. R15,000/month"></div>
-      <button class="run-btn rbtn-ge" onclick="initPay('roi','ge')">💳 Pay R75 &amp; Generate →</button>
+      <div class="fg"><label>Your price / investment</label><input id="roi-pr" placeholder="e.g. $1,500/month"></div>
+      <button class="run-btn rbtn-ge" onclick="initPay('roi','ge')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-roi"></div>
     </div>
   </div>
@@ -389,156 +406,151 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
         <button class="ptab" onclick="showWF('wf-threadforge',this)">ThreadForge</button>
         <button class="ptab" onclick="showWF('wf-dailybrief',this)">DailyBrief</button>
       </div>
-      <div class="ptopbar-price">R75 · $4 · ₦6,500 per result</div>
+      <div class="ptopbar-price">Pay per result</div>
     </div>
 
     <div id="wf-home" class="tpanel active">
       <div class="sl" style="margin-top:.5rem;">WorkForge · 12 AI tools · Pay per result</div>
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">WORK THAT TOOK HOURS.<br>DONE IN 60 SECONDS.</h2>
-      <p style="color:var(--text2);font-size:.875rem;margin-bottom:.75rem;max-width:560px;">Paste your problem. Pay <strong style="color:var(--wf);">R75 / $4 / ₦6,500</strong>. Get a finished result in 60 seconds. No subscription needed.</p>
-      <div class="curr-row">
-        <span class="curr-label">Display currency:</span>
-        <button class="cbtn on" onclick="setCurr('ZAR',this)">ZAR</button>
-        <button class="cbtn" onclick="setCurr('USD',this)">USD</button>
-        <button class="cbtn" onclick="setCurr('NGN',this)">NGN</button>
-      </div>
+      <p style="color:var(--text2);font-size:.875rem;margin-bottom:.75rem;max-width:560px;">Paste your problem. Pay. Get a finished result in 60 seconds. No subscription needed.</p>
+
       <div class="wf-grid">
-        <div class="wf-card" onclick="showWF('wf-jobapply',null)"><div class="card-num">01</div><div class="card-name">JOBAPPLY AI</div><div class="card-desc">Tailored cover letter from any job description. Land more interviews.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-docforge',null)"><div class="card-num">02</div><div class="card-name">DOCFORGE</div><div class="card-desc">Proposals, invoices, scopes, bios & more. Ready to send in seconds.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-replyright',null)"><div class="card-num">03</div><div class="card-name">REPLYRIGHT</div><div class="card-desc">3 perfect email replies in professional, direct, and warm tones.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-captionforge',null)"><div class="card-num">04</div><div class="card-name">CAPTIONFORGE</div><div class="card-desc">5 scroll-stopping captions with hashtags for any platform.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-meetingmind',null)"><div class="card-num">05</div><div class="card-name">MEETINGMIND</div><div class="card-desc">Turn messy meeting notes into summary, actions & follow-up email.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-checklistai',null)"><div class="card-num">06</div><div class="card-name">CHECKLISTAI</div><div class="card-desc">Prioritised checklist with time estimates for any goal.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-studysnap',null)"><div class="card-num">07</div><div class="card-name">STUDYSNAP</div><div class="card-desc">Summary, flashcards & quiz from your notes. Actually understand it.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-contractcheck',null)"><div class="card-num">08</div><div class="card-name">CONTRACTCHECK</div><div class="card-desc">Plain English, red flags, and what to negotiate in any contract.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-pricemywork',null)"><div class="card-num">09</div><div class="card-name">PRICEMYWORK</div><div class="card-desc">Recommended rate with full justification. Stop leaving money on the table.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-reviewreply',null)"><div class="card-num">10</div><div class="card-name">REVIEWREPLY</div><div class="card-desc">Professional response to any review. Turn complaints into trust.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-threadforge',null)"><div class="card-num">11</div><div class="card-name">THREADFORGE</div><div class="card-desc">Viral-ready X/Twitter thread from any article or idea.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
-        <div class="wf-card" onclick="showWF('wf-dailybrief',null)"><div class="card-num">12</div><div class="card-name">DAILYBRIEF</div><div class="card-desc">Sharp 5-point daily briefing based on your role and priorities.</div><div class="card-price cp-wf" data-zar="R75 per result" data-usd="$4 per result" data-ngn="₦6,500 per result">R75 per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-replyright',null)"><div class="card-num">01</div><div class="card-name">REPLYRIGHT</div><div class="card-desc">3 perfect email replies in professional, direct, and warm tones.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-jobapply',null)"><div class="card-num">02</div><div class="card-name">JOBAPPLY AI</div><div class="card-desc">Tailored cover letter from any job description. Land more interviews.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-captionforge',null)"><div class="card-num">03</div><div class="card-name">CAPTIONFORGE</div><div class="card-desc">5 scroll-stopping captions with hashtags for any platform.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-contractcheck',null)"><div class="card-num">04</div><div class="card-name">CONTRACTCHECK</div><div class="card-desc">Plain English, red flags, and what to negotiate in any contract.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-meetingmind',null)"><div class="card-num">05</div><div class="card-name">MEETINGMIND</div><div class="card-desc">Turn messy meeting notes into summary, actions & follow-up email.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-docforge',null)"><div class="card-num">06</div><div class="card-name">DOCFORGE</div><div class="card-desc">Proposals, invoices, scopes, bios & more. Ready to send in seconds.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-threadforge',null)"><div class="card-num">07</div><div class="card-name">THREADFORGE</div><div class="card-desc">Viral-ready X/Twitter thread from any article or idea.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-checklistai',null)"><div class="card-num">08</div><div class="card-name">CHECKLISTAI</div><div class="card-desc">Prioritised checklist with time estimates for any goal.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-pricemywork',null)"><div class="card-num">09</div><div class="card-name">PRICEMYWORK</div><div class="card-desc">Recommended rate with full justification. Stop leaving money on the table.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-reviewreply',null)"><div class="card-num">10</div><div class="card-name">REVIEWREPLY</div><div class="card-desc">Professional response to any review. Turn complaints into trust.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-threadforge',null)"><div class="card-num">11</div><div class="card-name">THREADFORGE</div><div class="card-desc">Viral-ready X/Twitter thread from any article or idea.</div><div class="card-price cp-wf">Pay per result</div></div>
+        <div class="wf-card" onclick="showWF('wf-dailybrief',null)"><div class="card-num">12</div><div class="card-name">DAILYBRIEF</div><div class="card-desc">Sharp 5-point daily briefing based on your role and priorities.</div><div class="card-price cp-wf">Pay per result</div></div>
       </div>
     </div>
 
     <div id="wf-jobapply" class="tpanel">
       <div class="tool-title">JOBAPPLY AI</div>
       <div class="tool-desc">Land more interviews. Paste the job description and your background — get a tailored cover letter that gets noticed.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Job description (paste here)</label><textarea id="ja-jd" style="min-height:110px;" placeholder="Paste the full job description..."></textarea></div>
       <div class="fg"><label>Your background / experience</label><textarea id="ja-bg" placeholder="Brief summary of your experience and what makes you a good fit..."></textarea></div>
-      <div class="fr"><div class="fg"><label>Your name</label><input id="ja-name" placeholder="e.g. Thabo Mokoena"></div><div class="fg"><label>Tone</label><select id="ja-tone"><option>Professional & confident</option><option>Warm & enthusiastic</option><option>Direct & concise</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('jobapply','wf')">💳 Pay R75 &amp; Generate →</button>
+      <div class="fr"><div class="fg"><label>Your name</label><input id="ja-name" placeholder="e.g. James Carter"></div><div class="fg"><label>Tone</label><select id="ja-tone"><option>Professional & confident</option><option>Warm & enthusiastic</option><option>Direct & concise</option></select></div></div>
+      <button class="run-btn rbtn-wf" onclick="initPay('jobapply','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-jobapply"></div>
     </div>
 
     <div id="wf-docforge" class="tpanel">
       <div class="tool-title">DOCFORGE</div>
       <div class="tool-desc">Win clients. Get paid. Set boundaries. Professional documents ready in 60 seconds.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
-      <div class="fr"><div class="fg"><label>Document type</label><select id="df-type"><option>Business proposal</option><option>Invoice</option><option>Scope of work</option><option>Professional bio</option><option>Terms & conditions</option><option>Service agreement</option><option>Letter of intent</option><option>Meeting agenda</option></select></div><div class="fg"><label>Your name / company</label><input id="df-you" placeholder="e.g. Moya Solutions"></div></div>
-      <div class="fr"><div class="fg"><label>Client / recipient</label><input id="df-cl" placeholder="e.g. Acme Corp"></div><div class="fg"><label>Amount / value (if relevant)</label><input id="df-amt" placeholder="e.g. R12,000 / $500"></div></div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
+      <div class="fr"><div class="fg"><label>Document type</label><select id="df-type"><option>Business proposal</option><option>Invoice</option><option>Scope of work</option><option>Professional bio</option><option>Terms & conditions</option><option>Service agreement</option><option>Letter of intent</option><option>Meeting agenda</option></select></div><div class="fg"><label>Your name / company</label><input id="df-you" placeholder="e.g. Apex Solutions"></div></div>
+      <div class="fr"><div class="fg"><label>Client / recipient</label><input id="df-cl" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Amount / value (if relevant)</label><input id="df-amt" placeholder="e.g. $500"></div></div>
       <div class="fg"><label>Key details to include</label><textarea id="df-det" placeholder="Project, scope, deliverables, dates, anything relevant..."></textarea></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('docforge','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('docforge','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-docforge"></div>
     </div>
 
     <div id="wf-replyright" class="tpanel">
       <div class="tool-title">REPLYRIGHT</div>
       <div class="tool-desc">Say exactly the right thing. Paste a difficult email — get 3 perfect replies in different tones.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Paste the email you received</label><textarea id="rr-em" style="min-height:110px;" placeholder="Paste the email here..."></textarea></div>
       <div class="fr"><div class="fg"><label>Your context / role</label><input id="rr-ctx" placeholder="e.g. Freelancer, client is unhappy"></div><div class="fg"><label>Your goal</label><select id="rr-goal"><option>Resolve the situation</option><option>Push back firmly</option><option>Buy more time</option><option>Decline politely</option><option>Escalate professionally</option><option>Close the deal</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('replyright','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('replyright','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-replyright"></div>
     </div>
 
     <div id="wf-captionforge" class="tpanel">
       <div class="tool-title">CAPTIONFORGE</div>
       <div class="tool-desc">Stop the scroll. Describe your post — get 5 ready-to-use captions with hashtags.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Describe your post / content</label><textarea id="cf-desc" placeholder="What's the post about? What do you want people to feel or do?"></textarea></div>
       <div class="fr"><div class="fg"><label>Platform</label><select id="cf-plat"><option>Instagram</option><option>LinkedIn</option><option>X / Twitter</option><option>Facebook</option><option>TikTok</option><option>All platforms</option></select></div><div class="fg"><label>Tone / vibe</label><select id="cf-tone"><option>Professional</option><option>Casual & fun</option><option>Inspirational</option><option>Educational</option><option>Provocative / bold</option><option>Storytelling</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('captionforge','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('captionforge','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-captionforge"></div>
     </div>
 
     <div id="wf-meetingmind" class="tpanel">
       <div class="tool-title">MEETINGMIND</div>
       <div class="tool-desc">Turn talk into action. Paste messy notes — get a clean summary, action items, and a follow-up email.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Paste your meeting notes</label><textarea id="mm-notes" style="min-height:120px;" placeholder="Paste raw notes, voice-to-text, anything messy from the meeting..."></textarea></div>
-      <div class="fr"><div class="fg"><label>Meeting type</label><select id="mm-type"><option>Team standup</option><option>Client meeting</option><option>Sales call</option><option>Strategy session</option><option>Project kickoff</option><option>Performance review</option><option>Other</option></select></div><div class="fg"><label>Your name (for the email)</label><input id="mm-name" placeholder="e.g. Aisha Nkosi"></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('meetingmind','wf')">💳 Pay R75 &amp; Generate →</button>
+      <div class="fr"><div class="fg"><label>Meeting type</label><select id="mm-type"><option>Team standup</option><option>Client meeting</option><option>Sales call</option><option>Strategy session</option><option>Project kickoff</option><option>Performance review</option><option>Other</option></select></div><div class="fg"><label>Your name (for the email)</label><input id="mm-name" placeholder="e.g. Emily Johnson"></div></div>
+      <button class="run-btn rbtn-wf" onclick="initPay('meetingmind','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-meetingmind"></div>
     </div>
 
     <div id="wf-checklistai" class="tpanel">
       <div class="tool-title">CHECKLISTAI</div>
       <div class="tool-desc">Know exactly what to do first. Describe your goal — get a prioritised checklist with time estimates.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>What are you trying to achieve?</label><textarea id="cl-goal" placeholder="e.g. Launch a product, plan an event, prepare for a big meeting..."></textarea></div>
       <div class="fr"><div class="fg"><label>Time available</label><select id="cl-time"><option>Today (1 day)</option><option>This week</option><option>2 weeks</option><option>1 month</option><option>3 months</option></select></div><div class="fg"><label>Context / constraints</label><input id="cl-ctx" placeholder="e.g. Solo, limited budget, team of 3"></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('checklistai','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('checklistai','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-checklistai"></div>
     </div>
 
     <div id="wf-studysnap" class="tpanel">
       <div class="tool-title">STUDYSNAP</div>
       <div class="tool-desc">Actually understand it this time. Paste your notes — get a summary, flashcards, and a quiz.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Paste your notes or content</label><textarea id="ss-notes" style="min-height:130px;" placeholder="Paste lecture notes, textbook content, or anything you need to study..."></textarea></div>
       <div class="fr"><div class="fg"><label>Subject / topic</label><input id="ss-topic" placeholder="e.g. Business law, Python, HR management"></div><div class="fg"><label>Output format</label><select id="ss-fmt"><option>Summary + flashcards + quiz</option><option>Summary only</option><option>Flashcards only</option><option>Quiz only</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('studysnap','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('studysnap','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-studysnap"></div>
     </div>
 
     <div id="wf-contractcheck" class="tpanel">
       <div class="tool-title">CONTRACTCHECK</div>
       <div class="tool-desc">Know what you're agreeing to. Paste a contract — get plain English, red flags, and what to negotiate.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Paste the contract or agreement</label><textarea id="cc-ct" style="min-height:140px;" placeholder="Paste the contract text here..."></textarea></div>
       <div class="fr"><div class="fg"><label>Your role</label><select id="cc-role"><option>Service provider / freelancer</option><option>Client / buyer</option><option>Employee</option><option>Business owner</option><option>Tenant</option><option>Other</option></select></div><div class="fg"><label>Main concern</label><select id="cc-con"><option>Overall risk assessment</option><option>Payment terms</option><option>Exit / termination clauses</option><option>Liability & indemnity</option><option>IP & ownership</option><option>Non-compete clauses</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('contractcheck','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('contractcheck','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-contractcheck"></div>
     </div>
 
     <div id="wf-pricemywork" class="tpanel">
       <div class="tool-title">PRICEMYWORK</div>
       <div class="tool-desc">Stop leaving money on the table. Describe your service — get a recommended rate with full justification.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Describe your service or skill</label><textarea id="pw-svc" placeholder="e.g. I design logos for small businesses. 4 years experience..."></textarea></div>
       <div class="fr"><div class="fg"><label>Your market / location</label><input id="pw-mkt" placeholder="e.g. South Africa, UK, remote / global"></div><div class="fg"><label>Experience level</label><select id="pw-lvl"><option>Starting out (0–2 years)</option><option>Intermediate (2–5 years)</option><option>Experienced (5–10 years)</option><option>Senior / expert (10+ years)</option></select></div></div>
       <div class="fr"><div class="fg"><label>Pricing model</label><select id="pw-mod"><option>Hourly rate</option><option>Project / fixed price</option><option>Monthly retainer</option><option>All three</option></select></div><div class="fg"><label>Target client size</label><select id="pw-cls"><option>Individuals / solopreneurs</option><option>Small businesses</option><option>Medium companies</option><option>Enterprise / corporates</option><option>Mix of all</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('pricemywork','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('pricemywork','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-pricemywork"></div>
     </div>
 
     <div id="wf-reviewreply" class="tpanel">
       <div class="tool-title">REVIEWREPLY</div>
       <div class="tool-desc">Turn bad reviews into good impressions. Paste any review — get a professional response that wins customers.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Paste the review</label><textarea id="rv-rv" style="min-height:90px;" placeholder="Paste the review exactly as written..."></textarea></div>
       <div class="fr"><div class="fg"><label>Your business type</label><input id="rv-biz" placeholder="e.g. Restaurant, software company, salon"></div><div class="fg"><label>Review sentiment</label><select id="rv-sent"><option>Negative / complaint</option><option>Mixed</option><option>Positive (to thank)</option><option>Fake / unfair</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('reviewreply','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('reviewreply','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-reviewreply"></div>
     </div>
 
     <div id="wf-threadforge" class="tpanel">
       <div class="tool-title">THREADFORGE</div>
       <div class="tool-desc">One idea. A thread that builds your audience. Paste anything — get a viral-ready X/Twitter thread.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fg"><label>Paste your article, idea, or content</label><textarea id="tf-ct" style="min-height:120px;" placeholder="Paste the content you want to turn into a thread..."></textarea></div>
       <div class="fr"><div class="fg"><label>Your niche / audience</label><input id="tf-nic" placeholder="e.g. Entrepreneurs, tech professionals, job seekers"></div><div class="fg"><label>Thread style</label><select id="tf-sty"><option>Educational / insightful</option><option>Storytelling</option><option>Controversial / bold take</option><option>Step-by-step how-to</option><option>List / tips</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('threadforge','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('threadforge','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-threadforge"></div>
     </div>
 
     <div id="wf-dailybrief" class="tpanel">
       <div class="tool-title">DAILYBRIEF</div>
       <div class="tool-desc">Start every day with clarity. Tell us your role — get a sharp 5-point briefing of what matters today.</div>
-      <div class="pay-notice pay-notice-wf">💳 This result costs <strong>&nbsp;R75 / $4 / ₦6,500&nbsp;</strong> — pay via Paystack before your result is generated.</div>
+      <div class="pay-notice pay-notice-wf">💳 Pay via Paystack before your result is generated.</div>
       <div class="fr"><div class="fg"><label>Your role / job title</label><input id="db-role" placeholder="e.g. Sales manager, startup founder, designer"></div><div class="fg"><label>Industry</label><input id="db-ind" placeholder="e.g. Tech, retail, consulting"></div></div>
       <div class="fg"><label>What's on your plate today?</label><textarea id="db-today" placeholder="Key meetings, deadlines, priorities you're facing..."></textarea></div>
       <div class="fr"><div class="fg"><label>Biggest challenge right now</label><input id="db-chal" placeholder="e.g. Hitting targets, difficult client, product launch"></div><div class="fg"><label>Energy level</label><select id="db-nrg"><option>High — let's go</option><option>Medium — need focus</option><option>Low — need motivation</option></select></div></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('dailybrief','wf')">💳 Pay R75 &amp; Generate →</button>
+      <button class="run-btn rbtn-wf" onclick="initPay('dailybrief','wf')">💳 Pay &amp; Generate →</button>
       <div class="out" id="out-dailybrief"></div>
     </div>
   </div>
@@ -551,7 +563,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <h1>PRIVACY POLICY</h1>
     <p class="policy-date">Last updated: May 2025 · AI Business Solutions (Pty) Ltd</p>
     <h2>Who We Are</h2>
-    <p>AIBS OS is operated by AI Business Solutions (Pty) Ltd, Registration No. 2025/651953/07, South Africa. We build intelligent AI systems that help businesses and individuals make better decisions and get work done faster. Contact: <a href="mailto:hello@aibsos.com" style="color:var(--ge);">hello@aibsos.com</a></p>
+    <p>AIBS OS is operated by AI Business Solutions (Pty) Ltd, Registration No. 2025/651953/07. We build intelligent AI systems that help businesses and individuals make better decisions and get work done faster. Contact: <a href="mailto:hello@aibsos.com" style="color:var(--ge);">hello@aibsos.com</a></p>
     <h2>What Information We Collect</h2>
     <p>When you use AIBS OS, we collect the following:</p>
     <ul>
@@ -620,7 +632,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
       <li>Technical issues: within 1 business day</li>
     </ul>
     <h2>Business Information</h2>
-    <p>AI Business Solutions (Pty) Ltd<br>Registration No: 2025/651953/07<br>South Africa<br>Website: www.aibsos.com</p>
+    <p>AI Business Solutions (Pty) Ltd<br>Registration No: 2025/651953/07<br>Website: www.aibsos.com</p>
   </div>
 </div>
 
@@ -632,10 +644,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div class="modal-price-line" id="m-price-line">R75 · $4 · ₦6,500 — pay once, get your result</div>
     <div class="mfields">
       <div class="mrow">
-        <div class="fg"><label>First name</label><input id="m-first" placeholder="Thabo"></div>
-        <div class="fg"><label>Last name</label><input id="m-last" placeholder="Mokoena"></div>
+        <div class="fg"><label>First name</label><input id="m-first" placeholder="James"></div>
+        <div class="fg"><label>Last name</label><input id="m-last" placeholder="Carter"></div>
       </div>
-      <div class="fg"><label>Email address</label><input id="m-email" type="email" placeholder="you@company.com"></div>
+      <div class="fg"><label>Email address</label><input id="m-email" type="email" placeholder="james@company.com"></div>
     </div>
     <div class="mactions">
       <button class="m-cancel" onclick="closePay()">Cancel</button>
@@ -646,13 +658,30 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 
 <script>
 // ── REPLACE WITH YOUR REAL KEY ────────────────────────────────────────────────
-const PAYSTACK_KEY = 'pk_live_YOUR_PAYSTACK_PUBLIC_KEY';
+const PAYSTACK_KEY = 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxx'; // Replace with your real test key from Paystack dashboard
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Prices in smallest currency unit
-const PRICES = { ZAR: 7500, USD: 400, NGN: 650000 };
-const CURR_CODES = { ZAR:'ZAR', USD:'USD', NGN:'NGN' };
+const PRICES = { ZAR: 7500, USD: 400, NGN: 650000, GBP: 320, EUR: 370 };
+const GE_PAY_PRICES = { ZAR: 31700, USD: 1700, NGN: 2800000, GBP: 1350, EUR: 1590 };
+const CURR_CODES = { ZAR:'ZAR', USD:'USD', NGN:'NGN', GBP:'GBP', EUR:'EUR' };
 let currency = 'ZAR';
+let detectedCurrency = 'ZAR';
+
+const COUNTRY_CURRENCY = {
+  'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD',
+  'DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR',
+  'GH':'USD','KE':'USD','ZW':'USD','TZ':'USD','UG':'USD','RW':'USD','ET':'USD','SN':'USD','CI':'USD','CM':'USD','MA':'USD'
+};
+
+fetch('https://ipapi.co/json/')
+  .then(r=>r.json())
+  .then(d=>{
+    const c=d.country_code;
+    detectedCurrency = COUNTRY_CURRENCY[c]||'USD';
+    currency = detectedCurrency;
+  })
+  .catch(()=>{ detectedCurrency='USD'; currency='USD'; });
 let pendingTool = null, pendingProduct = null;
 
 // ── AI CALL ───────────────────────────────────────────────────────────────────
@@ -741,8 +770,10 @@ function initPay(tool, product) {
   }
   pendingTool = tool;
   pendingProduct = product;
-  const sym = currency==='ZAR'?'R':currency==='USD'?'$':'₦';
-  const amt = PRICES[currency];
+  const curr = detectedCurrency||currency;
+  const syms = {'ZAR':'R','USD':'$','NGN':'₦','GBP':'£','EUR':'€'};
+  const sym = syms[curr]||'$';
+  const amt = PRICES[curr]||PRICES['USD'];
   const display = sym + (amt/100).toLocaleString();
   const toolNames = {
     sell:'What Do I Sell?', pain:'Pain Finder', proposal:'Proposal Generator',
@@ -776,7 +807,8 @@ function closePay() { document.getElementById('pay-modal').classList.remove('ope
 function doPaystack() {
   const email = v('m-email'), first = v('m-first');
   if(!email||!first){alert('Please enter your name and email.');return;}
-  const amount = PRICES[currency];
+  const curr2 = detectedCurrency||currency;
+  const amount = PRICES[curr2]||PRICES['USD'];
   const toolLabel = pendingTool;
   const handler = PaystackPop.setup({
     key: PAYSTACK_KEY,
@@ -974,10 +1006,7 @@ document.getElementById('home-footer').innerHTML = `
       </div>
       <div class="footer-col">
         <h4>Pricing</h4>
-        <p>R75 per result (ZAR)</p>
-        <p>$4 per result (USD)</p>
-        <p>₦6,500 per result (NGN)</p>
-        <p style="margin-top:.4rem;font-size:.75rem;color:var(--text3);">Pay per use · No subscription</p>
+        <p>Pay per result · No subscription</p>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
@@ -989,17 +1018,102 @@ document.getElementById('home-footer').innerHTML = `
         <h4>Contact</h4>
         <a href="mailto:hello@aibsos.com">hello@aibsos.com</a>
         <p>www.aibsos.com</p>
-        <p>South Africa</p>
+        
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2025 AI Business Solutions (Pty) Ltd · All rights reserved</p>
-      <p>Payments by <strong style="color:var(--text2);">Paystack</strong> · AI by <strong style="color:var(--text2);">Anthropic</strong></p>
+      <p>Payments by <strong style="color:var(--text2);">Paystack</strong></p>
     </div>
   </div>
 </footer>`;
 
+
+// Location-aware placeholder samples
+const LOC_SAMPLES = {
+  ZA: {
+    name: 'James', last: 'Mokoena', email: 'james@company.co.za',
+    company: 'Moya Solutions', client: 'Shoprite Holdings', contact: 'Sarah Dlamini, HR Director',
+    price: 'R25,000/month', revenue: 'R2,000,000/month', budget: 'R150,000',
+    person2: 'Aisha Nkosi', target: 'Mid-size companies in Johannesburg'
+  },
+  NG: {
+    name: 'Emeka', last: 'Okafor', email: 'emeka@company.com.ng',
+    company: 'Zenith Consult', client: 'Dangote Industries', contact: 'Chioma Eze, Operations Director',
+    price: '₦400,000/month', revenue: '₦15,000,000/month', budget: '₦2,000,000',
+    person2: 'Fatima Abdullahi', target: 'Mid-size companies in Lagos'
+  },
+  GB: {
+    name: 'James', last: 'Clarke', email: 'james@company.co.uk',
+    company: 'Meridian Solutions', client: 'Tesco PLC', contact: 'Sarah Bennett, HR Director',
+    price: '£2,500/month', revenue: '£150,000/month', budget: '£12,000',
+    person2: 'Emma Wilson', target: 'Mid-size companies in London'
+  },
+  DEFAULT: {
+    name: 'James', last: 'Carter', email: 'james@company.com',
+    company: 'Apex Solutions', client: 'Global Retail Co', contact: 'Sarah Miller, HR Director',
+    price: '$2,500/month', revenue: '$100,000/month', budget: '$8,000',
+    person2: 'Emily Johnson', target: 'Mid-size companies globally'
+  }
+};
+
+function applyLocationPlaceholders(countryCode) {
+  const s = LOC_SAMPLES[countryCode] || LOC_SAMPLES.DEFAULT;
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.placeholder = val; };
+  
+  // Payment modal
+  set('m-first', s.name);
+  set('m-last', s.last);
+  set('m-email', s.email);
+  set('m-company', s.company);
+
+  // GE - What Do I Sell
+  set('sell-co', s.client);
+  set('sell-off', 'AI business solutions');
+
+  // GE - Proposal
+  set('prop-you', s.company);
+  set('prop-cl', s.client);
+  set('prop-con', s.contact);
+  set('prop-sol', 'AI-powered business automation');
+  set('prop-price', s.price);
+
+  // GE - Client Prep
+  set('prep-co', s.client);
+  set('prep-off', 'AI ops platform');
+
+  // GE - ROI
+  set('roi-co', s.client);
+  set('roi-rev', s.revenue);
+  set('roi-pr', s.price);
+
+  // GE - Competitive
+  set('comp-mkt', s.target);
+
+  // WF - JobApply
+  set('ja-name', s.name + ' ' + s.last);
+
+  // WF - DocForge
+  set('df-you', s.company);
+  set('df-cl', s.client);
+  set('df-amt', s.budget);
+
+  // WF - MeetingMind
+  set('mm-name', s.person2);
+}
+
 // Close modal on overlay click
+
+const GE_PRICES={'ZA':'R317','NG':'₦28,000','GB':'£13.50','DE':'€15.90','FR':'€15.90','DEFAULT':'$17'};
+const WF_PRICES={'ZA':'R75','NG':'₦6,500','GB':'£3.20','DE':'€3.70','FR':'€3.70','DEFAULT':'$4'};
+function setHomePrices(c){
+  var g=GE_PRICES[c]||GE_PRICES['DEFAULT'];
+  var w=WF_PRICES[c]||WF_PRICES['DEFAULT'];
+  var gel=document.getElementById('price-ge-home');if(gel)gel.textContent=g;
+  var wfl=document.getElementById('price-wf-home');if(wfl)wfl.textContent=w;
+}
+fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){setHomePrices(d.country_code);}).catch(function(){setHomePrices('DEFAULT');});
+
 document.getElementById('pay-modal').addEventListener('click',e=>{
   if(e.target===document.getElementById('pay-modal')) closePay();
 });
