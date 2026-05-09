@@ -120,7 +120,7 @@ textarea{resize:vertical;min-height:90px;}
 .out.show{display:block;}
 
 /* Full-page result overlay */
-.result-overlay{position:fixed;inset:0;background:var(--bg);z-index:400;display:flex;flex-direction:column;overflow:hidden;}
+.result-overlay{position:fixed;inset:0;background:var(--bg);z-index:400;display:none;flex-direction:column;overflow:hidden;}
 .result-topbar{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.5rem;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;gap:.5rem;}
 .result-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;color:var(--text);}
 .result-actions{display:flex;gap:.5rem;flex-wrap:wrap;}
@@ -861,6 +861,7 @@ function renderDocument(text, tool, product, ref) {
 function setLoading(id) {
   const overlay = document.getElementById('result-overlay');
   overlay.style.display = 'flex';
+  overlay.style.flexDirection = 'column';
   document.getElementById('result-body-content').innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:1.5rem;"><div style="font-size:2.5rem;animation:spin 1.2s linear infinite">⚡</div><div style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#5a5550">Generating your result...</div><div style="font-size:.75rem;color:#888">This takes about 15–30 seconds</div></div>`;
   document.body.style.overflow = 'hidden';
 }
