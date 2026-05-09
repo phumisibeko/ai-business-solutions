@@ -26,11 +26,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:cen
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.05em;cursor:pointer;}
 .nav-logo span{color:var(--ge);}
 .nav-center{display:flex;gap:.25rem;}
-.ntab{padding:.38rem .95rem;border-radius:100px;font-size:.78rem;font-weight:500;cursor:pointer;border:1px solid transparent;color:var(--text2);background:none;font-family:'Instrument Sans',sans-serif;transition:all .2s;}
-.ntab:hover{color:var(--text);border-color:var(--border2);}
-.ntab.on-home{background:rgba(255,255,255,.08);color:var(--text);border-color:var(--border2);}
-.ntab.on-ge{background:rgba(232,98,42,.15);color:var(--ge);border-color:rgba(232,98,42,.3);}
-.ntab.on-wf{background:rgba(61,107,255,.15);color:var(--wf);border-color:rgba(61,107,255,.3);}
+.ntab{padding:.38rem .95rem;border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid #777;color:#d0d0d0;background:#2a2a2a;font-family:'Instrument Sans',sans-serif;transition:all .2s;}
+.ntab:hover{color:#e8622a;border-color:#e8622a;background:#2a2a2a;}
+.ntab.wf-tab:hover{color:#3d6bff;border-color:#3d6bff;background:#2a2a2a;}
+.ntab.on-home{background:#2a2a2a;color:#d0d0d0;border-color:#999;}
+.ntab.on-ge{background:rgba(232,98,42,.15);color:#e8622a;border-color:#e8622a;}
+.ntab.on-wf{background:rgba(61,107,255,.15);color:#3d6bff;border-color:#3d6bff;}
 .nav-cta{padding:.42rem 1.1rem;border-radius:100px;font-size:.78rem;font-weight:600;background:var(--ge);color:white;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:opacity .2s;}
 .nav-cta:hover{opacity:.85;}
 @media(max-width:768px){nav{padding:.75rem 1rem;}.nav-center{display:none;}}
@@ -187,7 +188,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
   <div class="nav-center">
     <button class="ntab on-home" onclick="showView('home',this)">Home</button>
     <button class="ntab" onclick="showView('ge',this)">⚡ Growth Engine</button>
-    <button class="ntab" onclick="showView('wf',this)">⚙ WorkForge</button>
+    <button class="ntab wf-tab" onclick="showView('wf',this)">⚙ WorkForge</button>
   </div>
   <button class="nav-cta" onclick="showView('home',null)">Get started</button>
 </nav>
