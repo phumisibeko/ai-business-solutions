@@ -223,6 +223,42 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 .policy-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);margin-bottom:2rem;}
 .back-link{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);cursor:pointer;margin-bottom:1.5rem;display:inline-block;transition:color .2s;}
 .back-link:hover{color:var(--text);}
+
+/* ── DOCUMENT STYLES ─────────────────────────────────────────────────────── */
+#doc-wrap{font-family:'Instrument Sans',sans-serif;background:#fff;color:#1a1a1a;max-width:800px;margin:0 auto;}
+.doc-header{padding:2.5rem 2.5rem 2rem;color:white;}
+.doc-header-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;}
+.doc-brand{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;opacity:.85;}
+.doc-brand span{opacity:.7;}
+.doc-ref{font-size:.7rem;opacity:.6;font-family:monospace;}
+.doc-product-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:.4rem;}
+.doc-h1{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.03em;line-height:1;margin-bottom:.5rem;}
+.doc-date{font-size:.75rem;opacity:.65;margin-top:.25rem;}
+.doc-content{padding:0;}
+.doc-intro{padding:1.75rem 2.5rem;border-bottom:1px solid #eee;}
+.doc-intro .doc-p{font-size:.95rem;line-height:1.8;color:#444;margin-bottom:.75rem;}
+.doc-section{border-bottom:1px solid #eee;}
+.doc-section-header{display:flex;align-items:center;gap:1rem;padding:.9rem 2.5rem;color:white;}
+.doc-section-num{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;opacity:.6;min-width:2rem;}
+.doc-section-title{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.04em;}
+.doc-section-body{padding:1.5rem 2.5rem 1.75rem;}
+.doc-section-body .doc-p{font-size:.9rem;line-height:1.8;color:#444;margin-bottom:.65rem;}
+.doc-section-body .doc-h4{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.04em;color:#1a1a1a;margin:1rem 0 .4rem;}
+.doc-ul,.doc-ol{padding-left:1.25rem;margin:.5rem 0 .75rem;}
+.doc-ul li,.doc-ol li{font-size:.9rem;line-height:1.7;color:#444;margin-bottom:.35rem;}
+.doc-ul li strong,.doc-ol li strong,.doc-p strong{color:#1a1a1a;font-weight:600;}
+.doc-footer{display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;font-size:.72rem;color:#888;background:#f9f9f9;}
+
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+@media print{
+  .result-topbar{display:none!important;}
+  .result-overlay{position:static!important;overflow:visible!important;background:white!important;}
+  .result-body{padding:0!important;max-width:100%!important;overflow:visible!important;}
+  #doc-wrap{max-width:100%!important;}
+  nav,.pshell,.view:not(#view-home),.tpanel,#pay-modal{display:none!important;}
+}
+
 </style>
 </head>
 <body>
@@ -716,41 +752,134 @@ fetch('https://ipapi.co/json/')
 let pendingTool = null, pendingProduct = null;
 
 // ── AI CALL ───────────────────────────────────────────────────────────────────
+// ── AI CALL ─────────────────────────────────────────────────────────────────
 async function callAI(prompt) {
-  const enriched = 'Format your response using ## for main section headers, ### for sub-sections, **bold** for key terms, and bullet points where appropriate. Be detailed, thorough, and commercially sharp. Use real examples and specific numbers where possible.\n\n' + prompt;
+  const systemPrompt = 'You are an expert AI business tool. Generate a DETAILED, PROFESSIONAL, WELL-STRUCTURED result. Use ## for main section headings, ### for sub-headings, **bold** for key terms, - for bullet points, 1. for numbered lists. Be thorough — minimum 500 words. Include specific numbers and commercially sharp advice.';
   const res = await fetch('/api/claude', {
     method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ messages:[{ role:'user', content:enriched }], max_tokens:2000 })
+    body: JSON.stringify({ system: systemPrompt, messages:[{ role:'user', content: prompt }], max_tokens: 2500 })
   });
   if (!res.ok) throw new Error('API error ' + res.status);
   const data = await res.json();
   return data.content?.[0]?.text || '';
 }
 
+// ── DOCUMENT RENDERER ────────────────────────────────────────────────────────
+let currentResultText = '';
+let currentTool = '';
+let currentProduct = '';
+
+const TOOL_NAMES = {
+  sell:'What Do I Sell?', pain:'Pain Finder', proposal:'Proposal Generator',
+  prep:'Client Prep Engine', objections:'Objection Handler',
+  competitive:'Competitive Intel', roi:'ROI Calculator',
+  jobapply:'JobApply AI', docforge:'DocForge', replyright:'ReplyRight',
+  captionforge:'CaptionForge', meetingmind:'MeetingMind', checklistai:'ChecklistAI',
+  studysnap:'StudySnap', contractcheck:'ContractCheck', pricemywork:'PriceMyWork',
+  reviewreply:'ReviewReply', threadforge:'ThreadForge', dailybrief:'DailyBrief'
+};
+
+const COL = {
+  ge:{ primary:'#e8622a', light:'#fff0e8' },
+  wf:{ primary:'#3d6bff', light:'#e8eeff' }
+};
+
+function formatLines(lines) {
+  let html = '', inUl = false, inOl = false;
+  for(const line of lines) {
+    const l = line.trim();
+    if(!l){ if(inUl){html+='</ul>';inUl=false;} if(inOl){html+='</ol>';inOl=false;} continue; }
+    let fmt = l.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^###\s+(.+)/,'<h4 class="doc-h4">$1</h4>');
+    if(l.match(/^[-•]\s+/)){ if(inOl){html+='</ol>';inOl=false;} if(!inUl){html+='<ul class="doc-ul">';inUl=true;} html+='<li>'+fmt.replace(/^[-•]\s+/,'')+'</li>'; }
+    else if(l.match(/^\d+\.\s+/)){ if(inUl){html+='</ul>';inUl=false;} if(!inOl){html+='<ol class="doc-ol">';inOl=true;} html+='<li>'+fmt.replace(/^\d+\.\s+/,'')+'</li>'; }
+    else if(fmt.startsWith('<h4')){ if(inUl){html+='</ul>';inUl=false;} if(inOl){html+='</ol>';inOl=false;} html+=fmt; }
+    else { if(inUl){html+='</ul>';inUl=false;} if(inOl){html+='</ol>';inOl=false;} html+='<p class="doc-p">'+fmt+'</p>'; }
+  }
+  if(inUl) html+='</ul>'; if(inOl) html+='</ol>';
+  return html;
+}
+
+function renderDocument(text, tool, product, ref) {
+  currentResultText = text; currentTool = tool; currentProduct = product;
+  const toolName = TOOL_NAMES[tool] || tool;
+  const col = COL[product] || COL.ge;
+  const today = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const lines = text.split('\n');
+  const sections = [];
+  let currentSec = null, introLines = [];
+  for(const line of lines) {
+    if(line.startsWith('## ')) {
+      if(currentSec) sections.push(currentSec);
+      currentSec = { title: line.replace('## ','').trim(), lines: [] };
+    } else if(currentSec) { currentSec.lines.push(line); }
+    else { introLines.push(line); }
+  }
+  if(currentSec) sections.push(currentSec);
+
+  let sectionsHTML = sections.length === 0
+    ? '<div class="doc-section"><div class="doc-section-body">'+formatLines(lines)+'</div></div>'
+    : sections.map((s,i)=>`
+        <div class="doc-section">
+          <div class="doc-section-header" style="background:${col.primary}">
+            <span class="doc-section-num">${String(i+1).padStart(2,'0')}</span>
+            <span class="doc-section-title">${s.title}</span>
+          </div>
+          <div class="doc-section-body">${formatLines(s.lines)}</div>
+        </div>`).join('');
+
+  document.getElementById('result-body-content').innerHTML = `
+    <div id="doc-wrap">
+      <div class="doc-header" style="background:${col.primary}">
+        <div class="doc-header-top">
+          <div class="doc-brand">AI BUSINESS SOLUTIONS <span>OS</span></div>
+          <div class="doc-ref">${ref?'Ref: '+ref:''}</div>
+        </div>
+        <div class="doc-header-main">
+          <div class="doc-product-label">${product==='ge'?'Growth Engine':'WorkForge'}</div>
+          <h1 class="doc-h1">${toolName}</h1>
+          <div class="doc-date">Generated ${today}</div>
+        </div>
+      </div>
+      <div class="doc-content">
+        ${introLines.length?'<div class="doc-intro">'+formatLines(introLines)+'</div>':''}
+        ${sectionsHTML}
+      </div>
+      <div class="doc-footer" style="border-top:3px solid ${col.primary}">
+        <div>AI Business Solutions OS &nbsp;·&nbsp; aibsos.com</div>
+        <div>${today}</div>
+      </div>
+    </div>`;
+
+  const overlay = document.getElementById('result-overlay');
+  overlay.style.display = 'flex';
+  document.getElementById('result-overlay-title').textContent = toolName;
+  const agBtn = document.getElementById('result-again-btn');
+  if(agBtn){ agBtn.style.background=col.primary; agBtn.style.borderColor=col.primary; agBtn.style.color='white'; }
+  document.body.style.overflow = 'hidden';
+}
+
 function setLoading(id) {
-  const el = document.getElementById(id);
-  el.classList.add('show');
-  el.innerHTML = '<span class="loading-txt">⚡ Generating your result...</span>';
+  const overlay = document.getElementById('result-overlay');
+  overlay.style.display = 'flex';
+  document.getElementById('result-body-content').innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:1.5rem;"><div style="font-size:2.5rem;animation:spin 1.2s linear infinite">⚡</div><div style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#5a5550">Generating your result...</div><div style="font-size:.75rem;color:#888">This takes about 15–30 seconds</div></div>`;
+  document.body.style.overflow = 'hidden';
 }
 
-function setOutput(id, text) {
-  const fmt = text
-    .replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-  const el = document.getElementById(id);
-  el.innerHTML = fmt + '<br><button class="copy-btn" onclick="copyOut(\''+id+'\')">Copy output</button>';
-  el.classList.add('show');
+function setOutput(id, text, title, product, ref) {
+  const tool = id.replace('out-','');
+  renderDocument(text, tool, product, ref);
 }
 
-function copyOut(id) {
-  const el = document.getElementById(id);
-  const text = el.innerText.replace('Copy output','').trim();
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = el.querySelector('.copy-btn');
-    if(btn){btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy output',2000);}
+function copyOut() {
+  navigator.clipboard.writeText(currentResultText).then(()=>{
+    const btn = event.target; const orig=btn.textContent;
+    btn.textContent='✓ Copied!'; setTimeout(()=>btn.textContent=orig,2000);
   });
 }
+function closeResult(){ document.getElementById('result-overlay').style.display='none'; document.body.style.overflow=''; }
+function copyResult(){ navigator.clipboard.writeText(currentResultText).then(()=>{ const btn=event.target; const o=btn.textContent; btn.textContent='✓ Copied!'; setTimeout(()=>btn.textContent=o,2000); }); }
+function printResult(){ window.print(); }
+function regenerate(){ closeResult(); if(currentTool&&currentProduct) setTimeout(()=>initPay(currentTool,currentProduct),300); }
 
 // ── VIEW SWITCHING ────────────────────────────────────────────────────────────
 function showView(v, btn) {
@@ -1184,4 +1313,4 @@ document.getElementById('pay-modal').addEventListener('click',e=>{
 </div>
 
 </body>
-                       </html>
+</html>
