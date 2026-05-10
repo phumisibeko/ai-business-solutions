@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeBoard™ Free — Universal Life Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'cloud':'#F8FAFC','mist':'#E2E8F0','steel':'#94A3B8','sky':'#7DD3FC','lilac':'#C084FC','slate':'#475569' } } }
+        }
+    </script>
+    <style>
+        @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .animate-slide-in{animation:slideIn .3s ease}
+        .status-planning{background:#FEF3C7;color:#92400E}.status-in-progress{background:#DBEAFE;color:#1E40AF}
+        .status-completed{background:#D1FAE5;color:#065F46}.status-on-hold{background:#FEE2E2;color:#991B1B}
+        .divider{height:2px;background:linear-gradient(90deg,transparent,#E2E8F0,transparent);margin:2rem 0}
+    </style>
+</head>
+<body class="bg-cloud min-h-screen">
+    <style>
+.aibs-back{position:fixed;bottom:1.25rem;right:1.25rem;background:#0a0f1c;color:white;padding:.5rem 1rem;border-radius:100px;font-size:.75rem;font-weight:600;text-decoration:none;z-index:9999;font-family:sans-serif;border:1px solid rgba(255,255,255,.15);}
+.aibs-back:hover{background:#1a2a4a;}
+</style>
+<a href="/" class="aibs-back">← AIBS OS</a>
+<div id="locationModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl">
+            <h2 class="text-3xl font-semibold text-slate mb-4">🌍 Welcome to LifeBoard™</h2>
+            <p class="text-steel mb-6 leading-relaxed">Select your location to customise currency, examples, and guides for your region.</p>
+            <div class="mb-6">
+                <label class="block text-slate font-medium mb-2">Country/Region</label>
+                <select id="countrySelect" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none transition">
+                    <option value="">Choose your location...</option>
+                    <option value="US">🇺🇸 United States</option><option value="GB">🇬🇧 United Kingdom</option>
+                    <option value="CA">🇨🇦 Canada</option><option value="AU">🇦🇺 Australia</option>
+                    <option value="NZ">🇳🇿 New Zealand</option><option value="ZA">🇿🇦 South Africa</option>
+                    <option value="IE">🇮🇪 Ireland</option><option value="IN">🇮🇳 India</option>
+                    <option value="SG">🇸🇬 Singapore</option><option value="AE">🇦🇪 UAE</option>
+                    <option value="EU">🇪🇺 European Union</option><option value="OTHER">🌐 Other/International</option>
+                </select>
+            </div>
+            <button onclick="saveLocation()" class="w-full bg-gradient-to-r from-sky to-lilac text-white font-medium py-3 rounded-xl hover:shadow-lg transition transform hover:-translate-y-0.5">Continue to LifeBoard™</button>
+            <p class="text-sm text-steel mt-4 text-center">You can change this anytime in Settings</p>
+        </div>
+    </div>
+    <div id="quickStartModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl text-center">
+            <div class="text-6xl mb-4">🚀</div>
+            <h2 class="text-3xl font-semibold text-slate mb-3">Welcome to LifeBoard™</h2>
+            <p class="text-steel mb-6 text-lg leading-relaxed">Your entire life in one place.</p>
+            <div class="text-left bg-cloud rounded-xl p-6 mb-6 space-y-4">
+                <div class="flex items-center gap-4"><div class="w-10 h-10 bg-sky/20 rounded-full flex items-center justify-center text-sky font-bold">1</div><p class="text-slate"><strong>Enter your income</strong> — so we can show you what's possible</p></div>
+                <div class="flex items-center gap-4"><div class="w-10 h-10 bg-sky/20 rounded-full flex items-center justify-center text-sky font-bold">2</div><p class="text-slate"><strong>Add your bills</strong> — see where your money goes</p></div>
+                <div class="flex items-center gap-4"><div class="w-10 h-10 bg-sky/20 rounded-full flex items-center justify-center text-sky font-bold">3</div><p class="text-slate"><strong>Track your goals</strong> — watch your life improve</p></div>
+            </div>
+            <p class="text-sm text-steel mb-6">We've loaded sample data so you can see how it works. Hit "Start Fresh" anytime to clear it.</p>
+            <button onclick="closeQuickStart()" class="w-full bg-gradient-to-r from-sky to-lilac text-white font-medium py-3 rounded-xl hover:shadow-lg transition transform hover:-translate-y-0.5">Let's Go →</button>
+        </div>
+    </div>
+    <div id="app" class="max-w-7xl mx-auto p-4 md:p-6"></div>
+<script>
+// ======================== DEMO DATA ========================
+const DEMO_DATA = {
+    finances: {
+        monthlyIncome:'25000', monthlyExpenses:'18000', savings:'45000', debts:'12000',
+        expenses:[
+            {category:'Groceries',amount:'4200',date:'2026-03-15',id:1},{category:'Petrol',amount:'2800',date:'2026-03-12',id:2},
+            {category:'Takeout',amount:'850',date:'2026-03-10',id:3},{category:'Clothing',amount:'1200',date:'2026-03-08',id:4},
+            {category:'Subscriptions',amount:'450',date:'2026-03-01',id:5}
+        ],
+        savingsTx:[
+            {type:'deposit',amount:5000,note:'Salary savings',date:'2026-03-01',id:10},
+            {type:'deposit',amount:3000,note:'Bonus',date:'2026-02-15',id:11},
+            {type:'withdrawal',amount:1500,note:'Emergency car repair',date:'2026-02-20',id:12},
+            {type:'deposit',amount:5000,note:'Salary savings',date:'2026-02-01',id:13}
+        ],
+        debtTx:[
+            {type:'payment',amount:2500,note:'Car loan payment',date:'2026-03-01',id:20},
+            {type:'payment',amount:2500,note:'Car loan payment',date:'2026-02-01',id:21},
+            {type:'addition',amount:1500,note:'Credit card balance',date:'2026-01-15',id:22}
+        ]
+    },
+    home: {
+        rent:'8500', mortgage:'',
+        bills:[
+            {name:'Electricity (prepaid)',amount:'900',due:'Monthly top-up',id:30},
+            {name:'Fibre Internet',amount:'700',due:'1st of month',id:31},
+            {name:'Water & Rates',amount:'450',due:'Monthly municipal',id:32},
+            {name:'Car Insurance',amount:'850',due:'1st of month',id:33}
+        ],
+        maintenance:[
+            {text:'Service geyser before winter',completed:false,id:40},
+            {text:'Check prepaid meter balance',completed:true,id:41},
+            {text:'Replace kitchen light fitting',completed:false,id:42}
+        ]
+    },
+    health: {
+        weight:'78', height:'175', medications:[], 
+        workouts:[
+            {date:'2026-03-27',type:'Gym — Upper Body',duration:'45',id:50},
+            {date:'2026-03-25',type:'Running — 5km',duration:'32',id:51},
+            {date:'2026-03-23',type:'Yoga',duration:'60',id:52},
+            {date:'2026-03-20',type:'Gym — Legs',duration:'50',id:53}
+        ]
+    },
+    growth: {
+        goals:[
+            {text:'Save R100,000 emergency fund',completed:false,id:60},
+            {text:'Learn basic investing',completed:true,id:61},
+            {text:'Read 12 books this year',completed:false,id:62},
+            {text:'Get driver\'s licence renewed',completed:true,id:63},
+            {text:'Complete online course',completed:false,id:64}
+        ], books:[], skills:[]
+    },
+    emotional: {
+        journal:[],
+        gratitude:[
+            {text:'Having clarity about my financial goals',date:'28/03/2026',id:70},
+            {text:'A supportive circle of friends',date:'27/03/2026',id:71},
+            {text:'Good health and energy',date:'26/03/2026',id:72},
+            {text:'The ability to learn and grow',date:'25/03/2026',id:73}
+        ]
+    },
+    business: {
+        projects:[
+            {name:'Launch online store',status:'In Progress',deadline:'2026-06-01',id:80},
+            {name:'Update CV and LinkedIn',status:'Completed',deadline:'2026-03-15',id:81},
+            {name:'Client pitch deck',status:'Planning',deadline:'2026-04-10',id:82}
+        ]
+    },
+    insurance: {
+        policies:[
+            {type:'Health',provider:'Discovery',premium:'2800',renewal:'2026-07-01',id:90},
+            {type:'Car',provider:'OUTsurance',premium:'850',renewal:'2026-09-01',id:91},
+            {type:'Life',provider:'Sanlam',premium:'350',renewal:'2027-01-01',id:92}
+        ]
+    },
+    investing: {
+        accounts:[],
+        contributions:[
+            {account:'Satrix Top 40 ETF',amount:'1500',note:'Monthly debit order',date:'2026-03-01',id:100},
+            {account:'Satrix Top 40 ETF',amount:'1500',note:'Monthly debit order',date:'2026-02-01',id:101},
+            {account:'Tax-free savings',amount:'500',note:'Annual contribution',date:'2026-01-15',id:102}
+        ]
+    },
+    taxes: {
+        documents:[
+            {name:'IRP5 — 2025 Tax Year',category:'Income',year:'2025',id:110},
+            {name:'Medical aid tax certificate',category:'Medical',year:'2025',id:111},
+            {name:'Retirement annuity certificate',category:'Deduction',year:'2025',id:112}
+        ]
+    },
+    hobbies: { hobbies:[{name:'Photography',frequency:'Weekly',id:120},{name:'Hiking',frequency:'Monthly',id:121},{name:'Gaming',frequency:'Daily',id:122}], equipment:[], goals:[] },
+    admin: { contacts:[], errands:[
+        {task:'Renew car licence',completed:false,id:130},{task:'Schedule dentist appointment',completed:false,id:131},
+        {task:'Submit medical aid claims',completed:true,id:132},{task:'Update emergency contacts',completed:false,id:133}
+    ], documents:[] }
+};
+
+function getDefaultData(){return JSON.parse(JSON.stringify(DEMO_DATA))}
+
+// ======================== GLOBAL STATE ========================
+const AppState = {
+    currentPage:'home',
+    location:localStorage.getItem('lifeboard_location')||null,
+    currency:'$', currencySymbol:'$',
+    data:JSON.parse(localStorage.getItem('lifeboard_data'))||getDefaultData()
+};
+// Migrations
+if(!AppState.data.insurance) AppState.data.insurance={policies:[]};
+if(!AppState.data.taxes) AppState.data.taxes={documents:[]};
+if(!AppState.data.investing) AppState.data.investing={accounts:[],contributions:[]};
+if(!AppState.data.finances.savingsTx) AppState.data.finances.savingsTx=[];
+if(!AppState.data.finances.debtTx) AppState.data.finances.debtTx=[];
+
+function saveData(){localStorage.setItem('lifeboard_data',JSON.stringify(AppState.data))}
+
+const locationConfig = {
+    'US':{currency:'USD',symbol:'$',name:'United States'},'GB':{currency:'GBP',symbol:'£',name:'United Kingdom'},
+    'CA':{currency:'CAD',symbol:'C$',name:'Canada'},'AU':{currency:'AUD',symbol:'A$',name:'Australia'},
+    'NZ':{currency:'NZD',symbol:'NZ$',name:'New Zealand'},'ZA':{currency:'ZAR',symbol:'R',name:'South Africa'},
+    'IE':{currency:'EUR',symbol:'€',name:'Ireland'},'IN':{currency:'INR',symbol:'₹',name:'India'},
+    'SG':{currency:'SGD',symbol:'S$',name:'Singapore'},'AE':{currency:'AED',symbol:'د.إ',name:'UAE'},
+    'EU':{currency:'EUR',symbol:'€',name:'European Union'},'OTHER':{currency:'USD',symbol:'$',name:'International'}
+};
+
+// ======================== UTILITY + FUNERAL DATA (verified 2025/2026) ========================
+const utilityData = {
+    'ZA':[{u:'Electricity',c:'R800–R1,800/mo',d:'Lights, appliances, geyser, heating'},{u:'Water & Sewer',c:'R300–R600/mo',d:'Municipal water, sewage, refuse'},{u:'Internet (Fibre)',c:'R500–R1,200/mo',d:'Uncapped fibre, speed-dependent'},{u:'Municipal Rates',c:'R400–R1,500/mo',d:'Property rates & levies'},{u:'TOTAL',c:'R2,000–R5,100/mo',d:''}],
+    'US':[{u:'Electricity',c:'$120–$200/mo',d:'Lights, appliances, AC/heating'},{u:'Gas',c:'$50–$120/mo',d:'Heat, stove, water heater'},{u:'Water/Sewer',c:'$40–$80/mo',d:'Water usage + sewage'},{u:'Internet',c:'$50–$100/mo',d:'WiFi'},{u:'TOTAL',c:'$260–$500/mo',d:''}],
+    'GB':[{u:'Electricity',c:'£80–£150/mo',d:'Lights, appliances, heating'},{u:'Gas',c:'£60–£120/mo',d:'Central heating, hot water'},{u:'Water',c:'£25–£50/mo',d:'Metered or fixed'},{u:'Internet',c:'£25–£60/mo',d:'Broadband/fibre'},{u:'Council Tax',c:'£100–£250/mo',d:'Local services'},{u:'TOTAL',c:'£290–£630/mo',d:''}],
+    'CA':[{u:'Electricity',c:'C$80–C$180/mo',d:'Hydro, lights'},{u:'Gas/Heat',c:'C$60–C$150/mo',d:'Heating'},{u:'Water',c:'C$30–C$80/mo',d:'Municipal water'},{u:'Internet',c:'C$60–C$120/mo',d:'Broadband/fibre'},{u:'TOTAL',c:'C$230–C$530/mo',d:''}],
+    'AU':[{u:'Electricity',c:'A$150–A$300/mo',d:'Lights, AC'},{u:'Gas',c:'A$50–A$120/mo',d:'Heating, stove'},{u:'Water',c:'A$30–A$70/mo',d:'Water + sewer'},{u:'Internet',c:'A$60–A$120/mo',d:'NBN broadband'},{u:'TOTAL',c:'A$290–A$610/mo',d:''}],
+    'NZ':[{u:'Electricity',c:'NZ$150–NZ$280/mo',d:'Lights, heating'},{u:'Gas',c:'NZ$40–NZ$100/mo',d:'Heating, cooking'},{u:'Water',c:'NZ$30–NZ$60/mo',d:'Council rates'},{u:'Internet',c:'NZ$70–NZ$120/mo',d:'Fibre'},{u:'TOTAL',c:'NZ$290–NZ$560/mo',d:''}],
+    'IN':[{u:'Electricity',c:'₹1,000–₹3,500/mo',d:'Lights, fans, AC'},{u:'Gas (LPG)',c:'₹800–₹1,200/mo',d:'Cooking cylinder'},{u:'Water',c:'₹200–₹800/mo',d:'Municipal/tanker'},{u:'Internet',c:'₹500–₹1,500/mo',d:'Broadband/fibre'},{u:'TOTAL',c:'₹2,500–₹7,000/mo',d:''}],
+    'SG':[{u:'Electricity',c:'S$80–S$200/mo',d:'Lights, AC'},{u:'Water',c:'S$20–S$50/mo',d:'PUB water'},{u:'Gas',c:'S$20–S$50/mo',d:'Piped gas'},{u:'Internet',c:'S$30–S$60/mo',d:'Fibre'},{u:'TOTAL',c:'S$150–S$360/mo',d:''}],
+    'AE':[{u:'Electricity',c:'د.إ300–د.إ800/mo',d:'AC, lights'},{u:'Water',c:'د.إ100–د.إ300/mo',d:'Water + sewage'},{u:'Gas',c:'د.إ50–د.إ150/mo',d:'Cooking'},{u:'Internet',c:'د.إ300–د.إ600/mo',d:'Etisalat/du'},{u:'TOTAL',c:'د.إ750–د.إ1,850/mo',d:''}],
+    'IE':[{u:'Electricity',c:'€100–€200/mo',d:'Lights, heating'},{u:'Gas',c:'€60–€130/mo',d:'Central heating'},{u:'Internet',c:'€35–€70/mo',d:'Broadband/fibre'},{u:'Waste',c:'€20–€40/mo',d:'Bin collection'},{u:'TOTAL',c:'€215–€440/mo',d:''}],
+    'EU':[{u:'Electricity',c:'€80–€180/mo',d:'Lights, heating'},{u:'Gas',c:'€50–€120/mo',d:'Central heating'},{u:'Water',c:'€25–€60/mo',d:'Water + sewer'},{u:'Internet',c:'€25–€60/mo',d:'Broadband/fibre'},{u:'TOTAL',c:'€180–€420/mo',d:''}],
+    'OTHER':[{u:'Electricity',c:'$80–$200/mo',d:'Lights, heating/AC'},{u:'Gas',c:'$30–$100/mo',d:'Heat, stove'},{u:'Water',c:'$25–$70/mo',d:'Water + sewage'},{u:'Internet',c:'$30–$80/mo',d:'WiFi'},{u:'TOTAL',c:'$165–$450/mo',d:''}]
+};
+const funeralData = {
+    'ZA':{avg:'R15,000–R50,000',burial:{l:'Traditional Burial',c:'R20,000–R50,000',n:'Coffin, plot, undertaker, catering, tombstone'},cremation:{l:'Cremation',c:'R6,000–R15,000',n:'Cremation fee, urn, memorial optional'},simple:{l:'Direct/Basic',c:'R8,000–R15,000',n:'Basic coffin, essential paperwork'},tip:'Funeral cover from ~R49/month. Burial societies are common. AVBOB and Doves are major providers.'},
+    'US':{avg:'$7,000–$12,000',burial:{l:'Traditional Burial',c:'$8,000–$23,000',n:'Casket, cemetery, headstone'},cremation:{l:'Cremation',c:'$1,000–$5,000',n:'Direct cremation most affordable'},simple:{l:'Green Burial',c:'$2,000–$5,000',n:'Biodegradable, natural cemetery'},tip:'FTC Funeral Rule requires itemised pricing.'},
+    'GB':{avg:'£4,000–£9,000',burial:{l:'Traditional Burial',c:'£5,000–£12,000',n:'Coffin, plot, director'},cremation:{l:'Cremation',c:'£3,000–£5,000',n:'Service, urn'},simple:{l:'Direct Cremation',c:'£1,000–£2,000',n:'No service, ashes returned'},tip:'Funeral Payment Fund available on benefits.'},
+    'CA':{avg:'C$5,000–C$15,000',burial:{l:'Traditional Burial',c:'C$8,000–C$20,000',n:'Casket, plot, service'},cremation:{l:'Cremation',c:'C$2,000–C$6,000',n:'Direct or with service'},simple:{l:'Green Burial',c:'C$3,000–C$6,000',n:'Natural burial grounds'},tip:'CPP death benefit up to C$2,500.'},
+    'AU':{avg:'A$5,000–A$15,000',burial:{l:'Traditional',c:'A$8,000–A$20,000',n:'Coffin, plot, headstone'},cremation:{l:'Cremation',c:'A$3,000–A$8,000',n:'Direct or chapel'},simple:{l:'Simple/Direct',c:'A$2,000–A$4,000',n:'No service'},tip:'Centrelink bereavement payment available.'},
+    'NZ':{avg:'NZ$8,000–NZ$15,000',burial:{l:'Traditional',c:'NZ$10,000–NZ$20,000',n:'Casket, plot, service'},cremation:{l:'Cremation',c:'NZ$4,000–NZ$8,000',n:'With or without service'},simple:{l:'Natural',c:'NZ$3,000–NZ$6,000',n:'Eco-friendly'},tip:'MSD funeral grant up to NZ$2,424.'},
+    'IN':{avg:'₹15,000–₹1,00,000',burial:{l:'Traditional',c:'₹25,000–₹2,00,000',n:'Varies by religion/region'},cremation:{l:'Cremation',c:'₹5,000–₹25,000',n:'Electric cheaper than pyre'},simple:{l:'Simple',c:'₹5,000–₹15,000',n:'Minimal ritual'},tip:'Costs vary by religion, caste, region.'},
+    'SG':{avg:'S$6,000–S$15,000',burial:{l:'Burial',c:'S$10,000–S$25,000',n:'Limited space, 15yr policy'},cremation:{l:'Cremation',c:'S$3,000–S$8,000',n:'Most common'},simple:{l:'Direct',c:'S$2,000–S$4,000',n:'No wake'},tip:'CPF savings can be used.'},
+    'AE':{avg:'د.إ5,000–د.إ20,000',burial:{l:'Burial',c:'د.إ5,000–د.إ20,000',n:'Islamic customs, municipality cemetery'},cremation:{l:'Cremation',c:'د.إ3,000–د.إ8,000',n:'For non-Muslims'},simple:{l:'Repatriation',c:'د.إ10,000–د.إ30,000',n:'Common for expats'},tip:'Islamic burials are simpler. Expats often repatriate.'},
+    'IE':{avg:'€4,000–€8,000',burial:{l:'Traditional',c:'€5,000–€12,000',n:'Coffin, plot, church'},cremation:{l:'Cremation',c:'€3,000–€5,000',n:'Growing availability'},simple:{l:'Simple',c:'€2,500–€4,000',n:'Basic, graveside only'},tip:'Social Welfare bereavement grant €850.'},
+    'EU':{avg:'€3,000–€10,000',burial:{l:'Traditional',c:'€4,000–€12,000',n:'Varies across EU'},cremation:{l:'Cremation',c:'€2,000–€5,000',n:'Increasingly popular'},simple:{l:'Natural',c:'€1,500–€4,000',n:'Growing availability'},tip:'Costs vary by country.'},
+    'OTHER':{avg:'$5,000–$15,000',burial:{l:'Traditional',c:'$5,000–$20,000',n:'Casket, plot, service'},cremation:{l:'Cremation',c:'$1,500–$5,000',n:'Direct or with service'},simple:{l:'Simple/Green',c:'$1,000–$4,000',n:'Biodegradable, minimal'},tip:'Research local customs. Pre-planning saves money.'}
+};
+
+const FREE_MODULES = ['finances','investing','homeBills','health'];
+const tiles = [
+    {id:'finances',icon:'💰',title:'Finances',summary:'Budget, savings & money management'},
+    {id:'investing',icon:'📈',title:'Investing',summary:'Projections & portfolio tracking'},
+    {id:'homeBills',icon:'🏠',title:'Home & Bills',summary:'Housing, utilities & maintenance'},
+    {id:'health',icon:'💪',title:'Health & Wellness',summary:'Fitness, nutrition & vitals'},
+    {id:'growth',icon:'🌱',title:'Personal Growth',summary:'🔒 Premium — Goals & development',locked:true},
+    {id:'emotional',icon:'❤️',title:'Emotional Wellness',summary:'🔒 Premium — Journal & gratitude',locked:true},
+    {id:'business',icon:'💼',title:'Career & Business',summary:'🔒 Premium — Projects & growth',locked:true},
+    {id:'insurance',icon:'🛡️',title:'Insurance & Planning',summary:'🔒 Premium — Protection & planning',locked:true},
+    {id:'taxes',icon:'📊',title:'Taxes & Documents',summary:'🔒 Premium — Tax planning & records',locked:true},
+    {id:'hobbies',icon:'🎨',title:'Hobbies & Interests',summary:'🔒 Premium — Activities & equipment',locked:true},
+    {id:'admin',icon:'📋',title:'Life Admin',summary:'🔒 Premium — Tasks & organisation',locked:true}
+];
+
+// ======================== CORE FUNCTIONS ========================
+function init(){
+    if(!AppState.location){document.getElementById('locationModal').classList.remove('hidden')}
+    else{updateCurrency();render();if(!localStorage.getItem('lifeboard_quickstart_done')){document.getElementById('quickStartModal').classList.remove('hidden')}}
+}
+function closeQuickStart(){document.getElementById('quickStartModal').classList.add('hidden');localStorage.setItem('lifeboard_quickstart_done','1')}
+function saveLocation(){const c=document.getElementById('countrySelect').value;if(c){AppState.location=c;localStorage.setItem('lifeboard_location',c);document.getElementById('locationModal').classList.add('hidden');updateCurrency();render();if(!localStorage.getItem('lifeboard_quickstart_done')){document.getElementById('quickStartModal').classList.remove('hidden')}}}
+function updateCurrency(){if(AppState.location&&locationConfig[AppState.location]){const c=locationConfig[AppState.location];AppState.currency=c.currency;AppState.currencySymbol=c.symbol}}
+
+// CRITICAL FIX: Event delegation on #app - handles ALL button clicks
+// This means buttons work no matter how/when they're rendered
+document.addEventListener('click',function(e){
+    const btn=e.target.closest('[data-action]');
+    if(!btn) return;
+    const action=btn.dataset.action;
+    if(action==='startFresh') startFresh();
+    else if(action==='settings') navigateTo('settings');
+});
+
+function render(){const app=document.getElementById('app');app.innerHTML='';const p={home:renderHomePage,finances:renderFinancesPage,investing:renderInvestingPage,health:renderHealthPage,growth:renderGrowthPage,emotional:renderEmotionalPage,business:renderBusinessPage,hobbies:renderHobbiesPage,admin:renderAdminPage,settings:renderSettingsPage};const fn=p[AppState.currentPage];app.appendChild(fn?fn():renderSimplePage(AppState.currentPage));window.scrollTo(0,0)}
+function navigateTo(page){AppState.currentPage=page;render()}
+function saveField(path,value){const k=path.split('.');let o=AppState.data;for(let i=0;i<k.length-1;i++)o=o[k[i]];o[k[k.length-1]]=value;saveData()}
+function backBtn(){return '<button onclick="navigateTo(\'home\')" class="inline-flex items-center gap-2 bg-sky text-white px-6 py-3 rounded-xl hover:bg-sky/90 transition mb-8"><span>←</span> Back to Home</button>'}
+function sH(icon,title){return '<div class="flex items-center gap-5 mb-8 pb-6 border-b-2 border-mist"><div class="text-5xl">'+icon+'</div><h2 class="text-3xl font-semibold text-slate">'+title+'</h2></div>'}
+function tipBox(title,tips){return '<div class="divider"></div><div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6"><h4 class="text-lg font-semibold text-slate mb-4">'+title+'</h4><div class="space-y-2 text-slate text-sm">'+tips.map(function(t){return '<p>• '+t+'</p>'}).join('')+'</div></div>'}
+function getBlankData(){return {finances:{monthlyIncome:'',monthlyExpenses:'',savings:'',debts:'',expenses:[],savingsTx:[],debtTx:[]},home:{rent:'',mortgage:'',bills:[],maintenance:[]},health:{weight:'',height:'',medications:[],workouts:[]},growth:{goals:[],books:[],skills:[]},emotional:{journal:[],gratitude:[]},business:{projects:[]},insurance:{policies:[]},investing:{accounts:[],contributions:[]},taxes:{documents:[]},hobbies:{hobbies:[],equipment:[],goals:[]},admin:{contacts:[],errands:[],documents:[]}}}
+
+// START FRESH - uses window-level function + localStorage nuke + page reload as fallback
+window.startFresh=function(){
+    if(confirm('Clear all data and start with a blank slate?\n\nThis removes all demo data so you can enter your own.')){
+        try{
+            localStorage.removeItem('lifeboard_data');
+            localStorage.removeItem('lifeboard_quickstart_done');
+            AppState.data=getBlankData();
+            saveData();
+            render();
+        }catch(err){
+            localStorage.clear();
+            location.reload();
+        }
+    }
+};
+
+// ======================== HOME PAGE ========================
+function renderHomePage(){
+    const c=document.createElement('div');
+    const C=AppState.currencySymbol,f=AppState.data.finances;
+    const income=parseFloat(f.monthlyIncome)||0,expenses=parseFloat(f.monthlyExpenses)||0,net=income-expenses;
+    const savings=parseFloat(f.savings)||0,debts=parseFloat(f.debts)||0;
+
+    c.innerHTML='<div class="text-center py-8 mb-8"><div class="flex justify-between items-start mb-6"><div class="flex-1"></div><div class="flex-1"><h1 class="text-4xl md:text-5xl font-semibold text-slate mb-2">LifeBoard™</h1><p class="text-steel text-lg">Universal Life Management System</p></div><div class="flex-1 flex justify-end gap-2"><button data-action="startFresh" class="text-xs bg-red-50 text-red-600 px-3 py-2 rounded-lg hover:bg-red-100 transition font-medium cursor-pointer">🔄 Start Fresh</button><button data-action="settings" class="p-2 hover:bg-mist rounded-lg transition cursor-pointer"><span class="text-2xl">⚙️</span></button></div></div><div class="inline-block bg-sky/10 px-4 py-2 rounded-full"><span class="text-sky font-medium">📍 '+(locationConfig[AppState.location]?.name||'Location not set')+'</span></div></div>'+
+    (income>0?'<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📊 Monthly Snapshot</h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"><div class="text-center"><div class="text-xs text-steel mb-1">Income</div><div class="text-lg font-semibold text-slate">'+C+income.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Expenses</div><div class="text-lg font-semibold text-slate">'+C+expenses.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Net</div><div class="text-lg font-semibold '+(net>=0?'text-green-600':'text-red-600')+'">'+(net>=0?'+':'')+C+net.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Savings</div><div class="text-lg font-semibold text-green-600">'+C+savings.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Debt</div><div class="text-lg font-semibold '+(debts>0?'text-red-600':'text-green-600')+'">'+C+debts.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Net Worth</div><div class="text-lg font-bold '+(savings-debts>=0?'text-green-700':'text-red-700')+'">'+C+(savings-debts).toLocaleString()+'</div></div></div></div>':'')+
+    '<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📱 How to Use LifeBoard™</h3><div class="space-y-3 text-slate"><p><strong class="text-sky">Platform:</strong> Works on any device with a web browser. No internet required after downloading.</p><p><strong class="text-sky">Getting Started:</strong> Click any tile below. Each module has educational guides plus interactive trackers.</p><p><strong class="text-sky">Your Data:</strong> Everything stays on your device. Use Settings to export backups.</p></div></div>';
+
+    const g=document.createElement('div');g.className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8';
+    tiles.forEach(function(t){
+        const e=document.createElement('div');
+        if(t.locked){
+            e.className='bg-mist/50 rounded-2xl p-6 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg opacity-60 relative';
+            e.onclick=function(){
+                const ov=document.createElement('div');
+                ov.className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+                ov.onclick=function(ev){if(ev.target===ov)ov.remove()};
+                ov.innerHTML='<div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl text-center"><div class="text-5xl mb-4">🔒</div><h2 class="text-2xl font-semibold text-slate mb-3">Premium Module</h2><p class="text-steel mb-6">This module is available in LifeBoard™ Premium. All 11 modules, once-off payment of R297.</p><div class="flex gap-3 justify-center flex-wrap"><a href="https://paystack.com/pay/lifeboard-premium" target="_blank" class="bg-gradient-to-r from-sky to-purple-400 text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition text-sm">Get Premium — R297</a><button onclick="this.closest(\'.fixed\').remove()" class="bg-mist text-slate font-medium px-6 py-3 rounded-xl hover:bg-gray-200 transition text-sm">Maybe Later</button></div></div>';
+                document.body.appendChild(ov);
+            };
+        } else {
+            e.className='bg-mist rounded-2xl p-6 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg';
+            e.onclick=function(){navigateTo(t.id)};
+        }
+        e.innerHTML='<div class="text-4xl mb-3">'+t.icon+'</div><h3 class="text-xl font-semibold text-slate mb-2">'+t.title+'</h3><p class="text-steel text-sm leading-relaxed">'+t.summary+'</p>';
+        g.appendChild(e);
+    });
+    c.appendChild(g);
+
+    // Upgrade banner for free version
+    const banner=document.createElement('div');
+    banner.className='bg-gradient-to-r from-sky/10 to-purple-100 rounded-2xl p-6 mb-8 text-center';
+    banner.innerHTML='<h3 class="text-xl font-semibold text-slate mb-2">🚀 Unlock All 11 Modules</h3><p class="text-steel mb-4">Get Emotional Wellness, Career Tracking, Insurance, Tax Guides, and 5 more — one-time payment, yours forever.</p><a href="https://paystack.com/pay/lifeboard-premium" target="_blank" class="inline-block bg-gradient-to-r from-sky to-purple-400 text-white font-medium px-8 py-3 rounded-xl hover:shadow-lg transition transform hover:-translate-y-0.5">Get Premium — R297 →</a>';
+    c.appendChild(banner);
+
+    const priv=document.createElement('div');priv.className='text-center text-xs text-steel py-4';priv.innerHTML='🔒 Your data stays on your device and is never transmitted.';
+    c.appendChild(priv);
+    return c;
+}
+// ======================== FINANCES PAGE ========================
+function renderFinancesPage(){
+    const p=document.createElement('div');p.className='animate-slide-in';
+    const C=AppState.currencySymbol,f=AppState.data.finances;
+    const income=parseFloat(f.monthlyIncome)||0,expenses=parseFloat(f.monthlyExpenses)||0,net=income-expenses;
+    const savings=parseFloat(f.savings)||0,debts=parseFloat(f.debts)||0;
+    const totalExp=f.expenses.reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
+    let investHint='';
+    if(net>0){const inv=Math.round(net*.2),y5=Math.round(inv*12*((Math.pow(1+.08/12,60)-1)/(.08/12)));investHint='<div class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-5 mb-6"><p class="text-sm text-slate"><strong>📈 Investing tip:</strong> Putting just 20% of your net ('+C+inv.toLocaleString()+'/mo) into an index fund at ~8% return could grow to <strong>'+C+y5.toLocaleString()+'</strong> in 5 years. <a href="#" onclick="navigateTo(\'investing\');return false" class="text-sky underline">Explore Investing →</a></p></div>';}
+    else if(net<0){investHint='<div class="bg-red-50 border-2 border-red-200 rounded-xl p-5 mb-6"><p class="text-sm text-slate"><strong>⚠️ Heads up:</strong> You\'re spending '+C+Math.abs(net).toLocaleString()+' more than you earn. Focus on closing this gap first.</p></div>';}
+
+    p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm mb-6">'+sH('💰','Finances')+
+    '<div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">'+
+    '<div class="bg-gradient-to-br from-sky to-lilac rounded-xl p-4 text-white"><div class="text-xs opacity-90 mb-1">Income</div><div class="text-xl font-semibold">'+C+(f.monthlyIncome||'0')+'</div></div>'+
+    '<div class="bg-gradient-to-br from-sky to-lilac rounded-xl p-4 text-white"><div class="text-xs opacity-90 mb-1">Expenses</div><div class="text-xl font-semibold">'+C+(f.monthlyExpenses||'0')+'</div></div>'+
+    '<div class="bg-gradient-to-br from-sky to-lilac rounded-xl p-4 text-white"><div class="text-xs opacity-90 mb-1">Savings</div><div class="text-xl font-semibold">'+C+savings.toLocaleString()+'</div></div>'+
+    '<div class="bg-gradient-to-br from-sky to-lilac rounded-xl p-4 text-white"><div class="text-xs opacity-90 mb-1">Debt</div><div class="text-xl font-semibold">'+C+debts.toLocaleString()+'</div></div>'+
+    '<div class="rounded-xl p-4 border-2 '+(net>=0?'border-green-300 bg-green-50':'border-red-300 bg-red-50')+'"><div class="text-xs mb-1 '+(net>=0?'text-green-600':'text-red-600')+'">Net Monthly</div><div class="text-xl font-semibold '+(net>=0?'text-green-600':'text-red-600')+'">'+(net>=0?'+':'')+C+net.toFixed(0)+'</div></div></div>'+
+    investHint+
+    '<h3 class="text-xl font-semibold text-slate mb-3">Monthly Overview</h3>'+
+    '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"><div><label class="block text-slate font-medium mb-2">Monthly Income</label><input type="number" value="'+f.monthlyIncome+'" placeholder="Enter amount" oninput="saveField(\'finances.monthlyIncome\',this.value)" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none"></div><div><label class="block text-slate font-medium mb-2">Monthly Expenses</label><input type="number" value="'+f.monthlyExpenses+'" placeholder="Enter amount" oninput="saveField(\'finances.monthlyExpenses\',this.value)" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none"></div></div>'+
+    '<div class="divider"></div>'+
+    // SAVINGS
+    '<h3 class="text-xl font-semibold text-slate mb-3">💰 Savings</h3>'+
+    '<div class="bg-green-50 border-2 border-green-200 rounded-xl p-4 mb-4 flex justify-between items-center"><div><div class="text-xs text-green-800">Current Balance</div><div class="text-2xl font-semibold text-green-700">'+C+savings.toLocaleString()+'</div></div><div class="text-xs text-steel">'+f.savingsTx.length+' transactions</div></div>'+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><select id="savingsType" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="deposit">➕ Deposit</option><option value="withdrawal">➖ Withdrawal</option></select><input type="number" id="savingsAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="text" id="savingsNote" placeholder="Note" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="date" id="savingsDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addSavingsTx()" class="bg-green-600 text-white px-5 py-2.5 rounded-lg hover:bg-green-700 transition text-sm font-medium">Record</button></div>'+
+    (f.savingsTx.length>0?'<div class="overflow-x-auto mb-6"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2 text-left font-semibold">Note</th><th class="px-3 py-2"></th></tr></thead><tbody>'+f.savingsTx.slice().reverse().slice(0,10).map((tx,ri)=>{const i=f.savingsTx.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+(tx.date||'—')+'</td><td class="px-3 py-2"><span class="text-xs font-semibold px-2 py-0.5 rounded-full '+(tx.type==='deposit'?'bg-green-100 text-green-700':'bg-red-100 text-red-700')+'">'+(tx.type==='deposit'?'+ Deposit':'− Out')+'</span></td><td class="px-3 py-2 font-medium">'+C+parseFloat(tx.amount).toLocaleString()+'</td><td class="px-3 py-2 text-steel">'+(tx.note||'—')+'</td><td class="px-3 py-2"><button onclick="deleteSavingsTx('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody></table></div>':'')+
+    '<div class="divider"></div>'+
+    // DEBT
+    '<h3 class="text-xl font-semibold text-slate mb-3">🏦 Debt</h3>'+
+    '<div class="'+(debts>0?'bg-red-50 border-red-200':'bg-green-50 border-green-200')+' border-2 rounded-xl p-4 mb-4 flex justify-between items-center"><div><div class="text-xs '+(debts>0?'text-red-800':'text-green-800')+'">Outstanding</div><div class="text-2xl font-semibold '+(debts>0?'text-red-700':'text-green-700')+'">'+C+debts.toLocaleString()+'</div></div><div class="text-xs text-steel">'+f.debtTx.length+' transactions</div></div>'+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><select id="debtType" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="payment">💳 Payment</option><option value="addition">➕ New debt</option></select><input type="number" id="debtAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="text" id="debtNote" placeholder="Note" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="date" id="debtDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addDebtTx()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 transition text-sm font-medium">Record</button></div>'+
+    (f.debtTx.length>0?'<div class="overflow-x-auto mb-6"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2 text-left font-semibold">Note</th><th class="px-3 py-2"></th></tr></thead><tbody>'+f.debtTx.slice().reverse().slice(0,10).map((tx,ri)=>{const i=f.debtTx.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+(tx.date||'—')+'</td><td class="px-3 py-2"><span class="text-xs font-semibold px-2 py-0.5 rounded-full '+(tx.type==='payment'?'bg-green-100 text-green-700':'bg-red-100 text-red-700')+'">'+(tx.type==='payment'?'💳 Paid':'+ Added')+'</span></td><td class="px-3 py-2 font-medium">'+C+parseFloat(tx.amount).toLocaleString()+'</td><td class="px-3 py-2 text-steel">'+(tx.note||'—')+'</td><td class="px-3 py-2"><button onclick="deleteDebtTx('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody></table></div>':'')+
+    '<div class="divider"></div>'+
+    // EXPENSES
+    '<h3 class="text-xl font-semibold text-slate mb-3">📋 Expense Tracker</h3>'+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><input type="text" id="expenseCategory" placeholder="Category" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="expenseAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="date" id="expenseDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addExpense()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 transition text-sm font-medium">Add Expense</button></div>'+
+    (f.expenses.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Category</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2"></th></tr></thead><tbody>'+f.expenses.slice().reverse().map((e,ri)=>{const i=f.expenses.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+(e.date||'—')+'</td><td class="px-3 py-2">'+e.category+'</td><td class="px-3 py-2 font-medium">'+C+parseFloat(e.amount).toLocaleString()+'</td><td class="px-3 py-2"><button onclick="deleteExpense('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody><tfoot class="bg-mist"><tr><td class="px-3 py-2 font-semibold" colspan="2">Total</td><td class="px-3 py-2 font-semibold">'+C+totalExp.toLocaleString()+'</td><td></td></tr></tfoot></table></div>':'')+
+    tipBox('💡 Money Tips',[
+        '<strong>50/30/20 Rule:</strong> 50% needs, 30% wants, 20% savings/investing',
+        '<strong>Emergency fund:</strong> Save 3–6 months of expenses before investing',
+        '<strong>Pay yourself first:</strong> Set up automatic transfers on payday',
+        '<strong>Track everything:</strong> Awareness is the first step to control',
+        '<strong>Avoid lifestyle creep:</strong> When income rises, save the difference',
+        '<strong>High-interest debt first:</strong> Pay off credit cards before saving'
+    ])+'</div>';
+    return p;
+}
+
+// Savings Tx
+function addSavingsTx(){const t=document.getElementById('savingsType').value,a=parseFloat(document.getElementById('savingsAmount').value),n=document.getElementById('savingsNote').value,d=document.getElementById('savingsDate').value;if(a>0){AppState.data.finances.savingsTx.push({type:t,amount:a,note:n,date:d,id:Date.now()});let b=parseFloat(AppState.data.finances.savings)||0;if(t==='deposit')b+=a;else b=Math.max(0,b-a);AppState.data.finances.savings=b.toString();saveData();render()}}
+function deleteSavingsTx(i){const tx=AppState.data.finances.savingsTx[i];let b=parseFloat(AppState.data.finances.savings)||0;if(tx.type==='deposit')b=Math.max(0,b-parseFloat(tx.amount));else b+=parseFloat(tx.amount);AppState.data.finances.savings=b.toString();AppState.data.finances.savingsTx.splice(i,1);saveData();render()}
+// Debt Tx
+function addDebtTx(){const t=document.getElementById('debtType').value,a=parseFloat(document.getElementById('debtAmount').value),n=document.getElementById('debtNote').value,d=document.getElementById('debtDate').value;if(a>0){AppState.data.finances.debtTx.push({type:t,amount:a,note:n,date:d,id:Date.now()});let b=parseFloat(AppState.data.finances.debts)||0;if(t==='payment')b=Math.max(0,b-a);else b+=a;AppState.data.finances.debts=b.toString();saveData();render()}}
+function deleteDebtTx(i){const tx=AppState.data.finances.debtTx[i];let b=parseFloat(AppState.data.finances.debts)||0;if(tx.type==='payment')b+=parseFloat(tx.amount);else b=Math.max(0,b-parseFloat(tx.amount));AppState.data.finances.debts=b.toString();AppState.data.finances.debtTx.splice(i,1);saveData();render()}
+function addExpense(){const c=document.getElementById('expenseCategory').value,a=document.getElementById('expenseAmount').value,d=document.getElementById('expenseDate').value;if(c&&a){AppState.data.finances.expenses.push({category:c,amount:a,date:d,id:Date.now()});saveData();render()}}
+function deleteExpense(i){AppState.data.finances.expenses.splice(i,1);saveData();render()}
+
+// ======================== INVESTING PAGE ========================
+function renderInvestingPage(){
+    const p=document.createElement('div');p.className='animate-slide-in';
+    const C=AppState.currencySymbol,f=AppState.data.finances,inv=AppState.data.investing;
+    const net=(parseFloat(f.monthlyIncome)||0)-(parseFloat(f.monthlyExpenses)||0);
+    function fv(m,r,y){return m*12*((Math.pow(1+r/12,y*12)-1)/(r/12))}
+    function fmt(n){return n>=1e6?C+(n/1e6).toFixed(1)+'M':C+Math.round(n).toLocaleString()}
+    const canInvest=Math.max(0,net);const totalC=inv.contributions.reduce((s,c)=>s+(parseFloat(c.amount)||0),0);
+    let proj='';
+    if(canInvest>0){
+        const pcts=[10,20,30,50],rates=[{l:'Conservative 5%',r:.05},{l:'Moderate 8%',r:.08},{l:'Aggressive 12%',r:.12}];
+        proj='<h3 class="text-xl font-semibold text-slate mb-3">📊 What Your Money Could Become</h3><p class="text-steel text-sm mb-4">Based on '+C+net.toLocaleString()+'/mo net income:</p><div class="overflow-x-auto mb-6"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Monthly</th><th class="px-3 py-2 text-left font-semibold">%</th>'+rates.map(r=>'<th class="px-3 py-2 text-center font-semibold">'+r.l+'</th>').join('')+'</tr></thead><tbody>'+pcts.map(pct=>{const m=Math.round(canInvest*pct/100);return '<tr class="border-b border-mist"><td class="px-3 py-2 font-medium">'+C+m.toLocaleString()+'</td><td class="px-3 py-2 text-steel">'+pct+'%</td>'+rates.map(r=>'<td class="px-3 py-2 text-center text-green-700"><span class="text-xs">5y:</span> '+fmt(fv(m,r.r,5))+' <span class="text-xs">10y:</span> <strong>'+fmt(fv(m,r.r,10))+'</strong></td>').join('')+'</tr>'}).join('')+'</tbody></table></div><div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 mb-6"><p class="text-sm text-slate"><strong>💡 Compound interest:</strong> Even '+C+Math.round(canInvest*.1).toLocaleString()+'/mo at 8% becomes <strong>'+fmt(fv(Math.round(canInvest*.1),.08,20))+'</strong> in 20 years.</p></div>';
+    } else {proj='<div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-5 mb-6"><p class="text-sm text-slate">Set up your income & expenses in <a href="#" onclick="navigateTo(\'finances\');return false" class="text-sky underline">Finances</a> to see projections.</p></div>';}
+
+    p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm mb-6">'+sH('📈','Investing')+proj+
+    '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">🧮 Calculator</h3><div class="bg-mist rounded-xl p-5 mb-6"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><div><label class="block text-slate text-sm font-medium mb-1">Monthly ('+C+')</label><input type="number" id="calcAmount" placeholder="500" value="'+Math.round(Math.max(canInvest*.2,100))+'" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><div><label class="block text-slate text-sm font-medium mb-1">Annual Return %</label><input type="number" id="calcRate" value="8" step="0.5" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><div><label class="block text-slate text-sm font-medium mb-1">Years</label><input type="number" id="calcYears" value="10" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div></div><button onclick="runCalc()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 transition text-sm font-medium">Calculate</button><div id="calcResult"></div></div>'+
+    '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">📝 Contributions Log</h3>'+(totalC>0?'<div class="bg-green-50 border-2 border-green-200 rounded-xl p-4 mb-4"><div class="text-xs text-green-800">Total Contributed</div><div class="text-2xl font-semibold text-green-700">'+C+totalC.toLocaleString()+'</div></div>':'')+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><input type="text" id="contribAccount" placeholder="Account (ETF, Unit Trust)" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="contribAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="text" id="contribNote" placeholder="Note" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="date" id="contribDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addContrib()" class="bg-green-600 text-white px-5 py-2.5 rounded-lg hover:bg-green-700 transition text-sm font-medium">Log Contribution</button></div>'+
+    (inv.contributions.length>0?'<div class="overflow-x-auto mb-6"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Account</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2 text-left font-semibold">Note</th><th class="px-3 py-2"></th></tr></thead><tbody>'+inv.contributions.slice().reverse().map((c,ri)=>{const i=inv.contributions.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+(c.date||'—')+'</td><td class="px-3 py-2 font-medium">'+c.account+'</td><td class="px-3 py-2 text-green-700 font-medium">'+C+parseFloat(c.amount).toLocaleString()+'</td><td class="px-3 py-2 text-steel">'+(c.note||'—')+'</td><td class="px-3 py-2"><button onclick="deleteContrib('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody></table></div>':'')+
+    tipBox('💡 Investing Golden Rules',['<strong>Start early:</strong> Time in the market beats timing the market','<strong>Diversify:</strong> Don\'t put all eggs in one basket — spread across assets','<strong>Be consistent:</strong> Regular monthly contributions compound powerfully','<strong>Emergency fund first:</strong> Keep 3–6 months expenses before investing','<strong>Fees matter:</strong> Choose low-cost index funds over expensive managed funds','<strong>Don\'t panic sell:</strong> Markets drop temporarily but trend upward long-term','<strong>Tax-free accounts:</strong> Use tax-advantaged accounts where available','<strong>Reinvest dividends:</strong> Compound growth accelerates returns'])+
+    '<p class="text-xs text-steel mt-4">Educational information only, not financial advice. Consult a qualified financial advisor.</p></div>';
+    return p;
+}
+function runCalc(){const m=parseFloat(document.getElementById('calcAmount').value)||0,r=(parseFloat(document.getElementById('calcRate').value)||8)/100,y=parseFloat(document.getElementById('calcYears').value)||10,C=AppState.currencySymbol;if(m>0){const t=m*12*((Math.pow(1+r/12,y*12)-1)/(r/12)),c=m*y*12,int=t-c;document.getElementById('calcResult').innerHTML='<div class="grid grid-cols-3 gap-3 mt-4"><div class="bg-white rounded-lg p-3 text-center border border-mist"><div class="text-xs text-steel">You Invest</div><div class="text-lg font-semibold text-slate">'+C+Math.round(c).toLocaleString()+'</div></div><div class="bg-white rounded-lg p-3 text-center border border-green-200"><div class="text-xs text-steel">Interest Earned</div><div class="text-lg font-semibold text-green-600">'+C+Math.round(int).toLocaleString()+'</div></div><div class="bg-green-50 rounded-lg p-3 text-center border-2 border-green-300"><div class="text-xs text-green-800">Total Value</div><div class="text-xl font-bold text-green-700">'+C+Math.round(t).toLocaleString()+'</div></div></div>'}}
+function addContrib(){const a=document.getElementById('contribAccount').value,am=document.getElementById('contribAmount').value,n=document.getElementById('contribNote').value,d=document.getElementById('contribDate').value;if(a&&am){AppState.data.investing.contributions.push({account:a,amount:am,note:n,date:d,id:Date.now()});saveData();render()}}
+function deleteContrib(i){AppState.data.investing.contributions.splice(i,1);saveData();render()}
+
+// ======================== HEALTH ========================
+function renderHealthPage(){
+    const p=document.createElement('div');p.className='animate-slide-in';const h=AppState.data.health;
+    const w=parseFloat(h.weight)||0,hcm=parseFloat(h.height)||0;
+    const bmi=(w>0&&hcm>0)?(w/((hcm/100)*(hcm/100))).toFixed(1):'—';
+    let bmiL='',bmiC='';if(bmi!=='—'){const b=parseFloat(bmi);if(b<18.5){bmiL='Underweight';bmiC='text-yellow-600'}else if(b<25){bmiL='Healthy';bmiC='text-green-600'}else if(b<30){bmiL='Overweight';bmiC='text-yellow-600'}else{bmiL='Obese';bmiC='text-red-600'}}
+    p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('💪','Health & Wellness')+
+    '<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"><div><label class="block text-slate font-medium mb-2">Weight (kg)</label><input type="number" value="'+h.weight+'" placeholder="70" step="0.1" oninput="saveField(\'health.weight\',this.value)" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none"></div><div><label class="block text-slate font-medium mb-2">Height (cm)</label><input type="number" value="'+h.height+'" placeholder="175" oninput="saveField(\'health.height\',this.value)" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none"></div><div><label class="block text-slate font-medium mb-2">BMI</label><div class="w-full px-4 py-3 border-2 border-mist rounded-xl bg-cloud"><span class="text-2xl font-semibold '+bmiC+'">'+bmi+'</span>'+(bmiL?' <span class="text-sm '+bmiC+'">'+bmiL+'</span>':'')+'</div></div></div>'+
+    '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">Workout Log</h3>'+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><input type="date" id="workoutDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="text" id="workoutType" placeholder="Running, Gym, Yoga..." class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="workoutDuration" placeholder="Duration (min)" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addWorkout()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 transition text-sm font-medium">Log Workout</button></div>'+
+    (h.workouts.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Duration</th><th class="px-3 py-2"></th></tr></thead><tbody>'+h.workouts.slice().reverse().map((w,ri)=>{const i=h.workouts.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+w.date+'</td><td class="px-3 py-2">'+w.type+'</td><td class="px-3 py-2">'+w.duration+' min</td><td class="px-3 py-2"><button onclick="deleteWorkout('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody></table></div>':'')+
+    tipBox('💡 Health & Wellness Tips',['<strong>150 min/week:</strong> WHO recommends 150 minutes of moderate exercise weekly','<strong>Water:</strong> Aim for 2–3 litres daily — more if active or in hot climate','<strong>Sleep:</strong> 7–9 hours per night is essential for recovery and focus','<strong>Consistency > intensity:</strong> 30 min daily beats 2 hours once a week','<strong>Track progress:</strong> Weigh yourself weekly at the same time for accuracy','<strong>Rest days matter:</strong> Muscles grow during recovery, not during workouts','<strong>Mental health counts:</strong> Exercise is proven to reduce anxiety and depression'])+'</div>';
+    return p;
+}
+function addWorkout(){const d=document.getElementById('workoutDate').value,t=document.getElementById('workoutType').value,dur=document.getElementById('workoutDuration').value;if(t&&dur){AppState.data.health.workouts.push({date:d,type:t,duration:dur,id:Date.now()});saveData();render()}}
+function deleteWorkout(i){AppState.data.health.workouts.splice(i,1);saveData();render()}
+
+// ======================== GROWTH ========================
+function renderGrowthPage(){const p=document.createElement('div');p.className='animate-slide-in';const g=AppState.data.growth,done=g.goals.filter(x=>x.completed).length;p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('🌱','Personal Growth')+(g.goals.length>0?'<div class="bg-sky/10 rounded-xl p-4 mb-4"><span class="text-sky font-semibold">'+done+'/'+g.goals.length+'</span> <span class="text-slate">goals completed</span></div>':'')+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><input type="text" id="newGoal" placeholder="Learn a new language, run a 5k..." class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm mb-3" onkeypress="if(event.key===\'Enter\')addGoal()"><button onclick="addGoal()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Goal</button></div><div class="space-y-2 mb-4">'+g.goals.map((gl,i)=>'<div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-mist '+(gl.completed?'opacity-60':'')+'"><input type="checkbox" '+(gl.completed?'checked':'')+' onchange="toggleGoal('+i+')" class="w-4 h-4 accent-sky cursor-pointer"><span class="flex-1 text-sm '+(gl.completed?'line-through text-steel':'text-slate')+'">'+gl.text+'</span><button onclick="deleteGoal('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></div>').join('')+'</div>'+
+    tipBox('💡 Goal-Setting Tips',['<strong>SMART goals:</strong> Specific, Measurable, Achievable, Relevant, Time-bound','<strong>Write them down:</strong> Written goals are 42% more likely to be achieved','<strong>Break it down:</strong> Large goals into weekly/monthly milestones','<strong>Review weekly:</strong> Check progress every Sunday evening','<strong>Celebrate wins:</strong> Acknowledge completed goals, no matter how small','<strong>1% better daily:</strong> Small consistent improvement compounds dramatically','<strong>Accountability:</strong> Share goals with someone who will check in on you'])+'</div>';return p}
+function addGoal(){const t=document.getElementById('newGoal').value;if(t){AppState.data.growth.goals.push({text:t,completed:false,id:Date.now()});saveData();render()}}
+function toggleGoal(i){AppState.data.growth.goals[i].completed=!AppState.data.growth.goals[i].completed;saveData();render()}
+function deleteGoal(i){AppState.data.growth.goals.splice(i,1);saveData();render()}
+
+// ======================== EMOTIONAL ========================
+function renderEmotionalPage(){const p=document.createElement('div');p.className='animate-slide-in';const em=AppState.data.emotional;p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('❤️','Emotional Wellness')+(em.gratitude.length>0?'<div class="bg-pink-50 border-2 border-pink-200 rounded-xl p-4 mb-4"><span class="text-pink-700 font-semibold">'+em.gratitude.length+'</span> <span class="text-slate text-sm">things you\'re grateful for</span></div>':'')+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><input type="text" id="newGratitude" placeholder="I\'m grateful for..." class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm mb-3" onkeypress="if(event.key===\'Enter\')addGratitude()"><button onclick="addGratitude()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Gratitude</button></div><div class="space-y-2 mb-4">'+em.gratitude.slice().reverse().map((g,ri)=>{const i=em.gratitude.length-1-ri;return '<div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-mist"><span>💚</span><span class="flex-1 text-sm text-slate">'+g.text+' <em class="text-steel text-xs">('+g.date+')</em></span><button onclick="deleteGratitude('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></div>'}).join('')+'</div>'+
+    tipBox('💡 Emotional Wellness Tips',['<strong>Daily gratitude:</strong> Writing 3 things you\'re grateful for rewires your brain for positivity','<strong>Feel your feelings:</strong> Suppressing emotions causes more damage than processing them','<strong>Journaling:</strong> Even 5 minutes of writing reduces stress and improves clarity','<strong>Digital detox:</strong> Take regular breaks from social media — comparison steals joy','<strong>Set boundaries:</strong> Saying "no" to others is saying "yes" to yourself','<strong>Movement helps:</strong> Physical exercise is one of the most effective mood boosters','<strong>Sleep is medicine:</strong> Poor sleep amplifies negative emotions significantly','<strong>Ask for help:</strong> Seeking support is a sign of strength, not weakness'])+'</div>';return p}
+function addGratitude(){const t=document.getElementById('newGratitude').value;if(t){AppState.data.emotional.gratitude.push({text:t,date:new Date().toLocaleDateString(),id:Date.now()});saveData();render()}}
+function deleteGratitude(i){AppState.data.emotional.gratitude.splice(i,1);saveData();render()}
+
+// ======================== BUSINESS ========================
+function renderBusinessPage(){const p=document.createElement('div');p.className='animate-slide-in';const biz=AppState.data.business;p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('💼','Career & Business')+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><input type="text" id="projectName" placeholder="Project name" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><select id="projectStatus" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Status</option><option value="Planning">Planning</option><option value="In Progress">In Progress</option><option value="On Hold">On Hold</option><option value="Completed">Completed</option></select><input type="date" id="projectDeadline" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addProject()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Project</button></div>'+
+    (biz.projects.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Project</th><th class="px-3 py-2 text-left font-semibold">Status</th><th class="px-3 py-2 text-left font-semibold">Deadline</th><th class="px-3 py-2"></th></tr></thead><tbody>'+biz.projects.map((pr,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2 font-medium">'+pr.name+'</td><td class="px-3 py-2"><span class="text-xs font-semibold px-2 py-0.5 rounded-full status-'+(pr.status||'').toLowerCase().replace(/\s+/g,'-')+'">'+pr.status+'</span></td><td class="px-3 py-2">'+(pr.deadline||'—')+'</td><td class="px-3 py-2"><button onclick="deleteProject('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody></table></div>':'')+
+    tipBox('💡 Career & Business Tips',['<strong>Update your CV quarterly:</strong> Don\'t wait until you need a job to update it','<strong>Network consistently:</strong> 80% of jobs are filled through networking','<strong>Build in public:</strong> Share your work online — it creates opportunities','<strong>Skill stacking:</strong> Combine 2–3 skills to become uniquely valuable','<strong>Negotiate salary:</strong> Research market rates and always counter the first offer','<strong>Track achievements:</strong> Keep a "wins" document for performance reviews','<strong>Side income:</strong> Even small side projects build skills and financial security','<strong>Learn to delegate:</strong> Focus on what only you can do'])+'</div>';return p}
+function addProject(){const n=document.getElementById('projectName').value,s=document.getElementById('projectStatus').value,d=document.getElementById('projectDeadline').value;if(n&&s){AppState.data.business.projects.push({name:n,status:s,deadline:d,id:Date.now()});saveData();render()}}
+function deleteProject(i){AppState.data.business.projects.splice(i,1);saveData();render()}
+
+// ======================== HOBBIES ========================
+function renderHobbiesPage(){const p=document.createElement('div');p.className='animate-slide-in';const hob=AppState.data.hobbies;p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('🎨','Hobbies & Interests')+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3"><input type="text" id="hobbyName" placeholder="Photography, Gaming..." class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><select id="hobbyFrequency" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Frequency</option><option value="Daily">Daily</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option><option value="Occasional">Occasional</option></select></div><button onclick="addHobby()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Hobby</button></div>'+
+    (hob.hobbies.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Hobby</th><th class="px-3 py-2 text-left font-semibold">Frequency</th><th class="px-3 py-2"></th></tr></thead><tbody>'+hob.hobbies.map((h,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+h.name+'</td><td class="px-3 py-2">'+h.frequency+'</td><td class="px-3 py-2"><button onclick="deleteHobby('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody></table></div>':'')+
+    tipBox('💡 Hobbies & Interests Tips',['<strong>Schedule hobby time:</strong> Block it in your calendar like any appointment','<strong>Budget for it:</strong> Allocate a monthly hobby budget so you enjoy guilt-free','<strong>Try something new:</strong> Learning a new skill keeps your brain sharp at any age','<strong>Social hobbies:</strong> Join clubs or groups — hobbies are better shared','<strong>Digital vs physical:</strong> Balance screen-based hobbies with hands-on activities','<strong>No pressure:</strong> Hobbies should be fun, not another performance metric'])+'</div>';return p}
+function addHobby(){const n=document.getElementById('hobbyName').value,f=document.getElementById('hobbyFrequency').value;if(n&&f){AppState.data.hobbies.hobbies.push({name:n,frequency:f,id:Date.now()});saveData();render()}}
+function deleteHobby(i){AppState.data.hobbies.hobbies.splice(i,1);saveData();render()}
+
+// ======================== ADMIN ========================
+function renderAdminPage(){const p=document.createElement('div');p.className='animate-slide-in';const adm=AppState.data.admin,pending=adm.errands.filter(e=>!e.completed).length;p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('📋','Life Admin')+(adm.errands.length>0?'<div class="bg-sky/10 rounded-xl p-4 mb-4"><span class="text-sky font-semibold">'+pending+'</span> <span class="text-slate text-sm">tasks pending</span></div>':'')+
+    '<div class="bg-mist rounded-xl p-5 mb-4"><input type="text" id="errandTask" placeholder="Pick up dry cleaning, renew licence..." class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm mb-3" onkeypress="if(event.key===\'Enter\')addErrand()"><button onclick="addErrand()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Task</button></div><div class="space-y-2 mb-4">'+adm.errands.map((e,i)=>'<div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-mist '+(e.completed?'opacity-60':'')+'"><input type="checkbox" '+(e.completed?'checked':'')+' onchange="toggleErrand('+i+')" class="w-4 h-4 accent-sky cursor-pointer"><span class="flex-1 text-sm '+(e.completed?'line-through text-steel':'text-slate')+'">'+e.task+'</span><button onclick="deleteErrand('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></div>').join('')+'</div>'+
+    tipBox('💡 Life Admin Tips',['<strong>Weekly review:</strong> Spend 15 minutes every Sunday planning the week ahead','<strong>Two-minute rule:</strong> If a task takes less than 2 minutes, do it immediately','<strong>Batch similar tasks:</strong> Group phone calls, errands, and emails together','<strong>Set reminders:</strong> Use your phone calendar for renewals and deadlines','<strong>Organise documents:</strong> Keep digital copies of important documents backed up','<strong>Declutter regularly:</strong> One item in, one item out — prevent accumulation','<strong>Automate what you can:</strong> Set up debit orders, auto-payments, and reminders'])+'</div>';return p}
+function addErrand(){const t=document.getElementById('errandTask').value;if(t){AppState.data.admin.errands.push({task:t,completed:false,id:Date.now()});saveData();render()}}
+function toggleErrand(i){AppState.data.admin.errands[i].completed=!AppState.data.admin.errands[i].completed;saveData();render()}
+function deleteErrand(i){AppState.data.admin.errands.splice(i,1);saveData();render()}
+
+// ======================== CRUD for Home, Insurance, Taxes ========================
+function addBill(){const n=document.getElementById('billName').value,a=document.getElementById('billAmount').value,d=document.getElementById('billDue').value;if(n&&a){AppState.data.home.bills.push({name:n,amount:a,due:d,id:Date.now()});saveData();render()}}
+function deleteBill(i){AppState.data.home.bills.splice(i,1);saveData();render()}
+function addMaintenance(){const t=document.getElementById('maintenanceTask').value;if(t){AppState.data.home.maintenance.push({text:t,completed:false,id:Date.now()});saveData();render()}}
+function toggleMaintenance(i){AppState.data.home.maintenance[i].completed=!AppState.data.home.maintenance[i].completed;saveData();render()}
+function deleteMaintenance(i){AppState.data.home.maintenance.splice(i,1);saveData();render()}
+function addPolicy(){const t=document.getElementById('policyType').value,pr=document.getElementById('policyProvider').value,pm=document.getElementById('policyPremium').value,r=document.getElementById('policyRenewal').value;if(t&&pr){AppState.data.insurance.policies.push({type:t,provider:pr,premium:pm,renewal:r,id:Date.now()});saveData();render()}}
+function deletePolicy(i){AppState.data.insurance.policies.splice(i,1);saveData();render()}
+function addTaxDoc(){const n=document.getElementById('taxDocName').value,c=document.getElementById('taxDocCategory').value,y=document.getElementById('taxDocYear').value;if(n&&c){AppState.data.taxes.documents.push({name:n,category:c,year:y,id:Date.now()});saveData();render()}}
+function deleteTaxDoc(i){AppState.data.taxes.documents.splice(i,1);saveData();render()}
+
+// ======================== SIMPLE PAGES (Home&Bills, Insurance, Taxes) ========================
+function renderSimplePage(pageId){
+    const tile=tiles.find(t=>t.id===pageId),p=document.createElement('div');p.className='animate-slide-in';
+    const C=AppState.currencySymbol,loc=AppState.location||'OTHER';
+    const utils=utilityData[loc]||utilityData['OTHER'];
+    const fun=funeralData[loc]||funeralData['OTHER'];
+
+    if(pageId==='homeBills'){
+        const totalBills=AppState.data.home.bills.reduce((s,b)=>s+(parseFloat(b.amount)||0),0);
+        const housing=(parseFloat(AppState.data.home.rent)||0)+(parseFloat(AppState.data.home.mortgage)||0);
+        p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('🏠','Home & Bills')+
+        (housing+totalBills>0?'<div class="grid grid-cols-3 gap-3 mb-6"><div class="bg-gradient-to-br from-sky to-lilac rounded-xl p-4 text-white"><div class="text-xs opacity-90">Housing</div><div class="text-xl font-semibold">'+C+housing.toLocaleString()+'</div></div><div class="bg-gradient-to-br from-sky to-lilac rounded-xl p-4 text-white"><div class="text-xs opacity-90">Bills</div><div class="text-xl font-semibold">'+C+totalBills.toLocaleString()+'</div></div><div class="bg-gradient-to-br from-sky to-lilac rounded-xl p-4 text-white"><div class="text-xs opacity-90">Combined</div><div class="text-xl font-semibold">'+C+(housing+totalBills).toLocaleString()+'</div></div></div>':'')+
+        '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"><div class="bg-mist rounded-xl p-5"><label class="block text-slate font-medium mb-2">Monthly Rent ('+C+')</label><input type="number" value="'+AppState.data.home.rent+'" placeholder="0" oninput="saveField(\'home.rent\',this.value)" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><div class="bg-mist rounded-xl p-5"><label class="block text-slate font-medium mb-2">Monthly Mortgage/Bond ('+C+')</label><input type="number" value="'+AppState.data.home.mortgage+'" placeholder="0" oninput="saveField(\'home.mortgage\',this.value)" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div></div>'+
+        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">Monthly Bills</h3>'+
+        '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><input type="text" id="billName" placeholder="Electricity, Water..." class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="billAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="text" id="billDue" placeholder="Due: 1st of month" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addBill()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Bill</button></div>'+
+        (AppState.data.home.bills.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Bill</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2 text-left font-semibold">Due</th><th class="px-3 py-2"></th></tr></thead><tbody>'+AppState.data.home.bills.map((b,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+b.name+'</td><td class="px-3 py-2 font-medium">'+C+parseFloat(b.amount).toLocaleString()+'</td><td class="px-3 py-2 text-steel">'+b.due+'</td><td class="px-3 py-2"><button onclick="deleteBill('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody><tfoot class="bg-mist"><tr><td class="px-3 py-2 font-semibold">Total</td><td class="px-3 py-2 font-semibold">'+C+totalBills.toLocaleString()+'/mo</td><td colspan="2"></td></tr></tfoot></table></div>':'')+
+        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">Home Maintenance</h3>'+
+        '<div class="bg-mist rounded-xl p-5 mb-4"><input type="text" id="maintenanceTask" placeholder="Service geyser, check gutters..." class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm mb-3" onkeypress="if(event.key===\'Enter\')addMaintenance()"><button onclick="addMaintenance()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Task</button></div>'+
+        '<div class="space-y-2 mb-4">'+AppState.data.home.maintenance.map((t,i)=>'<div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-mist '+(t.completed?'opacity-60':'')+'"><input type="checkbox" '+(t.completed?'checked':'')+' onchange="toggleMaintenance('+i+')" class="w-4 h-4 accent-sky cursor-pointer"><span class="flex-1 text-sm '+(t.completed?'line-through text-steel':'text-slate')+'">'+t.text+'</span><button onclick="deleteMaintenance('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></div>').join('')+'</div>'+
+        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">💡 Average Utilities — '+(locationConfig[loc]?.name||'')+'</h3>'+
+        '<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Utility</th><th class="px-3 py-2 text-left font-semibold">Average Cost</th><th class="px-3 py-2 text-left font-semibold">Covers</th></tr></thead><tbody>'+utils.map(u=>'<tr class="border-b border-mist '+(u.u==='TOTAL'?'bg-sky/5 font-semibold':'')+'"><td class="px-3 py-2">'+u.u+'</td><td class="px-3 py-2">'+u.c+'</td><td class="px-3 py-2 text-steel">'+u.d+'</td></tr>').join('')+'</tbody></table></div>'+
+        '<p class="text-xs text-steel mb-4">Approximate averages. Vary by city, household size, usage.</p>'+
+        tipBox(' Home & Bills Tips',['<strong>30% rule:</strong> Housing should ideally cost no more than 30% of gross income','<strong>Negotiate bills:</strong> Call providers annually to ask for better rates','<strong>Prepaid electricity:</strong> Buy in bulk at start of month when rates are lower','<strong>LED bulbs:</strong> Use 75% less energy than traditional bulbs','<strong>Fix leaks fast:</strong> A dripping tap wastes up to 15,000 litres per year','<strong>Compare insurance:</strong> Get quotes from 3+ providers before renewing','<strong>Seasonal maintenance:</strong> Service geyser before winter, clean gutters before rain'])+'</div>';
+        return p;
+    }
+
+    if(pageId==='insurance'){
+        const pol=AppState.data.insurance.policies;
+        p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('','Insurance & Planning')+
+        '<h3 class="text-xl font-semibold text-slate mb-3">My Policies</h3>'+
+        '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><select id="policyType" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Type</option><option value="Health">Health / Medical Aid</option><option value="Life">Life</option><option value="Car">Car / Vehicle</option><option value="Home">Home / Property</option><option value="Disability">Disability</option><option value="Funeral">Funeral Cover</option><option value="Other">Other</option></select><input type="text" id="policyProvider" placeholder="Provider" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="policyPremium" placeholder="Monthly premium" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><div><label class="block text-steel text-xs mb-1">Renewal Date</label><input type="date" id="policyRenewal" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div></div><button onclick="addPolicy()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Policy</button></div>'+
+        (pol.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Provider</th><th class="px-3 py-2 text-left font-semibold">Premium</th><th class="px-3 py-2 text-left font-semibold">Renewal</th><th class="px-3 py-2"></th></tr></thead><tbody>'+pol.map((po,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+po.type+'</td><td class="px-3 py-2">'+po.provider+'</td><td class="px-3 py-2 font-medium">'+C+parseFloat(po.premium||0).toLocaleString()+'/mo</td><td class="px-3 py-2">'+(po.renewal||'—')+'</td><td class="px-3 py-2"><button onclick="deletePolicy('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody><tfoot class="bg-mist"><tr><td class="px-3 py-2 font-semibold" colspan="2">Total Premiums</td><td class="px-3 py-2 font-semibold">'+C+pol.reduce((s,po)=>s+(parseFloat(po.premium)||0),0).toLocaleString()+'/mo</td><td colspan="2"></td></tr></tfoot></table></div>':'')+
+        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3"> Funeral Costs — '+(locationConfig[loc]?.name||'')+'</h3>'+
+        '<div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-5 mb-4"><p class="font-semibold text-slate">Average: '+fun.avg+'</p><p class="text-sm text-steel mt-1">'+fun.tip+'</p></div>'+
+        '<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">'+['burial','cremation','simple'].map(k=>'<div class="bg-mist rounded-xl p-5"><h5 class="font-semibold text-slate mb-1">'+fun[k].l+'</h5><p class="text-sm font-medium text-slate mb-1">'+fun[k].c+'</p><p class="text-xs text-steel">'+fun[k].n+'</p></div>').join('')+'</div>'+
+        tipBox(' Insurance & Planning Tips',['<strong>Review annually:</strong> Check if your cover still matches your life situation','<strong>Compare quotes:</strong> Get at least 3 quotes before renewing any policy','<strong>Understand excess:</strong> Know what you\'ll pay out of pocket before claiming','<strong>Life insurance:</strong> Get 10–12x your annual income in cover if you have dependents','<strong>Write a will:</strong> It costs '+C+'100–500 and takes an hour. Dying without one costs thousands','<strong>Power of attorney:</strong> Appoint someone to make decisions if you can\'t','<strong>Funeral cover:</strong> Protects your family from a sudden '+fun.avg+' expense','<strong>Emergency fund before insurance:</strong> Self-insure small risks, insure catastrophic ones'])+'</div>';
+        return p;
+    }
+
+    if(pageId==='taxes'){
+        const docs=AppState.data.taxes.documents,yr=new Date().getFullYear();
+        p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('','Taxes & Documents')+
+        '<h3 class="text-xl font-semibold text-slate mb-3">Document Tracker</h3>'+
+        '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><input type="text" id="taxDocName" placeholder="Document name" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><select id="taxDocCategory" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Category</option><option value="Income">Income / Pay slips</option><option value="Tax Return">Tax Return</option><option value="Deduction">Deduction Receipt</option><option value="Investment">Investment Statement</option><option value="Property">Property / Bond</option><option value="Medical">Medical Aid / Tax Cert</option><option value="Other">Other</option></select><select id="taxDocYear" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Year</option>'+[yr,yr-1,yr-2,yr-3,yr-4].map(y=>'<option value="'+y+'">'+y+'</option>').join('')+'</select></div><button onclick="addTaxDoc()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Document</button></div>'+
+        (docs.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Document</th><th class="px-3 py-2 text-left font-semibold">Category</th><th class="px-3 py-2 text-left font-semibold">Year</th><th class="px-3 py-2"></th></tr></thead><tbody>'+docs.map((d,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+d.name+'</td><td class="px-3 py-2">'+d.category+'</td><td class="px-3 py-2">'+(d.year||'—')+'</td><td class="px-3 py-2"><button onclick="deleteTaxDoc('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody></table></div>':'')+
+        '<div class="divider"></div>'+
+        '<div class="bg-mist rounded-xl p-5 mb-4"><h4 class="font-semibold text-slate mb-3">Common Tax Myth</h4><div class="bg-red-50 rounded-lg p-3 mb-2"><p class="text-sm text-slate"><strong>MYTH:</strong> "A raise into a higher bracket means less money!"</p></div><div class="bg-green-50 rounded-lg p-3"><p class="text-sm text-slate"><strong>TRUTH:</strong> Only money ABOVE each threshold is taxed at the higher rate. You always take home more.</p></div></div>'+
+        tipBox(' Tax Tips',['<strong>File on time:</strong> Late filing incurs penalties in every country','<strong>Keep records 5–7 years:</strong> Tax authorities can audit several years back','<strong>Track deductions year-round:</strong> Don\'t scramble at tax time','<strong>Retirement contributions:</strong> Often tax-deductible — reduces your taxable income','<strong>Medical expenses:</strong> Many countries offer tax credits for medical costs','<strong>Use tax software:</strong> Catches deductions you might miss manually','<strong>Provisional tax:</strong> If self-employed, pay quarterly to avoid a year-end shock','<strong>Get professional help:</strong> A good tax advisor often saves more than they cost'])+'</div>';
+        return p;
+    }
+
+    p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-8 shadow-sm">'+sH(tile?.icon||'',tile?.title||'Module')+'<p class="text-steel">This module is ready for customisation.</p></div>';
+    return p;
+}
+
+// ======================== SETTINGS ========================
+function renderSettingsPage(){
+    const p=document.createElement('div');p.className='animate-slide-in';
+    p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-8 shadow-sm">'+sH('','Settings')+
+    '<div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4"> Location & Currency</h3><div class="space-y-4"><div><label class="block text-slate font-medium mb-2">Your Location</label><select id="settingsCountrySelect" class="w-full max-w-md px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none">'+Object.keys(locationConfig).map(k=>'<option value="'+k+'" '+(AppState.location===k?'selected':'')+'>'+locationConfig[k].name+' ('+locationConfig[k].symbol+')</option>').join('')+'</select></div><button onclick="updateLocationSetting()" class="bg-gradient-to-r from-sky to-lilac text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition">Save Changes</button><div class="mt-4 pt-4 border-t border-mist"><p class="text-steel text-sm"><strong>Current:</strong> '+(locationConfig[AppState.location]?.name||'')+' ('+AppState.currencySymbol+')</p></div></div></div>'+
+    '<div class="divider"></div><div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4"> Data Management</h3><div class="space-y-4"><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Export Backup</h4><p class="text-sm text-steel mb-3">Download all data as JSON. Your data never leaves your device.</p><button onclick="exportData()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium"> Export</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Import Data</h4><p class="text-sm text-steel mb-3">Restore from backup file.</p><input type="file" id="importFile" accept=".json" class="hidden"><button onclick="document.getElementById(\'importFile\').click()" class="bg-lilac text-white px-5 py-2.5 rounded-lg hover:bg-lilac/90 text-sm font-medium"> Import</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Load Demo Data</h4><p class="text-sm text-steel mb-3">Reset to sample data to explore all features.</p><button onclick="if(confirm(\'Load demo data? This replaces current data.\')){AppState.data=getDefaultData();saveData();render()}" class="bg-yellow-500 text-white px-5 py-2.5 rounded-lg hover:bg-yellow-600 text-sm font-medium"> Load Demo</button></div><div class="bg-red-50 border-2 border-red-200 rounded-xl p-5"><h4 class="font-semibold text-red-700 mb-2"> Clear All Data</h4><p class="text-sm text-slate mb-3">Permanently delete everything. Cannot be undone.</p><button onclick="clearAllData()" class="bg-red-500 text-white px-5 py-2.5 rounded-lg hover:bg-red-600 text-sm font-medium"> Clear All</button></div></div></div>'+
+    '<div class="divider"></div><div><h3 class="text-xl font-semibold text-slate mb-4"> About LifeBoard™</h3><p class="text-steel text-sm mb-1">Universal Life Management System</p><p class="text-steel text-sm mb-1">Version 3.0</p><p class="text-steel text-sm">Your data is stored locally and never transmitted.</p></div></div>';
+    setTimeout(()=>{const el=document.getElementById('importFile');if(el)el.onchange=(e)=>{const f=e.target.files[0];if(f){const r=new FileReader();r.onload=(ev)=>{try{const d=JSON.parse(ev.target.result);if(confirm('Replace all current data?')){AppState.data=d;saveData();alert('Imported!');navigateTo('home')}}catch(e){alert('Error. Check file format.')}};r.readAsText(f)}}},0);
+    return p;
+}
+function updateLocationSetting(){const l=document.getElementById('settingsCountrySelect').value;AppState.location=l;localStorage.setItem('lifeboard_location',l);updateCurrency();navigateTo('home')}
+function exportData(){const b=new Blob([JSON.stringify(AppState.data,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='lifeboard-backup-'+new Date().toISOString().split('T')[0]+'.json';a.click();URL.revokeObjectURL(u)}
+function clearAllData(){if(confirm('Delete ALL data permanently?')){if(confirm('Last chance! This cannot be undone.')){AppState.data=getBlankData();saveData();alert('All data cleared.');navigateTo('home')}}}
+
+window.onload=init;
+</script>
+</body>
+</html>
