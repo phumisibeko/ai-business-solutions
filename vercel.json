@@ -1,5 +1,7 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" }
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/lifeboard-premium", "destination": "/lifeboard-premium.html" },
+    { "source": "/lifeboard", "destination": "/lifeboard.html" }
   ]
 }
