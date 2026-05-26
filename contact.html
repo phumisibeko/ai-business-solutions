@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ThreadForge — WorkForge | AIBSOS</title>
-<meta name="description" content="Viral-ready X/Twitter thread from any article or idea. Pay per result.">
+<title>Contact Us — AIBSOS</title>
+<meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@0,400;0,500;0,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://js.paystack.co/v1/inline.js"></script>
+
 <style>
 :root{--bg:#0c0c0c;--bg2:#141414;--bg3:#1c1c1c;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0ede8;--text2:#a09a90;--text3:#5a5550;--ge:#e8622a;--ge2:#ff8c5a;--wf:#3d6bff;--wf2:#7090ff;--green:#22c55e;--radius:12px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -75,126 +75,14 @@ textarea{resize:vertical;min-height:90px;}
 .m-pay:hover{opacity:.85;}
 @media print{nav,.ptopbar,.out-actions,.run-btn,.pay-notice,.modal-bg{display:none!important;}body{background:white!important;color:black!important;}.out{display:block!important;border:none!important;}}
 </style>
-</head>
-<body><nav>
+</head><style>body{padding-top:60px;}.policy-wrap{max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}.policy-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.03em;margin-bottom:.5rem;}.policy-wrap h2{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.03em;margin:1.5rem 0 .5rem;}.policy-wrap p,.policy-wrap li{font-size:.875rem;color:var(--text2);line-height:1.75;margin-bottom:.75rem;}.policy-wrap ul{padding-left:1.25rem;}.policy-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);margin-bottom:2rem;}.back-link{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);text-decoration:none;margin-bottom:1.5rem;display:inline-block;}.back-link:hover{color:var(--text);}</style><body><nav>
   <a class="nav-logo" href="/">AI BUSINESS SOLUTIONS <span>OS</span></a>
   <div class="nav-center">
     <a class="ntab" href="/">Home</a>
     <a class="ntab" href="/growth-engine.html">&#9889; Growth Engine</a>
-    <a class="ntab wf-tab" href="/workforge.html" style="background:rgba(61,107,255,.15);color:#3d6bff;border-color:#3d6bff;">&#9881; WorkForge</a>
+    <a class="ntab wf-tab" href="/workforge.html">&#9881; WorkForge</a>
     <a class="ntab mkt-tab" href="/marketplace.html">&#9638; Marketplace</a>
     <a class="ntab lb-tab" href="/lifeboard.html">&#9632; LifeBoard</a>
   </div>
   <a class="nav-cta" href="/#contact-section">Get started</a>
-</nav><div class="pshell">  <div class="ptopbar">
-    <div class="ptopbar-name" style="color:var(--wf);">WORKFORGE</div>
-    <div class="ptabs">
-        <a class="ptab" href="/workforge.html">&#127968; All tools</a>
-        <a class="ptab" href="/replyright.html">ReplyRight</a>
-        <a class="ptab" href="/jobapply-ai.html">JobApply AI</a>
-        <a class="ptab" href="/captionforge.html">CaptionForge</a>
-        <a class="ptab" href="/contractcheck.html">ContractCheck</a>
-        <a class="ptab" href="/meetingmind.html">MeetingMind</a>
-        <a class="ptab" href="/docforge.html">DocForge</a>
-        <a class="ptab" href="/threadforge.html" style="background:rgba(61,107,255,.15);color:var(--wf);border-color:rgba(61,107,255,.25);">ThreadForge</a>
-        <a class="ptab" href="/checklistai.html">ChecklistAI</a>
-        <a class="ptab" href="/pricemywork.html">PriceMyWork</a>
-        <a class="ptab" href="/reviewreply.html">ReviewReply</a>
-        <a class="ptab" href="/studysnap.html">StudySnap</a>
-        <a class="ptab" href="/dailybrief.html">DailyBrief</a>
-    </div>
-    <div class="ptopbar-price">Pay per result</div>
-  </div>
-<div class="tpanel">
-<div class="tool-title">THREADFORGE</div>
-<div class="tool-desc">Paste anything — get a viral-ready X/Twitter thread. 8-12 tweets, hook on tweet 1, CTA at the end.</div>
-<div class="pay-notice" style="background:rgba(61,107,255,.08);border-color:rgba(61,107,255,.2);color:var(--wf2);">&#128179; Pay via Paystack before your result is generated.</div>
-<div class="fg"><label>Paste your content</label><textarea id="tf1" style="min-height:120px;" placeholder="Paste the content you want to turn into a thread..."></textarea></div>
-<div class="fr"><div class="fg"><label>Your niche / audience</label><input id="tf2" placeholder="e.g. Entrepreneurs, tech professionals"></div><div class="fg"><label>Thread style</label><select id="tf3"><option>Educational / insightful</option><option>Storytelling</option><option>Controversial / bold take</option><option>Step-by-step how-to</option><option>List / tips</option></select></div></div>
-<button class="run-btn" style="background:var(--wf);" onclick="openPay()">Pay &amp; Generate &rarr;</button>
-<div id="output" class="out"></div></div></div>
-<div class="modal-bg" id="pay-modal">
-  <div class="modal">
-    <h3 id="m-title">Pay to generate</h3>
-    <div class="modal-sub" id="m-sub">One result &middot; Delivered instantly</div>
-    <div class="modal-price-line" id="m-price">Pay once, get your result</div>
-    <div class="mfields">
-      <div class="mrow">
-        <div class="fg"><label>First name</label><input id="m-first" placeholder="James"></div>
-        <div class="fg"><label>Last name</label><input id="m-last" placeholder="Carter"></div>
-      </div>
-      <div class="fg"><label>Email address</label><input id="m-email" type="email" placeholder="james@company.com"></div>
-    </div>
-    <div class="mactions">
-      <button class="m-cancel" onclick="closePay()">Cancel</button>
-      <button class="m-pay" id="m-paybtn" onclick="doPaystack()">Pay &amp; Generate &rarr;</button>
-    </div>
-  </div>
-</div>
-<script>
-
-const PAYSTACK_KEY='pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33';
-const WF_PRICES={ZAR:7500,USD:400,NGN:148000,GBP:320,EUR:372};
-const CURR_CODES={ZAR:'ZAR',USD:'USD',NGN:'NGN',GBP:'GBP',EUR:'EUR'};
-const CC={'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR'};
-let cur='ZAR';
-fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{cur=CC[d.country_code]||'ZAR';}).catch(()=>{});
-
-function openPay(){
-  if(!validateFields())return;
-  document.getElementById('m-title').textContent='ThreadForge';
-  document.getElementById('m-sub').textContent='One result &middot; Delivered instantly after payment';
-  document.getElementById('m-paybtn').style.background='#3d6bff';
-  
-  document.getElementById('pay-modal').classList.add('open');
-}
-function closePay(){document.getElementById('pay-modal').classList.remove('open');}
-function doPaystack(){
-  const email=document.getElementById('m-email')?.value?.trim();
-  const first=document.getElementById('m-first')?.value?.trim();
-  if(!email||!first){alert('Please enter your name and email.');return;}
-  PaystackPop.setup({
-    key:PAYSTACK_KEY,email,
-    amount:WF_PRICES[cur]||WF_PRICES['ZAR'],
-    currency:CURR_CODES[cur]||'ZAR',
-    ref:'AIBS_'+Date.now(),
-    metadata:{custom_fields:[
-      {display_name:'Tool',variable_name:'tool',value:'ThreadForge'},
-      {display_name:'Name',variable_name:'name',value:first+' '+(document.getElementById('m-last')?.value||'')},
-    ]},
-    callback:(r)=>{closePay();generate(r.reference);},
-    onClose:()=>{}
-  }).openIframe();
-}
-async function generate(ref){
-  const out=document.getElementById('output');
-  out.style.display='block';
-  out.innerHTML='<span style="font-family:\'JetBrains Mono\',monospace;font-size:.78rem;color:#5a5550;">&#9889; Generating your result...</span>';
-  out.scrollIntoView({behavior:'smooth',block:'center'});
-  const prompt=buildPrompt();
-  if(!prompt){out.innerHTML='<span style="color:#ff6b6b">Please fill in all required fields first.</span>';return;}
-  try{
-    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});
-    if(!r.ok)throw new Error(r.status);
-    const d=await r.json();
-    const text=d.content?.[0]?.text||'';
-    const fmt=text
-      .replace(/^## (.+)$/gm,'<h3>$1</h3>')
-      .replace(/^### (.+)$/gm,'<h3 style="font-size:.9rem;opacity:.8">$1</h3>')
-      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-      .replace(/^- (.+)$/gm,'<li style="margin-bottom:.3rem">$1</li>')
-      .replace(/^(\d+)\. (.+)$/gm,'<li style="margin-bottom:.3rem"><strong>$1.</strong> $2</li>')
-      .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-    out.innerHTML=fmt+'<div class="out-actions"><button class="out-btn" onclick="doCopy()">&#9166; Copy</button><button class="out-btn" onclick="window.print()">&#9113; Print</button><button class="out-btn" style="background:#3d6bff;color:white;border-color:#3d6bff;" onclick="openPay()">&#8635; Again</button></div>';
-    out.classList.add('show');
-  }catch(e){
-    out.innerHTML='<span style="color:#ff6b6b">Error. Ref: <strong>'+ref+'</strong> — email hello@aibsos.com</span>';
-  }
-}
-function v(id){return document.getElementById(id)?.value?.trim()||'';}
-function doCopy(){const c=document.getElementById('output').cloneNode(true);c.querySelector('.out-actions')?.remove();navigator.clipboard.writeText(c.innerText.trim());}
-document.addEventListener('DOMContentLoaded',()=>{document.getElementById('pay-modal').addEventListener('click',e=>{if(e.target===document.getElementById('pay-modal'))closePay();});});
-
-function validateFields(){if(!v('tf1')){alert('Please paste your content.');return false;}return true;}
-function buildPrompt(){if(!v('tf1'))return null;return `WorkForge ThreadForge. Viral X/Twitter thread:\nContent: "${v('tf1')}" | Audience: ${v('tf2')||'Professionals'} | Style: ${v('tf3')}\n8-12 tweets numbered 1/ 2/ etc. Killer hook on tweet 1. Strong CTA on last tweet. Under 280 chars each.`;}
-</script></body></html>
+</nav><div class="policy-wrap"><a class="back-link" href="/">&larr; Back to home</a><h1>CONTACT US</h1><p class="policy-date">AI Business Solutions (Pty) Ltd &middot; Reg: 2025/651953/07</p><h2>General Enquiries</h2><p><a href="mailto:hello@aibsos.com" style="color:var(--ge);font-size:1rem;font-weight:600;">hello@aibsos.com</a></p><h2>Response Times</h2><ul><li>Payment / refund issues: within 2 business days</li><li>General enquiries: within 3 business days</li><li>Technical issues: within 1 business day</li></ul><h2>Business Information</h2><p>AI Business Solutions (Pty) Ltd<br>Registration No: 2025/651953/07<br>Website: www.aibsos.com</p></div></body></html>

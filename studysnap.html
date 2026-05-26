@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="AIBSOS gives you instant AI tools for work, sales, business systems, marketplace bundles and personal planning. Pay once and generate a result immediately.">
-<title>AI Business Solutions OS — Instant AI Tools for Work, Sales and Business</title>
+<title>StudySnap — WorkForge | AIBSOS</title>
+<meta name="description" content="Summary, flashcards and quiz from your notes. Actually understand it. Pay per result.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@0,400;0,500;0,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -14,77 +14,31 @@
 html{scroll-behavior:smooth;}
 body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+a{text-decoration:none;color:inherit;}
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.85rem 2.5rem;background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,.12);}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.04em;cursor:pointer;color:var(--text);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.04em;color:var(--text);}
 .nav-logo span{color:var(--ge);}
 .nav-center{display:flex;gap:.25rem;}
-.ntab{padding:.32rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600;cursor:pointer;border:1.5px solid #777;color:#d0d0d0;background:#2a2a2a;font-family:'Instrument Sans',sans-serif;transition:all .2s;}
+.ntab{padding:.32rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600;cursor:pointer;border:1.5px solid #777;color:#d0d0d0;background:#2a2a2a;font-family:'Instrument Sans',sans-serif;transition:all .2s;text-decoration:none;display:inline-block;}
 .ntab:hover{color:#e8622a;border-color:#e8622a;}
 .ntab.wf-tab:hover{color:#3d6bff;border-color:#3d6bff;}
 .ntab.mkt-tab:hover{color:#f59e0b;border-color:#f59e0b;}
-.ntab.on-mkt{background:rgba(245,158,11,.15);color:#f59e0b;border-color:#f59e0b;}
-.ptab.on-mkt-tab{background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.25);}
-.ntab.mkt-tab:hover{color:#f59e0b;border-color:#f59e0b;}
-.ntab.on-mkt{background:rgba(245,158,11,.15);color:#f59e0b;border-color:#f59e0b;}
-.ptab.on-mkt-tab{background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.25);}
-.ntab.on-home{color:#d0d0d0;border-color:#999;background:#2a2a2a;}
-.ntab.on-ge{background:rgba(232,98,42,.15);color:var(--ge);border-color:var(--ge);}
-.ntab.on-wf{background:rgba(61,107,255,.15);color:var(--wf);border-color:var(--wf);}
-.nav-cta{padding:.38rem 1.1rem;border-radius:100px;font-size:.72rem;font-weight:600;background:var(--ge);color:white;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:opacity .2s;}
+.ntab.lb-tab:hover{color:#e87347;border-color:#e87347;}
+.nav-cta{padding:.38rem 1.1rem;border-radius:100px;font-size:.72rem;font-weight:600;background:var(--ge);color:white;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:opacity .2s;text-decoration:none;display:inline-block;}
 .nav-cta:hover{opacity:.85;}
 @media(max-width:768px){nav{padding:.75rem 1rem;}.nav-center{display:none;}}
-.view{display:none;padding-top:60px;min-height:100vh;}
-.view.active{display:block;}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 4rem;position:relative;overflow:hidden;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black,transparent);pointer-events:none;}
-.hero-glow{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:500px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(232,98,42,.1) 0%,transparent 70%);pointer-events:none;}
-.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:#141414;border:1px solid rgba(255,255,255,.15);padding:.28rem .8rem;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text2);margin-bottom:1rem;animation:fu .5s ease both;}
-.ldot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,9vw,5.5rem);line-height:.9;letter-spacing:.02em;color:#fff;margin-bottom:.6rem;animation:fu .5s .1s ease both;}
-.hero h1 .acc{color:var(--ge);display:block;}
-.hero-sub{font-size:.9rem;color:var(--text2);line-height:1.65;max-width:440px;margin:0 auto .9rem;animation:fu .5s .2s ease both;}
-.urgency-badge{display:inline-flex;align-items:center;background:#1a0d00;border:1px solid rgba(232,98,42,.4);padding:.35rem 1rem;border-radius:100px;font-size:.7rem;color:var(--ge);font-weight:600;margin-bottom:1.75rem;animation:fu .5s .25s ease both;}
-.hero-products{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fu .5s .3s ease both;}
-@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.phc{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.75rem;cursor:pointer;transition:all .25s;text-align:left;min-width:220px;max-width:290px;position:relative;overflow:hidden;}
-.phc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-.phc-ge::before{background:linear-gradient(90deg,var(--ge),transparent);}
-.phc-wf::before{background:linear-gradient(90deg,var(--wf),transparent);}
-.phc-ge:hover{border-color:rgba(232,98,42,.4);transform:translateY(-3px);}
-.phc-wf:hover{border-color:rgba(61,107,255,.4);transform:translateY(-3px);}
-.phc-tag{font-family:'JetBrains Mono',monospace;font-size:.63rem;margin-bottom:.5rem;}
-.c-ge{color:var(--ge);}.c-wf{color:var(--wf);}
-.phc-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;margin-bottom:.3rem;}
-.phc-desc{font-size:.78rem;color:var(--text2);line-height:1.5;margin-bottom:.75rem;}
-.phc-tools{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.75rem;}
-.ptool{font-size:.63rem;padding:.18rem .5rem;border-radius:4px;background:var(--bg3);color:#b0b0b0;}
-.ptool-count-ge{font-size:.63rem;padding:.18rem .5rem;border-radius:4px;background:rgba(232,98,42,.1);color:var(--ge);}
-.ptool-count-wf{font-size:.63rem;padding:.18rem .5rem;border-radius:4px;background:rgba(61,107,255,.1);color:var(--wf);}
-.sp-home{font-size:.65rem;color:#5a5550;margin-bottom:.65rem;display:flex;align-items:center;gap:.3rem;}
-.stars-h{color:#f59e0b;}
-.launch-btn{width:100%;padding:.6rem;border-radius:8px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.3rem;}
-.launch-btn:hover{opacity:.9;transform:translateY(-1px);}
-.lbtn-ge{background:var(--ge);color:white;}.lbtn-wf{background:var(--wf);color:white;}
-.price-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.03em;}
-.btn-note-h{font-size:.63rem;color:#5a5550;margin-top:.4rem;text-align:center;}
-.pshell{display:flex;flex-direction:column;}
+.pshell{padding-top:60px;}
 .ptopbar{display:flex;align-items:center;gap:.6rem;padding:.55rem 1.25rem;border-bottom:1px solid var(--border);background:var(--bg2);flex-wrap:wrap;position:sticky;top:60px;z-index:100;}
 .ptopbar-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;flex-shrink:0;}
-.ptopbar-name-ge{color:var(--ge);}.ptopbar-name-wf{color:var(--wf);}
 .ptabs{display:flex;gap:.2rem;flex-wrap:nowrap;flex:1;overflow-x:auto;}
 .ptabs::-webkit-scrollbar{height:0;}
-.ptab{padding:.28rem .7rem;border-radius:6px;font-size:.73rem;font-weight:500;cursor:pointer;border:1px solid transparent;color:var(--text2);background:none;font-family:'Instrument Sans',sans-serif;transition:all .18s;white-space:nowrap;}
+.ptab{padding:.28rem .7rem;border-radius:6px;font-size:.73rem;font-weight:500;border:1px solid transparent;color:var(--text2);background:none;font-family:'Instrument Sans',sans-serif;transition:all .18s;white-space:nowrap;text-decoration:none;display:inline-block;}
 .ptab:hover{color:var(--text);background:var(--bg3);}
-.ptab.on-ge{background:rgba(232,98,42,.15);color:var(--ge);border-color:rgba(232,98,42,.25);}
-.ptab.on-wf{background:rgba(61,107,255,.15);color:var(--wf);border-color:rgba(61,107,255,.25);}
 .ptopbar-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.28rem .75rem;border-radius:100px;border:1px solid var(--border2);color:var(--text2);white-space:nowrap;flex-shrink:0;}
-.tpanel{display:none;padding:1.75rem 1.5rem;max-width:860px;margin:0 auto;width:100%;}
-.tpanel.active{display:block;}
+.tpanel{padding:2rem 1.5rem;max-width:860px;margin:0 auto;width:100%;}
 .tool-title{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.03em;margin-bottom:.3rem;}
 .tool-desc{font-size:.875rem;color:var(--text2);margin-bottom:.75rem;line-height:1.6;}
 .pay-notice{display:flex;align-items:center;gap:.6rem;background:rgba(232,98,42,.08);border:1px solid rgba(232,98,42,.2);border-radius:8px;padding:.65rem 1rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--ge2);}
-.pay-notice-wf{background:rgba(61,107,255,.08);border-color:rgba(61,107,255,.2);color:var(--wf2);}
 .fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
 @media(max-width:580px){.fr{grid-template-columns:1fr;}}
@@ -93,37 +47,17 @@ input,select,textarea{background:var(--bg2);border:1px solid var(--border);borde
 input:focus,select:focus,textarea:focus{border-color:var(--border2);}
 select option{background:var(--bg2);}
 textarea{resize:vertical;min-height:90px;}
-.run-btn{padding:.72rem 1.75rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;}
+.run-btn{padding:.72rem 1.75rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;color:white;}
 .run-btn:hover{transform:translateY(-1px);opacity:.9;}
-.rbtn-ge{background:var(--ge);color:white;}.rbtn-wf{background:var(--wf);color:white;}
-.out{margin-top:1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;display:none;font-size:.875rem;line-height:1.75;color:var(--text2);}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.75rem;}
+.out{margin-top:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;display:none;font-size:.875rem;line-height:1.75;color:var(--text2);}
 .out.show{display:block;}
 .out h3{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--text);letter-spacing:.05em;margin:1rem 0 .35rem;}
 .out h3:first-child{margin-top:0;}
 .out strong{color:var(--text);}
-.loading-txt{color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:.78rem;}
 .out-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;}
 .out-btn{padding:.4rem .9rem;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:none;color:var(--text2);font-family:'Instrument Sans',sans-serif;transition:all .2s;}
 .out-btn:hover{background:var(--bg3);color:var(--text);}
-.out-btn.primary-ge{background:var(--ge);color:white;border-color:var(--ge);}
-.out-btn.primary-wf{background:var(--wf);color:white;border-color:var(--wf);}
-.sl{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.75rem;}
-.ge-grid,.wf-grid{display:grid;gap:.75rem;}
-.ge-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));}
-.wf-grid{grid-template-columns:repeat(auto-fill,minmax(185px,1fr));}
-.ge-card,.wf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
-.ge-card::after,.wf-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transition:transform .2s;transform-origin:left;}
-.ge-card::after{background:var(--ge);}.wf-card::after{background:var(--wf);}
-.ge-card:hover{border-color:rgba(232,98,42,.35);transform:translateY(-2px);}
-.ge-card:hover::after,.wf-card:hover::after{transform:scaleX(1);}
-.wf-card:hover{border-color:rgba(61,107,255,.35);transform:translateY(-2px);}
-.card-icon{font-size:1.2rem;margin-bottom:.5rem;}
-.card-name{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.03em;margin-bottom:.25rem;}
-.card-desc{font-size:.73rem;color:var(--text2);line-height:1.4;margin-bottom:.4rem;}
-.card-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;opacity:0;transition:opacity .2s;margin-top:.3rem;}
-.ge-card:hover .card-price,.wf-card:hover .card-price{opacity:1;}
-.cp-ge{color:var(--ge2);}.cp-wf{color:var(--wf2);}
-.card-num{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);margin-bottom:.4rem;}
 .obj-quick{padding:.28rem .65rem;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text2);font-size:.72rem;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;}
 .obj-quick:hover{border-color:var(--ge);color:var(--ge);}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;z-index:500;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s;}
@@ -139,468 +73,51 @@ textarea{resize:vertical;min-height:90px;}
 .m-cancel{flex:1;padding:.7rem;border-radius:100px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:.875rem;}
 .m-pay{flex:2;padding:.7rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;color:white;transition:opacity .2s;}
 .m-pay:hover{opacity:.85;}
-.policy-wrap{max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
-.policy-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.03em;margin-bottom:.5rem;}
-.policy-wrap h2{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.03em;margin:1.5rem 0 .5rem;}
-.policy-wrap p,.policy-wrap li{font-size:.875rem;color:var(--text2);line-height:1.75;margin-bottom:.75rem;}
-.policy-wrap ul{padding-left:1.25rem;}
-.policy-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);margin-bottom:2rem;}
-.back-link{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);cursor:pointer;margin-bottom:1.5rem;display:inline-block;}
-.back-link:hover{color:var(--text);}
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2rem 2rem;margin-top:4rem;}
-.footer-inner{max-width:900px;margin:0 auto;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;margin-bottom:.3rem;}
-.footer-logo span{color:var(--ge);}
-.footer-tagline{font-size:.82rem;color:var(--text3);margin-bottom:2rem;}
-.footer-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2rem;}
-.footer-col h4{font-family:'JetBrains Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:.75rem;}
-.footer-col a,.footer-col p{display:block;font-size:.82rem;color:var(--text2);text-decoration:none;margin-bottom:.4rem;line-height:1.5;transition:color .2s;cursor:pointer;}
-.footer-col a:hover{color:var(--text);}
-.footer-bottom{border-top:1px solid var(--border);padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
-.footer-bottom p{font-size:.72rem;color:var(--text3);}
-@media print{nav,.ptopbar,.out-actions,.run-btn,.pay-notice,.pay-notice-wf,footer{display:none!important;}body{background:white!important;color:black!important;}.out{border:none!important;background:white!important;color:black!important;}.out h3{color:black!important;}.out strong{color:black!important;}}
-
-/* ── HOME PAGE NEW SECTIONS ── */
-.home-section{padding:3rem 2rem;background:#0d1424;}
-.home-section-light{padding:3rem 2rem;background:#f8fafc;}
-.sec-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00b3f0;margin-bottom:.4rem;}
-.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.02em;margin-bottom:1.5rem;color:#fff;}
-.sec-title-dark{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.02em;margin-bottom:1.5rem;color:#0a0f1c;}
-
-.hero-new{padding:4rem 2rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;background:radial-gradient(circle at 50% 0%,rgba(0,179,240,.15),transparent 50%);}
-@media(max-width:700px){.hero-new{grid-template-columns:1fr;}.hero-console{display:none;}.how-grid-new{grid-template-columns:1fr!important;}}
-.hero-pill{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:.3rem .85rem;border-radius:100px;font-size:.72rem;color:rgba(255,255,255,.7);margin-bottom:1.25rem;}
-.hero-new h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.8rem);line-height:.92;letter-spacing:.02em;margin-bottom:.75rem;color:#fff;}
-.hero-new h1 em{color:var(--ge);font-style:normal;display:block;}
-.hero-new .hero-sub{font-size:.9rem;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:1.5rem;max-width:460px;}
-.hero-actions-new{display:flex;gap:.75rem;flex-wrap:wrap;}
-.hbtn-p{background:var(--ge);color:white;border:none;border-radius:100px;padding:.6rem 1.4rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;text-decoration:none;display:inline-block;}
-.hbtn-s{color:white;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);border-radius:100px;padding:.6rem 1.4rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;text-decoration:none;display:inline-block;}
-
-.console-wrap-new{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:12px;}
-.console-inner{background:white;color:#0a0f1c;border-radius:18px;padding:1.5rem;}
-.console-top-new{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
-.console-ey{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00b3f0;margin-bottom:.3rem;}
-.console-ttl{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.03em;}
-.console-live-badge{background:rgba(34,197,94,.12);color:#16a34a;padding:.25rem .65rem;border-radius:100px;font-size:.65rem;font-weight:700;}
-.con-metric{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:.85rem;margin-bottom:.6rem;}
-.con-metric-row{display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;margin-bottom:.5rem;color:#0a0f1c;}
-.con-bar{height:6px;background:#e2e8f0;border-radius:100px;overflow:hidden;}
-.con-fill{height:100%;border-radius:100px;}
-.con-rec{background:#0a0f1c;color:white;border-radius:12px;padding:1rem;margin-top:.75rem;}
-.con-rec .console-ey{color:rgba(255,255,255,.5);}
-.con-rec p{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:.4rem;line-height:1.5;}
-
-.cat-grid-new{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;margin-bottom:2rem;}
-.cat-btn-new{border-radius:18px;padding:.9rem;cursor:pointer;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:white;font-family:'Instrument Sans',sans-serif;transition:all .2s;}
-.cat-btn-new:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08);}
-.cat-btn-new.cat-active{background:#0a0f1c;border-color:rgba(0,179,240,.4);}
-.cat-icon-new{width:34px;height:34px;border-radius:10px;background:rgba(0,179,240,.15);color:#00b3f0;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;margin-bottom:.6rem;}
-.cat-btn-new.cat-active .cat-icon-new{background:#00b3f0;color:white;}
-.cat-lbl{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.55;margin-bottom:.15rem;}
-.cat-nm{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.03em;}
-.cat-dc{font-size:.68rem;color:rgba(255,255,255,.45);margin-top:.25rem;line-height:1.35;}
-
-.prod-grid-new{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.85rem;}
-.pcard{background:#141b2e;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:1.2rem;transition:border-color .2s;}
-.pcard:hover{border-color:rgba(255,255,255,.18);}
-.pcard.pc-feat{border-color:rgba(232,98,42,.25);}
-.pcard.pc-feat:hover{border-color:rgba(232,98,42,.45);}
-.pc-cat{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#00b3f0;margin-bottom:.25rem;}
-.pc-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.03em;margin-bottom:.2rem;}
-.pc-tag{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:.4rem;}
-.pc-desc{font-size:.71rem;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:.9rem;}
-.pc-bottom{background:rgba(255,255,255,.04);border-radius:10px;padding:.75rem;display:flex;justify-content:space-between;align-items:flex-end;gap:.5rem;margin-bottom:.75rem;}
-.pc-from{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.1rem;}
-.pc-price{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.02em;color:var(--ge);}
-.pc-price.pc-wf{color:var(--wf);}
-.pc-note{font-size:.65rem;font-family:'Instrument Sans',sans-serif;font-weight:400;color:rgba(255,255,255,.35);}
-.pc-status{font-size:.62rem;font-weight:700;padding:.2rem .55rem;border-radius:100px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.45);}
-.pc-status.pc-live{background:rgba(34,197,94,.12);color:#22c55e;}
-.pc-actions{display:grid;gap:.45rem;}
-.pc-main{background:var(--ge);color:white;border:none;border-radius:9px;padding:.6rem;font-weight:600;font-size:.75rem;cursor:pointer;font-family:'Instrument Sans',sans-serif;width:100%;text-align:center;text-decoration:none;display:block;}
-.pc-main.pc-main-wf{background:var(--wf);}
-.pc-main.pc-main-neu{background:#0a0f1c;border:1px solid rgba(255,255,255,.15);}
-.pc-preview{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.6rem;font-weight:500;font-size:.75rem;cursor:pointer;font-family:'Instrument Sans',sans-serif;width:100%;text-align:center;text-decoration:none;display:block;}
-
-.how-grid-new{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
-.how-step-new{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);border-radius:16px;padding:.9rem 1.1rem;display:flex;gap:.75rem;margin-bottom:.6rem;align-items:center;}
-.how-num-new{width:36px;height:36px;border-radius:11px;background:#00b3f0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;flex-shrink:0;color:white;}
-.how-st-title{font-weight:600;font-size:.82rem;margin-bottom:.15rem;}
-.how-st-desc{font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.4;}
-
-.cta-section{padding:3rem 2rem;}
-.cta-box{max-width:860px;margin:0 auto;background:#0a0f1c;color:white;border-radius:28px;padding:3rem 2rem;text-align:center;border:1px solid rgba(255,255,255,.08);}
-.cta-icon{width:52px;height:52px;border-radius:16px;background:#00b3f0;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.3rem;color:white;}
-.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:.02em;margin-bottom:.75rem;}
-.cta-sub{font-size:.875rem;color:rgba(255,255,255,.6);line-height:1.7;max-width:560px;margin:0 auto 1.5rem;}
-.cta-actions{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem;}
-.cta-form{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;max-width:480px;margin:0 auto;text-align:left;}
-.cta-form h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.03em;margin-bottom:1rem;}
-.cta-form input,.cta-form textarea,.cta-form select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.55rem .85rem;font-size:.8rem;font-family:'Instrument Sans',sans-serif;color:white;width:100%;margin-bottom:.65rem;outline:none;}
-.cta-form input::placeholder,.cta-form textarea::placeholder{color:rgba(255,255,255,.3);}
-.cta-form textarea{min-height:80px;resize:vertical;}
-.cta-submit{background:#e8622a;color:white;border:none;border-radius:8px;padding:.65rem 1.5rem;font-weight:600;font-size:.8rem;cursor:pointer;font-family:'Instrument Sans',sans-serif;width:100%;}
-
-.new-footer{background:#060b16;border-top:1px solid rgba(255,255,255,.06);padding:2.5rem 2rem 1.5rem;}
-.new-footer-inner{max-width:900px;margin:0 auto;}
-.nf-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:.25rem;color:#fff;}
-.nf-logo span{color:var(--ge);}
-.nf-tag{font-size:.75rem;color:rgba(255,255,255,.3);margin-bottom:1.75rem;}
-.nf-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
-.nf-col h4{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem;}
-.nf-col a,.nf-col p{display:block;font-size:.78rem;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:.35rem;cursor:pointer;transition:color .2s;}
-.nf-col a:hover{color:rgba(255,255,255,.9);}
-.nf-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
-.nf-bottom p{font-size:.66rem;color:rgba(255,255,255,.22);}
-
-
-.phc-new{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column;}
-.phc-new:hover{border-color:rgba(255,255,255,.2);transform:translateY(-2px);}
-.phc-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);margin-bottom:.6rem;letter-spacing:.08em;}
-.phc-new-name{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.03em;margin-bottom:.25rem;}
-.phc-new-tag{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.75);margin-bottom:.5rem;}
-.phc-new-desc{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:.85rem;flex:1;}
-.phc-new-bottom{margin-bottom:.35rem;}
-.phc-new-price{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.02em;}
-.phc-new-note{font-size:.62rem;color:rgba(255,255,255,.35);margin-bottom:.5rem;}
-.phc-live-badge{font-size:.65rem;font-weight:600;color:#22c55e;margin-bottom:.6rem;}
-.phc-btn{width:100%;padding:.55rem;border-radius:8px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.04em;color:white;transition:all .2s;text-align:center;}
-.phc-btn:hover{opacity:.88;}
-.phc-btn-ge{background:var(--ge);}
-.phc-btn-wf{background:var(--wf);}
-.phc-btn-neu{background:#1e2a3a;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);}
-@media(max-width:900px){#prod-section .phc-new{min-width:200px;}}
-@media(max-width:640px){#prod-section>div:first-of-type{grid-template-columns:1fr 1fr!important;}}
-@media(max-width:400px){#prod-section>div:first-of-type{grid-template-columns:1fr!important;}}
-
-
-/* AIBSOS FINAL MOBILE + PRODUCT FIXES */
-@media(max-width:768px){
-  html,body{width:100%;max-width:100%;overflow-x:hidden;}
-  nav{padding:.85rem 1rem;gap:.6rem;min-height:64px;}
-  .nav-logo{font-size:1rem;line-height:1.05;max-width:58%;}
-  .nav-cta{padding:.65rem 1rem;font-size:.85rem;white-space:nowrap;}
-  .view{padding-top:64px;}
-  .hero-new{padding:2.6rem 1rem 2rem;gap:1.5rem;}
-  .hero-new h1{font-size:clamp(2.4rem,16vw,4rem);}
-  #prod-section>div:first-of-type{grid-template-columns:1fr!important;}
-  .ptopbar{top:64px;padding:.8rem .9rem;gap:.7rem;flex-wrap:nowrap;overflow:hidden;}
-  .ptopbar-name{font-size:1.15rem;flex:0 0 auto;}
-  .ptabs{flex:1;min-width:0;overflow-x:auto;flex-wrap:nowrap;gap:.5rem;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-  .ptabs::-webkit-scrollbar{display:none;}
-  .ptab{flex:0 0 auto;font-size:.95rem;padding:.5rem .75rem;border-radius:12px;}
-  .ptopbar-price{font-size:.72rem;padding:.46rem .7rem;flex:0 0 auto;}
-  .tpanel{padding:2rem 1rem 6rem;max-width:100%;}
-  .tool-title{font-size:2.25rem;line-height:1;}
-  .tool-desc{font-size:1rem;line-height:1.55;}
-  input,select,textarea{font-size:1rem;padding:1rem;border-radius:14px;}
-  textarea{min-height:140px;}
-  .run-btn{min-width:240px;justify-content:center;padding:.95rem 1.5rem;font-size:1.1rem;}
-  .wf-grid,.ge-grid{grid-template-columns:1fr!important;}
-}
-
+@media print{nav,.ptopbar,.out-actions,.run-btn,.pay-notice,.modal-bg{display:none!important;}body{background:white!important;color:black!important;}.out{display:block!important;border:none!important;}}
 </style>
 </head>
-<body>
-
-<nav>
-  <div class="nav-logo" onclick="showView('home',null)">AI BUSINESS SOLUTIONS <span>OS</span></div>
+<body><nav>
+  <a class="nav-logo" href="/">AI BUSINESS SOLUTIONS <span>OS</span></a>
   <div class="nav-center">
-    <button class="ntab on-home" onclick="showView('home',this)">Home</button>
-    <button class="ntab" onclick="showView('ge',this)">&#9889; Growth Engine</button>
-    <button class="ntab wf-tab" onclick="showView('wf',this)">&#9881; WorkForge</button>
-    <button class="ntab mkt-tab" onclick="showView('mkt',this)">&#9638; Marketplace</button>
-    <button class="ntab" onclick="showView('life',this)">&#9733; LifeBoard</button>
+    <a class="ntab" href="/">Home</a>
+    <a class="ntab" href="/growth-engine.html">&#9889; Growth Engine</a>
+    <a class="ntab wf-tab" href="/workforge.html" style="background:rgba(61,107,255,.15);color:#3d6bff;border-color:#3d6bff;">&#9881; WorkForge</a>
+    <a class="ntab mkt-tab" href="/marketplace.html">&#9638; Marketplace</a>
+    <a class="ntab lb-tab" href="/lifeboard.html">&#9632; LifeBoard</a>
   </div>
-  <button class="nav-cta" onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Get started</button>
-</nav>
-
-<div id="view-home" class="view active">
-
-  <!-- HERO -->
-  <section class="hero-new">
-    <div>
-      <div class="hero-pill"><div class="ldot"></div>&nbsp;Intelligent Systems &middot; Live on aibsos.com</div>
-      <h1>WE BUILD AI THAT<em>THINKS WITH YOU</em></h1>
-      <p class="hero-sub">AI Business Solutions builds intelligent systems that help businesses and people make better decisions, automate workflows, and turn information into measurable growth.</p>
-      <div class="hero-actions-new">
-        <a class="hbtn-p" onclick="document.getElementById('prod-section').scrollIntoView({behavior:'smooth'})">Explore products &rarr;</a>
-        <a class="hbtn-s" onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Get a custom system</a>
-      </div>
+  <a class="nav-cta" href="/#contact-section">Get started</a>
+</nav><div class="pshell">  <div class="ptopbar">
+    <div class="ptopbar-name" style="color:var(--wf);">WORKFORGE</div>
+    <div class="ptabs">
+        <a class="ptab" href="/workforge.html">&#127968; All tools</a>
+        <a class="ptab" href="/replyright.html">ReplyRight</a>
+        <a class="ptab" href="/jobapply-ai.html">JobApply AI</a>
+        <a class="ptab" href="/captionforge.html">CaptionForge</a>
+        <a class="ptab" href="/contractcheck.html">ContractCheck</a>
+        <a class="ptab" href="/meetingmind.html">MeetingMind</a>
+        <a class="ptab" href="/docforge.html">DocForge</a>
+        <a class="ptab" href="/threadforge.html">ThreadForge</a>
+        <a class="ptab" href="/checklistai.html">ChecklistAI</a>
+        <a class="ptab" href="/pricemywork.html">PriceMyWork</a>
+        <a class="ptab" href="/reviewreply.html">ReviewReply</a>
+        <a class="ptab" href="/studysnap.html" style="background:rgba(61,107,255,.15);color:var(--wf);border-color:rgba(61,107,255,.25);">StudySnap</a>
+        <a class="ptab" href="/dailybrief.html">DailyBrief</a>
     </div>
-    <div class="hero-console">
-      <div class="console-wrap-new">
-        <div class="console-inner">
-          <div class="console-top-new">
-            <div><div class="console-ey">AIBSOS Console</div><div class="console-ttl">OUTCOME ENGINE</div></div>
-            <div class="console-live-badge">Live</div>
-          </div>
-          <div class="con-metric"><div class="con-metric-row"><span>Decision clarity</span><span>92%</span></div><div class="con-bar"><div class="con-fill" style="width:92%;background:#00b3f0;"></div></div></div>
-          <div class="con-metric"><div class="con-metric-row"><span>Workflow speed</span><span>3.4x</span></div><div class="con-bar"><div class="con-fill" style="width:78%;background:#22c55e;"></div></div></div>
-          <div class="con-metric"><div class="con-metric-row"><span>Manual admin reduced</span><span>68%</span></div><div class="con-bar"><div class="con-fill" style="width:68%;background:#f59e0b;"></div></div></div>
-          <div class="con-rec"><div class="console-ey">Recommended action</div><p>Buy the system, unlock access, and start moving faster today.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUCTS — 4 cards in a row -->
-  <section class="home-section" id="prod-section">
-    <div class="sec-eyebrow">Our products</div>
-    <div class="sec-title">INTELLIGENCE FOR EVERY LEVEL.</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:2.5rem;">
-
-      <!-- 01 -->
-      <div class="phc-new" onclick="showView('ge',document.querySelector('.ntab:nth-child(2)'))">
-        <div class="phc-num">01</div>
-        <div class="phc-new-name">GROWTH ENGINE</div>
-        <div class="phc-new-tag">AI sales &amp; revenue intelligence.</div>
-        <div class="phc-new-desc">Proposal Gen, Pain Finder, What Do I Sell?, Objection Handler, Client Prep &amp; more. Know what to sell, who to target, how to close.</div>
-        <div class="phc-new-bottom">
-          <div class="phc-new-price c-ge" id="ge-card-price">$17</div>
-          <div class="phc-new-note">per result</div>
-        </div>
-        <div class="phc-live-badge">&#9679; Live</div>
-        <button class="phc-btn phc-btn-ge" onclick="event.stopPropagation();showView('ge',document.querySelector('.ntab:nth-child(2)'))">Open &rarr;</button>
-      </div>
-
-      <!-- 02 -->
-      <div class="phc-new" onclick="showView('wf',document.querySelector('.ntab.wf-tab'))">
-        <div class="phc-num">02</div>
-        <div class="phc-new-name">WORKFORGE</div>
-        <div class="phc-new-tag">12 AI tools for everyday work.</div>
-        <div class="phc-new-desc">Cover letters, email replies, captions, contracts, meeting notes, proposals &amp; more. 60 seconds. Done.</div>
-        <div class="phc-new-bottom">
-          <div class="phc-new-price c-wf" id="wf-card-price">$4</div>
-          <div class="phc-new-note">per result</div>
-        </div>
-        <div class="phc-live-badge">&#9679; Live</div>
-        <button class="phc-btn phc-btn-wf" onclick="event.stopPropagation();showView('wf',document.querySelector('.ntab.wf-tab'))">Open &rarr;</button>
-      </div>
-
-      <!-- 03 -->
-      <div class="phc-new" onclick="showView('mkt',document.querySelector('.ntab.mkt-tab'))">
-        <div class="phc-num">03</div>
-        <div class="phc-new-name">MARKETPLACE</div>
-        <div class="phc-new-tag">High-ticket AI bundles for any business.</div>
-        <div class="phc-new-desc">Six premium AI systems: Sales Domination, Executive Decision, Client Retention, Brand Authority, Hiring Intelligence and Launch Accelerator.</div>
-        <div class="phc-new-bottom">
-          <div class="phc-new-price mkt-home-price" style="color:#f59e0b;">$270</div>
-          <div class="phc-new-note">from / once-off</div>
-        </div>
-        <div class="phc-live-badge" style="color:#22c55e;">&#9679; Live</div>
-        <button class="phc-btn" style="background:#f59e0b;" onclick="event.stopPropagation();showView('mkt',document.querySelector('.ntab.mkt-tab'))">Preview &rarr;</button>
-      </div>
-
-      <!-- 04 -->
-      <div class="phc-new" onclick="showView('life',null)">
-        <div class="phc-num">04</div>
-        <div class="phc-new-name">LIFEBOARD</div>
-        <div class="phc-new-tag">Your personal operating system.</div>
-        <div class="phc-new-desc">Planning, priorities, journaling and intentional daily action. Built for people who want to live and work with more intention.</div>
-        <div class="phc-new-bottom">
-          <div class="phc-new-price lifeboard-price" style="color:#9ca3af;">$4</div>
-          <div class="phc-new-note">per result</div>
-        </div>
-        <div class="phc-live-badge" style="color:#22c55e;">&#9679; Live</div>
-        <button class="phc-btn phc-btn-neu" onclick="event.stopPropagation();showView('life',null)">Open &rarr;</button>
-      </div>
-
-    </div>
-
-    <!-- AIBS STUDIO CTA -->
-    <div style="background:rgba(0,179,240,.06);border:1px solid rgba(0,179,240,.15);border-radius:14px;padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#00b3f0;margin-bottom:.3rem;">AIBS Studio &mdash; Custom builds</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.03em;color:#fff;margin-bottom:.2rem;">Need a system built around your business?</div>
-        <div style="font-size:.78rem;color:rgba(255,255,255,.5);">Custom dashboards, automation &amp; AI workflows. From R15,000. We build in weeks, not months.</div>
-      </div>
-      <button class="phc-btn" style="background:#00b3f0;white-space:nowrap;flex-shrink:0;" onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Book a consultation &rarr;</button>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="home-section">
-    <div class="how-grid-new">
-      <div>
-        <div class="sec-eyebrow">How AIBSOS works</div>
-        <div class="sec-title">SIMPLE OUTSIDE.<br>POWERFUL UNDERNEATH.</div>
-        <p style="font-size:.875rem;color:rgba(255,255,255,.55);line-height:1.7;margin-top:.5rem;max-width:380px;">The landing page stays clean. The intelligence lives inside each product &mdash; in the decisions it makes, the outputs it produces, and the time it saves you.</p>
-        <div style="margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:.5rem;">
-          <div style="background:rgba(232,98,42,.1);border:1px solid rgba(232,98,42,.2);border-radius:8px;padding:.45rem .8rem;font-size:.7rem;color:var(--ge);font-weight:600;">Pay per result</div>
-          <div style="background:rgba(0,179,240,.1);border:1px solid rgba(0,179,240,.2);border-radius:8px;padding:.45rem .8rem;font-size:.7rem;color:#00b3f0;font-weight:600;">60-second output</div>
-          <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.45rem .8rem;font-size:.7rem;color:#22c55e;font-weight:600;">Real outcomes</div>
-        </div>
-      </div>
-      <div>
-        <div class="how-step-new"><div class="how-num-new">1</div><div><div class="how-st-title">Choose your system</div><div class="how-st-desc">Sales intelligence, everyday work tools, a premium bundle, or a custom build &mdash; pick what fits your need right now.</div></div></div>
-        <div class="how-step-new"><div class="how-num-new">2</div><div><div class="how-st-title">Pay once via Paystack</div><div class="how-st-desc">No subscription. No commitment. One payment unlocks one result, delivered immediately.</div></div></div>
-        <div class="how-step-new"><div class="how-num-new">3</div><div><div class="how-st-title">Get your result</div><div class="how-st-desc">A finished output in 60 seconds &mdash; a proposal, a strategy, a contract review. Ready to use.</div></div></div>
-        <div class="how-step-new"><div class="how-num-new">4</div><div><div class="how-st-title">Measure the difference</div><div class="how-st-desc">Every system is built around a real outcome &mdash; time saved, revenue found, decisions made faster.</div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEED A SYSTEM / CONTACT -->
-  <section class="cta-section" id="contact-section">
-    <div class="cta-box">
-      <div class="cta-icon">&#9632;</div>
-      <div class="cta-title">NEED A SYSTEM BUILT AROUND YOUR BUSINESS?</div>
-      <p class="cta-sub">For enterprise builds, internal tools, dashboards and team workflows &mdash; start with a consultation. We keep the scope clear and the outcome measurable. We build in weeks, not months.</p>
-      <div class="cta-actions">
-        <a href="mailto:hello@aibsos.com?subject=AIBSOS Enterprise Enquiry" class="hbtn-p">Email AIBSOS directly</a>
-        <a class="hbtn-s" onclick="document.getElementById('prod-section').scrollIntoView({behavior:'smooth'})">Browse products</a>
-      </div>
-      <div class="cta-form">
-        <h4>START A CONSULTATION</h4>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">
-          <input id="cf-name" placeholder="Your name" type="text">
-          <input id="cf-email" placeholder="Your email" type="email">
-        </div>
-        <input id="cf-company" placeholder="Company name" type="text" style="margin-top:.6rem;">
-        <select id="cf-need" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.55rem .85rem;font-size:.8rem;font-family:'Instrument Sans',sans-serif;color:rgba(255,255,255,.7);width:100%;margin-top:.6rem;margin-bottom:.65rem;outline:none;">
-          <option value="" style="background:#0a0f1c;">What do you need built?</option>
-          <option style="background:#0a0f1c;">Custom AI dashboard</option>
-          <option style="background:#0a0f1c;">Workflow automation</option>
-          <option style="background:#0a0f1c;">Internal business tool</option>
-          <option style="background:#0a0f1c;">Sales intelligence system</option>
-          <option style="background:#0a0f1c;">Full AI business system</option>
-          <option style="background:#0a0f1c;">Other</option>
-        </select>
-        <textarea id="cf-detail" placeholder="Tell us about your business and what you need..."></textarea>
-        <button class="cta-submit" onclick="submitContact()">Send enquiry &rarr;</button>
-        <div id="cf-msg" style="font-size:.75rem;margin-top:.5rem;color:#22c55e;display:none;">Message sent! We will be in touch within 2 business days.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="new-footer">
-    <div class="new-footer-inner">
-      <div class="nf-logo">AI BUSINESS SOLUTIONS <span>OS</span></div>
-      <div class="nf-tag">Intelligent systems that think with your business &middot; AI Business Solutions (Pty) Ltd &middot; Reg: 2025/651953/07</div>
-      <div class="nf-cols">
-        <div class="nf-col"><h4>Live now</h4><a onclick="showView('ge',null)">Growth Engine</a><a onclick="showView('wf',null)">WorkForge</a><a onclick="showView('mkt',null)">Marketplace</a><a onclick="showView('life',null)">LifeBoard</a></div>
-        <div class="nf-col"><h4>Coming soon</h4><p>AIBS Studio</p></div>
-        <div class="nf-col"><h4>Pricing</h4><p>Pay per result</p><p>No subscription</p></div>
-        <div class="nf-col"><h4>Legal</h4><a onclick="showView('privacy',null)">Privacy Policy</a><a onclick="showView('refund',null)">Refund Policy</a><a onclick="showView('contact',null)">Contact Us</a></div>
-        <div class="nf-col"><h4>Contact</h4><a href="mailto:hello@aibsos.com">hello@aibsos.com</a><p>www.aibsos.com</p></div>
-      </div>
-      <div class="nf-bottom">
-        <p>&copy; 2025 AI Business Solutions (Pty) Ltd &middot; All rights reserved</p>
-        <p>Payments by <strong style="color:rgba(255,255,255,.4)">Paystack</strong></p>
-      </div>
-    </div>
-  </footer>
-</div>
-
-<div id="view-ge" class="view">
-  <div class="pshell">
-    <div class="ptopbar">
-      <div class="ptopbar-name ptopbar-name-ge">GROWTH ENGINE</div>
-      <div class="ptabs">
-        <button class="ptab on-ge" onclick="showGE('ge-home',this)">&#127968; Home</button>
-        <button class="ptab" onclick="showGE('ge-proposal',this)">&#128196; Proposal</button>
-        <button class="ptab" onclick="showGE('ge-sell',this)">&#129302; What Do I Sell?</button>
-        <button class="ptab" onclick="showGE('ge-obj',this)">&#128737; Objections</button>
-        <button class="ptab" onclick="showGE('ge-prep',this)">&#9889; Client Prep</button>
-        <button class="ptab" onclick="showGE('ge-pain',this)">&#128269; Pain Finder</button>
-        <button class="ptab" onclick="showGE('ge-comp',this)">&#127919; Competitive</button>
-        <button class="ptab" onclick="showGE('ge-roi',this)">&#128176; ROI</button>
-      </div>
-      <div class="ptopbar-price">Pay per result</div>
-    </div>
-    <div id="ge-home" class="tpanel active">
-      <div class="sl" style="margin-top:.5rem;">Growth Engine &middot; 6 AI products</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">YOUR AI SALES INTELLIGENCE SYSTEM</h2>
-      <p style="color:var(--text2);font-size:.875rem;margin-bottom:1.5rem;max-width:560px;">Know what to sell, who to target, how to pitch, and how to close. Pay before generating &mdash; instant result.</p>
-      <div class="ge-grid">
-        <div class="ge-card" onclick="showGE('ge-proposal',null)"><div class="card-icon">&#128196;</div><div class="card-name">PROPOSAL GEN</div><div class="card-desc">Complete, persuasive business proposal. Ready to send in seconds.</div><div class="card-price cp-ge"><span class="card-price-amt-ge">$17</span></div></div>
-        <div class="ge-card" onclick="showGE('ge-sell',null)"><div class="card-icon">&#129302;</div><div class="card-name">WHAT DO I SELL?</div><div class="card-desc">CEO-level sell strategy &mdash; problem, impact, top solutions, revenue opportunity.</div><div class="card-price cp-ge"><span class="card-price-amt-ge">$17</span></div></div>
-        <div class="ge-card" onclick="showGE('ge-obj',null)"><div class="card-icon">&#128737;</div><div class="card-name">OBJECTION HANDLER</div><div class="card-desc">Type what the client said. Get 3 confident, commercially grounded responses.</div><div class="card-price cp-ge"><span class="card-price-amt-ge">$17</span></div></div>
-        <div class="ge-card" onclick="showGE('ge-prep',null)"><div class="card-icon">&#9889;</div><div class="card-name">CLIENT PREP</div><div class="card-desc">Pre-meeting sales pack. Pain points, questions, ROI, objections, follow-up email.</div><div class="card-price cp-ge"><span class="card-price-amt-ge">$17</span></div></div>
-        <div class="ge-card" onclick="showGE('ge-pain',null)"><div class="card-icon">&#128269;</div><div class="card-name">PAIN FINDER</div><div class="card-desc">Identify pain points for any business. Matched recommendations with fit scores.</div><div class="card-price cp-ge"><span class="card-price-amt-ge">$17</span></div></div>
-        <div class="ge-card" onclick="showGE('ge-comp',null)"><div class="card-icon">&#127919;</div><div class="card-name">COMPETITIVE INTEL</div><div class="card-desc">Your differentiators, competitor gaps, and the winning pitch.</div><div class="card-price cp-ge"><span class="card-price-amt-ge">$17</span></div></div>
-      </div>
-    </div>
-    <div id="ge-proposal" class="tpanel"><div class="tool-title">PROPOSAL GENERATOR</div><div class="tool-desc">Generate a complete, CEO-ready business proposal.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your company name</label><input id="prop-you" placeholder="e.g. Apex Solutions"></div><div class="fg"><label>Client name</label><input id="prop-cl" placeholder="e.g. Global Retail Co"></div></div><div class="fr"><div class="fg"><label>Industry</label><select id="prop-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Logistics &amp; Supply Chain</option><option>Professional Services</option><option>Hospitality &amp; Tourism</option><option>Agriculture</option><option>Other</option></select></div><div class="fg"><label>Contact name &amp; title</label><input id="prop-con" placeholder="e.g. Sarah Miller, HR Director"></div></div><div class="fg"><label>Main challenge to solve</label><textarea id="prop-prob" placeholder="What problem does this client have that you're solving?"></textarea></div><div class="fr"><div class="fg"><label>Your proposed solution</label><input id="prop-sol" placeholder="e.g. AI-powered business automation"></div><div class="fg"><label>Proposed price</label><input id="prop-price" placeholder="e.g. $2,500/month"></div></div><button class="run-btn rbtn-ge" onclick="initPay('proposal','ge')">Pay &amp; Generate &rarr;</button><div class="out" id="out-proposal"></div></div>
-    <div id="ge-sell" class="tpanel"><div class="tool-title">WHAT DO I SELL?</div><div class="tool-desc">Get a CEO-level AI strategy for any company.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Company name</label><input id="sell-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="sell-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Logistics &amp; Supply Chain</option><option>Professional Services</option><option>Hospitality &amp; Tourism</option><option>Agriculture</option><option>Other</option></select></div></div><div class="fr"><div class="fg"><label>Company size</label><select id="sell-sz"><option>Under 50 employees</option><option>50&ndash;200 employees</option><option>200&ndash;500 employees</option><option>500&ndash;2000 employees</option><option>2000+ employees</option></select></div><div class="fg"><label>What you sell</label><input id="sell-off" placeholder="e.g. AI business solutions"></div></div><div class="fg"><label>Additional context (optional)</label><textarea id="sell-ctx" placeholder="Anything you know about this company..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('sell','ge')">Pay &amp; Generate &rarr;</button><div class="out" id="out-sell"></div></div>
-    <div id="ge-obj" class="tpanel"><div class="tool-title">OBJECTION HANDLER</div><div class="tool-desc">Type what the client said. Get 3 confident responses.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>What did the client say?</label><textarea id="obj-said" style="min-height:75px;" placeholder="e.g. We don't have budget for this right now"></textarea></div><div class="fr"><div class="fg"><label>What you're selling</label><input id="obj-off" placeholder="e.g. AI business software"></div><div class="fg"><label>Context</label><input id="obj-ctx" placeholder="e.g. Retail, 200 staff"></div></div><div style="margin-bottom:1rem;"><div class="sl">Quick-handle common objections</div><div style="display:flex;flex-wrap:wrap;gap:.4rem;"><button class="obj-quick" onclick="qObj('We don\'t have the budget right now')">No budget</button><button class="obj-quick" onclick="qObj('We\'re already using another system')">Have a system</button><button class="obj-quick" onclick="qObj('I need to think about it')">Need to think</button><button class="obj-quick" onclick="qObj('Your price is too high')">Too expensive</button><button class="obj-quick" onclick="qObj('I need approval from management')">Need approval</button><button class="obj-quick" onclick="qObj('We\'re not ready to decide now')">Not ready</button></div></div><button class="run-btn rbtn-ge" onclick="initPay('objections','ge')">Pay &amp; Generate &rarr;</button><div class="out" id="out-objections"></div></div>
-    <div id="ge-prep" class="tpanel"><div class="tool-title">CLIENT PREP ENGINE</div><div class="tool-desc">Pre-meeting sales pack in 60 seconds.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Company name</label><input id="prep-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="prep-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Logistics &amp; Supply Chain</option><option>Professional Services</option><option>Hospitality &amp; Tourism</option><option>Agriculture</option><option>Other</option></select></div></div><div class="fr"><div class="fg"><label>Company size</label><select id="prep-sz"><option>Under 50</option><option>50&ndash;200</option><option>200&ndash;500</option><option>500&ndash;2000</option><option>2000+</option></select></div><div class="fg"><label>What you're selling</label><input id="prep-off" placeholder="e.g. AI business platform"></div></div><div class="fg"><label>Meeting context</label><textarea id="prep-ctx" placeholder="Who you're meeting, what they said..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('prep','ge')">Pay &amp; Generate &rarr;</button><div class="out" id="out-prep"></div></div>
-    <div id="ge-pain" class="tpanel"><div class="tool-title">PAIN FINDER</div><div class="tool-desc">Identify real pain points for any business.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Company / description</label><input id="pain-co" placeholder="e.g. A mid-size retail business"></div><div class="fg"><label>Industry</label><select id="pain-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Logistics &amp; Supply Chain</option><option>Professional Services</option><option>Hospitality &amp; Tourism</option><option>Agriculture</option><option>Other</option></select></div></div><div class="fr"><div class="fg"><label>Company size</label><select id="pain-sz"><option>Under 50</option><option>50&ndash;200</option><option>200&ndash;500</option><option>500&ndash;2000</option><option>2000+</option></select></div><div class="fg"><label>What you're selling</label><input id="pain-off" placeholder="e.g. AI tools, training, consulting"></div></div><div class="fg"><label>Known challenges (optional)</label><textarea id="pain-ctx" placeholder="Anything they've mentioned..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('pain','ge')">Pay &amp; Generate &rarr;</button><div class="out" id="out-pain"></div></div>
-    <div id="ge-comp" class="tpanel"><div class="tool-title">COMPETITIVE INTEL</div><div class="tool-desc">Find your differentiators and the winning pitch.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your business / product</label><input id="comp-you" placeholder="e.g. AI-powered HR platform"></div><div class="fg"><label>Target market</label><input id="comp-mkt" placeholder="e.g. Mid-size companies globally"></div></div><div class="fg"><label>Known competitors</label><input id="comp-comp" placeholder="e.g. Sage, SAP &mdash; or leave blank"></div><div class="fg"><label>Your strengths</label><textarea id="comp-str" placeholder="What do you do better, faster, or cheaper?"></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('competitive','ge')">Pay &amp; Generate &rarr;</button><div class="out" id="out-competitive"></div></div>
-    <div id="ge-roi" class="tpanel"><div class="tool-title">ROI CALCULATOR</div><div class="tool-desc">Show clients what your solution will make or save them.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Client company</label><input id="roi-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="roi-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Professional Services</option><option>Other</option></select></div></div><div class="fr"><div class="fg"><label>Number of employees</label><input id="roi-emp" type="number" placeholder="e.g. 150"></div><div class="fg"><label>Monthly revenue (optional)</label><input id="roi-rev" placeholder="e.g. $100,000/month"></div></div><div class="fg"><label>What your solution does for them</label><textarea id="roi-sol" placeholder="e.g. Automates admin, reduces errors..."></textarea></div><div class="fg"><label>Your price</label><input id="roi-pr" placeholder="e.g. $1,500/month"></div><button class="run-btn rbtn-ge" onclick="initPay('roi','ge')">Pay &amp; Generate &rarr;</button><div class="out" id="out-roi"></div></div>
+    <div class="ptopbar-price">Pay per result</div>
   </div>
-</div>
-
-<div id="view-wf" class="view">
-  <div class="pshell">
-    <div class="ptopbar">
-      <div class="ptopbar-name ptopbar-name-wf">WORKFORGE</div>
-      <div class="ptabs">
-        <button class="ptab on-wf" onclick="showWF('wf-home',this)">&#127968; All tools</button>
-        <button class="ptab" onclick="showWF('wf-replyright',this)">ReplyRight</button>
-        <button class="ptab" onclick="showWF('wf-jobapply',this)">JobApply AI</button>
-        <button class="ptab" onclick="showWF('wf-captionforge',this)">CaptionForge</button>
-        <button class="ptab" onclick="showWF('wf-contractcheck',this)">ContractCheck</button>
-        <button class="ptab" onclick="showWF('wf-meetingmind',this)">MeetingMind</button>
-        <button class="ptab" onclick="showWF('wf-docforge',this)">DocForge</button>
-        <button class="ptab" onclick="showWF('wf-threadforge',this)">ThreadForge</button>
-        <button class="ptab" onclick="showWF('wf-checklistai',this)">ChecklistAI</button>
-        <button class="ptab" onclick="showWF('wf-pricemywork',this)">PriceMyWork</button>
-        <button class="ptab" onclick="showWF('wf-reviewreply',this)">ReviewReply</button>
-        <button class="ptab" onclick="showWF('wf-studysnap',this)">StudySnap</button>
-        <button class="ptab" onclick="showWF('wf-dailybrief',this)">DailyBrief</button>
-      </div>
-      <div class="ptopbar-price">Pay per result</div>
-    </div>
-    <div id="wf-home" class="tpanel active">
-      <div class="sl" style="margin-top:.5rem;">WorkForge &middot; 12 AI tools &middot; Pay per result</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">WORK THAT TOOK HOURS.<br>DONE IN 60 SECONDS.</h2>
-      <p style="color:var(--text2);font-size:.875rem;margin-bottom:1.5rem;max-width:560px;">Paste your problem. Pay. Get a finished result in 60 seconds. No subscription needed.</p>
-      <div class="wf-grid">
-        <div class="wf-card" onclick="showWF('wf-replyright',null)"><div class="card-num">01</div><div class="card-name">REPLYRIGHT</div><div class="card-desc">3 perfect email replies in professional, direct, and warm tones.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-jobapply',null)"><div class="card-num">02</div><div class="card-name">JOBAPPLY AI</div><div class="card-desc">Tailored cover letter from any job description. Land more interviews.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-captionforge',null)"><div class="card-num">03</div><div class="card-name">CAPTIONFORGE</div><div class="card-desc">5 scroll-stopping captions with hashtags for any platform.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-contractcheck',null)"><div class="card-num">04</div><div class="card-name">CONTRACTCHECK</div><div class="card-desc">Plain English, red flags, and what to negotiate in any contract.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-meetingmind',null)"><div class="card-num">05</div><div class="card-name">MEETINGMIND</div><div class="card-desc">Turn messy meeting notes into summary, actions &amp; follow-up email.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-docforge',null)"><div class="card-num">06</div><div class="card-name">DOCFORGE</div><div class="card-desc">Proposals, invoices, scopes, bios &amp; more. Ready to send in seconds.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-threadforge',null)"><div class="card-num">07</div><div class="card-name">THREADFORGE</div><div class="card-desc">Viral-ready X/Twitter thread from any article or idea.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-checklistai',null)"><div class="card-num">08</div><div class="card-name">CHECKLISTAI</div><div class="card-desc">Prioritised checklist with time estimates for any goal.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-pricemywork',null)"><div class="card-num">09</div><div class="card-name">PRICEMYWORK</div><div class="card-desc">Recommended rate with full justification. Stop leaving money on the table.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-reviewreply',null)"><div class="card-num">10</div><div class="card-name">REVIEWREPLY</div><div class="card-desc">Professional response to any review. Turn complaints into trust.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-studysnap',null)"><div class="card-num">11</div><div class="card-name">STUDYSNAP</div><div class="card-desc">Summary, flashcards &amp; quiz from your notes. Actually understand it.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-        <div class="wf-card" onclick="showWF('wf-dailybrief',null)"><div class="card-num">12</div><div class="card-name">DAILYBRIEF</div><div class="card-desc">Sharp 5-point daily briefing based on your role and priorities.</div><div class="card-price cp-wf"><span class="card-price-amt">$4</span></div></div>
-      </div>
-    </div>
-    <div id="wf-replyright" class="tpanel"><div class="tool-title">REPLYRIGHT</div><div class="tool-desc">Paste a difficult email &mdash; get 3 perfect replies in different tones.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Paste the email you received</label><textarea id="rr-em" style="min-height:110px;" placeholder="Paste the email here..."></textarea></div><div class="fr"><div class="fg"><label>Your context / role</label><input id="rr-ctx" placeholder="e.g. Freelancer, client is unhappy"></div><div class="fg"><label>Your goal</label><select id="rr-goal"><option>Resolve the situation</option><option>Push back firmly</option><option>Buy more time</option><option>Decline politely</option><option>Escalate professionally</option><option>Close the deal</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('replyright','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-replyright"></div></div>
-    <div id="wf-jobapply" class="tpanel"><div class="tool-title">JOBAPPLY AI</div><div class="tool-desc">Paste a job description &mdash; get a tailored cover letter instantly.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Job description</label><textarea id="ja-jd" style="min-height:110px;" placeholder="Paste the full job description..."></textarea></div><div class="fg"><label>Your background</label><textarea id="ja-bg" placeholder="Brief summary of your experience and what makes you a good fit..."></textarea></div><div class="fr"><div class="fg"><label>Your name</label><input id="ja-name" placeholder="e.g. James Carter"></div><div class="fg"><label>Tone</label><select id="ja-tone"><option>Professional &amp; confident</option><option>Warm &amp; enthusiastic</option><option>Direct &amp; concise</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('jobapply','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-jobapply"></div></div>
-    <div id="wf-captionforge" class="tpanel"><div class="tool-title">CAPTIONFORGE</div><div class="tool-desc">Describe your post &mdash; get 5 ready-to-use captions with hashtags.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Describe your post</label><textarea id="cf-desc" placeholder="What's the post about? What do you want people to feel or do?"></textarea></div><div class="fr"><div class="fg"><label>Platform</label><select id="cf-plat"><option>Instagram</option><option>LinkedIn</option><option>X / Twitter</option><option>Facebook</option><option>TikTok</option><option>All platforms</option></select></div><div class="fg"><label>Tone</label><select id="cf-tone"><option>Professional</option><option>Casual &amp; fun</option><option>Inspirational</option><option>Educational</option><option>Provocative / bold</option><option>Storytelling</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('captionforge','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-captionforge"></div></div>
-    <div id="wf-contractcheck" class="tpanel"><div class="tool-title">CONTRACTCHECK</div><div class="tool-desc">Paste a contract &mdash; get plain English, red flags, and what to negotiate.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Paste the contract</label><textarea id="cc-ct" style="min-height:140px;" placeholder="Paste the contract text here..."></textarea></div><div class="fr"><div class="fg"><label>Your role</label><select id="cc-role"><option>Service provider / freelancer</option><option>Client / buyer</option><option>Employee</option><option>Business owner</option><option>Tenant</option><option>Other</option></select></div><div class="fg"><label>Main concern</label><select id="cc-con"><option>Overall risk assessment</option><option>Payment terms</option><option>Exit / termination clauses</option><option>Liability &amp; indemnity</option><option>IP &amp; ownership</option><option>Non-compete clauses</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('contractcheck','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-contractcheck"></div></div>
-    <div id="wf-meetingmind" class="tpanel"><div class="tool-title">MEETINGMIND</div><div class="tool-desc">Paste messy notes &mdash; get a clean summary, action items, and a follow-up email.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Paste your meeting notes</label><textarea id="mm-notes" style="min-height:120px;" placeholder="Paste raw notes, voice-to-text, anything messy..."></textarea></div><div class="fr"><div class="fg"><label>Meeting type</label><select id="mm-type"><option>Team standup</option><option>Client meeting</option><option>Sales call</option><option>Strategy session</option><option>Project kickoff</option><option>Performance review</option><option>Other</option></select></div><div class="fg"><label>Your name</label><input id="mm-name" placeholder="e.g. Emily Johnson"></div></div><button class="run-btn rbtn-wf" onclick="initPay('meetingmind','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-meetingmind"></div></div>
-    <div id="wf-docforge" class="tpanel"><div class="tool-title">DOCFORGE</div><div class="tool-desc">Professional documents ready in 60 seconds.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Document type</label><select id="df-type"><option>Business proposal</option><option>Invoice</option><option>Scope of work</option><option>Professional bio</option><option>Terms &amp; conditions</option><option>Service agreement</option><option>Letter of intent</option><option>Meeting agenda</option></select></div><div class="fg"><label>Your name / company</label><input id="df-you" placeholder="e.g. Apex Solutions"></div></div><div class="fr"><div class="fg"><label>Client / recipient</label><input id="df-cl" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Amount / value</label><input id="df-amt" placeholder="e.g. $500"></div></div><div class="fg"><label>Key details to include</label><textarea id="df-det" placeholder="Project, scope, deliverables, dates, anything relevant..."></textarea></div><button class="run-btn rbtn-wf" onclick="initPay('docforge','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-docforge"></div></div>
-    <div id="wf-threadforge" class="tpanel"><div class="tool-title">THREADFORGE</div><div class="tool-desc">Paste anything &mdash; get a viral-ready X/Twitter thread.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Paste your content</label><textarea id="tf-ct" style="min-height:120px;" placeholder="Paste the content you want to turn into a thread..."></textarea></div><div class="fr"><div class="fg"><label>Your niche / audience</label><input id="tf-nic" placeholder="e.g. Entrepreneurs, tech professionals"></div><div class="fg"><label>Thread style</label><select id="tf-sty"><option>Educational / insightful</option><option>Storytelling</option><option>Controversial / bold take</option><option>Step-by-step how-to</option><option>List / tips</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('threadforge','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-threadforge"></div></div>
-    <div id="wf-checklistai" class="tpanel"><div class="tool-title">CHECKLISTAI</div><div class="tool-desc">Describe your goal &mdash; get a prioritised checklist with time estimates.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>What are you trying to achieve?</label><textarea id="cl-goal" placeholder="e.g. Launch a product, plan an event, prepare for a big meeting..."></textarea></div><div class="fr"><div class="fg"><label>Time available</label><select id="cl-time"><option>Today (1 day)</option><option>This week</option><option>2 weeks</option><option>1 month</option><option>3 months</option></select></div><div class="fg"><label>Context / constraints</label><input id="cl-ctx" placeholder="e.g. Solo, limited budget, team of 3"></div></div><button class="run-btn rbtn-wf" onclick="initPay('checklistai','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-checklistai"></div></div>
-    <div id="wf-pricemywork" class="tpanel"><div class="tool-title">PRICEMYWORK</div><div class="tool-desc">Describe your service &mdash; get a recommended rate with full justification.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Describe your service or skill</label><textarea id="pw-svc" placeholder="e.g. I design logos for small businesses. 4 years experience..."></textarea></div><div class="fr"><div class="fg"><label>Your market</label><input id="pw-mkt" placeholder="e.g. UK, remote / global"></div><div class="fg"><label>Experience level</label><select id="pw-lvl"><option>Starting out (0&ndash;2 years)</option><option>Intermediate (2&ndash;5 years)</option><option>Experienced (5&ndash;10 years)</option><option>Senior / expert (10+ years)</option></select></div></div><div class="fr"><div class="fg"><label>Pricing model</label><select id="pw-mod"><option>Hourly rate</option><option>Project / fixed price</option><option>Monthly retainer</option><option>All three</option></select></div><div class="fg"><label>Target client size</label><select id="pw-cls"><option>Individuals / solopreneurs</option><option>Small businesses</option><option>Medium companies</option><option>Enterprise / corporates</option><option>Mix of all</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('pricemywork','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-pricemywork"></div></div>
-    <div id="wf-reviewreply" class="tpanel"><div class="tool-title">REVIEWREPLY</div><div class="tool-desc">Paste any review &mdash; get a professional response that wins customers.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Paste the review</label><textarea id="rv-rv" style="min-height:90px;" placeholder="Paste the review exactly as written..."></textarea></div><div class="fr"><div class="fg"><label>Your business type</label><input id="rv-biz" placeholder="e.g. Restaurant, software company, salon"></div><div class="fg"><label>Review sentiment</label><select id="rv-sent"><option>Negative / complaint</option><option>Mixed</option><option>Positive (to thank)</option><option>Fake / unfair</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('reviewreply','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-reviewreply"></div></div>
-    <div id="wf-studysnap" class="tpanel"><div class="tool-title">STUDYSNAP</div><div class="tool-desc">Paste your notes &mdash; get a summary, flashcards, and a quiz.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fg"><label>Paste your notes or content</label><textarea id="ss-notes" style="min-height:130px;" placeholder="Paste lecture notes, textbook content, or anything you need to study..."></textarea></div><div class="fr"><div class="fg"><label>Subject / topic</label><input id="ss-topic" placeholder="e.g. Business law, Python, HR management"></div><div class="fg"><label>Output format</label><select id="ss-fmt"><option>Summary + flashcards + quiz</option><option>Summary only</option><option>Flashcards only</option><option>Quiz only</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('studysnap','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-studysnap"></div></div>
-    <div id="wf-dailybrief" class="tpanel"><div class="tool-title">DAILYBRIEF</div><div class="tool-desc">Tell us your role &mdash; get a sharp 5-point briefing of what matters today.</div><div class="pay-notice pay-notice-wf">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your role / job title</label><input id="db-role" placeholder="e.g. Sales manager, startup founder, designer"></div><div class="fg"><label>Industry</label><input id="db-ind" placeholder="e.g. Tech, retail, consulting"></div></div><div class="fg"><label>What's on your plate today?</label><textarea id="db-today" placeholder="Key meetings, deadlines, priorities you're facing..."></textarea></div><div class="fr"><div class="fg"><label>Biggest challenge right now</label><input id="db-chal" placeholder="e.g. Hitting targets, difficult client, product launch"></div><div class="fg"><label>Energy level</label><select id="db-nrg"><option>High &mdash; let's go</option><option>Medium &mdash; need focus</option><option>Low &mdash; need motivation</option></select></div></div><button class="run-btn rbtn-wf" onclick="initPay('dailybrief','wf')">Pay &amp; Generate &rarr;</button><div class="out" id="out-dailybrief"></div></div>
-  </div>
-</div>
-
-<div id="view-privacy" class="view"><div class="policy-wrap"><div class="back-link" onclick="showView('home',null)">&larr; Back to home</div><h1>PRIVACY POLICY</h1><p class="policy-date">Last updated: May 2025 &middot; AI Business Solutions (Pty) Ltd</p><h2>Who We Are</h2><p>AIBS OS is operated by AI Business Solutions (Pty) Ltd, Registration No. 2025/651953/07. Contact: <a href="mailto:hello@aibsos.com" style="color:var(--ge);">hello@aibsos.com</a></p><h2>What We Collect</h2><ul><li>Payment information &mdash; processed securely by Paystack. We never store card details.</li><li>Input data &mdash; content you enter, used only to produce your output.</li><li>Basic usage analytics to improve the product.</li></ul><h2>How We Use It</h2><ul><li>To process your payment and deliver your result</li><li>To send payment confirmation to your email</li><li>To improve AIBS OS</li></ul><h2>Payments</h2><p>All payments processed by Paystack, a PCI-DSS compliant provider. Your card is never stored by AIBS OS.</p><h2>Your Rights</h2><p>Email <a href="mailto:hello@aibsos.com" style="color:var(--ge);">hello@aibsos.com</a> to request access, correction, or deletion of your data.</p><h2>Cookies</h2><p>Essential cookies only. No tracking or advertising cookies.</p></div></div>
-
-<div id="view-refund" class="view"><div class="policy-wrap"><div class="back-link" onclick="showView('home',null)">&larr; Back to home</div><h1>REFUND POLICY</h1><p class="policy-date">Last updated: May 2025 &middot; AI Business Solutions (Pty) Ltd</p><h2>Pay-Per-Result Model</h2><p>Each payment purchases one AI-generated result delivered immediately. All sales are generally final.</p><h2>When We Refund</h2><ul><li>You were charged but no result was generated due to a technical error on our side</li><li>You were charged more than once for the same result</li><li>The result was entirely unrelated to your inputs</li></ul><h2>How to Request</h2><p>Email <a href="mailto:hello@aibsos.com" style="color:var(--ge);">hello@aibsos.com</a> within 48 hours with your Paystack payment reference.</p><h2>Non-Refundable</h2><ul><li>You received your result but were not satisfied with the content</li><li>You entered incorrect or insufficient information</li><li>More than 48 hours have passed since purchase</li></ul></div></div>
-
-<div id="view-contact" class="view"><div class="policy-wrap"><div class="back-link" onclick="showView('home',null)">&larr; Back to home</div><h1>CONTACT US</h1><p class="policy-date">AI Business Solutions (Pty) Ltd &middot; Reg: 2025/651953/07</p><h2>General Enquiries</h2><p><a href="mailto:hello@aibsos.com" style="color:var(--ge);font-size:1rem;font-weight:600;">hello@aibsos.com</a></p><h2>Response Times</h2><ul><li>Payment / refund issues: within 2 business days</li><li>General enquiries: within 3 business days</li><li>Technical issues: within 1 business day</li></ul><h2>Business Information</h2><p>AI Business Solutions (Pty) Ltd<br>Registration No: 2025/651953/07<br>Website: www.aibsos.com</p></div></div>
-
-
+<div class="tpanel">
+<div class="tool-title">STUDYSNAP</div>
+<div class="tool-desc">Paste your notes — get a clean summary, flashcards, and a quiz. Study smarter, not harder.</div>
+<div class="pay-notice" style="background:rgba(61,107,255,.08);border-color:rgba(61,107,255,.2);color:var(--wf2);">&#128179; Pay via Paystack before your result is generated.</div>
+<div class="fg"><label>Paste your notes or content</label><textarea id="ss1" style="min-height:130px;" placeholder="Paste lecture notes, textbook content, or anything you need to study..."></textarea></div>
+<div class="fr"><div class="fg"><label>Subject / topic</label><input id="ss2" placeholder="e.g. Business law, Python, HR management"></div><div class="fg"><label>Output format</label><select id="ss3"><option>Summary + flashcards + quiz</option><option>Summary only</option><option>Flashcards only</option><option>Quiz only</option></select></div></div>
+<button class="run-btn" style="background:var(--wf);" onclick="openPay()">Pay &amp; Generate &rarr;</button>
+<div id="output" class="out"></div></div></div>
 <div class="modal-bg" id="pay-modal">
   <div class="modal">
     <h3 id="m-title">Pay to generate</h3>
-    <div class="modal-sub" id="m-tool">One result &middot; Delivered instantly</div>
-    <div class="modal-price-line" id="m-price-line">Pay once, get your result</div>
+    <div class="modal-sub" id="m-sub">One result &middot; Delivered instantly</div>
+    <div class="modal-price-line" id="m-price">Pay once, get your result</div>
     <div class="mfields">
       <div class="mrow">
         <div class="fg"><label>First name</label><input id="m-first" placeholder="James"></div>
@@ -614,713 +131,70 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     </div>
   </div>
 </div>
-
 <script>
+
 const PAYSTACK_KEY='pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33';
-const MKT_PRICES={ZAR:49700,USD:2700,NGN:4500000,GBP:2200,EUR:2500};
-const PRICES={ZAR:7500,USD:400,NGN:650000,GBP:320,EUR:370};
-const GE_PRICES={ZAR:31700,USD:1700,NGN:2800000,GBP:1350,EUR:1590};
+const WF_PRICES={ZAR:7500,USD:400,NGN:148000,GBP:320,EUR:372};
 const CURR_CODES={ZAR:'ZAR',USD:'USD',NGN:'NGN',GBP:'GBP',EUR:'EUR'};
-const GE_DISPLAY={ZAR:'R317',USD:'$17',NGN:'&#8358;28,000',GBP:'&pound;13.50',EUR:'&euro;15.90'};
-const WF_DISPLAY={ZAR:'R75',USD:'$4',NGN:'&#8358;6,500',GBP:'&pound;3.20',EUR:'&euro;3.70'};
-const CC={'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
-let cur='USD',pendingTool=null,pendingProduct=null;
+const CC={'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR'};
+let cur='ZAR';
+fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{cur=CC[d.country_code]||'ZAR';}).catch(()=>{});
 
-fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
-  cur=CC[d.country_code]||'USD';
-  const g=document.getElementById('price-ge-home');
-  const w=document.getElementById('price-wf-home');
-  if(g) g.innerHTML=GE_DISPLAY[cur]||'$17';
-  if(w) w.innerHTML=WF_DISPLAY[cur]||'$4';
-  // Update card prices
-  const wfPrice = WF_DISPLAY[cur]||'$4';
-  const gePrice = GE_DISPLAY[cur]||'$17';
-  document.querySelectorAll('.card-price-amt').forEach(el=>{ el.innerHTML=wfPrice; });
-  document.querySelectorAll('.card-price-amt-ge').forEach(el=>{ el.innerHTML=gePrice; });
-}).catch(()=>{cur='USD';});
-
-async function callAI(p){
-  const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:p}]})});
-  if(!r.ok) throw new Error('API error '+r.status);
-  const d=await r.json();
-  return d.content?.[0]?.text||'';
-}
-
-function setLoading(id){
-  const el=document.getElementById(id);
-  el.classList.add('show');
-  el.innerHTML='<span class="loading-txt">&#9889; Generating your result...</span>';
-  el.scrollIntoView({behavior:'smooth',block:'center'});
-}
-
-function setOutput(id,text){
-  const geT=['sell','pain','proposal','prep','objections','competitive','roi'];
-  const tool=id.replace('out-','');
-  const prod=geT.includes(tool)?'ge':'wf';
-  const fmt=text
-    .replace(/^## (.+)$/gm,'<h3>$1</h3>')
-    .replace(/^### (.+)$/gm,'<h3 style="font-size:.9rem;opacity:.8">$1</h3>')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/^- (.+)$/gm,'<li style="margin-bottom:.3rem">$1</li>')
-    .replace(/^(\d+)\. (.+)$/gm,'<li style="margin-bottom:.3rem"><strong>$1.</strong> $2</li>')
-    .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-  const el=document.getElementById(id);
-  el.innerHTML=fmt+'<div class="out-actions"><button class="out-btn" onclick="copyOut(\''+id+'\')">&#9166; Copy text</button><button class="out-btn" onclick="window.print()">&#9113; Print / PDF</button><button class="out-btn '+(prod==='ge'?'primary-ge':'primary-wf')+'" onclick="initPay(\''+pendingTool+'\',\''+pendingProduct+'\')">&#8635; Generate again</button></div>';
-  el.classList.add('show');
-}
-
-function copyOut(id){
-  const el=document.getElementById(id);
-  const c=el.cloneNode(true);
-  c.querySelector('.out-actions')&&c.querySelector('.out-actions').remove();
-  navigator.clipboard.writeText(c.innerText.trim()).then(()=>{
-    const btn=document.querySelector('#'+id+' .out-btn');
-    if(btn){const o=btn.textContent;btn.textContent='Copied!';setTimeout(()=>btn.textContent=o,2000);}
-  });
-}
-
-function showView(v,btn){
-
-  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
-  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on-home','on-ge','on-wf','on-mkt'));
-  if(btn){
-    if(v==='ge')btn.classList.add('on-ge');
-    else if(v==='wf')btn.classList.add('on-wf');
-    else if(v==='mkt')btn.classList.add('on-mkt');
-    else btn.classList.add('on-home');
-  }
-  window.scrollTo(0,0);
-}
-function showGE(id,btn){
-  document.querySelectorAll('#view-ge .tpanel').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('#view-ge .ptab').forEach(t=>t.classList.remove('on-ge'));
-  if(btn)btn.classList.add('on-ge');
-  else document.querySelectorAll('#view-ge .ptab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on-ge');});
-}
-function showWF(id,btn){
-  document.querySelectorAll('#view-wf .tpanel').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('#view-wf .ptab').forEach(t=>t.classList.remove('on-wf'));
-  if(btn)btn.classList.add('on-wf');
-  else document.querySelectorAll('#view-wf .ptab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on-wf');});
-}
-
-const REQ={'mkt-pitch':['pw-biz','pw-client','pw-prob'],'mkt-scale':['so-biz','so-svc'],'mkt-lead':['lm-role','lm-team'],'mkt-price':['pp-biz','pp-mkt'],sell:['sell-co','sell-ind'],pain:['pain-ind'],proposal:['prop-cl','prop-prob'],prep:['prep-co'],objections:['obj-said'],competitive:['comp-you'],roi:['roi-sol'],jobapply:['ja-jd'],docforge:['df-det'],replyright:['rr-em'],captionforge:['cf-desc'],meetingmind:['mm-notes'],checklistai:['cl-goal'],studysnap:['ss-notes'],contractcheck:['cc-ct'],pricemywork:['pw-svc'],reviewreply:['rv-rv'],threadforge:['tf-ct'],dailybrief:['db-role']};
-const TN={sell:'What Do I Sell?',pain:'Pain Finder',proposal:'Proposal Generator',prep:'Client Prep Engine',objections:'Objection Handler',competitive:'Competitive Intel',roi:'ROI Calculator',jobapply:'JobApply AI',docforge:'DocForge',replyright:'ReplyRight',captionforge:'CaptionForge',meetingmind:'MeetingMind',checklistai:'ChecklistAI',studysnap:'StudySnap',contractcheck:'ContractCheck',pricemywork:'PriceMyWork',reviewreply:'ReviewReply',threadforge:'ThreadForge',dailybrief:'DailyBrief',
-'sp-prospect':'Prospect Profiler','sm-proposal':'Proposal Machine','so-objections':'Objection Arsenal','sr-roi':'ROI Closer','sf-followup':'Follow-Up Sequence',
-'es-sitrep':'Strategic Situation Report','eo-okr':'OKR Builder','eb-board':'Board Deck Narrative','ed-decision':'Decision Framework','em-memo':'Executive Memo Generator',
-'ro-onboard':'Client Onboarding Blueprint','rr-review':'Quarterly Review System','ru-upsell':'Upsell Trigger Identifier','rf-refer':'Review & Referral Engine','rc-recover':'At-Risk Client Recovery',
-'bc-calendar':'90-Day Content Calendar','bt-thought':'Thought Leadership Engine','bh-hooks':'Hook Library','bp-repurpose':'Content Repurposer','bg-growth':'Audience Growth Playbook',
-'hj-jd':'Job Description Builder','hi-interview':'Interview Question System','hc-compare':'Candidate Comparison Matrix','ho-onboard':'Onboarding Plan Generator','hm-comms':'Offer & Rejection Templates',
-'lv-validate':'Business Model Validator','lp-price':'Pricing Strategy Engine','lg-gtm':'Go-To-Market Plan','lb-brand':'Brand Voice & Messaging Kit','lr-revenue':'Revenue Projection Model'};
-
-function initPay(tool,prod){
-  for(const id of(REQ[tool]||[])){if(!v(id)){alert('Please fill in all required fields.');return;}}
-  pendingTool=tool;pendingProduct=prod;
-  const display=prod==='ge'?GE_DISPLAY[cur]||'$17':prod==='mkt'?'R497 bundle':WF_DISPLAY[cur]||'$4';
-  document.getElementById('m-title').textContent=TN[tool]||tool;
-  document.getElementById('m-tool').textContent='One result \u00b7 Delivered instantly after payment';
-  document.getElementById('m-price-line').textContent=(display.replace(/&[^;]+;/g,s=>({'&pound;':'£','&euro;':'€','&#8358;':'₦'}[s]||s)))+' \u2014 pay once, get your result';
-  document.getElementById('m-paybtn').style.background=prod==='ge'?'#e8622a':'#3d6bff';
+function openPay(){
+  if(!validateFields())return;
+  document.getElementById('m-title').textContent='StudySnap';
+  document.getElementById('m-sub').textContent='One result &middot; Delivered instantly after payment';
+  document.getElementById('m-paybtn').style.background='#3d6bff';
+  
   document.getElementById('pay-modal').classList.add('open');
 }
 function closePay(){document.getElementById('pay-modal').classList.remove('open');}
 function doPaystack(){
-  const email=v('m-email'),first=v('m-first');
+  const email=document.getElementById('m-email')?.value?.trim();
+  const first=document.getElementById('m-first')?.value?.trim();
   if(!email||!first){alert('Please enter your name and email.');return;}
-  const prices=pendingProduct==='ge'?GE_PRICES:pendingProduct==='mkt'?MKT_PRICES:PRICES;
-  const amount=prices[cur]||prices['USD'];
-  PaystackPop.setup({key:PAYSTACK_KEY,email,amount,currency:CURR_CODES[cur]||'USD',ref:'AIBS_'+Date.now(),metadata:{custom_fields:[{display_name:'Tool',variable_name:'tool',value:pendingTool},{display_name:'Name',variable_name:'name',value:first+' '+v('m-last')},{display_name:'Product',variable_name:'product',value:pendingProduct}]},callback:(r)=>{closePay();generateResult(pendingTool,pendingProduct,r.reference);},onClose:()=>{}}).openIframe();
+  PaystackPop.setup({
+    key:PAYSTACK_KEY,email,
+    amount:WF_PRICES[cur]||WF_PRICES['ZAR'],
+    currency:CURR_CODES[cur]||'ZAR',
+    ref:'AIBS_'+Date.now(),
+    metadata:{custom_fields:[
+      {display_name:'Tool',variable_name:'tool',value:'StudySnap'},
+      {display_name:'Name',variable_name:'name',value:first+' '+(document.getElementById('m-last')?.value||'')},
+    ]},
+    callback:(r)=>{closePay();generate(r.reference);},
+    onClose:()=>{}
+  }).openIframe();
 }
-async function generateResult(tool,prod,ref){
-  const outId='out-'+tool;
-  setLoading(outId);
-  const prompt=buildPrompt(tool);
-  if(!prompt){document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Error. Please try again.</span>';return;}
-  try{const result=await callAI(prompt);setOutput(outId,result);}
-  catch(e){document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Connection error. Ref: <strong>'+ref+'</strong> \u2014 email hello@aibsos.com and we will process your result or refund you.</span>';}
-}
-
-function showMKT(id, btn) {
-  document.querySelectorAll('#view-mkt .tpanel').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('#view-mkt .ptab').forEach(t=>t.classList.remove('on-ge','on-wf','on-mkt'));
-  if(btn) btn.style.color='#f59e0b';
-  else document.querySelectorAll('#view-mkt .ptab').forEach(t=>{ if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'")) t.style.color='#f59e0b'; });
-}
-
-// Marketplace prompts
-const MKT_PROMPTS = {
-  'mkt-pitch': () => {
-    const biz=v('pw-biz'),client=v('pw-client'),prob=v('pw-prob'),sol=v('pw-sol'),deal=v('pw-deal'),dm=v('pw-dm');
-    if(!biz||!client||!prob) return null;
-    return `You are generating the PITCH & WIN BUNDLE — a premium set of 5 business documents for a high-value sales situation.
-
-Business: ${biz} | Target client: ${client} | Decision maker: ${dm||'The decision maker'}
-Problem solved: ${prob} | Solution offered: ${sol||'A tailored solution'} | Deal value: ${deal||'Significant investment'}
-
-Generate ALL 5 documents in full, clearly separated with ## headers:
-
-## 01. EXECUTIVE BUSINESS PROPOSAL
-A complete, persuasive 4-section proposal. Executive summary, the problem, our solution, investment & ROI. Professional, warm, specific. Minimum 400 words.
-
-## 02. ONE-PAGE EXECUTIVE SUMMARY
-A tight, punchy one-pager. The problem (2 sentences), the solution (2 sentences), why us (3 bullet points), the investment, the expected outcome. Built for a busy executive who has 60 seconds.
-
-## 03. ROI BUSINESS CASE
-A detailed return-on-investment analysis. Quantify what the problem costs them now (time, money, opportunity). Then quantify what the solution delivers. Show 3-month and 12-month projections. Use specific numbers — estimate confidently where needed.
-
-## 04. OBJECTION & RESPONSE PLAYBOOK
-The 6 most likely objections for this deal, with 2 confident responses each. Objections: price, timing, trust, internal approval, existing solution, risk. Responses must be commercially sharp and ready to say out loud.
-
-## 05. 5-TOUCH FOLLOW-UP EMAIL SEQUENCE
-Five emails: Day 1 (recap), Day 3 (value add), Day 7 (case study/social proof), Day 14 (decision nudge), Day 21 (last chance/final value). Each email has a subject line and 3-4 sentence body. Ready to send.`;
-  },
-  'mkt-scale': () => {
-    const biz=v('so-biz'),chal=v('so-chal'),team=v('so-team'),rev=v('so-rev'),svc=v('so-svc');
-    if(!biz||!svc) return null;
-    return `You are generating the SCALE & OPERATE BUNDLE — a premium set of 5 operational documents for a growing business.
-
-Business: ${biz} | Challenge: ${chal||'Scaling operations'} | Team: ${team||'Growing team'} | Revenue stage: ${rev} | Core services: ${svc}
-
-Generate ALL 5 documents in full, clearly separated with ## headers:
-
-## 01. CORE SOP LIBRARY — 5 KEY PROCESSES
-Write 5 detailed Standard Operating Procedures for the most critical recurring processes in this business. Each SOP: purpose, who does it, step-by-step process (numbered), quality checks, what good looks like.
-
-## 02. TEAM ONBOARDING PACK
-A complete new hire onboarding document. Company overview, culture and values, role expectations in week 1/month 1/month 3, who to talk to for what, tools and systems, first-week checklist.
-
-## 03. KPI DASHBOARD & SCORECARD
-A practical KPI framework for this business. 8-10 key metrics across revenue, operations, team performance and customer success. For each: what it measures, target, how to track, review cadence.
-
-## 04. PROCESS AUDIT & GAP REPORT
-An honest assessment of what operational gaps likely exist in this type of business at this stage. For each gap: what's missing, what it's costing, what to fix first, and the recommended action.
-
-## 05. 90-DAY SCALING ROADMAP
-A week-by-week action plan for the next 90 days. Month 1: stabilise. Month 2: systematise. Month 3: scale. Specific actions for each week, who owns them, what success looks like at the end of each month.`;
-  },
-  'mkt-lead': () => {
-    const role=v('lm-role'),chal=v('lm-chal'),team=v('lm-team'),culture=v('lm-culture'),goal=v('lm-goal');
-    if(!role||!team) return null;
-    return `You are generating the LEAD & MANAGE BUNDLE — a premium set of 5 leadership documents for a business leader.
-
-Role & context: ${role} | Team: ${team} | Challenge: ${chal||'Leading effectively'} | Culture: ${culture||'Growing business'} | 90-day goal: ${goal||'Build a high-performing team'}
-
-Generate ALL 5 documents in full, clearly separated with ## headers:
-
-## 01. PERFORMANCE MANAGEMENT FRAMEWORK
-A complete system for managing team performance. Goal-setting process (OKRs/KPIs), performance review cadence, how to have performance conversations, what to do when someone is underperforming, recognition system.
-
-## 02. WEEKLY TEAM BRIEF TEMPLATE
-A ready-to-use weekly team brief structure. Sections: last week wins, this week priorities, blockers to address, numbers to know, one thing to remember. Includes a filled example for this specific context.
-
-## 03. 1:1 MEETING & FEEDBACK SYSTEM
-A complete 1:1 system. How often to run them, what questions to ask (5 openers, 5 performance questions, 5 development questions), how to give feedback (model + examples), how to close, how to follow up.
-
-## 04. STRATEGIC DECISION-MAKING GUIDE
-A framework for making better decisions faster as a leader. When to decide alone vs involve the team, a decision matrix for common leadership scenarios, how to communicate decisions, how to review decisions that didn't land.
-
-## 05. LEADERSHIP COMMUNICATION PLAYBOOK
-How this leader should communicate across key situations: difficult conversations, good news, bad news, vision and direction, conflict, uncertainty. For each: the right framing, what to say, what to avoid, an example opener.`;
-  },
-  'mkt-price': () => {
-    const biz=v('pp-biz'),mkt=v('pp-mkt'),cur=v('pp-cur'),comp=v('pp-comp'),diff=v('pp-diff'),ideal=v('pp-ideal');
-    if(!biz||!mkt) return null;
-    return `You are generating the PRICE & POSITION BUNDLE — a premium set of 5 pricing and positioning documents.
-
-Business: ${biz} | Market: ${mkt} | Current pricing: ${cur||'To be determined'} | Competitors: ${comp||'Various'} | Differentiator: ${diff||'Quality and expertise'} | Ideal client: ${ideal||'Mid-market businesses'}
-
-Generate ALL 5 documents in full, clearly separated with ## headers:
-
-## 01. FULL PRICING STRATEGY & RATE CARD
-A complete pricing framework. Recommended rates for different tiers (entry, standard, premium), how to price by project vs retainer vs hourly, when to discount (and when not to), how to present price, what to say when challenged on price. Include a structured rate card template.
-
-## 02. COMPETITIVE GAP MAP
-A detailed analysis of where competitors likely win and lose in this market. For each gap identified: what competitors fail to do, how this business can fill the gap, what to say to highlight it, and how to make it a selling point.
-
-## 03. VALUE PROPOSITION STATEMENT
-Three versions of the value proposition: one sentence (for intro), one paragraph (for proposals), and a full positioning statement (for website/marketing). Each version must be specific, commercially compelling, and avoid generic language.
-
-## 04. OFFER DESIGN FRAMEWORK
-How to structure and package what this business sells for maximum perceived value and conversion. Core offer, upsells, what to include/exclude, how to name the offer, how to present it, what makes it irresistible to the ideal client.
-
-## 05. POSITIONING STATEMENT & MESSAGING GUIDE
-A complete messaging guide. Positioning statement (who you serve, what you do, why you win), the 5 messages that should run through all marketing and sales, what words to use and avoid, how to describe the business in 10 seconds, 30 seconds, and 2 minutes.`;
+async function generate(ref){
+  const out=document.getElementById('output');
+  out.style.display='block';
+  out.innerHTML='<span style="font-family:\'JetBrains Mono\',monospace;font-size:.78rem;color:#5a5550;">&#9889; Generating your result...</span>';
+  out.scrollIntoView({behavior:'smooth',block:'center'});
+  const prompt=buildPrompt();
+  if(!prompt){out.innerHTML='<span style="color:#ff6b6b">Please fill in all required fields first.</span>';return;}
+  try{
+    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});
+    if(!r.ok)throw new Error(r.status);
+    const d=await r.json();
+    const text=d.content?.[0]?.text||'';
+    const fmt=text
+      .replace(/^## (.+)$/gm,'<h3>$1</h3>')
+      .replace(/^### (.+)$/gm,'<h3 style="font-size:.9rem;opacity:.8">$1</h3>')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+      .replace(/^- (.+)$/gm,'<li style="margin-bottom:.3rem">$1</li>')
+      .replace(/^(\d+)\. (.+)$/gm,'<li style="margin-bottom:.3rem"><strong>$1.</strong> $2</li>')
+      .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    out.innerHTML=fmt+'<div class="out-actions"><button class="out-btn" onclick="doCopy()">&#9166; Copy</button><button class="out-btn" onclick="window.print()">&#9113; Print</button><button class="out-btn" style="background:#3d6bff;color:white;border-color:#3d6bff;" onclick="openPay()">&#8635; Again</button></div>';
+    out.classList.add('show');
+  }catch(e){
+    out.innerHTML='<span style="color:#ff6b6b">Error. Ref: <strong>'+ref+'</strong> — email hello@aibsos.com</span>';
   }
-};
-
-function buildPrompt(tool){
-  const P={
-    proposal:()=>{const cl=v('prop-cl'),prob=v('prop-prob');if(!cl||!prob)return null;return `You are Growth Engine Proposal Generator. Write a complete persuasive business proposal:\nFrom: ${v('prop-you')||'AIBS OS'} | To: ${cl} | Contact: ${v('prop-con')||'Decision maker'} | Industry: ${v('prop-ind')} | Problem: ${prob} | Solution: ${v('prop-sol')||'AI solution'} | Price: ${v('prop-price')||'TBD'}\n\n## EXECUTIVE SUMMARY\n## THE PROBLEM\n## OUR SOLUTION\n## WHY US\n## INVESTMENT & ROI\n## NEXT STEPS\nProfessional, warm, persuasive. Minimum 500 words. Include specific details and numbers.`;},
-    sell:()=>{const co=v('sell-co'),ind=v('sell-ind');if(!co||!ind)return null;return `You are Growth Engine. CEO-level sell strategy:\nCompany: ${co} | Industry: ${ind} | Size: ${v('sell-sz')} | What I sell: ${v('sell-off')||'AI solutions'} | Context: ${v('sell-ctx')||'None'}\n\n## THEIR LIKELY PROBLEMS\n## BUSINESS IMPACT\n## TOP 3 SOLUTIONS TO PITCH\n## HOW TO OPEN THE CONVERSATION\n## REVENUE OPPORTUNITY\nSpecific, commercially sharp. Minimum 400 words.`;},
-    objections:()=>{const said=v('obj-said');if(!said)return null;return `You are Growth Engine Objection Handler. Client said: "${said}"\nSelling: ${v('obj-off')||'AI solution'} | Context: ${v('obj-ctx')||'B2B sales'}\n\n## RESPONSE 1 - REFRAME\n## RESPONSE 2 - EMPATHISE AND REDIRECT\n## RESPONSE 3 - DIRECT AND CONFIDENT\n## FOLLOW-UP QUESTION\nEach response 3-5 sentences.`;},
-    prep:()=>{const co=v('prep-co');if(!co)return null;return `You are Growth Engine Client Prep Engine:\nCompany: ${co} | Industry: ${v('prep-ind')} | Size: ${v('prep-sz')} | Selling: ${v('prep-off')||'AI solutions'} | Context: ${v('prep-ctx')||'None'}\n\n## PAIN POINTS TO REFERENCE\n## SMART QUESTIONS TO ASK\n## ROI FRAMING\n## LIKELY OBJECTIONS AND HOW TO HANDLE THEM\n## FOLLOW-UP EMAIL TEMPLATE\nMinimum 400 words. Include a complete follow-up email.`;},
-    pain:()=>{const ind=v('pain-ind');if(!ind)return null;return `You are Growth Engine Pain Finder:\nBusiness: ${v('pain-co')||'A business'} | Industry: ${ind} | Size: ${v('pain-sz')} | Selling: ${v('pain-off')||'AI solutions'} | Challenges: ${v('pain-ctx')||'None'}\n\n## TOP PAIN POINTS (5 ranked by severity)\n## PAIN POINT DEEP DIVE (top 3)\n## SOLUTION MATCH (fit score out of 10)\n## BEST ENTRY POINT`;},
-    competitive:()=>{const you=v('comp-you');if(!you)return null;return `You are Growth Engine Competitive Intel:\nMy product: ${you} | Market: ${v('comp-mkt')||'SMEs globally'} | Competitors: ${v('comp-comp')||'Unknown'} | Strengths: ${v('comp-str')||'Not specified'}\n\n## COMPETITIVE POSITION\n## MY REAL DIFFERENTIATORS\n## COMPETITOR WEAKNESSES TO EXPLOIT\n## WHEN I WIN\n## POSITIONING STATEMENT\n## WINNING PITCH`;},
-    roi:()=>{const sol=v('roi-sol');if(!sol)return null;return `You are Growth Engine ROI Calculator:\nClient: ${v('roi-co')||'The client'} | Industry: ${v('roi-ind')} | Employees: ${v('roi-emp')||'Unknown'} | Revenue: ${v('roi-rev')||'Not provided'} | Solution: ${sol} | Price: ${v('roi-pr')||'TBD'}\n\n## WHAT THIS COSTS THEM NOW\n## WHAT MY SOLUTION DELIVERS\n## ROI CALCULATION\n## 3-MONTH IMPACT\n## 12-MONTH IMPACT\n## HOW TO PRESENT THIS\nUse specific numbers.`;},
-    jobapply:()=>{const jd=v('ja-jd');if(!jd)return null;return `You are WorkForge JobApply AI. Write a tailored cover letter:\nApplicant: ${v('ja-name')||'The applicant'} | Tone: ${v('ja-tone')}\nJob description: ${jd}\nBackground: ${v('ja-bg')||'Strong relevant professional'}\n3-4 paragraphs. Lead with value. Human, specific, compelling.`;},
-    docforge:()=>{const det=v('df-det');if(!det)return null;return `You are WorkForge DocForge. Generate a professional ${v('df-type')}:\nFrom: ${v('df-you')||'My company'} | To: ${v('df-cl')||'The client'} | Amount: ${v('df-amt')||'TBD'} | Details: ${det}\nComplete, professional, ready to send. All standard sections. Minimum 400 words.`;},
-    replyright:()=>{const em=v('rr-em');if(!em)return null;return `You are WorkForge ReplyRight. Generate 3 email replies:\nEmail: "${em}" | Context: ${v('rr-ctx')||'Professional'} | Goal: ${v('rr-goal')}\n\n## REPLY 1 - PROFESSIONAL\n## REPLY 2 - DIRECT\n## REPLY 3 - WARM\nEach complete and ready to send. 4-6 sentences each.`;},
-    captionforge:()=>{const desc=v('cf-desc');if(!desc)return null;return `You are WorkForge CaptionForge. Generate 5 captions:\nPost: ${desc} | Platform: ${v('cf-plat')} | Tone: ${v('cf-tone')}\nNumber 1-5. Each with 5-8 hashtags. Vary hooks.`;},
-    meetingmind:()=>{const notes=v('mm-notes');if(!notes)return null;return `You are WorkForge MeetingMind:\nType: ${v('mm-type')} | Notes: "${notes}"\n\n## MEETING SUMMARY\n## KEY DECISIONS MADE\n## ACTION ITEMS (Task | Owner | Deadline)\n## OPEN QUESTIONS\n## FOLLOW-UP EMAIL\nInclude complete subject line and email body from ${v('mm-name')||'the organiser'}.`;},
-    checklistai:()=>{const goal=v('cl-goal');if(!goal)return null;return `You are WorkForge ChecklistAI:\nGoal: ${goal} | Time: ${v('cl-time')} | Constraints: ${v('cl-ctx')||'None'}\n\n## PRIORITY CHECKLIST (numbered with time estimates)\n## QUICK WINS\n## POTENTIAL BLOCKERS\n## SUCCESS METRICS`;},
-    studysnap:()=>{const notes=v('ss-notes');if(!notes)return null;return `You are WorkForge StudySnap:\nTopic: ${v('ss-topic')||'General'} | Format: ${v('ss-fmt')} | Notes: "${notes}"\nGenerate the requested format accurately.`;},
-    contractcheck:()=>{const ct=v('cc-ct');if(!ct)return null;return `You are WorkForge ContractCheck. Analyse from perspective of ${v('cc-role')}. Concern: ${v('cc-con')}\nContract: "${ct}"\n\n## PLAIN ENGLISH SUMMARY\n## RED FLAGS\n## WHAT TO NEGOTIATE\n## WHAT IS MISSING\n## OVERALL RISK LEVEL (Low/Medium/High)\nNote: AI analysis only - consult a lawyer for legal decisions.`;},
-    pricemywork:()=>{const svc=v('pw-svc');if(!svc)return null;return `You are WorkForge PriceMyWork:\nService: ${svc} | Market: ${v('pw-mkt')||'Global'} | Experience: ${v('pw-lvl')} | Model: ${v('pw-mod')} | Clients: ${v('pw-cls')}\n\n## RECOMMENDED RATE (specific numbers)\n## RATE BREAKDOWN\n## WHY THIS RATE IS JUSTIFIED\n## HOW TO PRESENT YOUR PRICE\n## WHEN TO CHARGE MORE\n## RED FLAGS`;},
-    reviewreply:()=>{const rv=v('rv-rv');if(!rv)return null;return `You are WorkForge ReviewReply. Professional response to this ${v('rv-sent')} review:\nBusiness: ${v('rv-biz')||'A business'} | Review: "${rv}"\n3-5 sentences. Human, warm, never defensive.`;},
-    threadforge:()=>{const ct=v('tf-ct');if(!ct)return null;return `You are WorkForge ThreadForge. Viral X/Twitter thread:\nContent: "${ct}" | Audience: ${v('tf-nic')||'Professionals'} | Style: ${v('tf-sty')}\n8-12 tweets numbered 1/ 2/ etc. Hook on tweet 1. CTA at end. Under 280 chars each.`;},
-    dailybrief:()=>{const role=v('db-role');if(!role)return null;return `You are WorkForge DailyBrief:\nRole: ${role} | Industry: ${v('db-ind')||'Not specified'} | Today: ${v('db-today')||'General workday'} | Challenge: ${v('db-chal')||'Not specified'} | Energy: ${v('db-nrg')}\n\n1. YOUR NUMBER 1 PRIORITY TODAY\n2. WHAT TO PROTECT YOUR TIME FROM\n3. A MINDSET SHIFT FOR TODAY\n4. QUICK WIN TO BUILD MOMENTUM\n5. HOW TO END THE DAY WELL`;}
-  };
-  if(MKT_PROMPTS[tool]) return MKT_PROMPTS[tool]();
-  return P[tool]?.()||null;
 }
 function v(id){return document.getElementById(id)?.value?.trim()||'';}
-
-// ── HOME PAGE DYNAMIC CONTENT ─────────────────────────────────────────────────
-
-function submitContact() {
-  const name=v('cf-name'),email=v('cf-email');
-  if(!name||!email){alert('Please enter your name and email.');return;}
-  const btn=document.querySelector('.cta-submit');
-  btn.textContent='Sending...';btn.disabled=true;
-  setTimeout(()=>{
-    document.getElementById('cf-msg').style.display='block';
-    btn.textContent='Sent!';
-    ['cf-name','cf-email','cf-company','cf-detail'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  },800);
-}
-
-// Init home on load
-// Update card prices based on location
-function updateCardPrices() {
-  var geEl = document.getElementById('ge-card-price');
-  var wfEl = document.getElementById('wf-card-price');
-  if(geEl) geEl.textContent = GE_DISPLAY[cur] || '$17';
-  if(wfEl) wfEl.textContent = WF_DISPLAY[cur] || '$4';
-}
-
-window.addEventListener('DOMContentLoaded', updateCardPrices);
-function qObj(txt){document.getElementById('obj-said').value=txt;}
-
-function showMKT(id, btn) {
-  document.querySelectorAll('#view-mkt .tpanel').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('#view-mkt .ptab').forEach(t=>t.classList.remove('on-mkt-tab'));
-  if(btn) btn.classList.add('on-mkt-tab');
-  else document.querySelectorAll('#view-mkt .ptab').forEach(t=>{ if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('on-mkt-tab'); });
-}
-document.getElementById('pay-modal').addEventListener('click',e=>{if(e.target===document.getElementById('pay-modal'))closePay();});
-// footer is in HTML directly
-</script>
-
-<!-- MARKETPLACE VIEW -->
-
-<div id="view-life" class="view">
-  <div class="pshell">
-    <div class="ptopbar">
-      <div class="ptopbar-name" style="color:#9ca3af;">LIFEBOARD</div>
-      <div class="ptabs">
-        <button class="ptab on-wf" onclick="showLife('life-home',this)">🏠 Home</button>
-        <button class="ptab" onclick="showLife('life-daily',this)">Daily Reset</button>
-        <button class="ptab" onclick="showLife('life-priorities',this)">Priority Planner</button>
-        <button class="ptab" onclick="showLife('life-journal',this)">Clarity Journal</button>
-      </div>
-      <div class="ptopbar-price lifeboard-price">Pay per result</div>
-    </div>
-
-    <div id="life-home" class="tpanel active">
-      <div class="sl" style="margin-top:.5rem;">LifeBoard · 3 personal AI tools</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">PLAN YOUR DAY. PROTECT YOUR ENERGY.</h2>
-      <p style="color:var(--text2);font-size:.875rem;margin-bottom:1.5rem;max-width:620px;">LifeBoard helps busy people turn mental clutter into clear next steps. Choose a tool, add your context, and get a practical output you can use immediately.</p>
-      <div class="wf-grid">
-        <div class="wf-card" onclick="showLife('life-daily',null)"><div class="card-icon">☀️</div><div class="card-name">DAILY RESET</div><div class="card-desc">Turn a messy day into a calm, realistic plan.</div><div class="card-price cp-wf lifeboard-price" style="opacity:1;">$4</div></div>
-        <div class="wf-card" onclick="showLife('life-priorities',null)"><div class="card-icon">🎯</div><div class="card-name">PRIORITY PLANNER</div><div class="card-desc">Sort your task list into what matters, what can wait, and what to drop.</div><div class="card-price cp-wf lifeboard-price" style="opacity:1;">$4</div></div>
-        <div class="wf-card" onclick="showLife('life-journal',null)"><div class="card-icon">📝</div><div class="card-name">CLARITY JOURNAL</div><div class="card-desc">Write freely and receive a grounded reflection with one clean next step.</div><div class="card-price cp-wf lifeboard-price" style="opacity:1;">$4</div></div>
-      </div>
-    </div>
-
-    <div id="life-daily" class="tpanel">
-      <div class="tool-title">DAILY RESET</div>
-      <div class="tool-desc">Tell LifeBoard what is on your plate and get a simple, grounded plan for the day.</div>
-      <div class="pay-notice-wf">Pay via Paystack before your result is generated.</div>
-      <div class="fg"><label>What is on your mind today?</label><textarea id="lf-mind" placeholder="List your tasks, worries, deadlines, responsibilities or thoughts..."></textarea></div>
-      <div class="fr"><div class="fg"><label>Energy level</label><select id="lf-energy"><option>Low</option><option>Medium</option><option>High</option></select></div><div class="fg"><label>Main goal</label><input id="lf-goal" placeholder="e.g. Stay calm and finish the most important tasks"></div></div>
-      <button class="run-btn rbtn-wf" onclick="generateLife('daily')">Pay &amp; Generate →</button>
-      <div class="out" id="out-life-daily"></div>
-    </div>
-
-    <div id="life-priorities" class="tpanel">
-      <div class="tool-title">PRIORITY PLANNER</div>
-      <div class="tool-desc">Paste your task list and get your top priorities, easy wins, and what to postpone.</div>
-      <div class="pay-notice-wf">Pay via Paystack before your result is generated.</div>
-      <div class="fg"><label>Your task list</label><textarea id="lf-tasks" placeholder="Paste everything you think you need to do..."></textarea></div>
-      <div class="fg"><label>Available time</label><input id="lf-time" placeholder="e.g. this evening, 2 hours, one workday"></div>
-      <button class="run-btn rbtn-wf" onclick="generateLife('priorities')">Pay &amp; Generate →</button>
-      <div class="out" id="out-life-priorities"></div>
-    </div>
-
-    <div id="life-journal" class="tpanel">
-      <div class="tool-title">CLARITY JOURNAL</div>
-      <div class="tool-desc">Write freely and get a calm reflection, pattern summary, and one next step.</div>
-      <div class="pay-notice-wf">Pay via Paystack before your result is generated.</div>
-      <div class="fg"><label>Write what happened or how you feel</label><textarea id="lf-journal" placeholder="Write naturally..."></textarea></div>
-      <div class="fg"><label>What do you want from this?</label><select id="lf-need"><option>Clarity</option><option>Decision support</option><option>Emotional reset</option><option>Action plan</option></select></div>
-      <button class="run-btn rbtn-wf" onclick="generateLife('journal')">Pay &amp; Generate →</button>
-      <div class="out" id="out-life-journal"></div>
-    </div>
-  </div>
-</div>
-
-
-<div id="view-mkt" class="view">
-  <div class="pshell">
-    <div class="ptopbar">
-      <div class="ptopbar-name" style="color:#f59e0b;">MARKETPLACE BUNDLES</div>
-      <div class="ptabs">
-        <button class="ptab on-mkt-tab" onclick="showMKT('mkt-home',this)">&#127968; All bundles</button>
-        <button class="ptab" onclick="showMKT('mkt-sales',this)">Sales Domination</button>
-        <button class="ptab" onclick="showMKT('mkt-exec',this)">Executive Pack</button>
-        <button class="ptab" onclick="showMKT('mkt-retain',this)">Client Retention</button>
-        <button class="ptab" onclick="showMKT('mkt-brand',this)">Brand Authority</button>
-        <button class="ptab" onclick="showMKT('mkt-hire',this)">Hiring Intelligence</button>
-        <button class="ptab" onclick="showMKT('mkt-launch',this)">Launch Accelerator</button>
-      </div>
-      <div class="ptopbar-price">Pay per result</div>
-    </div>
-
-    <!-- MARKETPLACE HOME -->
-    <div id="mkt-home" class="tpanel active">
-      <div class="sl" style="margin-top:.5rem;">AIBS Marketplace &middot; 6 high-ticket AI systems</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">COMPLETE AI SYSTEMS. ONE PAYMENT.</h2>
-      <p style="color:var(--text2);font-size:.875rem;margin-bottom:1.5rem;max-width:560px;">Each bundle is a complete AI system built around a specific high-value business problem. Not one tool &mdash; a full system. Pay once, use every output immediately.</p>
-      <div class="wf-grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr));">
-        <div class="wf-card" onclick="showMKT('mkt-sales',null)"><div class="card-num" style="color:#e8622a;">01</div><div class="card-name">SALES DOMINATION SYSTEM</div><div class="card-desc">Prospect to signed contract. Full AI sales machine for any industry, any deal size.</div><div class="card-price cp-ge" style="opacity:1;color:#e8622a;">R4,997 once-off</div></div>
-        <div class="wf-card" onclick="showMKT('mkt-exec',null)"><div class="card-num" style="color:#7c3aed;">02</div><div class="card-name">EXECUTIVE DECISION PACK</div><div class="card-desc">Strategic clarity at AI speed. For founders and executives who need to think faster.</div><div class="card-price" style="opacity:1;color:#7c3aed;">R6,997 once-off</div></div>
-        <div class="wf-card" onclick="showMKT('mkt-retain',null)"><div class="card-num" style="color:#059669;">03</div><div class="card-name">CLIENT RETENTION ENGINE</div><div class="card-desc">Keep clients longer, spend more. Onboarding to renewal, fully systemised.</div><div class="card-price" style="opacity:1;color:#059669;">R5,497 once-off</div></div>
-        <div class="wf-card" onclick="showMKT('mkt-brand',null)"><div class="card-num" style="color:#d97706;">04</div><div class="card-name">BRAND AUTHORITY CONTENT SYSTEM</div><div class="card-desc">90 days of content that builds authority, generates leads and makes competitors irrelevant.</div><div class="card-price" style="opacity:1;color:#d97706;">R4,497 once-off</div></div>
-        <div class="wf-card" onclick="showMKT('mkt-hire',null)"><div class="card-num" style="color:#0284c7;">05</div><div class="card-name">HIRING & TALENT INTELLIGENCE</div><div class="card-desc">Hire the right people faster. Full recruitment and onboarding system for any role.</div><div class="card-price" style="opacity:1;color:#0284c7;">R5,997 once-off</div></div>
-        <div class="wf-card" onclick="showMKT('mkt-launch',null)"><div class="card-num" style="color:#16a34a;">06</div><div class="card-name">BUSINESS LAUNCH ACCELERATOR</div><div class="card-desc">Everything a new or scaling business needs to launch with credibility and momentum.</div><div class="card-price" style="opacity:1;color:#16a34a;">R7,997 once-off</div></div>
-      </div>
-    </div>
-
-    <!-- 1. SALES DOMINATION SYSTEM -->
-    <div id="mkt-sales" class="tpanel">
-      <div class="tool-title" style="color:#e8622a;">SALES DOMINATION SYSTEM</div>
-      <div class="tool-desc">A full AI-powered sales machine &mdash; from cold prospect to signed contract. Works for any product, any industry, any deal size. Five tools. One system. Maximum close rate.</div>
-      <div class="pay-notice">Pay via Paystack before your result is generated.</div>
-      <div class="sl">Choose your tool</div>
-      <div class="ge-grid" style="margin-bottom:1.5rem;">
-        <div class="ge-card" onclick="showMKT('mkt-s-prospect',null)"><div class="card-icon">&#128269;</div><div class="card-name">PROSPECT PROFILER</div><div class="card-desc">Deep intel on any company &mdash; pain, budget signals, decision makers, best entry point.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-s-proposal',null)"><div class="card-icon">&#128196;</div><div class="card-name">PROPOSAL MACHINE</div><div class="card-desc">Boardroom-ready proposal in 60 seconds, tailored to the exact problem and prospect.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-s-obj',null)"><div class="card-icon">&#128737;</div><div class="card-name">OBJECTION ARSENAL</div><div class="card-desc">Every sales objection pre-handled with 3 commercially sharp responses each.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-s-roi',null)"><div class="card-icon">&#128200;</div><div class="card-name">ROI CLOSER</div><div class="card-desc">Show exactly what the client gains, loses and risks by not acting. Numbers that close.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-s-followup',null)"><div class="card-icon">&#128140;</div><div class="card-name">FOLLOW-UP SEQUENCE</div><div class="card-desc">5-touch email sequence that reopens dead deals and keeps warm leads moving.</div></div>
-      </div>
-    </div>
-
-    <div id="mkt-s-prospect" class="tpanel"><div class="tool-title">PROSPECT PROFILER</div><div class="tool-desc">Enter any company. Get a deep strategic profile &mdash; their pain, the decision makers, budget signals, the best entry point, and exactly how to open the conversation.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Company name</label><input id="sp-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="sp-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Logistics &amp; Supply Chain</option><option>Professional Services</option><option>Hospitality &amp; Tourism</option><option>Agriculture</option><option>Other</option></select></div></div><div class="fr"><div class="fg"><label>Estimated company size</label><select id="sp-sz"><option>Under 50 employees</option><option>50&ndash;200 employees</option><option>200&ndash;500 employees</option><option>500&ndash;2000 employees</option><option>2000+ employees</option></select></div><div class="fg"><label>What you sell</label><input id="sp-off" placeholder="e.g. AI business solutions"></div></div><div class="fg"><label>Any intel you have on them (optional)</label><textarea id="sp-ctx" placeholder="Recent news, challenges, things they've said, people you know there..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('sp-prospect','mkt')">Pay &amp; Generate &rarr;</button><div class="out" id="out-sp-prospect"></div></div>
-
-    <div id="mkt-s-proposal" class="tpanel"><div class="tool-title">PROPOSAL MACHINE</div><div class="tool-desc">Generate a complete, boardroom-ready business proposal. Tailored to the exact problem, persuasive from first line to last, ready to send.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your company</label><input id="sm-you" placeholder="e.g. Apex Solutions"></div><div class="fg"><label>Prospect / client</label><input id="sm-cl" placeholder="e.g. Global Retail Co"></div></div><div class="fr"><div class="fg"><label>Contact name &amp; title</label><input id="sm-con" placeholder="e.g. Sarah Miller, CEO"></div><div class="fg"><label>Industry</label><select id="sm-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Professional Services</option><option>Other</option></select></div></div><div class="fg"><label>The exact problem they have</label><textarea id="sm-prob" placeholder="Be specific &mdash; what pain, what cost, what risk are they facing?"></textarea></div><div class="fr"><div class="fg"><label>Your solution</label><input id="sm-sol" placeholder="e.g. AI-powered business automation system"></div><div class="fg"><label>Investment / price</label><input id="sm-price" placeholder="e.g. R85,000 once-off"></div></div><div class="fg"><label>Your key differentiators</label><textarea id="sm-diff" placeholder="Why you specifically, over anyone else?"></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('sm-proposal','mkt')">Pay &amp; Generate &rarr;</button><div class="out" id="out-sm-proposal"></div></div>
-
-    <div id="mkt-s-obj" class="tpanel"><div class="tool-title">OBJECTION ARSENAL</div><div class="tool-desc">Pre-handle every objection before you walk into the room. Get 3 commercially grounded responses for each, plus a follow-up question to keep the deal moving.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>What is the client likely to say? (add all objections)</label><textarea id="so-obj" style="min-height:100px;" placeholder="e.g. Too expensive, We already have a system, Need board approval, Not the right time..."></textarea></div><div class="fr"><div class="fg"><label>What you sell</label><input id="so-off" placeholder="e.g. Custom AI business system"></div><div class="fg"><label>Typical deal value</label><input id="so-val" placeholder="e.g. R50,000&ndash;R200,000"></div></div><div class="fg"><label>Your strongest proof points</label><textarea id="so-proof" placeholder="Case studies, results, testimonials, guarantees you can reference..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('so-objections','mkt')">Pay &amp; Generate &rarr;</button><div class="out" id="out-so-objections"></div></div>
-
-    <div id="mkt-s-roi" class="tpanel"><div class="tool-title">ROI CLOSER</div><div class="tool-desc">Turn your solution into a number. Show exactly what the client gains, what they lose by waiting, and what the cost of inaction is. The document that closes high-ticket deals.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Client company</label><input id="sr-co" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="sr-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Professional Services</option><option>Other</option></select></div></div><div class="fr"><div class="fg"><label>Their annual revenue / payroll</label><input id="sr-rev" placeholder="e.g. R50,000,000 / year"></div><div class="fg"><label>Number of employees</label><input id="sr-emp" type="number" placeholder="e.g. 200"></div></div><div class="fg"><label>What your solution does for them (be specific)</label><textarea id="sr-sol" placeholder="e.g. Automates 8 hours/week of manual reporting per manager, reduces proposal errors by 80%, speeds up sales cycle by 30%..."></textarea></div><div class="fg"><label>Your price / investment</label><input id="sr-price" placeholder="e.g. R85,000 once-off or R8,000/month"></div><button class="run-btn rbtn-ge" onclick="initPay('sr-roi','mkt')">Pay &amp; Generate &rarr;</button><div class="out" id="out-sr-roi"></div></div>
-
-    <div id="mkt-s-followup" class="tpanel"><div class="tool-title">FOLLOW-UP SEQUENCE</div><div class="tool-desc">5 perfectly timed, professionally written emails that reopen dead deals, keep warm leads moving, and turn maybes into yeses. Never chase awkwardly again.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Prospect name &amp; company</label><input id="sf-who" placeholder="e.g. James Carter, Global Retail Co"></div><div class="fg"><label>What you discussed / pitched</label><input id="sf-pitch" placeholder="e.g. Custom AI sales system, R120,000 proposal"></div></div><div class="fg"><label>Where the conversation ended</label><textarea id="sf-status" placeholder="e.g. They said 'sounds good, let me think about it' 3 weeks ago and gone quiet..."></textarea></div><div class="fr"><div class="fg"><label>Your tone / style</label><select id="sf-tone"><option>Professional &amp; warm</option><option>Direct &amp; confident</option><option>Casual &amp; human</option><option>Formal &amp; executive</option></select></div><div class="fg"><label>What you can offer / add</label><input id="sf-add" placeholder="e.g. Case study, free audit, extended payment terms"></div></div><button class="run-btn rbtn-ge" onclick="initPay('sf-followup','mkt')">Pay &amp; Generate &rarr;</button><div class="out" id="out-sf-followup"></div></div>
-
-    <!-- 2. EXECUTIVE DECISION PACK -->
-    <div id="mkt-exec" class="tpanel">
-      <div class="tool-title" style="color:#7c3aed;">EXECUTIVE DECISION PACK</div>
-      <div class="tool-desc">Strategic clarity at the speed of AI. For founders, executives and board-level decision makers who need to think faster, present sharper, and lead with confidence.</div>
-      <div class="pay-notice">Pay via Paystack before your result is generated.</div>
-      <div class="sl">Choose your tool</div>
-      <div class="ge-grid" style="margin-bottom:1.5rem;">
-        <div class="ge-card" onclick="showMKT('mkt-e-sitrep',null)"><div class="card-icon">&#127919;</div><div class="card-name">STRATEGIC SITUATION REPORT</div><div class="card-desc">Your market, competitors, risks and opportunities in one clean boardroom document.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-e-okr',null)"><div class="card-icon">&#9745;</div><div class="card-name">OKR BUILDER</div><div class="card-desc">Quarterly objectives and key results with tracking logic and team alignment built in.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-e-board',null)"><div class="card-icon">&#128202;</div><div class="card-name">BOARD DECK NARRATIVE</div><div class="card-desc">Slide-by-slide story arc for your next board or investor presentation.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-e-decide',null)"><div class="card-icon">&#9878;</div><div class="card-name">DECISION FRAMEWORK</div><div class="card-desc">Structure any major decision with risk, upside, cost of inaction and recommendation.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-e-memo',null)"><div class="card-icon">&#128221;</div><div class="card-name">EXECUTIVE MEMO GENERATOR</div><div class="card-desc">Crisp internal memos that align teams, communicate decisions and move fast.</div></div>
-      </div>
-    </div>
-
-    <div id="mkt-e-sitrep" class="tpanel"><div class="tool-title">STRATEGIC SITUATION REPORT</div><div class="tool-desc">A boardroom-ready strategic overview of your business position &mdash; market, competitors, risks, opportunities and recommended priorities. The document every executive needs before making a big move.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your company / business</label><input id="es-co" placeholder="e.g. Apex Solutions"></div><div class="fg"><label>Industry</label><select id="es-ind"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Professional Services</option><option>Other</option></select></div></div><div class="fr"><div class="fg"><label>Current phase</label><select id="es-phase"><option>Early stage / startup</option><option>Growth phase</option><option>Established / scaling</option><option>Turnaround</option><option>Maturity / optimising</option></select></div><div class="fg"><label>Annual revenue (approx)</label><input id="es-rev" placeholder="e.g. R5,000,000"></div></div><div class="fg"><label>Your biggest current challenges</label><textarea id="es-chal" placeholder="What's keeping you up at night? What's blocking growth?"></textarea></div><div class="fg"><label>Your 3 main competitors</label><input id="es-comp" placeholder="e.g. Company A, Company B, imported alternatives"></div><button class="run-btn rbtn-ge" onclick="initPay('es-sitrep','mkt')" style="background:#7c3aed;">Pay &amp; Generate &rarr;</button><div class="out" id="out-es-sitrep"></div></div>
-
-    <div id="mkt-e-okr" class="tpanel"><div class="tool-title">OKR BUILDER</div><div class="tool-desc">Build a complete quarterly OKR framework for your business or team. Objectives, key results, tracking logic and team alignment &mdash; structured for execution, not just planning.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Company / team name</label><input id="eo-co" placeholder="e.g. Apex Solutions &mdash; Sales Team"></div><div class="fg"><label>Quarter</label><select id="eo-q"><option>Q1 (Jan&ndash;Mar)</option><option>Q2 (Apr&ndash;Jun)</option><option>Q3 (Jul&ndash;Sep)</option><option>Q4 (Oct&ndash;Dec)</option></select></div></div><div class="fg"><label>Your company&apos;s annual goal / vision</label><input id="eo-vision" placeholder="e.g. Become the leading AI solutions provider in our market by year end"></div><div class="fg"><label>Top 3 priorities this quarter</label><textarea id="eo-pri" placeholder="e.g. 1. Grow revenue 40%, 2. Launch new product, 3. Improve client retention to 95%..."></textarea></div><div class="fg"><label>Key challenges or blockers</label><textarea id="eo-block" placeholder="What could stop you achieving these priorities?"></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('eo-okr','mkt')" style="background:#7c3aed;">Pay &amp; Generate &rarr;</button><div class="out" id="out-eo-okr"></div></div>
-
-    <div id="mkt-e-board" class="tpanel"><div class="tool-title">BOARD DECK NARRATIVE</div><div class="tool-desc">A slide-by-slide story arc for your board or investor presentation. Every slide&apos;s headline, key message, supporting data points and transitions &mdash; ready to drop into your deck.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Company name</label><input id="eb-co" placeholder="e.g. Apex Solutions"></div><div class="fg"><label>Audience</label><select id="eb-aud"><option>Board of directors</option><option>Investors / VCs</option><option>Angel investors</option><option>Executive team</option><option>Bank / lenders</option></select></div></div><div class="fg"><label>Purpose of this presentation</label><select id="eb-pur"><option>Quarterly business update</option><option>Fundraising / capital raise</option><option>Strategic pivot proposal</option><option>New product / market launch</option><option>Acquisition or merger proposal</option><option>Annual review &amp; year ahead</option></select></div><div class="fg"><label>Key numbers to include</label><textarea id="eb-num" placeholder="Revenue, growth rate, margins, team size, market size, key milestones..."></textarea></div><div class="fg"><label>The one decision you need from the room</label><input id="eb-ask" placeholder="e.g. Approve R5M expansion budget for Q3"></div><button class="run-btn rbtn-ge" onclick="initPay('eb-board','mkt')" style="background:#7c3aed;">Pay &amp; Generate &rarr;</button><div class="out" id="out-eb-board"></div></div>
-
-    <div id="mkt-e-decide" class="tpanel"><div class="tool-title">DECISION FRAMEWORK</div><div class="tool-desc">Structure any major business decision with clarity. Risk, upside, cost of inaction, alternatives considered and final recommendation &mdash; in a format that builds confidence and alignment.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>What decision needs to be made?</label><textarea id="ed-dec" placeholder="e.g. Whether to hire 5 new salespeople, open a new office in Lagos, or pivot our product to enterprise..."></textarea></div><div class="fg"><label>Options being considered</label><textarea id="ed-opt" placeholder="e.g. Option 1: Hire and train junior reps. Option 2: Bring in senior talent. Option 3: Use commission-only agents."></textarea></div><div class="fr"><div class="fg"><label>Decision deadline</label><input id="ed-dead" placeholder="e.g. By end of Q2"></div><div class="fg"><label>Budget / resources involved</label><input id="ed-bud" placeholder="e.g. R500,000 available"></div></div><div class="fg"><label>Main risks and constraints</label><textarea id="ed-risk" placeholder="What could go wrong? What are the hard limits?"></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('ed-decision','mkt')" style="background:#7c3aed;">Pay &amp; Generate &rarr;</button><div class="out" id="out-ed-decision"></div></div>
-
-    <div id="mkt-e-memo" class="tpanel"><div class="tool-title">EXECUTIVE MEMO GENERATOR</div><div class="tool-desc">Write crisp, high-authority internal memos that align teams, communicate decisions clearly, and move the business forward. The kind of communication that distinguishes great executives.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>From (your name &amp; title)</label><input id="em-from" placeholder="e.g. Phumi Sibeko, CEO"></div><div class="fg"><label>To (audience)</label><input id="em-to" placeholder="e.g. All department heads"></div></div><div class="fg"><label>Subject / topic of memo</label><input id="em-sub" placeholder="e.g. New pricing strategy effective Q3"></div><div class="fg"><label>Key message &amp; details</label><textarea id="em-body" placeholder="What decision has been made? What do people need to know, do or stop doing? What&apos;s the timeline?"></textarea></div><div class="fr"><div class="fg"><label>Tone</label><select id="em-tone"><option>Direct &amp; authoritative</option><option>Warm &amp; inclusive</option><option>Urgent &amp; action-focused</option><option>Reassuring &amp; clear</option></select></div><div class="fg"><label>Required action from recipients</label><input id="em-action" placeholder="e.g. Implement by 1 June, confirm receipt by Friday"></div></div><button class="run-btn rbtn-ge" onclick="initPay('em-memo','mkt')" style="background:#7c3aed;">Pay &amp; Generate &rarr;</button><div class="out" id="out-em-memo"></div></div>
-
-    <!-- 3. CLIENT RETENTION ENGINE -->
-    <div id="mkt-retain" class="tpanel">
-      <div class="tool-title" style="color:#059669;">CLIENT RETENTION ENGINE</div>
-      <div class="tool-desc">Keeping a client is worth 5x winning a new one. This system makes sure your best clients never leave &mdash; and spend more while they stay.</div>
-      <div class="pay-notice">Pay via Paystack before your result is generated.</div>
-      <div class="sl">Choose your tool</div>
-      <div class="ge-grid" style="margin-bottom:1.5rem;">
-        <div class="ge-card" onclick="showMKT('mkt-r-onboard',null)"><div class="card-icon">&#128203;</div><div class="card-name">CLIENT ONBOARDING BLUEPRINT</div><div class="card-desc">30-day structured plan that locks in trust from day one and sets the relationship up for renewal.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-r-review',null)"><div class="card-icon">&#128260;</div><div class="card-name">QUARTERLY REVIEW SYSTEM</div><div class="card-desc">Structured check-in agenda, talking points, success proof and renewal pitch ready in 60 seconds.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-r-upsell',null)"><div class="card-icon">&#128200;</div><div class="card-name">UPSELL TRIGGER IDENTIFIER</div><div class="card-desc">Spot the exact moments when a client is ready for more &mdash; with the right words to open that conversation.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-r-refer',null)"><div class="card-icon">&#11088;</div><div class="card-name">REVIEW & REFERRAL ENGINE</div><div class="card-desc">Ask sequences that generate 5-star reviews and warm referrals without feeling pushy.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-r-recover',null)"><div class="card-icon">&#128680;</div><div class="card-name">AT-RISK CLIENT RECOVERY</div><div class="card-desc">Scripts and strategies to win back clients showing churn signals before it&apos;s too late.</div></div>
-      </div>
-    </div>
-
-    <div id="mkt-r-onboard" class="tpanel"><div class="tool-title">CLIENT ONBOARDING BLUEPRINT</div><div class="tool-desc">A structured 30-day onboarding plan that makes new clients feel confident, supported and committed from day one. The foundation of every long-term client relationship.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your business / service</label><input id="ro-you" placeholder="e.g. Apex Solutions &mdash; AI automation consultancy"></div><div class="fg"><label>Client name &amp; company</label><input id="ro-cl" placeholder="e.g. James Carter, Global Retail Co"></div></div><div class="fg"><label>What they bought / engaged for</label><input id="ro-svc" placeholder="e.g. 6-month AI workflow implementation, R180,000"></div><div class="fg"><label>Their main goal / expected outcome</label><textarea id="ro-goal" placeholder="What result are they expecting? What does success look like for them?"></textarea></div><div class="fg"><label>Any specific concerns or expectations they raised</label><textarea id="ro-concerns" placeholder="Anything they were worried about, asked about, or emphasised during the sale..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('ro-onboard','mkt')" style="background:#059669;">Pay &amp; Generate &rarr;</button><div class="out" id="out-ro-onboard"></div></div>
-
-    <div id="mkt-r-review" class="tpanel"><div class="tool-title">QUARTERLY REVIEW SYSTEM</div><div class="tool-desc">Walk into every client review meeting fully prepared &mdash; agenda, success metrics, what to say, how to handle challenges, and the renewal pitch. Never wing a client meeting again.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Client name &amp; company</label><input id="rr-cl" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>How long they&apos;ve been a client</label><select id="rr-dur"><option>Under 3 months</option><option>3&ndash;6 months</option><option>6&ndash;12 months</option><option>1&ndash;2 years</option><option>2+ years</option></select></div></div><div class="fg"><label>What you deliver for them</label><input id="rr-svc" placeholder="e.g. Monthly AI reporting, sales training, digital transformation"></div><div class="fg"><label>Key wins since last review</label><textarea id="rr-wins" placeholder="Results, milestones, improvements, things they said they loved..."></textarea></div><div class="fg"><label>Any issues or concerns to address</label><textarea id="rr-issues" placeholder="Anything that went wrong, slipped, or they&apos;ve mentioned being unhappy about..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('rr-review','mkt')" style="background:#059669;">Pay &amp; Generate &rarr;</button><div class="out" id="out-rr-review"></div></div>
-
-    <div id="mkt-r-upsell" class="tpanel"><div class="tool-title">UPSELL TRIGGER IDENTIFIER</div><div class="tool-desc">Know exactly when a client is ready to spend more &mdash; and exactly what to say when the moment arrives. Stop leaving money on the table with clients who trust you.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Client &amp; company</label><input id="ru-cl" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>What they currently buy from you</label><input id="ru-curr" placeholder="e.g. Monthly AI reporting package &mdash; R15,000/month"></div></div><div class="fg"><label>What else you offer that they don&apos;t have</label><textarea id="ru-offer" placeholder="Your other products, services, tiers, add-ons that could serve them..."></textarea></div><div class="fg"><label>Recent signals from the client</label><textarea id="ru-signals" placeholder="Things they&apos;ve said, questions they&apos;ve asked, growth they&apos;ve had, problems they&apos;ve mentioned..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('ru-upsell','mkt')" style="background:#059669;">Pay &amp; Generate &rarr;</button><div class="out" id="out-ru-upsell"></div></div>
-
-    <div id="mkt-r-refer" class="tpanel"><div class="tool-title">REVIEW & REFERRAL ENGINE</div><div class="tool-desc">A complete ask system &mdash; the right words at the right time to generate 5-star reviews and warm referrals from your happiest clients. Without feeling awkward or pushy.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your business type</label><input id="rf-biz" placeholder="e.g. AI consultancy, law firm, marketing agency"></div><div class="fg"><label>Best client scenario</label><input id="rf-when" placeholder="e.g. Just delivered great results, renewed contract, they said thank you"></div></div><div class="fg"><label>Where you want reviews</label><select id="rf-where"><option>Google Business</option><option>LinkedIn recommendations</option><option>Facebook / social media</option><option>Industry platform</option><option>Website testimonial</option><option>Multiple platforms</option></select></div><div class="fg"><label>Your ideal referral target</label><textarea id="rf-target" placeholder="What kind of business or person would you love them to refer? Help them help you..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('rf-refer','mkt')" style="background:#059669;">Pay &amp; Generate &rarr;</button><div class="out" id="out-rf-refer"></div></div>
-
-    <div id="mkt-r-recover" class="tpanel"><div class="tool-title">AT-RISK CLIENT RECOVERY</div><div class="tool-desc">A client going quiet, pushing back, or cutting scope is a warning sign. This gives you the scripts, strategy and sequence to turn it around before they&apos;re gone.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Client &amp; company</label><input id="rc-cl" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>How long they&apos;ve been a client</label><select id="rc-dur"><option>Under 3 months</option><option>3&ndash;6 months</option><option>6&ndash;12 months</option><option>1&ndash;2 years</option><option>2+ years</option></select></div></div><div class="fg"><label>Warning signs you&apos;re seeing</label><textarea id="rc-signs" placeholder="e.g. Going quiet, missed payments, reduced scope, complaints, stopped engaging with reports..."></textarea></div><div class="fg"><label>What you think the real issue is</label><textarea id="rc-issue" placeholder="Price? Results not matching expectations? Internal changes on their side? Relationship issue?"></textarea></div><div class="fg"><label>What you can offer to fix it</label><input id="rc-offer" placeholder="e.g. Free audit, revised scope, senior account manager, added value, price review"></div><button class="run-btn rbtn-ge" onclick="initPay('rc-recover','mkt')" style="background:#059669;">Pay &amp; Generate &rarr;</button><div class="out" id="out-rc-recover"></div></div>
-
-    <!-- 4. BRAND AUTHORITY CONTENT SYSTEM -->
-    <div id="mkt-brand" class="tpanel">
-      <div class="tool-title" style="color:#d97706;">BRAND AUTHORITY CONTENT SYSTEM</div>
-      <div class="tool-desc">Position yourself or your business as the go-to authority. 90 days of content that builds trust, generates leads and makes competitors irrelevant.</div>
-      <div class="pay-notice">Pay via Paystack before your result is generated.</div>
-      <div class="sl">Choose your tool</div>
-      <div class="ge-grid" style="margin-bottom:1.5rem;">
-        <div class="ge-card" onclick="showMKT('mkt-b-calendar',null)"><div class="card-icon">&#128197;</div><div class="card-name">90-DAY CONTENT CALENDAR</div><div class="card-desc">Post topics, themes and hooks planned across LinkedIn, X and Instagram for the full quarter.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-b-thought',null)"><div class="card-icon">&#9997;</div><div class="card-name">THOUGHT LEADERSHIP ENGINE</div><div class="card-desc">Weekly long-form posts that establish credibility, generate inbound and build a real following.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-b-hooks',null)"><div class="card-icon">&#128250;</div><div class="card-name">HOOK LIBRARY</div><div class="card-desc">30 proven opening lines tailored to your niche that stop the scroll and demand attention.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-b-repurpose',null)"><div class="card-icon">&#128260;</div><div class="card-name">CONTENT REPURPOSER</div><div class="card-desc">One piece of content turned into 5 formats &mdash; post, thread, caption, email, video script.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-b-growth',null)"><div class="card-icon">&#128200;</div><div class="card-name">AUDIENCE GROWTH PLAYBOOK</div><div class="card-desc">Follower growth strategy and community engagement system for your specific niche and goals.</div></div>
-      </div>
-    </div>
-
-    <div id="mkt-b-calendar" class="tpanel"><div class="tool-title">90-DAY CONTENT CALENDAR</div><div class="tool-desc">A complete 90-day content plan with topics, themes, hooks and format suggestions across your chosen platforms. Walk away knowing exactly what to post for the next 3 months.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your name or brand</label><input id="bc-you" placeholder="e.g. Phumi Sibeko / Apex Solutions"></div><div class="fg"><label>Your industry / niche</label><input id="bc-niche" placeholder="e.g. AI business solutions, financial services, executive coaching"></div></div><div class="fg"><label>Your target audience</label><textarea id="bc-aud" placeholder="Who exactly are you trying to reach? Their role, challenges, what they care about..."></textarea></div><div class="fr"><div class="fg"><label>Primary platform</label><select id="bc-plat"><option>LinkedIn</option><option>X / Twitter</option><option>Instagram</option><option>Facebook</option><option>All platforms</option></select></div><div class="fg"><label>Content goal</label><select id="bc-goal"><option>Generate leads &amp; enquiries</option><option>Build authority &amp; credibility</option><option>Grow followers &amp; reach</option><option>Drive website traffic</option><option>All of the above</option></select></div></div><div class="fg"><label>Your top 3 areas of expertise to share</label><textarea id="bc-exp" placeholder="e.g. Sales strategy, AI implementation, building high-performing teams..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('bc-calendar','mkt')" style="background:#d97706;">Pay &amp; Generate &rarr;</button><div class="out" id="out-bc-calendar"></div></div>
-
-    <div id="mkt-b-thought" class="tpanel"><div class="tool-title">THOUGHT LEADERSHIP ENGINE</div><div class="tool-desc">One topic. One powerful, share-worthy long-form post that establishes your authority, sparks conversation and brings the right people to you. The post that builds your reputation.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your name / brand</label><input id="bt-you" placeholder="e.g. Phumi Sibeko"></div><div class="fg"><label>Your niche</label><input id="bt-niche" placeholder="e.g. AI business solutions, executive leadership"></div></div><div class="fg"><label>Topic / angle for this post</label><input id="bt-topic" placeholder="e.g. Why most businesses are using AI wrong &mdash; and what actually works"></div><div class="fg"><label>Your unique take or experience on this topic</label><textarea id="bt-take" placeholder="What do you believe that most people don&apos;t? What have you seen or built that gives you the right to say this?"></textarea></div><div class="fr"><div class="fg"><label>Platform</label><select id="bt-plat"><option>LinkedIn</option><option>X / Twitter</option><option>Newsletter</option><option>Blog / Medium</option></select></div><div class="fg"><label>Call to action</label><select id="bt-cta"><option>Book a call</option><option>Follow for more</option><option>Comment with your experience</option><option>DM me for the full framework</option><option>Share with someone who needs this</option></select></div></div><button class="run-btn rbtn-ge" onclick="initPay('bt-thought','mkt')" style="background:#d97706;">Pay &amp; Generate &rarr;</button><div class="out" id="out-bt-thought"></div></div>
-
-    <div id="mkt-b-hooks" class="tpanel"><div class="tool-title">HOOK LIBRARY</div><div class="tool-desc">30 scroll-stopping opening lines tailored to your niche, audience and goals. The first sentence is everything &mdash; walk away with a month of hooks you can use immediately.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your niche / topic area</label><input id="bh-niche" placeholder="e.g. AI for business, sales strategy, personal finance"></div><div class="fg"><label>Your target audience</label><input id="bh-aud" placeholder="e.g. Business owners, sales professionals, executives"></div></div><div class="fg"><label>Themes you post about most</label><textarea id="bh-themes" placeholder="e.g. Revenue growth, leadership lessons, AI tools, client management, mindset..."></textarea></div><div class="fr"><div class="fg"><label>Platform</label><select id="bh-plat"><option>LinkedIn</option><option>X / Twitter</option><option>Instagram</option><option>All platforms</option></select></div><div class="fg"><label>Hook style</label><select id="bh-style"><option>Mix of all styles</option><option>Bold controversial statements</option><option>Story-based openers</option><option>Question hooks</option><option>Statistic &amp; data hooks</option><option>Contrarian takes</option></select></div></div><button class="run-btn rbtn-ge" onclick="initPay('bh-hooks','mkt')" style="background:#d97706;">Pay &amp; Generate &rarr;</button><div class="out" id="out-bh-hooks"></div></div>
-
-    <div id="mkt-b-repurpose" class="tpanel"><div class="tool-title">CONTENT REPURPOSER</div><div class="tool-desc">One piece of content turned into 5 ready-to-use formats. Never create from scratch again &mdash; repurpose what works into a LinkedIn post, X thread, Instagram caption, email and video script.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>Paste your original content</label><textarea id="bp-content" style="min-height:130px;" placeholder="Paste your blog post, video transcript, podcast notes, LinkedIn post &mdash; anything you want to repurpose..."></textarea></div><div class="fr"><div class="fg"><label>Your niche</label><input id="bp-niche" placeholder="e.g. AI for business, sales strategy"></div><div class="fg"><label>Output formats needed</label><select id="bp-formats"><option>All 5 formats</option><option>LinkedIn post + X thread</option><option>Email newsletter + caption</option><option>Video script + caption</option><option>LinkedIn post only</option></select></div></div><button class="run-btn rbtn-ge" onclick="initPay('bp-repurpose','mkt')" style="background:#d97706;">Pay &amp; Generate &rarr;</button><div class="out" id="out-bp-repurpose"></div></div>
-
-    <div id="mkt-b-growth" class="tpanel"><div class="tool-title">AUDIENCE GROWTH PLAYBOOK</div><div class="tool-desc">A specific, actionable strategy to grow your following and community on your chosen platform. No generic advice &mdash; built around your niche, current size and growth goal.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your name / brand</label><input id="bg-you" placeholder="e.g. Phumi Sibeko"></div><div class="fg"><label>Current follower count (approx)</label><input id="bg-curr" placeholder="e.g. 800 LinkedIn connections"></div></div><div class="fr"><div class="fg"><label>Platform</label><select id="bg-plat"><option>LinkedIn</option><option>X / Twitter</option><option>Instagram</option><option>Multiple platforms</option></select></div><div class="fg"><label>Growth goal</label><input id="bg-goal" placeholder="e.g. 5,000 followers in 6 months"></div></div><div class="fg"><label>Your niche and content style</label><textarea id="bg-niche" placeholder="What do you post about? What&apos;s your angle? What makes your content different?"></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('bg-growth','mkt')" style="background:#d97706;">Pay &amp; Generate &rarr;</button><div class="out" id="out-bg-growth"></div></div>
-
-    <!-- 5. HIRING & TALENT INTELLIGENCE -->
-    <div id="mkt-hire" class="tpanel">
-      <div class="tool-title" style="color:#0284c7;">HIRING & TALENT INTELLIGENCE SYSTEM</div>
-      <div class="tool-desc">Hire the right people faster. Stop wasting months on bad hires. A full AI-powered talent system for any role, any team, any industry.</div>
-      <div class="pay-notice">Pay via Paystack before your result is generated.</div>
-      <div class="sl">Choose your tool</div>
-      <div class="ge-grid" style="margin-bottom:1.5rem;">
-        <div class="ge-card" onclick="showMKT('mkt-h-jd',null)"><div class="card-icon">&#128196;</div><div class="card-name">JOB DESCRIPTION BUILDER</div><div class="card-desc">Magnetic JDs that attract the right candidates, repel poor fits and make you look credible.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-h-interview',null)"><div class="card-icon">&#128203;</div><div class="card-name">INTERVIEW QUESTION SYSTEM</div><div class="card-desc">Role-specific, behaviour-based questions with scoring rubrics for every stage.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-h-compare',null)"><div class="card-icon">&#9878;</div><div class="card-name">CANDIDATE COMPARISON MATRIX</div><div class="card-desc">Structured scoring and comparison framework to make the right hire with confidence.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-h-onboard',null)"><div class="card-icon">&#128203;</div><div class="card-name">ONBOARDING PLAN GENERATOR</div><div class="card-desc">90-day structured onboarding for any role in any department. From day one to fully productive.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-h-comms',null)"><div class="card-icon">&#128140;</div><div class="card-name">OFFER & REJECTION TEMPLATES</div><div class="card-desc">Professional, brand-safe communication for every stage of the hiring process.</div></div>
-      </div>
-    </div>
-
-    <div id="mkt-h-jd" class="tpanel"><div class="tool-title">JOB DESCRIPTION BUILDER</div><div class="tool-desc">A magnetic job description that attracts high-quality candidates, clearly communicates expectations, and makes your business look like somewhere exceptional people want to work.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Job title</label><input id="hj-title" placeholder="e.g. Senior Sales Manager"></div><div class="fg"><label>Company name</label><input id="hj-co" placeholder="e.g. Apex Solutions"></div></div><div class="fr"><div class="fg"><label>Department</label><input id="hj-dept" placeholder="e.g. Sales, Operations, Technology"></div><div class="fg"><label>Employment type</label><select id="hj-type"><option>Full-time permanent</option><option>Part-time</option><option>Contract / freelance</option><option>Internship</option><option>Remote</option></select></div></div><div class="fg"><label>Key responsibilities (bullet points)</label><textarea id="hj-resp" placeholder="What will they actually do day to day? Be specific..."></textarea></div><div class="fg"><label>Must-have requirements</label><textarea id="hj-req" placeholder="Experience, qualifications, skills that are non-negotiable..."></textarea></div><div class="fg"><label>Salary range &amp; benefits</label><input id="hj-sal" placeholder="e.g. R35,000&ndash;R50,000/month + commission + benefits"></div><button class="run-btn rbtn-ge" onclick="initPay('hj-jd','mkt')" style="background:#0284c7;">Pay &amp; Generate &rarr;</button><div class="out" id="out-hj-jd"></div></div>
-
-    <div id="mkt-h-interview" class="tpanel"><div class="tool-title">INTERVIEW QUESTION SYSTEM</div><div class="tool-desc">Role-specific, behaviour-based interview questions with scoring rubrics. Know exactly what to ask, what great answers look like, and how to score every candidate consistently.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Role you are hiring for</label><input id="hi-role" placeholder="e.g. Senior Sales Manager"></div><div class="fg"><label>Seniority level</label><select id="hi-level"><option>Junior (0&ndash;2 years)</option><option>Mid-level (2&ndash;5 years)</option><option>Senior (5&ndash;10 years)</option><option>Executive / Director</option></select></div></div><div class="fg"><label>Top 3 qualities this person must have</label><textarea id="hi-qual" placeholder="e.g. Strong closer, self-motivated, excellent communicator, strategic thinker..."></textarea></div><div class="fg"><label>Biggest past hiring mistake for this type of role</label><textarea id="hi-mistake" placeholder="What went wrong before? What kind of person didn&apos;t work out and why?"></textarea></div><div class="fr"><div class="fg"><label>Number of interview stages</label><select id="hi-stages"><option>1 (single interview)</option><option>2 (screening + main)</option><option>3 (screening + main + final)</option></select></div><div class="fg"><label>Industry</label><input id="hi-ind" placeholder="e.g. Tech, financial services, retail"></div></div><button class="run-btn rbtn-ge" onclick="initPay('hi-interview','mkt')" style="background:#0284c7;">Pay &amp; Generate &rarr;</button><div class="out" id="out-hi-interview"></div></div>
-
-    <div id="mkt-h-compare" class="tpanel"><div class="tool-title">CANDIDATE COMPARISON MATRIX</div><div class="tool-desc">A structured framework for comparing all your candidates fairly and making the right hire with confidence. Score each person against what actually matters for the role.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>Role you are hiring for</label><input id="hc-role" placeholder="e.g. Head of Sales"></div><div class="fg"><label>Top 5 criteria for this role (in order of importance)</label><textarea id="hc-crit" placeholder="e.g. 1. Sales track record, 2. Leadership experience, 3. Industry knowledge, 4. Cultural fit, 5. Communication skills"></textarea></div><div class="fg"><label>Candidates to compare (names + key notes)</label><textarea id="hc-cands" style="min-height:120px;" placeholder="e.g. Candidate 1: James &mdash; 8 years sales, managed team of 10, R12M in revenue last year...
-Candidate 2: Emily &mdash; 5 years, high performer, no management experience..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('hc-compare','mkt')" style="background:#0284c7;">Pay &amp; Generate &rarr;</button><div class="out" id="out-hc-compare"></div></div>
-
-    <div id="mkt-h-onboard" class="tpanel"><div class="tool-title">ONBOARDING PLAN GENERATOR</div><div class="tool-desc">A structured 90-day onboarding plan that takes a new hire from day one to fully confident and productive. Built for the specific role, team and expected outcomes.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>New hire name &amp; role</label><input id="ho-name" placeholder="e.g. James Carter &mdash; Senior Sales Manager"></div><div class="fg"><label>Start date</label><input id="ho-start" placeholder="e.g. 1 June 2025"></div></div><div class="fg"><label>Their main responsibilities</label><textarea id="ho-resp" placeholder="What are they expected to own and deliver in this role?"></textarea></div><div class="fg"><label>What does success look like at 90 days?</label><textarea id="ho-success" placeholder="e.g. First deal closed, team relationships built, process fully understood, first report delivered..."></textarea></div><div class="fg"><label>Key people, systems and processes they need to learn</label><textarea id="ho-learn" placeholder="Who do they need to meet? What tools, platforms or processes are critical?"></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('ho-onboard','mkt')" style="background:#0284c7;">Pay &amp; Generate &rarr;</button><div class="out" id="out-ho-onboard"></div></div>
-
-    <div id="mkt-h-comms" class="tpanel"><div class="tool-title">OFFER & REJECTION TEMPLATES</div><div class="tool-desc">Professional, warm and brand-safe communication for every stage of your hiring process. From offer letters to rejection emails &mdash; leave every candidate with a great impression.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fr"><div class="fg"><label>Your company name</label><input id="hm-co" placeholder="e.g. Apex Solutions"></div><div class="fg"><label>Role being filled</label><input id="hm-role" placeholder="e.g. Senior Sales Manager"></div></div><div class="fg"><label>What do you need?</label><select id="hm-type"><option>Offer letter (full)</option><option>Verbal offer script</option><option>Rejection email (after interview)</option><option>Rejection email (no interview)</option><option>All of the above</option></select></div><div class="fg"><label>Offer details (if applicable)</label><textarea id="hm-offer" placeholder="Salary, start date, benefits, any conditions (background check, etc.)..."></textarea></div><div class="fg"><label>Reason for rejection (if applicable)</label><input id="hm-reason" placeholder="e.g. Found a stronger match for this specific role"></div><button class="run-btn rbtn-ge" onclick="initPay('hm-comms','mkt')" style="background:#0284c7;">Pay &amp; Generate &rarr;</button><div class="out" id="out-hm-comms"></div></div>
-
-    <!-- 6. BUSINESS LAUNCH ACCELERATOR -->
-    <div id="mkt-launch" class="tpanel">
-      <div class="tool-title" style="color:#16a34a;">BUSINESS LAUNCH ACCELERATOR</div>
-      <div class="tool-desc">Everything a new or scaling business needs to launch with credibility, clarity and commercial momentum. Built for founders who want to move fast and get it right.</div>
-      <div class="pay-notice">Pay via Paystack before your result is generated.</div>
-      <div class="sl">Choose your tool</div>
-      <div class="ge-grid" style="margin-bottom:1.5rem;">
-        <div class="ge-card" onclick="showMKT('mkt-l-validate',null)"><div class="card-icon">&#128270;</div><div class="card-name">BUSINESS MODEL VALIDATOR</div><div class="card-desc">Test your idea against market reality before spending a cent. Know if it can work and how.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-l-price',null)"><div class="card-icon">&#128176;</div><div class="card-name">PRICING STRATEGY ENGINE</div><div class="card-desc">Find your price point, structure your tiers, and defend your number with confidence.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-l-gtm',null)"><div class="card-icon">&#128640;</div><div class="card-name">GO-TO-MARKET PLAN</div><div class="card-desc">Your first 90 days &mdash; who to target, how to reach them, and exactly what to say.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-l-brand',null)"><div class="card-icon">&#127775;</div><div class="card-name">BRAND VOICE & MESSAGING KIT</div><div class="card-desc">Positioning, tagline, elevator pitch and key messages that make you immediately credible.</div></div>
-        <div class="ge-card" onclick="showMKT('mkt-l-revenue',null)"><div class="card-icon">&#128202;</div><div class="card-name">REVENUE PROJECTION MODEL</div><div class="card-desc">12-month revenue projections with assumptions, scenarios and milestones for any investor or partner.</div></div>
-      </div>
-    </div>
-
-    <div id="mkt-l-validate" class="tpanel"><div class="tool-title">BUSINESS MODEL VALIDATOR</div><div class="tool-desc">A structured assessment of your business idea against real market conditions. Demand, competition, economics, risks and go / no-go recommendation. Know before you spend.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>Describe your business idea</label><textarea id="lv-idea" placeholder="What is it, who is it for, what problem does it solve, how does it make money?"></textarea></div><div class="fr"><div class="fg"><label>Target market</label><input id="lv-mkt" placeholder="e.g. SMEs in South Africa, global freelancers, HR managers"></div><div class="fg"><label>Your intended price point</label><input id="lv-price" placeholder="e.g. R497/month or R5,000 once-off"></div></div><div class="fg"><label>Who are the main competitors?</label><input id="lv-comp" placeholder="e.g. Hubspot, local agencies, Excel spreadsheets &mdash; or none that you know of"></div><div class="fg"><label>What resources do you currently have?</label><textarea id="lv-res" placeholder="Budget, team, skills, existing clients, time available to launch..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('lv-validate','mkt')" style="background:#16a34a;">Pay &amp; Generate &rarr;</button><div class="out" id="out-lv-validate"></div></div>
-
-    <div id="mkt-l-price" class="tpanel"><div class="tool-title">PRICING STRATEGY ENGINE</div><div class="tool-desc">Find the right price for your product or service. Pricing tiers, psychological anchoring, value-based justification and how to communicate your price with confidence.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>What you are selling</label><textarea id="lp-svc" placeholder="Describe your product or service in detail &mdash; what it includes, what results it produces..."></textarea></div><div class="fr"><div class="fg"><label>Target client</label><input id="lp-who" placeholder="e.g. SMEs, corporate HR departments, freelancers"></div><div class="fg"><label>Market / region</label><input id="lp-mkt" placeholder="e.g. South Africa, UK, global remote"></div></div><div class="fg"><label>What competitors charge (if known)</label><input id="lp-comp" placeholder="e.g. Competitor A charges R2,000/month, freelancers charge R500/hour"></div><div class="fg"><label>Your business goals for this product</label><select id="lp-goal"><option>Maximum revenue per client</option><option>High volume at lower price</option><option>Premium positioning</option><option>Market entry &amp; growth</option><option>Recurring revenue / subscription</option></select></div><button class="run-btn rbtn-ge" onclick="initPay('lp-price','mkt')" style="background:#16a34a;">Pay &amp; Generate &rarr;</button><div class="out" id="out-lp-price"></div></div>
-
-    <div id="mkt-l-gtm" class="tpanel"><div class="tool-title">GO-TO-MARKET PLAN</div><div class="tool-desc">Your first 90 days as a structured GTM plan &mdash; channels, messaging, outreach sequence, milestones and weekly priorities. Built to get your first paying clients, fast.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>Your business / product</label><textarea id="lg-biz" placeholder="What do you offer, who is it for, what makes it different?"></textarea></div><div class="fr"><div class="fg"><label>Target market</label><input id="lg-mkt" placeholder="e.g. Mid-size manufacturing companies in Gauteng"></div><div class="fg"><label>Revenue target for first 90 days</label><input id="lg-rev" placeholder="e.g. R500,000 in signed contracts"></div></div><div class="fg"><label>Channels available to you</label><textarea id="lg-chan" placeholder="e.g. LinkedIn, cold email, referrals from network, events, existing leads..."></textarea></div><div class="fg"><label>Team / resources for launch</label><input id="lg-team" placeholder="e.g. Solo founder, one part-time sales person, R50,000 marketing budget"></div><button class="run-btn rbtn-ge" onclick="initPay('lg-gtm','mkt')" style="background:#16a34a;">Pay &amp; Generate &rarr;</button><div class="out" id="out-lg-gtm"></div></div>
-
-    <div id="mkt-l-brand" class="tpanel"><div class="tool-title">BRAND VOICE & MESSAGING KIT</div><div class="tool-desc">Your complete brand language system &mdash; positioning statement, tagline, elevator pitch, key messages for each audience, and the words that make you instantly credible and memorable.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>Your business / product</label><textarea id="lb-biz" placeholder="What do you do, who do you serve, what transformation do you create?"></textarea></div><div class="fr"><div class="fg"><label>Your main competitor or alternative</label><input id="lb-comp" placeholder="e.g. Traditional consultants, DIY spreadsheets, other SaaS tools"></div><div class="fg"><label>What makes you genuinely different</label><input id="lb-diff" placeholder="e.g. We are the only AI-powered solution built specifically for..."></div></div><div class="fg"><label>Your target audiences (list up to 3)</label><textarea id="lb-aud" placeholder="e.g. 1. CEOs of SMEs 2. HR Directors 3. Sales managers at growth-stage companies"></textarea></div><div class="fg"><label>Brand personality &amp; values</label><input id="lb-vibe" placeholder="e.g. Bold, commercially sharp, no-nonsense, human, globally minded"></div><button class="run-btn rbtn-ge" onclick="initPay('lb-brand','mkt')" style="background:#16a34a;">Pay &amp; Generate &rarr;</button><div class="out" id="out-lb-brand"></div></div>
-
-    <div id="mkt-l-revenue" class="tpanel"><div class="tool-title">REVENUE PROJECTION MODEL</div><div class="tool-desc">12-month revenue projections with assumptions, scenarios and milestones. Built to show investors, partners and banks what your business can achieve &mdash; and how you will get there.</div><div class="pay-notice">Pay via Paystack before your result is generated.</div><div class="fg"><label>Your business &amp; revenue model</label><textarea id="lr-biz" placeholder="What do you sell? How do clients pay? Once-off, subscription, retainer, commission?"></textarea></div><div class="fr"><div class="fg"><label>Current monthly revenue (if any)</label><input id="lr-curr" placeholder="e.g. R0 (pre-launch) or R45,000/month"></div><div class="fg"><label>Target monthly revenue at month 12</label><input id="lr-target" placeholder="e.g. R500,000/month"></div></div><div class="fr"><div class="fg"><label>Average deal / transaction value</label><input id="lr-deal" placeholder="e.g. R25,000 once-off or R5,000/month per client"></div><div class="fg"><label>Current team size</label><input id="lr-team" placeholder="e.g. 2 people (founder + 1 sales)"></div></div><div class="fg"><label>Key growth assumptions</label><textarea id="lr-assume" placeholder="e.g. Hire 1 salesperson in month 3, launch second product in month 6, 15% monthly growth rate..."></textarea></div><button class="run-btn rbtn-ge" onclick="initPay('lr-revenue','mkt')" style="background:#16a34a;">Pay &amp; Generate &rarr;</button><div class="out" id="out-lr-revenue"></div></div>
-
-  </div>
-</div>
-
-<script>
-/* AIBSOS FINAL ROUTER + MARKETPLACE + LIFEBOARD PATCH */
-const AIBSOS_URLS = {
-  'wf-home':'/workforge','wf-replyright':'/replyright','wf-jobapply':'/jobapply-ai','wf-captionforge':'/captionforge','wf-contractcheck':'/contractcheck','wf-meetingmind':'/meetingmind','wf-docforge':'/docforge','wf-threadforge':'/threadforge','wf-checklistai':'/checklistai','wf-pricemywork':'/pricemywork','wf-reviewreply':'/reviewreply','wf-studysnap':'/studysnap','wf-dailybrief':'/dailybrief',
-  'ge-home':'/growth-engine','ge-proposal':'/proposal-generator','ge-sell':'/what-do-i-sell','ge-obj':'/objection-handler','ge-prep':'/client-prep','ge-pain':'/pain-finder','ge-comp':'/competitive-intel','ge-roi':'/roi-calculator',
-  'mkt-home':'/marketplace','mkt-sales':'/sales-domination-system','mkt-exec':'/executive-decision-pack','mkt-retain':'/client-retention-engine','mkt-brand':'/brand-authority-content-system','mkt-hire':'/hiring-intelligence-system','mkt-launch':'/launch-accelerator',
-  'life-home':'/lifeboard','life-daily':'/daily-reset','life-priorities':'/priority-planner','life-journal':'/clarity-journal'
-};
-
-const AIBSOS_ROUTE_MAP = {};
-Object.keys(AIBSOS_URLS).forEach(id => AIBSOS_ROUTE_MAP[AIBSOS_URLS[id]] = id);
-
-const MKT_DISPLAY = {
-  sales:{ZAR:'R4,997',USD:'$270',NGN:'₦450,000',GBP:'£220',EUR:'€250'},
-  exec:{ZAR:'R6,997',USD:'$380',NGN:'₦630,000',GBP:'£310',EUR:'€350'},
-  retain:{ZAR:'R5,497',USD:'$300',NGN:'₦495,000',GBP:'£240',EUR:'€275'},
-  brand:{ZAR:'R4,497',USD:'$245',NGN:'₦405,000',GBP:'£200',EUR:'€225'},
-  hire:{ZAR:'R5,997',USD:'$325',NGN:'₦540,000',GBP:'£265',EUR:'€300'},
-  launch:{ZAR:'R7,997',USD:'$435',NGN:'₦720,000',GBP:'£350',EUR:'€400'},
-  life:{ZAR:'R75',USD:'$4',NGN:'₦6,500',GBP:'£3.20',EUR:'€3.70'}
-};
-
-function aibsCurrency(){ return (typeof cur !== 'undefined' && cur) ? cur : 'USD'; }
-function mktPrice(key){ return (MKT_DISPLAY[key] && (MKT_DISPLAY[key][aibsCurrency()] || MKT_DISPLAY[key].USD)) || '$270'; }
-
-function updateAIBSPrices(){
-  document.querySelectorAll('.mkt-home-price').forEach(el => el.textContent = mktPrice('sales'));
-  document.querySelectorAll('.lifeboard-price').forEach(el => el.textContent = mktPrice('life'));
-
-  const panels = [
-    ['mkt-sales','sales'],['mkt-exec','exec'],['mkt-retain','retain'],
-    ['mkt-brand','brand'],['mkt-hire','hire'],['mkt-launch','launch']
-  ];
-
-  panels.forEach(([panel,key])=>{
-    document.querySelectorAll(`[onclick*="${panel}"]`).forEach(card=>{
-      const price = card.querySelector('.card-price');
-      if(price) price.textContent = mktPrice(key) + ' once-off';
-    });
-  });
-}
-
-function pushAIBSUrl(panelId){
-  const url = AIBSOS_URLS[panelId];
-  if(url && window.location.pathname !== url){
-    history.pushState({},'',url);
-  }
-}
-
-const originalShowView = window.showView;
-window.showView = function(v,btn){
-  originalShowView(v,btn);
-  if(v === 'mkt'){ showMKT('mkt-home', null); pushAIBSUrl('mkt-home'); }
-  if(v === 'life'){ showLife('life-home', null); pushAIBSUrl('life-home'); }
-};
-
-const originalShowWF = window.showWF;
-window.showWF = function(id,btn){
-  originalShowWF(id,btn);
-  pushAIBSUrl(id);
-};
-
-const originalShowGE = window.showGE;
-window.showGE = function(id,btn){
-  originalShowGE(id,btn);
-  pushAIBSUrl(id);
-};
-
-window.showMKT = function(id, btn) {
-  document.querySelectorAll('#view-mkt .tpanel').forEach(p=>p.classList.remove('active'));
-  const panel = document.getElementById(id);
-  if(panel) panel.classList.add('active');
-
-  document.querySelectorAll('#view-mkt .ptab').forEach(t=>{
-    t.classList.remove('on-mkt-tab');
-    t.style.color='';
-  });
-
-  if(btn) btn.classList.add('on-mkt-tab');
-  else document.querySelectorAll('#view-mkt .ptab').forEach(t=>{
-    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('on-mkt-tab');
-  });
-
-  pushAIBSUrl(id);
-  updateAIBSPrices();
-  window.scrollTo(0,0);
-};
-
-window.showLife = function(id, btn){
-  document.querySelectorAll('#view-life .tpanel').forEach(p=>p.classList.remove('active'));
-  const panel = document.getElementById(id);
-  if(panel) panel.classList.add('active');
-
-  document.querySelectorAll('#view-life .ptab').forEach(t=>t.classList.remove('on-wf'));
-  if(btn) btn.classList.add('on-wf');
-  else document.querySelectorAll('#view-life .ptab').forEach(t=>{
-    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('on-wf');
-  });
-
-  pushAIBSUrl(id);
-  window.scrollTo(0,0);
-};
-
-window.generateLife = function(type){
-  let outId = '', htmlOut = '';
-  if(type === 'daily'){
-    const mind = document.getElementById('lf-mind').value.trim();
-    const energy = document.getElementById('lf-energy').value;
-    const goal = document.getElementById('lf-goal').value.trim();
-    if(!mind){ alert('Please tell LifeBoard what is on your mind.'); return; }
-    outId = 'out-life-daily';
-    htmlOut = `<h3>Daily Reset</h3><p><strong>Energy level:</strong> ${energy}</p><p><strong>Main goal:</strong> ${goal || 'Move through the day with clarity.'}</p><h3>Top Priorities</h3><p>1. Choose the one task that would make the biggest difference today.<br>2. Handle one quick admin item to create momentum.<br>3. Move anything non-urgent into a later slot.</p><h3>Energy Protection</h3><p>Keep the day simple. Work in focused blocks. Do not turn every task into an emergency.</p>`;
-  }
-  if(type === 'priorities'){
-    const tasks = document.getElementById('lf-tasks').value.trim();
-    const time = document.getElementById('lf-time').value.trim();
-    if(!tasks){ alert('Please paste your task list.'); return; }
-    outId = 'out-life-priorities';
-    htmlOut = `<h3>Priority Plan</h3><p><strong>Available time:</strong> ${time || 'Not specified'}</p><h3>Do First</h3><p>Start with the task that has the biggest consequence or creates the most momentum.</p><h3>Quick Wins</h3><p>Pick one or two small tasks you can finish quickly to reduce mental clutter.</p><h3>Postpone</h3><p>Move anything unclear, low-impact, or emotionally heavy into a later slot.</p>`;
-  }
-  if(type === 'journal'){
-    const journal = document.getElementById('lf-journal').value.trim();
-    const need = document.getElementById('lf-need').value;
-    if(!journal){ alert('Please write something first.'); return; }
-    outId = 'out-life-journal';
-    htmlOut = `<h3>Reflection</h3><p>You are looking for <strong>${need.toLowerCase()}</strong>. The useful move is to separate what happened from what needs your attention next.</p><h3>Pattern</h3><p>There may be too many things asking for your energy at once.</p><h3>Next Step</h3><p>Choose one clean action. Do not try to solve everything in one sitting.</p>`;
-  }
-  const out = document.getElementById(outId);
-  out.innerHTML = htmlOut;
-  out.classList.add('show');
-};
-
-function routeAIBS(){
-  const path = window.location.pathname.replace(/\/$/,'') || '/';
-  const id = AIBSOS_ROUTE_MAP[path];
-
-  if(!id) return;
-
-  if(id.startsWith('wf-')){
-    originalShowView('wf',null);
-    originalShowWF(id,null);
-  } else if(id.startsWith('ge-')){
-    originalShowView('ge',null);
-    originalShowGE(id,null);
-  } else if(id.startsWith('mkt-')){
-    originalShowView('mkt',null);
-    showMKT(id,null);
-  } else if(id.startsWith('life-')){
-    originalShowView('life',null);
-    showLife(id,null);
-  }
-  updateAIBSPrices();
-}
-
-window.addEventListener('popstate', routeAIBS);
-window.addEventListener('DOMContentLoaded', ()=>{
-  setTimeout(routeAIBS, 100);
-  setTimeout(updateAIBSPrices, 600);
-  setTimeout(updateAIBSPrices, 1600);
-});
-</script>
-
-</body>
-</html>
+function doCopy(){const c=document.getElementById('output').cloneNode(true);c.querySelector('.out-actions')?.remove();navigator.clipboard.writeText(c.innerText.trim());}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('pay-modal').addEventListener('click',e=>{if(e.target===document.getElementById('pay-modal'))closePay();});});
+
+function validateFields(){if(!v('ss1')){alert('Please paste your notes or content.');return false;}return true;}
+function buildPrompt(){if(!v('ss1'))return null;return `WorkForge StudySnap:\nTopic: ${v('ss2')||'General'} | Format: ${v('ss3')} | Notes: "${v('ss1')}"\nGenerate the requested format accurately and thoroughly.`;}
+</script></body></html>

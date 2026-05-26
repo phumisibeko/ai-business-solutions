@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ROI Calculator — Growth Engine | AIBSOS</title>
-<meta name="description" content="Show clients what your solution will make or save them. Numbers that close deals. Pay per result.">
+<title>Proposal Generator — Growth Engine | AIBSOS</title>
+<meta name="description" content="Generate a complete, CEO-ready business proposal in 60 seconds. Pay per result.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@0,400;0,500;0,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -90,24 +90,24 @@ textarea{resize:vertical;min-height:90px;}
     <div class="ptopbar-name" style="color:var(--ge);">GROWTH ENGINE</div>
     <div class="ptabs">
         <a class="ptab" href="/growth-engine.html">&#127968; Home</a>
-        <a class="ptab" href="/proposal-gen.html">&#128196; Proposal</a>
+        <a class="ptab" href="/proposal-gen.html" style="background:rgba(232,98,42,.15);color:var(--ge);border-color:rgba(232,98,42,.25);">&#128196; Proposal</a>
         <a class="ptab" href="/what-do-i-sell.html">&#129302; What Do I Sell?</a>
         <a class="ptab" href="/objection-handler.html">&#128737; Objections</a>
         <a class="ptab" href="/client-prep.html">&#9889; Client Prep</a>
         <a class="ptab" href="/pain-finder.html">&#128269; Pain Finder</a>
         <a class="ptab" href="/competitive-intel.html">&#127919; Competitive</a>
-        <a class="ptab" href="/roi-calculator.html" style="background:rgba(232,98,42,.15);color:var(--ge);border-color:rgba(232,98,42,.25);">&#128176; ROI</a>
+        <a class="ptab" href="/roi-calculator.html">&#128176; ROI</a>
     </div>
     <div class="ptopbar-price">Pay per result</div>
   </div>
 <div class="tpanel">
-<div class="tool-title">ROI CALCULATOR</div>
-<div class="tool-desc">Show clients exactly what your solution will make or save them. Specific numbers that turn maybes into yeses.</div>
+<div class="tool-title">PROPOSAL GENERATOR</div>
+<div class="tool-desc">Generate a complete, CEO-ready business proposal. Persuasive from first line to last. Ready to send.</div>
 <div class="pay-notice">&#128179; Pay via Paystack before your result is generated.</div>
-<div class="fr"><div class="fg"><label>Client company</label><input id="r1" placeholder="e.g. Global Retail Co"></div><div class="fg"><label>Industry</label><select id="r2"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Logistics &amp; Supply Chain</option><option>Professional Services</option><option>Hospitality &amp; Tourism</option><option>Agriculture</option><option>Other</option></select></div></div>
-<div class="fr"><div class="fg"><label>Number of employees</label><input id="r3" type="number" placeholder="e.g. 150"></div><div class="fg"><label>Monthly revenue (optional)</label><input id="r4" placeholder="e.g. R500,000/month"></div></div>
-<div class="fg"><label>What your solution does for them</label><textarea id="r5" placeholder="e.g. Automates admin, reduces errors, speeds up reporting..."></textarea></div>
-<div class="fg"><label>Your price</label><input id="r6" placeholder="e.g. R8,500/month"></div>
+<div class="fr"><div class="fg"><label>Your company name</label><input id="p1" placeholder="e.g. Apex Solutions"></div><div class="fg"><label>Client name</label><input id="p2" placeholder="e.g. Global Retail Co"></div></div>
+<div class="fr"><div class="fg"><label>Industry</label><select id="p3"><option value="">Select industry</option><option>Mining</option><option>Manufacturing</option><option>Banking &amp; Financial Services</option><option>Retail</option><option>Technology</option><option>Healthcare</option><option>Construction</option><option>Government / Public Sector</option><option>Education &amp; Training</option><option>FMCG / Consumer Goods</option><option>Logistics &amp; Supply Chain</option><option>Professional Services</option><option>Hospitality &amp; Tourism</option><option>Agriculture</option><option>Other</option></select></div><div class="fg"><label>Contact name &amp; title</label><input id="p4" placeholder="e.g. Sarah Miller, HR Director"></div></div>
+<div class="fg"><label>Main challenge to solve</label><textarea id="p5" placeholder="What problem does this client have that you're solving?"></textarea></div>
+<div class="fr"><div class="fg"><label>Your proposed solution</label><input id="p6" placeholder="e.g. AI-powered business automation"></div><div class="fg"><label>Proposed price</label><input id="p7" placeholder="e.g. R25,000/month"></div></div>
 <button class="run-btn" style="background:var(--ge);" onclick="openPay()">Pay &amp; Generate &rarr;</button>
 <div id="output" class="out"></div></div></div>
 <div class="modal-bg" id="pay-modal">
@@ -139,7 +139,7 @@ fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{cur=CC[d.country_code
 
 function openPay(){
   if(!validateFields())return;
-  document.getElementById('m-title').textContent='ROI Calculator';
+  document.getElementById('m-title').textContent='Proposal Generator';
   document.getElementById('m-sub').textContent='One result &middot; Delivered instantly after payment';
   document.getElementById('m-paybtn').style.background='#e8622a';
   
@@ -156,7 +156,7 @@ function doPaystack(){
     currency:CURR_CODES[cur]||'ZAR',
     ref:'AIBS_'+Date.now(),
     metadata:{custom_fields:[
-      {display_name:'Tool',variable_name:'tool',value:'ROI Calculator'},
+      {display_name:'Tool',variable_name:'tool',value:'Proposal Generator'},
       {display_name:'Name',variable_name:'name',value:first+' '+(document.getElementById('m-last')?.value||'')},
     ]},
     callback:(r)=>{closePay();generate(r.reference);},
@@ -192,9 +192,9 @@ function v(id){return document.getElementById(id)?.value?.trim()||'';}
 function doCopy(){const c=document.getElementById('output').cloneNode(true);c.querySelector('.out-actions')?.remove();navigator.clipboard.writeText(c.innerText.trim());}
 document.addEventListener('DOMContentLoaded',()=>{document.getElementById('pay-modal').addEventListener('click',e=>{if(e.target===document.getElementById('pay-modal'))closePay();});});
 
-function validateFields(){if(!v('r5')){alert('Please describe what your solution does for the client.');return false;}return true;}
+function validateFields(){if(!v('p2')||!v('p5')){alert('Please enter client name and the challenge to solve.');return false;}return true;}
 function buildPrompt(){
-  if(!v('r5'))return null;
-  return `You are Growth Engine ROI Calculator:\nClient: ${v('r1')||'The client'} | Industry: ${v('r2')} | Employees: ${v('r3')||'Unknown'} | Revenue: ${v('r4')||'Not provided'} | Solution: ${v('r5')} | Price: ${v('r6')||'TBD'}\n\n## WHAT THIS COSTS THEM NOW (quantify the problem)\n## WHAT MY SOLUTION DELIVERS\n## ROI CALCULATION (specific numbers)\n## 3-MONTH IMPACT\n## 12-MONTH IMPACT\n## HOW TO PRESENT THIS TO THE CLIENT\nUse specific numbers and estimates throughout.`;
+  if(!v('p2')||!v('p5'))return null;
+  return `You are Growth Engine Proposal Generator. Write a complete persuasive business proposal:\nFrom: ${v('p1')||'Our company'} | To: ${v('p2')} | Contact: ${v('p4')||'Decision maker'} | Industry: ${v('p3')} | Problem: ${v('p5')} | Solution: ${v('p6')||'AI solution'} | Price: ${v('p7')||'TBD'}\n\n## EXECUTIVE SUMMARY\n## THE PROBLEM\n## OUR SOLUTION\n## WHY US\n## INVESTMENT & ROI\n## NEXT STEPS\nProfessional, warm, persuasive. Minimum 500 words. Include specific details and numbers.`;
 }
 </script></body></html>
