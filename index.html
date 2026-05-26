@@ -436,38 +436,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 </div>
 
 <script>
-// ── CURRENCY DISPLAY (all 4 products + all tool cards) ──────────────────────
-const GE_DISPLAY = {ZAR:'R317',USD:'$17',NGN:'₦28,000',GBP:'£13.50',EUR:'€15.90'};
-const WF_DISPLAY = {ZAR:'R75', USD:'$4', NGN:'₦6,500', GBP:'£3.20', EUR:'€3.70'};
-// FIX: LB_DISPLAY added — was missing, causing $29 to always show for ZA users
-const LB_DISPLAY = {ZAR:'R529',USD:'$29',NGN:'₦47,000',GBP:'£23',EUR:'€27'};
-const MKT_DISPLAY = {ZAR:'R497',USD:'$27',NGN:'₦18,000',GBP:'£22',EUR:'€25'};
+const GE_DISPLAY  = {ZAR:'R317', USD:'$17',  NGN:'₦28,000', GBP:'£13.50', EUR:'€15.90'};
+const WF_DISPLAY  = {ZAR:'R75',  USD:'$4',   NGN:'₦6,500',  GBP:'£3.20',  EUR:'€3.70'};
+const LB_DISPLAY  = {ZAR:'R529', USD:'$29',  NGN:'₦47,000', GBP:'£23',    EUR:'€27'};
+const MKT_DISPLAY = {ZAR:'R497', USD:'$27',  NGN:'₦18,000', GBP:'£22',    EUR:'€25'};
 const CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
 
-fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
-  const cur = CC[d.country_code] || 'USD';
-
-  // Product card prices
-  const geEl = document.getElementById('ge-card-price');
-  const wfEl = document.getElementById('wf-card-price');
-  const lbEl = document.getElementById('lb-card-price'); // FIX: now exists
-  if(geEl) geEl.textContent = GE_DISPLAY[cur] || '$17';
-  if(wfEl) wfEl.textContent = WF_DISPLAY[cur] || '$4';
-  if(lbEl) lbEl.textContent = LB_DISPLAY[cur] || '$29'; // FIX: updates correctly
-
-  // Tool grid prices
-  document.querySelectorAll('.card-price-ge').forEach(el => { el.textContent = GE_DISPLAY[cur] || '$17'; });
-  document.querySelectorAll('.card-price-wf').forEach(el => { el.textContent = WF_DISPLAY[cur] || '$4'; });
-
-  // LifeBoard inline price in button text
-  document.querySelectorAll('.lb-price-inline').forEach(el => { el.textContent = LB_DISPLAY[cur] || '$29'; });
+function applyPrices(cur) {
+  if(!cur) return;
+  const geEl  = document.getElementById('ge-card-price');
+  const wfEl  = document.getElementById('wf-card-price');
+  const lbEl  = document.getElementById('lb-card-price');
   const mktEl = document.getElementById('mkt-card-price');
+  if(geEl)  geEl.textContent  = GE_DISPLAY[cur]  || '$17';
+  if(wfEl)  wfEl.textContent  = WF_DISPLAY[cur]  || '$4';
+  if(lbEl)  lbEl.textContent  = LB_DISPLAY[cur]  || '$29';
   if(mktEl) mktEl.textContent = MKT_DISPLAY[cur] || 'R497';
+  document.querySelectorAll('.card-price-ge').forEach(el   => { el.textContent = GE_DISPLAY[cur]  || '$17'; });
+  document.querySelectorAll('.card-price-wf').forEach(el   => { el.textContent = WF_DISPLAY[cur]  || '$4'; });
+  document.querySelectorAll('.lb-price-inline').forEach(el => { el.textContent = LB_DISPLAY[cur]  || '$29'; });
   document.querySelectorAll('.mkt-price-display').forEach(el => { el.textContent = MKT_DISPLAY[cur] || 'R497'; });
+}
 
-}).catch(() => {});
+(async function detectCurrency() {
+  const apis = [
+    () => fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>CC[d.country_code]),
+    () => fetch('https://api.country.is/').then(r=>r.json()).then(d=>CC[d.country]),
+    () => fetch('https://ipwho.is/').then(r=>r.json()).then(d=>CC[d.country_code]),
+  ];
+  for (const api of apis) {
+    try {
+      const cur = await api();
+      if (cur) { applyPrices(cur); return; }
+    } catch(e) {}
+  }
+})();
 
-// ── CONTACT FORM ────────────────────────────────────────────────────────────
 function submitContact() {
   const name = document.getElementById('cf-name').value.trim();
   const email = document.getElementById('cf-email').value.trim();
