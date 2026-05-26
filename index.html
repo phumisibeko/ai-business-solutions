@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Business Solutions OS</title>
-<meta name="description" content="Practical AI tools for work, business growth, proposals, emails, contracts, job applications and everyday productivity.">
+<meta name="description" content="AI Business Solutions OS gives you instant AI tools for emails, job applications, contracts, proposals, meeting notes, pricing, sales and business workflows.">
+<title>AI Business Solutions OS — AI Tools That Generate Results Instantly</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@0,400;0,500;0,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -275,122 +275,174 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 @media(max-width:400px){#prod-section>div:first-of-type{grid-template-columns:1fr!important;}}
 
 
-/* === AIBSOS MOBILE + URL FIXES ADDED BY CHATGPT === */
-@media (max-width: 768px) {
-  html, body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
+/* ── AIBSOS MOBILE + TOOL URL POLISH ── */
+@media(max-width:768px){
+  html, body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
   }
 
-  nav {
-    padding: .75rem 1rem;
-    gap: .75rem;
+  nav{
+    padding:.9rem 1rem;
+    min-height:64px;
   }
 
-  .nav-logo {
-    font-size: .9rem;
-    white-space: nowrap;
+  .nav-logo{
+    font-size:1rem;
+    max-width:58%;
+    line-height:1.1;
   }
 
-  .nav-cta {
-    padding: .55rem 1rem;
-    font-size: .78rem;
-    flex-shrink: 0;
+  .nav-cta{
+    padding:.7rem 1.25rem;
+    font-size:.92rem;
+    border-radius:999px;
+    flex-shrink:0;
   }
 
-  .ptopbar {
-    top: 55px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    padding: .65rem 1rem;
-    gap: .75rem;
+  .view{
+    padding-top:64px;
   }
 
-  .ptopbar::-webkit-scrollbar,
-  .ptabs::-webkit-scrollbar {
-    display: none;
+  .ptopbar{
+    position:sticky;
+    top:64px;
+    z-index:120;
+    display:flex;
+    align-items:center;
+    flex-wrap:nowrap;
+    gap:.8rem;
+    padding:.85rem 1rem;
+    overflow:hidden;
+    background:#101010;
+    border-top:1px solid rgba(255,255,255,.04);
+    border-bottom:1px solid rgba(255,255,255,.10);
   }
 
-  .ptopbar-name,
-  .ptopbar-price {
-    flex: 0 0 auto;
+  .ptopbar-name{
+    font-size:1.25rem;
+    flex:0 0 auto;
   }
 
-  .ptabs {
-    flex: 0 0 auto;
-    width: auto;
-    max-width: none;
-    overflow-x: visible;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: .35rem;
+  .ptabs{
+    flex:1 1 auto;
+    min-width:0;
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    gap:.65rem;
+    padding:.1rem .2rem;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
   }
 
-  .ptab {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    font-size: .75rem;
-    padding: .42rem .75rem;
+  .ptabs::-webkit-scrollbar{
+    display:none;
   }
 
-  .tpanel {
-    padding: 1.5rem 1rem 3rem;
-    max-width: 100%;
+  .ptab{
+    flex:0 0 auto;
+    font-size:1rem;
+    padding:.55rem .85rem;
+    border-radius:12px;
   }
 
-  .tool-title {
-    font-size: 1.9rem;
-    line-height: 1;
+  .ptopbar-price{
+    flex:0 0 auto;
+    font-size:.78rem;
+    padding:.5rem .85rem;
   }
 
-  .tool-desc {
-    font-size: .95rem;
+  .tpanel{
+    padding:2.2rem 1rem 7rem;
+    max-width:100%;
   }
 
-  textarea,
-  input,
-  select {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    font-size: 16px;
+  .tool-title{
+    font-size:2.45rem;
+    line-height:1;
   }
 
-  .run-btn {
-    width: auto;
-    max-width: 100%;
-    padding: .8rem 1.5rem;
+  .tool-desc{
+    font-size:1.08rem;
+    line-height:1.55;
   }
 
-  .out {
-    max-width: 100%;
-    overflow-wrap: break-word;
+  .pay-notice,
+  .pay-notice-wf{
+    font-size:1rem;
+    line-height:1.45;
+    padding:.9rem 1rem;
   }
 
-  #prod-section > div:first-of-type {
-    grid-template-columns: 1fr !important;
+  label{
+    font-size:.78rem;
+  }
+
+  input, select, textarea{
+    font-size:1rem;
+    padding:1rem;
+    border-radius:14px;
+  }
+
+  textarea{
+    min-height:150px;
+  }
+
+  .run-btn{
+    width:auto;
+    min-width:250px;
+    justify-content:center;
+    padding:1rem 1.6rem;
+    font-size:1.18rem;
+  }
+
+  .wf-grid, .ge-grid{
+    grid-template-columns:1fr;
+  }
+
+  .home-section,
+  .cta-section,
+  .new-footer{
+    padding-left:1rem;
+    padding-right:1rem;
+  }
+
+  #prod-section > div:first-of-type{
+    grid-template-columns:1fr!important;
   }
 }
 
-@media (max-width: 420px) {
-  .nav-logo {
-    font-size: .78rem;
+@media(max-width:420px){
+  .nav-logo{
+    font-size:.92rem;
+    max-width:55%;
   }
 
-  .nav-cta {
-    padding: .5rem .9rem;
-    font-size: .72rem;
+  .nav-cta{
+    padding:.65rem 1rem;
+    font-size:.86rem;
   }
 
-  .ptopbar {
-    top: 52px;
+  .ptopbar{
+    gap:.65rem;
+    padding:.8rem .85rem;
   }
 
-  .tool-title {
-    font-size: 1.75rem;
+  .ptopbar-name{
+    font-size:1.12rem;
+  }
+
+  .ptab{
+    font-size:.94rem;
+    padding:.52rem .78rem;
+  }
+
+  .ptopbar-price{
+    font-size:.72rem;
+    padding:.48rem .78rem;
   }
 }
 
@@ -931,6 +983,7 @@ function showGE(id,btn){
   document.querySelectorAll('#view-ge .ptab').forEach(t=>t.classList.remove('on-ge'));
   if(btn)btn.classList.add('on-ge');
   else document.querySelectorAll('#view-ge .ptab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on-ge');});
+  if (typeof pushToolUrl === 'function') pushToolUrl(id);
 }
 function showWF(id,btn){
   document.querySelectorAll('#view-wf .tpanel').forEach(p=>p.classList.remove('active'));
@@ -938,6 +991,7 @@ function showWF(id,btn){
   document.querySelectorAll('#view-wf .ptab').forEach(t=>t.classList.remove('on-wf'));
   if(btn)btn.classList.add('on-wf');
   else document.querySelectorAll('#view-wf .ptab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on-wf');});
+  if (typeof pushToolUrl === 'function') pushToolUrl(id);
 }
 
 const REQ={'mkt-pitch':['pw-biz','pw-client','pw-prob'],'mkt-scale':['so-biz','so-svc'],'mkt-lead':['lm-role','lm-team'],'mkt-price':['pp-biz','pp-mkt'],sell:['sell-co','sell-ind'],pain:['pain-ind'],proposal:['prop-cl','prop-prob'],prep:['prep-co'],objections:['obj-said'],competitive:['comp-you'],roi:['roi-sol'],jobapply:['ja-jd'],docforge:['df-det'],replyright:['rr-em'],captionforge:['cf-desc'],meetingmind:['mm-notes'],checklistai:['cl-goal'],studysnap:['ss-notes'],contractcheck:['cc-ct'],pricemywork:['pw-svc'],reviewreply:['rv-rv'],threadforge:['tf-ct'],dailybrief:['db-role']};
@@ -1147,6 +1201,90 @@ function showMKT(id, btn) {
 }
 document.getElementById('pay-modal').addEventListener('click',e=>{if(e.target===document.getElementById('pay-modal'))closePay();});
 // footer is in HTML directly
+
+/* ── AIBSOS CLEAN URL ROUTER ── */
+const AIBSOS_ROUTES = {
+  "/": { view:"home", title:"AI Business Solutions OS — AI Tools That Generate Results Instantly", desc:"Instant AI tools for emails, job applications, contracts, proposals, meeting notes, pricing, sales and business workflows." },
+
+  "/workforge": { view:"wf", panel:"wf-home", group:"wf", title:"WorkForge — 12 AI Tools for Everyday Work", desc:"Use WorkForge to generate emails, cover letters, captions, contract checks, meeting summaries, checklists, pricing and more." },
+  "/replyright": { view:"wf", panel:"wf-replyright", group:"wf", title:"ReplyRight — AI Professional Email Reply Generator", desc:"Paste a difficult email and instantly generate professional replies in different tones." },
+  "/jobapply-ai": { view:"wf", panel:"wf-jobapply", group:"wf", title:"JobApply AI — AI Cover Letter Generator", desc:"Paste a job description and generate a tailored cover letter instantly." },
+  "/captionforge": { view:"wf", panel:"wf-captionforge", group:"wf", title:"CaptionForge — AI Caption Generator", desc:"Generate scroll-stopping social media captions and hashtags for any platform." },
+  "/contractcheck": { view:"wf", panel:"wf-contractcheck", group:"wf", title:"ContractCheck — AI Contract Red Flag Checker", desc:"Paste a contract and get plain English explanations, red flags and negotiation points." },
+  "/meetingmind": { view:"wf", panel:"wf-meetingmind", group:"wf", title:"MeetingMind — AI Meeting Summary Generator", desc:"Turn messy meeting notes into summaries, action items and follow-up emails." },
+  "/docforge": { view:"wf", panel:"wf-docforge", group:"wf", title:"DocForge — AI Business Document Generator", desc:"Generate proposals, scopes, invoices, bios and business documents quickly." },
+  "/threadforge": { view:"wf", panel:"wf-threadforge", group:"wf", title:"ThreadForge — AI Thread Generator", desc:"Turn ideas and articles into ready-to-post X and Twitter threads." },
+  "/checklistai": { view:"wf", panel:"wf-checklistai", group:"wf", title:"ChecklistAI — AI Checklist Generator", desc:"Create prioritised checklists with time estimates for any goal or project." },
+  "/pricemywork": { view:"wf", panel:"wf-pricemywork", group:"wf", title:"PriceMyWork — Freelance Pricing Calculator", desc:"Get pricing guidance for freelance work, creative services and client projects." },
+  "/reviewreply": { view:"wf", panel:"wf-reviewreply", group:"wf", title:"ReviewReply — AI Review Response Generator", desc:"Generate professional replies to customer reviews and client feedback." },
+  "/studysnap": { view:"wf", panel:"wf-studysnap", group:"wf", title:"StudySnap — AI Study Notes and Flashcards", desc:"Turn study notes into summaries, flashcards and revision questions." },
+  "/dailybrief": { view:"wf", panel:"wf-dailybrief", group:"wf", title:"DailyBrief — AI Daily Briefing Generator", desc:"Create a focused daily briefing based on your role, priorities and challenges." },
+
+  "/growth-engine": { view:"ge", panel:"ge-home", group:"ge", title:"Growth Engine — AI Sales and Revenue Intelligence", desc:"Use Growth Engine to generate proposals, sales strategy, client prep, pain points, objections and ROI outputs." },
+  "/proposal-generator": { view:"ge", panel:"ge-proposal", group:"ge", title:"Proposal Generator — AI Business Proposal Tool", desc:"Generate complete, persuasive business proposals ready to send." },
+  "/what-do-i-sell": { view:"ge", panel:"ge-sell", group:"ge", title:"What Do I Sell? — AI Sales Strategy Generator", desc:"Get a CEO-level sales strategy for a company, industry or client." },
+  "/objection-handler": { view:"ge", panel:"ge-obj", group:"ge", title:"Objection Handler — AI Sales Objection Responses", desc:"Turn client objections into confident commercial responses." },
+  "/client-prep": { view:"ge", panel:"ge-prep", group:"ge", title:"Client Prep Engine — AI Sales Meeting Prep", desc:"Generate pre-meeting client research, questions, ROI angles and follow-up emails." },
+  "/pain-finder": { view:"ge", panel:"ge-pain", group:"ge", title:"Pain Finder — AI Business Pain Point Finder", desc:"Identify likely business pain points and recommended solutions for any client." },
+  "/competitive-intel": { view:"ge", panel:"ge-comp", group:"ge", title:"Competitive Intel — AI Differentiation Tool", desc:"Find competitor gaps, differentiators and a winning sales pitch." },
+  "/roi-calculator": { view:"ge", panel:"ge-roi", group:"ge", title:"ROI Calculator — AI Business ROI Tool", desc:"Show clients how your solution can save money, increase revenue or improve productivity." },
+
+  "/marketplace": { view:"mkt", panel:"mkt-home", group:"mkt", title:"AIBSOS Marketplace — Premium AI Business Bundles", desc:"Premium AI bundles for sales, operations, leadership, retention, content, hiring and business launch." }
+};
+
+const AIBSOS_PANEL_URLS = {};
+Object.keys(AIBSOS_ROUTES).forEach(path=>{
+  const r = AIBSOS_ROUTES[path];
+  if(r.panel) AIBSOS_PANEL_URLS[r.panel] = path;
+});
+
+function updatePageSEO(route){
+  if(!route) return;
+  if(route.title) document.title = route.title;
+
+  let desc = document.querySelector('meta[name="description"]');
+  if(!desc){
+    desc = document.createElement('meta');
+    desc.setAttribute('name','description');
+    document.head.appendChild(desc);
+  }
+  if(route.desc) desc.setAttribute('content', route.desc);
+
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if(!canonical){
+    canonical = document.createElement('link');
+    canonical.setAttribute('rel','canonical');
+    document.head.appendChild(canonical);
+  }
+  canonical.setAttribute('href', 'https://www.aibsos.com' + (route.path || window.location.pathname));
+}
+
+function activateRouteFromPath(){
+  const cleanPath = window.location.pathname.replace(/\/$/,'') || "/";
+  const route = AIBSOS_ROUTES[cleanPath] || AIBSOS_ROUTES["/"];
+  route.path = cleanPath;
+  updatePageSEO(route);
+
+  showView(route.view || "home", null);
+
+  if(route.group === "wf" && route.panel) showWF(route.panel, null);
+  if(route.group === "ge" && route.panel) showGE(route.panel, null);
+  if(route.group === "mkt" && route.panel && typeof showMKT === "function") showMKT(route.panel, null);
+}
+
+function pushToolUrl(panelId){
+  const url = AIBSOS_PANEL_URLS[panelId];
+  if(url && window.location.pathname !== url){
+    history.pushState({}, "", url);
+    const route = AIBSOS_ROUTES[url];
+    route.path = url;
+    updatePageSEO(route);
+  }
+}
+
+window.addEventListener("popstate", activateRouteFromPath);
+window.addEventListener("DOMContentLoaded", activateRouteFromPath);
+
 </script>
 
 <!-- MARKETPLACE VIEW -->
@@ -1334,175 +1472,5 @@ Candidate 2: Emily &mdash; 5 years, high performer, no management experience..."
 
   </div>
 </div>
-
-<script>
-/* === AIBSOS STANDALONE TOOL URL ROUTER ADDED BY CHATGPT === */
-const AIBSOS_ROUTES = {
-  "/": { view: "home", title: "AI Business Solutions OS", description: "AI Business Solutions OS helps people and businesses generate useful outputs, automate work, and move faster with practical AI tools." },
-
-  "/workforge": { view: "wf", panel: "wf-home", title: "WorkForge — AI Work Tools", description: "Use AI tools for emails, job applications, contracts, meeting notes, captions, checklists, pricing and everyday work outputs." },
-  "/replyright": { view: "wf", panel: "wf-replyright", title: "ReplyRight — AI Professional Email Reply Generator", description: "Paste a difficult email and get 3 professional replies in different tones instantly." },
-  "/jobapply-ai": { view: "wf", panel: "wf-jobapply", title: "JobApply AI — AI Cover Letter Generator", description: "Paste a job description and generate a tailored cover letter instantly." },
-  "/captionforge": { view: "wf", panel: "wf-captionforge", title: "CaptionForge — AI Caption Generator", description: "Generate scroll-stopping captions and hashtags for your content." },
-  "/contractcheck": { view: "wf", panel: "wf-contractcheck", title: "ContractCheck — AI Contract Red Flag Checker", description: "Paste a contract and get a plain-English summary, red flags, and negotiation points." },
-  "/meetingmind": { view: "wf", panel: "wf-meetingmind", title: "MeetingMind — AI Meeting Summary Generator", description: "Turn messy meeting notes into a clear summary, actions, owners and next steps." },
-  "/docforge": { view: "wf", panel: "wf-docforge", title: "DocForge — AI Business Document Generator", description: "Generate business documents, letters, policies and structured drafts faster." },
-  "/threadforge": { view: "wf", panel: "wf-threadforge", title: "ThreadForge — AI Thread Generator", description: "Turn an idea into a structured social media thread." },
-  "/checklistai": { view: "wf", panel: "wf-checklistai", title: "ChecklistAI — AI Checklist Generator", description: "Create useful checklists for projects, launches, workflows and planning." },
-  "/pricemywork": { view: "wf", panel: "wf-pricemywork", title: "PriceMyWork — Freelance Pricing Calculator", description: "Get pricing guidance for freelance work, service offers and project rates." },
-  "/reviewreply": { view: "wf", panel: "wf-reviewreply", title: "ReviewReply — AI Review Response Generator", description: "Generate professional replies to customer reviews, complaints and feedback." },
-  "/studysnap": { view: "wf", panel: "wf-studysnap", title: "StudySnap — AI Flashcard Generator", description: "Turn notes into study summaries, flashcards and quick revision material." },
-  "/dailybrief": { view: "wf", panel: "wf-dailybrief", title: "DailyBrief — AI Daily Brief Generator", description: "Generate a focused daily brief for your role, priorities and tasks." },
-
-  "/growth-engine": { view: "ge", panel: "ge-home", title: "Growth Engine — AI Sales Intelligence System", description: "Use AI to create proposals, prep for clients, handle objections, find pain points and calculate ROI." },
-  "/proposal-generator": { view: "ge", panel: "ge-proposal", title: "Proposal Generator — AI Business Proposal Tool", description: "Generate persuasive business proposals from client needs, pricing and solution details." },
-  "/what-do-i-sell": { view: "ge", panel: "ge-sell", title: "What Do I Sell? — AI Sales Strategy Tool", description: "Get a CEO-level sales strategy for a company, industry or client opportunity." },
-  "/objection-handler": { view: "ge", panel: "ge-obj", title: "Objection Handler — AI Sales Response Tool", description: "Turn client objections into confident, commercially grounded responses." },
-  "/client-prep": { view: "ge", panel: "ge-prep", title: "Client Prep Engine — AI Meeting Prep Tool", description: "Generate a pre-meeting sales pack with pain points, questions, ROI and follow-up ideas." },
-  "/pain-finder": { view: "ge", panel: "ge-pain", title: "Pain Finder — AI Business Pain Point Tool", description: "Identify likely business pain points and match them to relevant solutions." },
-  "/competitive-intel": { view: "ge", panel: "ge-comp", title: "Competitive Intel — AI Differentiation Tool", description: "Find your differentiators, competitor gaps and strongest pitch angle." },
-  "/roi-calculator": { view: "ge", panel: "ge-roi", title: "ROI Calculator — AI Business ROI Tool", description: "Estimate how much a solution could save or generate for a client." },
-
-  "/marketplace": { view: "mkt", panel: "mkt-home", title: "AIBSOS Marketplace — AI Business Bundles", description: "Premium AI business bundles for sales, operations, leadership, retention, branding, hiring and launch planning." },
-  "/pitch-and-win": { view: "mkt", panel: "mkt-pitch", title: "Pitch & Win Bundle — AI Sales Document Generator", description: "Generate a proposal, executive summary, ROI business case, objections playbook and follow-up sequence." },
-  "/scale-and-operate": { view: "mkt", panel: "mkt-scale", title: "Scale & Operate Bundle — AI Operations Document Generator", description: "Generate SOPs, onboarding packs, KPI dashboards, delegation maps and workflow documentation." },
-  "/lead-and-manage": { view: "mkt", panel: "mkt-lead", title: "Lead & Manage Bundle — AI Leadership Toolkit", description: "Generate leadership documents, team systems and management frameworks." },
-  "/price-and-position": { view: "mkt", panel: "mkt-price", title: "Price & Position Bundle — AI Pricing and Positioning Tool", description: "Generate pricing strategy, positioning statements, value propositions and messaging guides." }
-};
-
-const AIBSOS_PANEL_TO_PATH = {};
-Object.keys(AIBSOS_ROUTES).forEach(path => {
-  const route = AIBSOS_ROUTES[path];
-  if (route.panel) AIBSOS_PANEL_TO_PATH[route.panel] = path;
-});
-
-function setAIBSOSMeta(route) {
-  if (!route) return;
-  document.title = route.title || "AI Business Solutions OS";
-
-  let desc = document.querySelector('meta[name="description"]');
-  if (!desc) {
-    desc = document.createElement("meta");
-    desc.setAttribute("name", "description");
-    document.head.appendChild(desc);
-  }
-  desc.setAttribute("content", route.description || "Practical AI tools for work, business and growth.");
-
-  let canonical = document.querySelector('link[rel="canonical"]');
-  if (!canonical) {
-    canonical = document.createElement("link");
-    canonical.setAttribute("rel", "canonical");
-    document.head.appendChild(canonical);
-  }
-  canonical.setAttribute("href", window.location.origin + (route.path || window.location.pathname));
-}
-
-function pushAIBSOSPath(path) {
-  if (!path) return;
-  if (window.location.pathname !== path) {
-    history.pushState({}, "", path);
-  }
-  const route = AIBSOS_ROUTES[path];
-  if (route) setAIBSOSMeta({ ...route, path });
-}
-
-function showView(v, btn, skipUrl) {
-  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-  const viewEl = document.getElementById('view-' + v);
-  if (viewEl) viewEl.classList.add('active');
-
-  document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on-home','on-ge','on-wf','on-mkt'));
-
-  if (btn) {
-    if (v === 'ge') btn.classList.add('on-ge');
-    else if (v === 'wf') btn.classList.add('on-wf');
-    else if (v === 'mkt') btn.classList.add('on-mkt');
-    else btn.classList.add('on-home');
-  } else {
-    const selector = v === "ge" ? ".ntab:nth-child(2)" : v === "wf" ? ".ntab.wf-tab" : v === "mkt" ? ".ntab.mkt-tab" : ".ntab.on-home";
-    const navBtn = document.querySelector(selector);
-    if (navBtn) {
-      if (v === 'ge') navBtn.classList.add('on-ge');
-      else if (v === 'wf') navBtn.classList.add('on-wf');
-      else if (v === 'mkt') navBtn.classList.add('on-mkt');
-      else navBtn.classList.add('on-home');
-    }
-  }
-
-  if (!skipUrl) {
-    if (v === "home") pushAIBSOSPath("/");
-    if (v === "wf") pushAIBSOSPath("/workforge");
-    if (v === "ge") pushAIBSOSPath("/growth-engine");
-    if (v === "mkt") pushAIBSOSPath("/marketplace");
-  }
-
-  window.scrollTo(0, 0);
-}
-
-function showWF(id, btn, skipUrl) {
-  showView("wf", document.querySelector(".ntab.wf-tab"), true);
-  document.querySelectorAll('#view-wf .tpanel').forEach(p => p.classList.remove('active'));
-  const panel = document.getElementById(id);
-  if (panel) panel.classList.add('active');
-
-  document.querySelectorAll('#view-wf .ptab').forEach(t => t.classList.remove('on-wf'));
-  if (btn) btn.classList.add('on-wf');
-  else document.querySelectorAll('#view-wf .ptab').forEach(t => {
-    if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + id + "'")) t.classList.add('on-wf');
-  });
-
-  if (!skipUrl) pushAIBSOSPath(AIBSOS_PANEL_TO_PATH[id] || "/workforge");
-  window.scrollTo(0, 0);
-}
-
-function showGE(id, btn, skipUrl) {
-  showView("ge", document.querySelector(".ntab:nth-child(2)"), true);
-  document.querySelectorAll('#view-ge .tpanel').forEach(p => p.classList.remove('active'));
-  const panel = document.getElementById(id);
-  if (panel) panel.classList.add('active');
-
-  document.querySelectorAll('#view-ge .ptab').forEach(t => t.classList.remove('on-ge'));
-  if (btn) btn.classList.add('on-ge');
-  else document.querySelectorAll('#view-ge .ptab').forEach(t => {
-    if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + id + "'")) t.classList.add('on-ge');
-  });
-
-  if (!skipUrl) pushAIBSOSPath(AIBSOS_PANEL_TO_PATH[id] || "/growth-engine");
-  window.scrollTo(0, 0);
-}
-
-function showMKT(id, btn, skipUrl) {
-  showView("mkt", document.querySelector(".ntab.mkt-tab"), true);
-  document.querySelectorAll('#view-mkt .tpanel').forEach(p => p.classList.remove('active'));
-  const panel = document.getElementById(id);
-  if (panel) panel.classList.add('active');
-
-  document.querySelectorAll('#view-mkt .ptab').forEach(t => t.classList.remove('on-mkt-tab'));
-  if (btn) btn.classList.add('on-mkt-tab');
-  else document.querySelectorAll('#view-mkt .ptab').forEach(t => {
-    if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + id + "'")) t.classList.add('on-mkt-tab');
-  });
-
-  if (!skipUrl) pushAIBSOSPath(AIBSOS_PANEL_TO_PATH[id] || "/marketplace");
-  window.scrollTo(0, 0);
-}
-
-function loadAIBSOSRoute() {
-  let path = window.location.pathname.replace(/\/$/, "") || "/";
-  path = path.replace(".html", "");
-
-  const route = AIBSOS_ROUTES[path] || AIBSOS_ROUTES["/"];
-  setAIBSOSMeta({ ...route, path });
-
-  if (route.view === "wf") showWF(route.panel || "wf-home", null, true);
-  else if (route.view === "ge") showGE(route.panel || "ge-home", null, true);
-  else if (route.view === "mkt") showMKT(route.panel || "mkt-home", null, true);
-  else showView("home", null, true);
-}
-
-window.addEventListener("DOMContentLoaded", loadAIBSOSRoute);
-window.addEventListener("popstate", loadAIBSOSRoute);
-</script>
-
 </body>
 </html>
