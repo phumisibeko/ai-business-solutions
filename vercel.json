@@ -1,9 +1,6 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/workforge",
-      "destination": "/index.html"
-    },
     {
       "source": "/replyright",
       "destination": "/index.html"
@@ -53,6 +50,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/workforge",
+      "destination": "/index.html"
+    },
+    {
       "source": "/growth-engine",
       "destination": "/index.html"
     },
@@ -86,22 +87,6 @@
     },
     {
       "source": "/marketplace",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/pitch-and-win",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/scale-and-operate",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/lead-and-manage",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/price-and-position",
       "destination": "/index.html"
     }
   ]
