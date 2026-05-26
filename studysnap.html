@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="AI Business Solutions OS gives you instant AI tools for emails, job applications, contracts, proposals, meeting notes, pricing, sales and business workflows.">
-<title>AI Business Solutions OS — AI Tools That Generate Results Instantly</title>
+<meta name="description" content="AIBSOS gives you instant AI tools for work, sales, business systems, marketplace bundles and personal planning. Pay once and generate a result immediately.">
+<title>AI Business Solutions OS — Instant AI Tools for Work, Sales and Business</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@0,400;0,500;0,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -275,175 +275,29 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 @media(max-width:400px){#prod-section>div:first-of-type{grid-template-columns:1fr!important;}}
 
 
-/* ── AIBSOS MOBILE + TOOL URL POLISH ── */
+/* AIBSOS FINAL MOBILE + PRODUCT FIXES */
 @media(max-width:768px){
-  html, body{
-    width:100%;
-    max-width:100%;
-    overflow-x:hidden;
-  }
-
-  nav{
-    padding:.9rem 1rem;
-    min-height:64px;
-  }
-
-  .nav-logo{
-    font-size:1rem;
-    max-width:58%;
-    line-height:1.1;
-  }
-
-  .nav-cta{
-    padding:.7rem 1.25rem;
-    font-size:.92rem;
-    border-radius:999px;
-    flex-shrink:0;
-  }
-
-  .view{
-    padding-top:64px;
-  }
-
-  .ptopbar{
-    position:sticky;
-    top:64px;
-    z-index:120;
-    display:flex;
-    align-items:center;
-    flex-wrap:nowrap;
-    gap:.8rem;
-    padding:.85rem 1rem;
-    overflow:hidden;
-    background:#101010;
-    border-top:1px solid rgba(255,255,255,.04);
-    border-bottom:1px solid rgba(255,255,255,.10);
-  }
-
-  .ptopbar-name{
-    font-size:1.25rem;
-    flex:0 0 auto;
-  }
-
-  .ptabs{
-    flex:1 1 auto;
-    min-width:0;
-    display:flex;
-    flex-wrap:nowrap;
-    overflow-x:auto;
-    overflow-y:hidden;
-    gap:.65rem;
-    padding:.1rem .2rem;
-    scrollbar-width:none;
-    -webkit-overflow-scrolling:touch;
-  }
-
-  .ptabs::-webkit-scrollbar{
-    display:none;
-  }
-
-  .ptab{
-    flex:0 0 auto;
-    font-size:1rem;
-    padding:.55rem .85rem;
-    border-radius:12px;
-  }
-
-  .ptopbar-price{
-    flex:0 0 auto;
-    font-size:.78rem;
-    padding:.5rem .85rem;
-  }
-
-  .tpanel{
-    padding:2.2rem 1rem 7rem;
-    max-width:100%;
-  }
-
-  .tool-title{
-    font-size:2.45rem;
-    line-height:1;
-  }
-
-  .tool-desc{
-    font-size:1.08rem;
-    line-height:1.55;
-  }
-
-  .pay-notice,
-  .pay-notice-wf{
-    font-size:1rem;
-    line-height:1.45;
-    padding:.9rem 1rem;
-  }
-
-  label{
-    font-size:.78rem;
-  }
-
-  input, select, textarea{
-    font-size:1rem;
-    padding:1rem;
-    border-radius:14px;
-  }
-
-  textarea{
-    min-height:150px;
-  }
-
-  .run-btn{
-    width:auto;
-    min-width:250px;
-    justify-content:center;
-    padding:1rem 1.6rem;
-    font-size:1.18rem;
-  }
-
-  .wf-grid, .ge-grid{
-    grid-template-columns:1fr;
-  }
-
-  .home-section,
-  .cta-section,
-  .new-footer{
-    padding-left:1rem;
-    padding-right:1rem;
-  }
-
-  #prod-section > div:first-of-type{
-    grid-template-columns:1fr!important;
-  }
-}
-
-@media(max-width:420px){
-  .nav-logo{
-    font-size:.92rem;
-    max-width:55%;
-  }
-
-  .nav-cta{
-    padding:.65rem 1rem;
-    font-size:.86rem;
-  }
-
-  .ptopbar{
-    gap:.65rem;
-    padding:.8rem .85rem;
-  }
-
-  .ptopbar-name{
-    font-size:1.12rem;
-  }
-
-  .ptab{
-    font-size:.94rem;
-    padding:.52rem .78rem;
-  }
-
-  .ptopbar-price{
-    font-size:.72rem;
-    padding:.48rem .78rem;
-  }
+  html,body{width:100%;max-width:100%;overflow-x:hidden;}
+  nav{padding:.85rem 1rem;gap:.6rem;min-height:64px;}
+  .nav-logo{font-size:1rem;line-height:1.05;max-width:58%;}
+  .nav-cta{padding:.65rem 1rem;font-size:.85rem;white-space:nowrap;}
+  .view{padding-top:64px;}
+  .hero-new{padding:2.6rem 1rem 2rem;gap:1.5rem;}
+  .hero-new h1{font-size:clamp(2.4rem,16vw,4rem);}
+  #prod-section>div:first-of-type{grid-template-columns:1fr!important;}
+  .ptopbar{top:64px;padding:.8rem .9rem;gap:.7rem;flex-wrap:nowrap;overflow:hidden;}
+  .ptopbar-name{font-size:1.15rem;flex:0 0 auto;}
+  .ptabs{flex:1;min-width:0;overflow-x:auto;flex-wrap:nowrap;gap:.5rem;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .ptabs::-webkit-scrollbar{display:none;}
+  .ptab{flex:0 0 auto;font-size:.95rem;padding:.5rem .75rem;border-radius:12px;}
+  .ptopbar-price{font-size:.72rem;padding:.46rem .7rem;flex:0 0 auto;}
+  .tpanel{padding:2rem 1rem 6rem;max-width:100%;}
+  .tool-title{font-size:2.25rem;line-height:1;}
+  .tool-desc{font-size:1rem;line-height:1.55;}
+  input,select,textarea{font-size:1rem;padding:1rem;border-radius:14px;}
+  textarea{min-height:140px;}
+  .run-btn{min-width:240px;justify-content:center;padding:.95rem 1.5rem;font-size:1.1rem;}
+  .wf-grid,.ge-grid{grid-template-columns:1fr!important;}
 }
 
 </style>
@@ -457,7 +311,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <button class="ntab" onclick="showView('ge',this)">&#9889; Growth Engine</button>
     <button class="ntab wf-tab" onclick="showView('wf',this)">&#9881; WorkForge</button>
     <button class="ntab mkt-tab" onclick="showView('mkt',this)">&#9638; Marketplace</button>
-    <button class="ntab mkt-tab" onclick="showView('mkt',this)">&#9670; Marketplace</button>
+    <button class="ntab" onclick="showView('life',this)">&#9733; LifeBoard</button>
   </div>
   <button class="nav-cta" onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Get started</button>
 </nav>
@@ -530,27 +384,27 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
         <div class="phc-num">03</div>
         <div class="phc-new-name">MARKETPLACE</div>
         <div class="phc-new-tag">High-ticket AI bundles for any business.</div>
-        <div class="phc-new-desc">Four premium bundles: Pitch &amp; Win, Scale &amp; Operate, Lead &amp; Manage, Price &amp; Position. Designed for serious outcomes.</div>
+        <div class="phc-new-desc">Six premium AI systems: Sales Domination, Executive Decision, Client Retention, Brand Authority, Hiring Intelligence and Launch Accelerator.</div>
         <div class="phc-new-bottom">
-          <div class="phc-new-price" style="color:#f59e0b;">R497</div>
-          <div class="phc-new-note">per bundle</div>
+          <div class="phc-new-price mkt-home-price" style="color:#f59e0b;">$270</div>
+          <div class="phc-new-note">from / once-off</div>
         </div>
-        <div class="phc-live-badge" style="color:#f59e0b;">&#9679; Coming next</div>
+        <div class="phc-live-badge" style="color:#22c55e;">&#9679; Live</div>
         <button class="phc-btn" style="background:#f59e0b;" onclick="event.stopPropagation();showView('mkt',document.querySelector('.ntab.mkt-tab'))">Preview &rarr;</button>
       </div>
 
       <!-- 04 -->
-      <div class="phc-new">
+      <div class="phc-new" onclick="showView('life',null)">
         <div class="phc-num">04</div>
         <div class="phc-new-name">LIFEBOARD</div>
         <div class="phc-new-tag">Your personal operating system.</div>
         <div class="phc-new-desc">Planning, priorities, journaling and intentional daily action. Built for people who want to live and work with more intention.</div>
         <div class="phc-new-bottom">
-          <div class="phc-new-price" style="color:rgba(255,255,255,.4);">R297</div>
-          <div class="phc-new-note">/ month</div>
+          <div class="phc-new-price lifeboard-price" style="color:#9ca3af;">$4</div>
+          <div class="phc-new-note">per result</div>
         </div>
-        <div class="phc-live-badge" style="color:rgba(255,255,255,.4);">&#9679; Coming soon</div>
-        <button class="phc-btn phc-btn-neu" onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Join waitlist</button>
+        <div class="phc-live-badge" style="color:#22c55e;">&#9679; Live</div>
+        <button class="phc-btn phc-btn-neu" onclick="event.stopPropagation();showView('life',null)">Open &rarr;</button>
       </div>
 
     </div>
@@ -627,8 +481,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
       <div class="nf-logo">AI BUSINESS SOLUTIONS <span>OS</span></div>
       <div class="nf-tag">Intelligent systems that think with your business &middot; AI Business Solutions (Pty) Ltd &middot; Reg: 2025/651953/07</div>
       <div class="nf-cols">
-        <div class="nf-col"><h4>Live now</h4><a onclick="showView('ge',null)">Growth Engine</a><a onclick="showView('wf',null)">WorkForge</a></div>
-        <div class="nf-col"><h4>Coming soon</h4><p>Marketplace Bundle</p><p>LifeBoard</p><p>AIBS Studio</p></div>
+        <div class="nf-col"><h4>Live now</h4><a onclick="showView('ge',null)">Growth Engine</a><a onclick="showView('wf',null)">WorkForge</a><a onclick="showView('mkt',null)">Marketplace</a><a onclick="showView('life',null)">LifeBoard</a></div>
+        <div class="nf-col"><h4>Coming soon</h4><p>AIBS Studio</p></div>
         <div class="nf-col"><h4>Pricing</h4><p>Pay per result</p><p>No subscription</p></div>
         <div class="nf-col"><h4>Legal</h4><a onclick="showView('privacy',null)">Privacy Policy</a><a onclick="showView('refund',null)">Refund Policy</a><a onclick="showView('contact',null)">Contact Us</a></div>
         <div class="nf-col"><h4>Contact</h4><a href="mailto:hello@aibsos.com">hello@aibsos.com</a><p>www.aibsos.com</p></div>
@@ -742,145 +596,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <div id="view-contact" class="view"><div class="policy-wrap"><div class="back-link" onclick="showView('home',null)">&larr; Back to home</div><h1>CONTACT US</h1><p class="policy-date">AI Business Solutions (Pty) Ltd &middot; Reg: 2025/651953/07</p><h2>General Enquiries</h2><p><a href="mailto:hello@aibsos.com" style="color:var(--ge);font-size:1rem;font-weight:600;">hello@aibsos.com</a></p><h2>Response Times</h2><ul><li>Payment / refund issues: within 2 business days</li><li>General enquiries: within 3 business days</li><li>Technical issues: within 1 business day</li></ul><h2>Business Information</h2><p>AI Business Solutions (Pty) Ltd<br>Registration No: 2025/651953/07<br>Website: www.aibsos.com</p></div></div>
 
 
-<div id="view-mkt" class="view">
-  <div class="pshell">
-    <div class="ptopbar">
-      <div class="ptopbar-name" style="color:#f59e0b;">MARKETPLACE BUNDLE</div>
-      <div class="ptabs">
-        <button class="ptab on-mkt" onclick="showMKT('mkt-home',this)" style="color:#f59e0b;border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.1);">&#127968; All bundles</button>
-        <button class="ptab" onclick="showMKT('mkt-pitch',this)">Pitch &amp; Win</button>
-        <button class="ptab" onclick="showMKT('mkt-scale',this)">Scale &amp; Operate</button>
-        <button class="ptab" onclick="showMKT('mkt-lead',this)">Lead &amp; Manage</button>
-        <button class="ptab" onclick="showMKT('mkt-price',this)">Price &amp; Position</button>
-      </div>
-      <div class="ptopbar-price" style="color:#f59e0b;">R497 per bundle</div>
-    </div>
-
-    <!-- HOME -->
-    <div id="mkt-home" class="tpanel active">
-      <div class="sl" style="margin-top:.5rem;">Marketplace Bundle &middot; 4 premium AI bundles &middot; Pay per bundle</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">HIGH-TICKET TOOLS.<br>SERIOUS OUTCOMES.</h2>
-      <p style="color:var(--text2);font-size:.875rem;margin-bottom:1.5rem;max-width:580px;">Four premium AI bundles built for maximum business output. Generic enough for any industry. Specific enough to matter. Each bundle targets a high-value business problem and delivers a complete, ready-to-use output.</p>
-      <div class="wf-grid">
-        <div class="wf-card" onclick="showMKT('mkt-pitch',null)" style="border-color:rgba(232,98,42,.2);">
-          <div class="card-num" style="color:var(--ge);">01</div>
-          <div class="card-name">PITCH &amp; WIN</div>
-          <div class="card-desc">The complete business pitch system. Proposal, executive summary, ROI case, objection playbook &amp; follow-up sequence.</div>
-          <div class="card-price" style="color:var(--ge2);opacity:1;">R497 &middot; 5 documents</div>
-        </div>
-        <div class="wf-card" onclick="showMKT('mkt-scale',null)" style="border-color:rgba(61,107,255,.2);">
-          <div class="card-num" style="color:var(--wf);">02</div>
-          <div class="card-name">SCALE &amp; OPERATE</div>
-          <div class="card-desc">The business operations bundle. SOP library, team onboarding pack, KPI dashboard template &amp; process audit framework.</div>
-          <div class="card-price" style="color:var(--wf2);opacity:1;">R497 &middot; 5 documents</div>
-        </div>
-        <div class="wf-card" onclick="showMKT('mkt-lead',null)" style="border-color:rgba(0,179,240,.2);">
-          <div class="card-num" style="color:#00b3f0;">03</div>
-          <div class="card-name">LEAD &amp; MANAGE</div>
-          <div class="card-desc">The leadership &amp; team management bundle. Performance framework, team brief, meeting system &amp; strategic decision guide.</div>
-          <div class="card-price" style="color:#7dd3fc;opacity:1;">R497 &middot; 5 documents</div>
-        </div>
-        <div class="wf-card" onclick="showMKT('mkt-price',null)" style="border-color:rgba(245,158,11,.2);">
-          <div class="card-num" style="color:#f59e0b;">04</div>
-          <div class="card-name">PRICE &amp; POSITION</div>
-          <div class="card-desc">The pricing &amp; market positioning bundle. Pricing strategy, competitor gap map, value proposition &amp; offer design framework.</div>
-          <div class="card-price" style="color:#fcd34d;opacity:1;">R497 &middot; 5 documents</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PITCH & WIN -->
-    <div id="mkt-pitch" class="tpanel">
-      <div class="tool-title" style="color:var(--ge);">&#128196; PITCH &amp; WIN BUNDLE</div>
-      <div class="tool-desc">The complete business pitch system. Walk into any high-value meeting with a full set of AI-generated documents — tailored to your client, your offer, and your numbers. Works for any industry, any deal size.</div>
-      <div class="pay-notice">&#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.</div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;">
-        <div class="sl">What you get in this bundle</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Executive Business Proposal</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; One-Page Executive Summary</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; ROI Business Case</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Objection &amp; Response Playbook</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;">&#10003; 5-Touch Follow-Up Email Sequence</div>
-        </div>
-      </div>
-      <div class="fr"><div class="fg"><label>Your business / offer</label><input id="pw-biz" placeholder="e.g. AI consulting firm, marketing agency"></div><div class="fg"><label>Target client / industry</label><input id="pw-client" placeholder="e.g. Mid-size retail company"></div></div>
-      <div class="fr"><div class="fg"><label>The problem you solve</label><textarea id="pw-prob" placeholder="What pain does your client have? What does it cost them?" style="min-height:75px;"></textarea></div><div class="fg"><label>Your solution &amp; differentiator</label><textarea id="pw-sol" placeholder="What you offer and why you win over competitors." style="min-height:75px;"></textarea></div></div>
-      <div class="fr"><div class="fg"><label>Deal size / investment</label><input id="pw-deal" placeholder="e.g. R150,000 project fee"></div><div class="fg"><label>Decision maker name &amp; title</label><input id="pw-dm" placeholder="e.g. Sarah Miller, CEO"></div></div>
-      <button class="run-btn rbtn-ge" onclick="initPay('mkt-pitch','mkt')">&#128179; Pay R497 &amp; Generate Bundle &rarr;</button>
-      <div class="out" id="out-mkt-pitch"></div>
-    </div>
-
-    <!-- SCALE & OPERATE -->
-    <div id="mkt-scale" class="tpanel">
-      <div class="tool-title" style="color:var(--wf);">&#9881; SCALE &amp; OPERATE BUNDLE</div>
-      <div class="tool-desc">The business operations bundle. Stop running your business from your head. Get a complete operations infrastructure — SOPs, onboarding, KPIs, and a process audit — all generated in minutes. Works for any business at any stage.</div>
-      <div class="pay-notice pay-notice-wf">&#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.</div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;">
-        <div class="sl">What you get in this bundle</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Core SOP Library (5 key processes)</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Team Onboarding Pack</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; KPI Dashboard &amp; Scorecard</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Process Audit &amp; Gap Report</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;">&#10003; 90-Day Scaling Roadmap</div>
-        </div>
-      </div>
-      <div class="fr"><div class="fg"><label>Business type &amp; industry</label><input id="so-biz" placeholder="e.g. Digital marketing agency, 12 staff"></div><div class="fg"><label>Current biggest operational challenge</label><input id="so-chal" placeholder="e.g. No clear processes, high staff turnover"></div></div>
-      <div class="fr"><div class="fg"><label>Team size &amp; structure</label><input id="so-team" placeholder="e.g. 8 people across sales, ops and delivery"></div><div class="fg"><label>Revenue stage</label><select id="so-rev"><option>Pre-revenue / early stage</option><option>R0 &mdash; R500k/year</option><option>R500k &mdash; R2M/year</option><option>R2M &mdash; R10M/year</option><option>R10M+/year</option></select></div></div>
-      <div class="fg"><label>Core services / products you deliver</label><textarea id="so-svc" placeholder="What does your business actually do day to day?"></textarea></div>
-      <button class="run-btn rbtn-wf" onclick="initPay('mkt-scale','mkt')">&#128179; Pay R497 &amp; Generate Bundle &rarr;</button>
-      <div class="out" id="out-mkt-scale"></div>
-    </div>
-
-    <!-- LEAD & MANAGE -->
-    <div id="mkt-lead" class="tpanel">
-      <div class="tool-title" style="color:#00b3f0;">&#9650; LEAD &amp; MANAGE BUNDLE</div>
-      <div class="tool-desc">The leadership and team management bundle. Built for founders, managers and executives who need to lead better, make faster decisions, and build a team that performs. Works for any leadership level, any team size.</div>
-      <div class="pay-notice" style="background:rgba(0,179,240,.08);border-color:rgba(0,179,240,.2);color:#7dd3fc;">&#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.</div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;">
-        <div class="sl">What you get in this bundle</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Performance Management Framework</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Weekly Team Brief Template</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; 1:1 Meeting &amp; Feedback System</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Strategic Decision-Making Guide</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;">&#10003; Leadership Communication Playbook</div>
-        </div>
-      </div>
-      <div class="fr"><div class="fg"><label>Your role &amp; industry</label><input id="lm-role" placeholder="e.g. Founder, Financial Services, 20 staff"></div><div class="fg"><label>Biggest leadership challenge</label><input id="lm-chal" placeholder="e.g. Team not hitting targets, poor communication"></div></div>
-      <div class="fr"><div class="fg"><label>Team size &amp; seniority</label><input id="lm-team" placeholder="e.g. 15 people, mixed junior and senior"></div><div class="fg"><label>Current culture / environment</label><input id="lm-culture" placeholder="e.g. Fast-moving startup, high pressure sales team"></div></div>
-      <div class="fg"><label>What does success look like for your team in 90 days?</label><textarea id="lm-goal" placeholder="Describe the outcome you want to reach as a leader..."></textarea></div>
-      <button class="run-btn" style="background:#00b3f0;color:white;" onclick="initPay('mkt-lead','mkt')">&#128179; Pay R497 &amp; Generate Bundle &rarr;</button>
-      <div class="out" id="out-mkt-lead"></div>
-    </div>
-
-    <!-- PRICE & POSITION -->
-    <div id="mkt-price" class="tpanel">
-      <div class="tool-title" style="color:#f59e0b;">&#128176; PRICE &amp; POSITION BUNDLE</div>
-      <div class="tool-desc">The pricing and market positioning bundle. Know exactly what to charge, how to position against competitors, and how to design an offer people say yes to. Works for any business, product, or service.</div>
-      <div class="pay-notice" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.2);color:#fcd34d;">&#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.</div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;">
-        <div class="sl">What you get in this bundle</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Full Pricing Strategy &amp; Rate Card</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Competitive Gap Map</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Value Proposition Statement</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Offer Design Framework</div>
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;">&#10003; Positioning Statement &amp; Messaging Guide</div>
-        </div>
-      </div>
-      <div class="fr"><div class="fg"><label>Your business &amp; what you sell</label><input id="pp-biz" placeholder="e.g. Brand design studio, serves SMEs"></div><div class="fg"><label>Industry &amp; target market</label><input id="pp-mkt" placeholder="e.g. Professional services, mid-market"></div></div>
-      <div class="fr"><div class="fg"><label>Current pricing (if any)</label><input id="pp-cur" placeholder="e.g. R5,000 &mdash; R20,000 per project, unsure"></div><div class="fg"><label>Known competitors</label><input id="pp-comp" placeholder="e.g. Local agencies, Upwork freelancers"></div></div>
-      <div class="fg"><label>What makes you different? (even if unsure)</label><textarea id="pp-diff" placeholder="Your experience, quality, speed, relationships, specialisation..."></textarea></div>
-      <div class="fg"><label>What does your ideal client look like?</label><textarea id="pp-ideal" placeholder="Industry, size, budget range, what they value most..."></textarea></div>
-      <button class="run-btn" style="background:#f59e0b;color:#0a0f1c;" onclick="initPay('mkt-price','mkt')">&#128179; Pay R497 &amp; Generate Bundle &rarr;</button>
-      <div class="out" id="out-mkt-price"></div>
-    </div>
-
-  </div>
-</div>
-
 <div class="modal-bg" id="pay-modal">
   <div class="modal">
     <h3 id="m-title">Pay to generate</h3>
@@ -983,7 +698,6 @@ function showGE(id,btn){
   document.querySelectorAll('#view-ge .ptab').forEach(t=>t.classList.remove('on-ge'));
   if(btn)btn.classList.add('on-ge');
   else document.querySelectorAll('#view-ge .ptab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on-ge');});
-  if (typeof pushToolUrl === 'function') pushToolUrl(id);
 }
 function showWF(id,btn){
   document.querySelectorAll('#view-wf .tpanel').forEach(p=>p.classList.remove('active'));
@@ -991,7 +705,6 @@ function showWF(id,btn){
   document.querySelectorAll('#view-wf .ptab').forEach(t=>t.classList.remove('on-wf'));
   if(btn)btn.classList.add('on-wf');
   else document.querySelectorAll('#view-wf .ptab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'"))t.classList.add('on-wf');});
-  if (typeof pushToolUrl === 'function') pushToolUrl(id);
 }
 
 const REQ={'mkt-pitch':['pw-biz','pw-client','pw-prob'],'mkt-scale':['so-biz','so-svc'],'mkt-lead':['lm-role','lm-team'],'mkt-price':['pp-biz','pp-mkt'],sell:['sell-co','sell-ind'],pain:['pain-ind'],proposal:['prop-cl','prop-prob'],prep:['prep-co'],objections:['obj-said'],competitive:['comp-you'],roi:['roi-sol'],jobapply:['ja-jd'],docforge:['df-det'],replyright:['rr-em'],captionforge:['cf-desc'],meetingmind:['mm-notes'],checklistai:['cl-goal'],studysnap:['ss-notes'],contractcheck:['cc-ct'],pricemywork:['pw-svc'],reviewreply:['rv-rv'],threadforge:['tf-ct'],dailybrief:['db-role']};
@@ -1201,93 +914,67 @@ function showMKT(id, btn) {
 }
 document.getElementById('pay-modal').addEventListener('click',e=>{if(e.target===document.getElementById('pay-modal'))closePay();});
 // footer is in HTML directly
-
-/* ── AIBSOS CLEAN URL ROUTER ── */
-const AIBSOS_ROUTES = {
-  "/": { view:"home", title:"AI Business Solutions OS — AI Tools That Generate Results Instantly", desc:"Instant AI tools for emails, job applications, contracts, proposals, meeting notes, pricing, sales and business workflows." },
-
-  "/workforge": { view:"wf", panel:"wf-home", group:"wf", title:"WorkForge — 12 AI Tools for Everyday Work", desc:"Use WorkForge to generate emails, cover letters, captions, contract checks, meeting summaries, checklists, pricing and more." },
-  "/replyright": { view:"wf", panel:"wf-replyright", group:"wf", title:"ReplyRight — AI Professional Email Reply Generator", desc:"Paste a difficult email and instantly generate professional replies in different tones." },
-  "/jobapply-ai": { view:"wf", panel:"wf-jobapply", group:"wf", title:"JobApply AI — AI Cover Letter Generator", desc:"Paste a job description and generate a tailored cover letter instantly." },
-  "/captionforge": { view:"wf", panel:"wf-captionforge", group:"wf", title:"CaptionForge — AI Caption Generator", desc:"Generate scroll-stopping social media captions and hashtags for any platform." },
-  "/contractcheck": { view:"wf", panel:"wf-contractcheck", group:"wf", title:"ContractCheck — AI Contract Red Flag Checker", desc:"Paste a contract and get plain English explanations, red flags and negotiation points." },
-  "/meetingmind": { view:"wf", panel:"wf-meetingmind", group:"wf", title:"MeetingMind — AI Meeting Summary Generator", desc:"Turn messy meeting notes into summaries, action items and follow-up emails." },
-  "/docforge": { view:"wf", panel:"wf-docforge", group:"wf", title:"DocForge — AI Business Document Generator", desc:"Generate proposals, scopes, invoices, bios and business documents quickly." },
-  "/threadforge": { view:"wf", panel:"wf-threadforge", group:"wf", title:"ThreadForge — AI Thread Generator", desc:"Turn ideas and articles into ready-to-post X and Twitter threads." },
-  "/checklistai": { view:"wf", panel:"wf-checklistai", group:"wf", title:"ChecklistAI — AI Checklist Generator", desc:"Create prioritised checklists with time estimates for any goal or project." },
-  "/pricemywork": { view:"wf", panel:"wf-pricemywork", group:"wf", title:"PriceMyWork — Freelance Pricing Calculator", desc:"Get pricing guidance for freelance work, creative services and client projects." },
-  "/reviewreply": { view:"wf", panel:"wf-reviewreply", group:"wf", title:"ReviewReply — AI Review Response Generator", desc:"Generate professional replies to customer reviews and client feedback." },
-  "/studysnap": { view:"wf", panel:"wf-studysnap", group:"wf", title:"StudySnap — AI Study Notes and Flashcards", desc:"Turn study notes into summaries, flashcards and revision questions." },
-  "/dailybrief": { view:"wf", panel:"wf-dailybrief", group:"wf", title:"DailyBrief — AI Daily Briefing Generator", desc:"Create a focused daily briefing based on your role, priorities and challenges." },
-
-  "/growth-engine": { view:"ge", panel:"ge-home", group:"ge", title:"Growth Engine — AI Sales and Revenue Intelligence", desc:"Use Growth Engine to generate proposals, sales strategy, client prep, pain points, objections and ROI outputs." },
-  "/proposal-generator": { view:"ge", panel:"ge-proposal", group:"ge", title:"Proposal Generator — AI Business Proposal Tool", desc:"Generate complete, persuasive business proposals ready to send." },
-  "/what-do-i-sell": { view:"ge", panel:"ge-sell", group:"ge", title:"What Do I Sell? — AI Sales Strategy Generator", desc:"Get a CEO-level sales strategy for a company, industry or client." },
-  "/objection-handler": { view:"ge", panel:"ge-obj", group:"ge", title:"Objection Handler — AI Sales Objection Responses", desc:"Turn client objections into confident commercial responses." },
-  "/client-prep": { view:"ge", panel:"ge-prep", group:"ge", title:"Client Prep Engine — AI Sales Meeting Prep", desc:"Generate pre-meeting client research, questions, ROI angles and follow-up emails." },
-  "/pain-finder": { view:"ge", panel:"ge-pain", group:"ge", title:"Pain Finder — AI Business Pain Point Finder", desc:"Identify likely business pain points and recommended solutions for any client." },
-  "/competitive-intel": { view:"ge", panel:"ge-comp", group:"ge", title:"Competitive Intel — AI Differentiation Tool", desc:"Find competitor gaps, differentiators and a winning sales pitch." },
-  "/roi-calculator": { view:"ge", panel:"ge-roi", group:"ge", title:"ROI Calculator — AI Business ROI Tool", desc:"Show clients how your solution can save money, increase revenue or improve productivity." },
-
-  "/marketplace": { view:"mkt", panel:"mkt-home", group:"mkt", title:"AIBSOS Marketplace — Premium AI Business Bundles", desc:"Premium AI bundles for sales, operations, leadership, retention, content, hiring and business launch." }
-};
-
-const AIBSOS_PANEL_URLS = {};
-Object.keys(AIBSOS_ROUTES).forEach(path=>{
-  const r = AIBSOS_ROUTES[path];
-  if(r.panel) AIBSOS_PANEL_URLS[r.panel] = path;
-});
-
-function updatePageSEO(route){
-  if(!route) return;
-  if(route.title) document.title = route.title;
-
-  let desc = document.querySelector('meta[name="description"]');
-  if(!desc){
-    desc = document.createElement('meta');
-    desc.setAttribute('name','description');
-    document.head.appendChild(desc);
-  }
-  if(route.desc) desc.setAttribute('content', route.desc);
-
-  let canonical = document.querySelector('link[rel="canonical"]');
-  if(!canonical){
-    canonical = document.createElement('link');
-    canonical.setAttribute('rel','canonical');
-    document.head.appendChild(canonical);
-  }
-  canonical.setAttribute('href', 'https://www.aibsos.com' + (route.path || window.location.pathname));
-}
-
-function activateRouteFromPath(){
-  const cleanPath = window.location.pathname.replace(/\/$/,'') || "/";
-  const route = AIBSOS_ROUTES[cleanPath] || AIBSOS_ROUTES["/"];
-  route.path = cleanPath;
-  updatePageSEO(route);
-
-  showView(route.view || "home", null);
-
-  if(route.group === "wf" && route.panel) showWF(route.panel, null);
-  if(route.group === "ge" && route.panel) showGE(route.panel, null);
-  if(route.group === "mkt" && route.panel && typeof showMKT === "function") showMKT(route.panel, null);
-}
-
-function pushToolUrl(panelId){
-  const url = AIBSOS_PANEL_URLS[panelId];
-  if(url && window.location.pathname !== url){
-    history.pushState({}, "", url);
-    const route = AIBSOS_ROUTES[url];
-    route.path = url;
-    updatePageSEO(route);
-  }
-}
-
-window.addEventListener("popstate", activateRouteFromPath);
-window.addEventListener("DOMContentLoaded", activateRouteFromPath);
-
 </script>
 
 <!-- MARKETPLACE VIEW -->
+
+<div id="view-life" class="view">
+  <div class="pshell">
+    <div class="ptopbar">
+      <div class="ptopbar-name" style="color:#9ca3af;">LIFEBOARD</div>
+      <div class="ptabs">
+        <button class="ptab on-wf" onclick="showLife('life-home',this)">🏠 Home</button>
+        <button class="ptab" onclick="showLife('life-daily',this)">Daily Reset</button>
+        <button class="ptab" onclick="showLife('life-priorities',this)">Priority Planner</button>
+        <button class="ptab" onclick="showLife('life-journal',this)">Clarity Journal</button>
+      </div>
+      <div class="ptopbar-price lifeboard-price">Pay per result</div>
+    </div>
+
+    <div id="life-home" class="tpanel active">
+      <div class="sl" style="margin-top:.5rem;">LifeBoard · 3 personal AI tools</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.03em;margin-bottom:.4rem;">PLAN YOUR DAY. PROTECT YOUR ENERGY.</h2>
+      <p style="color:var(--text2);font-size:.875rem;margin-bottom:1.5rem;max-width:620px;">LifeBoard helps busy people turn mental clutter into clear next steps. Choose a tool, add your context, and get a practical output you can use immediately.</p>
+      <div class="wf-grid">
+        <div class="wf-card" onclick="showLife('life-daily',null)"><div class="card-icon">☀️</div><div class="card-name">DAILY RESET</div><div class="card-desc">Turn a messy day into a calm, realistic plan.</div><div class="card-price cp-wf lifeboard-price" style="opacity:1;">$4</div></div>
+        <div class="wf-card" onclick="showLife('life-priorities',null)"><div class="card-icon">🎯</div><div class="card-name">PRIORITY PLANNER</div><div class="card-desc">Sort your task list into what matters, what can wait, and what to drop.</div><div class="card-price cp-wf lifeboard-price" style="opacity:1;">$4</div></div>
+        <div class="wf-card" onclick="showLife('life-journal',null)"><div class="card-icon">📝</div><div class="card-name">CLARITY JOURNAL</div><div class="card-desc">Write freely and receive a grounded reflection with one clean next step.</div><div class="card-price cp-wf lifeboard-price" style="opacity:1;">$4</div></div>
+      </div>
+    </div>
+
+    <div id="life-daily" class="tpanel">
+      <div class="tool-title">DAILY RESET</div>
+      <div class="tool-desc">Tell LifeBoard what is on your plate and get a simple, grounded plan for the day.</div>
+      <div class="pay-notice-wf">Pay via Paystack before your result is generated.</div>
+      <div class="fg"><label>What is on your mind today?</label><textarea id="lf-mind" placeholder="List your tasks, worries, deadlines, responsibilities or thoughts..."></textarea></div>
+      <div class="fr"><div class="fg"><label>Energy level</label><select id="lf-energy"><option>Low</option><option>Medium</option><option>High</option></select></div><div class="fg"><label>Main goal</label><input id="lf-goal" placeholder="e.g. Stay calm and finish the most important tasks"></div></div>
+      <button class="run-btn rbtn-wf" onclick="generateLife('daily')">Pay &amp; Generate →</button>
+      <div class="out" id="out-life-daily"></div>
+    </div>
+
+    <div id="life-priorities" class="tpanel">
+      <div class="tool-title">PRIORITY PLANNER</div>
+      <div class="tool-desc">Paste your task list and get your top priorities, easy wins, and what to postpone.</div>
+      <div class="pay-notice-wf">Pay via Paystack before your result is generated.</div>
+      <div class="fg"><label>Your task list</label><textarea id="lf-tasks" placeholder="Paste everything you think you need to do..."></textarea></div>
+      <div class="fg"><label>Available time</label><input id="lf-time" placeholder="e.g. this evening, 2 hours, one workday"></div>
+      <button class="run-btn rbtn-wf" onclick="generateLife('priorities')">Pay &amp; Generate →</button>
+      <div class="out" id="out-life-priorities"></div>
+    </div>
+
+    <div id="life-journal" class="tpanel">
+      <div class="tool-title">CLARITY JOURNAL</div>
+      <div class="tool-desc">Write freely and get a calm reflection, pattern summary, and one next step.</div>
+      <div class="pay-notice-wf">Pay via Paystack before your result is generated.</div>
+      <div class="fg"><label>Write what happened or how you feel</label><textarea id="lf-journal" placeholder="Write naturally..."></textarea></div>
+      <div class="fg"><label>What do you want from this?</label><select id="lf-need"><option>Clarity</option><option>Decision support</option><option>Emotional reset</option><option>Action plan</option></select></div>
+      <button class="run-btn rbtn-wf" onclick="generateLife('journal')">Pay &amp; Generate →</button>
+      <div class="out" id="out-life-journal"></div>
+    </div>
+  </div>
+</div>
+
+
 <div id="view-mkt" class="view">
   <div class="pshell">
     <div class="ptopbar">
@@ -1472,5 +1159,168 @@ Candidate 2: Emily &mdash; 5 years, high performer, no management experience..."
 
   </div>
 </div>
+
+<script>
+/* AIBSOS FINAL ROUTER + MARKETPLACE + LIFEBOARD PATCH */
+const AIBSOS_URLS = {
+  'wf-home':'/workforge','wf-replyright':'/replyright','wf-jobapply':'/jobapply-ai','wf-captionforge':'/captionforge','wf-contractcheck':'/contractcheck','wf-meetingmind':'/meetingmind','wf-docforge':'/docforge','wf-threadforge':'/threadforge','wf-checklistai':'/checklistai','wf-pricemywork':'/pricemywork','wf-reviewreply':'/reviewreply','wf-studysnap':'/studysnap','wf-dailybrief':'/dailybrief',
+  'ge-home':'/growth-engine','ge-proposal':'/proposal-generator','ge-sell':'/what-do-i-sell','ge-obj':'/objection-handler','ge-prep':'/client-prep','ge-pain':'/pain-finder','ge-comp':'/competitive-intel','ge-roi':'/roi-calculator',
+  'mkt-home':'/marketplace','mkt-sales':'/sales-domination-system','mkt-exec':'/executive-decision-pack','mkt-retain':'/client-retention-engine','mkt-brand':'/brand-authority-content-system','mkt-hire':'/hiring-intelligence-system','mkt-launch':'/launch-accelerator',
+  'life-home':'/lifeboard','life-daily':'/daily-reset','life-priorities':'/priority-planner','life-journal':'/clarity-journal'
+};
+
+const AIBSOS_ROUTE_MAP = {};
+Object.keys(AIBSOS_URLS).forEach(id => AIBSOS_ROUTE_MAP[AIBSOS_URLS[id]] = id);
+
+const MKT_DISPLAY = {
+  sales:{ZAR:'R4,997',USD:'$270',NGN:'₦450,000',GBP:'£220',EUR:'€250'},
+  exec:{ZAR:'R6,997',USD:'$380',NGN:'₦630,000',GBP:'£310',EUR:'€350'},
+  retain:{ZAR:'R5,497',USD:'$300',NGN:'₦495,000',GBP:'£240',EUR:'€275'},
+  brand:{ZAR:'R4,497',USD:'$245',NGN:'₦405,000',GBP:'£200',EUR:'€225'},
+  hire:{ZAR:'R5,997',USD:'$325',NGN:'₦540,000',GBP:'£265',EUR:'€300'},
+  launch:{ZAR:'R7,997',USD:'$435',NGN:'₦720,000',GBP:'£350',EUR:'€400'},
+  life:{ZAR:'R75',USD:'$4',NGN:'₦6,500',GBP:'£3.20',EUR:'€3.70'}
+};
+
+function aibsCurrency(){ return (typeof cur !== 'undefined' && cur) ? cur : 'USD'; }
+function mktPrice(key){ return (MKT_DISPLAY[key] && (MKT_DISPLAY[key][aibsCurrency()] || MKT_DISPLAY[key].USD)) || '$270'; }
+
+function updateAIBSPrices(){
+  document.querySelectorAll('.mkt-home-price').forEach(el => el.textContent = mktPrice('sales'));
+  document.querySelectorAll('.lifeboard-price').forEach(el => el.textContent = mktPrice('life'));
+
+  const panels = [
+    ['mkt-sales','sales'],['mkt-exec','exec'],['mkt-retain','retain'],
+    ['mkt-brand','brand'],['mkt-hire','hire'],['mkt-launch','launch']
+  ];
+
+  panels.forEach(([panel,key])=>{
+    document.querySelectorAll(`[onclick*="${panel}"]`).forEach(card=>{
+      const price = card.querySelector('.card-price');
+      if(price) price.textContent = mktPrice(key) + ' once-off';
+    });
+  });
+}
+
+function pushAIBSUrl(panelId){
+  const url = AIBSOS_URLS[panelId];
+  if(url && window.location.pathname !== url){
+    history.pushState({},'',url);
+  }
+}
+
+const originalShowView = window.showView;
+window.showView = function(v,btn){
+  originalShowView(v,btn);
+  if(v === 'mkt'){ showMKT('mkt-home', null); pushAIBSUrl('mkt-home'); }
+  if(v === 'life'){ showLife('life-home', null); pushAIBSUrl('life-home'); }
+};
+
+const originalShowWF = window.showWF;
+window.showWF = function(id,btn){
+  originalShowWF(id,btn);
+  pushAIBSUrl(id);
+};
+
+const originalShowGE = window.showGE;
+window.showGE = function(id,btn){
+  originalShowGE(id,btn);
+  pushAIBSUrl(id);
+};
+
+window.showMKT = function(id, btn) {
+  document.querySelectorAll('#view-mkt .tpanel').forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById(id);
+  if(panel) panel.classList.add('active');
+
+  document.querySelectorAll('#view-mkt .ptab').forEach(t=>{
+    t.classList.remove('on-mkt-tab');
+    t.style.color='';
+  });
+
+  if(btn) btn.classList.add('on-mkt-tab');
+  else document.querySelectorAll('#view-mkt .ptab').forEach(t=>{
+    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('on-mkt-tab');
+  });
+
+  pushAIBSUrl(id);
+  updateAIBSPrices();
+  window.scrollTo(0,0);
+};
+
+window.showLife = function(id, btn){
+  document.querySelectorAll('#view-life .tpanel').forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById(id);
+  if(panel) panel.classList.add('active');
+
+  document.querySelectorAll('#view-life .ptab').forEach(t=>t.classList.remove('on-wf'));
+  if(btn) btn.classList.add('on-wf');
+  else document.querySelectorAll('#view-life .ptab').forEach(t=>{
+    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('on-wf');
+  });
+
+  pushAIBSUrl(id);
+  window.scrollTo(0,0);
+};
+
+window.generateLife = function(type){
+  let outId = '', htmlOut = '';
+  if(type === 'daily'){
+    const mind = document.getElementById('lf-mind').value.trim();
+    const energy = document.getElementById('lf-energy').value;
+    const goal = document.getElementById('lf-goal').value.trim();
+    if(!mind){ alert('Please tell LifeBoard what is on your mind.'); return; }
+    outId = 'out-life-daily';
+    htmlOut = `<h3>Daily Reset</h3><p><strong>Energy level:</strong> ${energy}</p><p><strong>Main goal:</strong> ${goal || 'Move through the day with clarity.'}</p><h3>Top Priorities</h3><p>1. Choose the one task that would make the biggest difference today.<br>2. Handle one quick admin item to create momentum.<br>3. Move anything non-urgent into a later slot.</p><h3>Energy Protection</h3><p>Keep the day simple. Work in focused blocks. Do not turn every task into an emergency.</p>`;
+  }
+  if(type === 'priorities'){
+    const tasks = document.getElementById('lf-tasks').value.trim();
+    const time = document.getElementById('lf-time').value.trim();
+    if(!tasks){ alert('Please paste your task list.'); return; }
+    outId = 'out-life-priorities';
+    htmlOut = `<h3>Priority Plan</h3><p><strong>Available time:</strong> ${time || 'Not specified'}</p><h3>Do First</h3><p>Start with the task that has the biggest consequence or creates the most momentum.</p><h3>Quick Wins</h3><p>Pick one or two small tasks you can finish quickly to reduce mental clutter.</p><h3>Postpone</h3><p>Move anything unclear, low-impact, or emotionally heavy into a later slot.</p>`;
+  }
+  if(type === 'journal'){
+    const journal = document.getElementById('lf-journal').value.trim();
+    const need = document.getElementById('lf-need').value;
+    if(!journal){ alert('Please write something first.'); return; }
+    outId = 'out-life-journal';
+    htmlOut = `<h3>Reflection</h3><p>You are looking for <strong>${need.toLowerCase()}</strong>. The useful move is to separate what happened from what needs your attention next.</p><h3>Pattern</h3><p>There may be too many things asking for your energy at once.</p><h3>Next Step</h3><p>Choose one clean action. Do not try to solve everything in one sitting.</p>`;
+  }
+  const out = document.getElementById(outId);
+  out.innerHTML = htmlOut;
+  out.classList.add('show');
+};
+
+function routeAIBS(){
+  const path = window.location.pathname.replace(/\/$/,'') || '/';
+  const id = AIBSOS_ROUTE_MAP[path];
+
+  if(!id) return;
+
+  if(id.startsWith('wf-')){
+    originalShowView('wf',null);
+    originalShowWF(id,null);
+  } else if(id.startsWith('ge-')){
+    originalShowView('ge',null);
+    originalShowGE(id,null);
+  } else if(id.startsWith('mkt-')){
+    originalShowView('mkt',null);
+    showMKT(id,null);
+  } else if(id.startsWith('life-')){
+    originalShowView('life',null);
+    showLife(id,null);
+  }
+  updateAIBSPrices();
+}
+
+window.addEventListener('popstate', routeAIBS);
+window.addEventListener('DOMContentLoaded', ()=>{
+  setTimeout(routeAIBS, 100);
+  setTimeout(updateAIBSPrices, 600);
+  setTimeout(updateAIBSPrices, 1600);
+});
+</script>
+
 </body>
 </html>
