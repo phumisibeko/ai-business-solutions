@@ -1,7 +1,108 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/:path*" },
-    { "source": "/lifeboard-premium", "destination": "/lifeboard-premium.html" },
-    { "source": "/lifeboard", "destination": "/lifeboard.html" }
+    {
+      "source": "/workforge",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/replyright",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/jobapply-ai",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/captionforge",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contractcheck",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/meetingmind",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/docforge",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/threadforge",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/checklistai",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pricemywork",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/reviewreply",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/studysnap",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/dailybrief",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/growth-engine",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/proposal-generator",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/what-do-i-sell",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/objection-handler",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/client-prep",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pain-finder",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/competitive-intel",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/roi-calculator",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/marketplace",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pitch-and-win",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/scale-and-operate",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lead-and-manage",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/price-and-position",
+      "destination": "/index.html"
+    }
   ]
 }
