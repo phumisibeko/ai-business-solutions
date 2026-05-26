@@ -14,8 +14,6 @@ html{scroll-behavior:smooth;}
 body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 a{text-decoration:none;color:inherit;}
-
-/* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.85rem 2.5rem;background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,.12);}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.04em;color:var(--text);}
 .nav-logo span{color:var(--ge);}
@@ -24,19 +22,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .ntab:hover{color:#e8622a;border-color:#e8622a;}
 .ntab.wf-tab:hover{color:#3d6bff;border-color:#3d6bff;}
 .ntab.mkt-tab:hover{color:#f59e0b;border-color:#f59e0b;}
-/* CHANGE 3 — LifeBoard nav CSS */
 .ntab.lb-tab:hover{color:#e87347;border-color:#e87347;}
 .nav-cta{padding:.38rem 1.1rem;border-radius:100px;font-size:.72rem;font-weight:600;background:var(--ge);color:white;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:opacity .2s;text-decoration:none;display:inline-block;}
 .nav-cta:hover{opacity:.85;}
 @media(max-width:768px){nav{padding:.75rem 1rem;}.nav-center{display:none;}}
-
-/* ── LAYOUT ── */
 .page{padding-top:60px;}
 .ldot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s infinite;display:inline-block;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── HERO ── */
 .hero-new{padding:4rem 2rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;background:radial-gradient(circle at 50% 0%,rgba(0,179,240,.15),transparent 50%);}
 @media(max-width:700px){.hero-new{grid-template-columns:1fr;}.hero-console{display:none;}.how-grid-new{grid-template-columns:1fr!important;}}
 .hero-pill{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:.3rem .85rem;border-radius:100px;font-size:.72rem;color:rgba(255,255,255,.7);margin-bottom:1.25rem;}
@@ -59,13 +51,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .con-rec{background:#0a0f1c;color:white;border-radius:12px;padding:1rem;margin-top:.75rem;}
 .con-rec .console-ey{color:rgba(255,255,255,.5);}
 .con-rec p{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:.4rem;line-height:1.5;}
-
-/* ── SECTIONS ── */
 .home-section{padding:3rem 2rem;background:#0d1424;}
 .sec-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00b3f0;margin-bottom:.4rem;}
 .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.02em;margin-bottom:1.5rem;color:#fff;}
-
-/* ── PRODUCT CARDS ── */
 .phc-new{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;}
 .phc-new:hover{border-color:rgba(255,255,255,.2);transform:translateY(-2px);}
 .phc-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);margin-bottom:.6rem;letter-spacing:.08em;}
@@ -78,15 +66,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .phc-live-badge{font-size:.65rem;font-weight:600;color:#22c55e;margin-bottom:.6rem;}
 .phc-btn{width:100%;padding:.55rem;border-radius:8px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.04em;color:white;transition:all .2s;text-align:center;display:block;text-decoration:none;}
 .phc-btn:hover{opacity:.88;}
-.phc-btn-ge{background:var(--ge);}
-.phc-btn-wf{background:var(--wf);}
-.phc-btn-neu{background:#1e2a3a;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);}
+.phc-btn-ge{background:var(--ge);}.phc-btn-wf{background:var(--wf);}
 .c-ge{color:var(--ge);}.c-wf{color:var(--wf);}
-@media(max-width:900px){#prod-section .phc-new{min-width:200px;}}
 @media(max-width:640px){.prod-grid{grid-template-columns:1fr 1fr!important;}}
 @media(max-width:400px){.prod-grid{grid-template-columns:1fr!important;}}
-
-/* ── TOOL GRID (WorkForge / GE cards) ── */
 .wf-grid-home{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:.75rem;}
 .ge-grid-home{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.75rem;}
 .tool-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;text-decoration:none;color:inherit;display:block;}
@@ -101,15 +84,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .card-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;margin-top:.3rem;}
 .card-num{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);margin-bottom:.4rem;}
 .cp-ge{color:var(--ge2);}.cp-wf{color:var(--wf2);}
-
-/* ── HOW IT WORKS ── */
 .how-grid-new{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
 .how-step-new{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);border-radius:16px;padding:.9rem 1.1rem;display:flex;gap:.75rem;margin-bottom:.6rem;align-items:center;}
 .how-num-new{width:36px;height:36px;border-radius:11px;background:#00b3f0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;flex-shrink:0;color:white;}
 .how-st-title{font-weight:600;font-size:.82rem;margin-bottom:.15rem;}
 .how-st-desc{font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.4;}
-
-/* ── CTA / CONTACT ── */
 .cta-section{padding:3rem 2rem;}
 .cta-box{max-width:860px;margin:0 auto;background:#0a0f1c;color:white;border-radius:28px;padding:3rem 2rem;text-align:center;border:1px solid rgba(255,255,255,.08);}
 .cta-icon{width:52px;height:52px;border-radius:16px;background:#00b3f0;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.3rem;color:white;}
@@ -118,15 +97,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .cta-actions{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem;}
 .cta-form{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;max-width:480px;margin:0 auto;text-align:left;}
 .cta-form h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.03em;margin-bottom:1rem;}
-.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.65rem;}
-label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;}
-.cta-form input,.cta-form textarea,.cta-form select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.55rem .85rem;font-size:.8rem;font-family:'Instrument Sans',sans-serif;color:white;width:100%;outline:none;}
+.cta-form input,.cta-form textarea,.cta-form select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.55rem .85rem;font-size:.8rem;font-family:'Instrument Sans',sans-serif;color:white;width:100%;margin-bottom:.65rem;outline:none;}
 .cta-form input::placeholder,.cta-form textarea::placeholder{color:rgba(255,255,255,.3);}
 .cta-form textarea{min-height:80px;resize:vertical;}
 .cta-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.65rem;}
-.cta-submit{background:#e8622a;color:white;border:none;border-radius:8px;padding:.65rem 1.5rem;font-weight:600;font-size:.8rem;cursor:pointer;font-family:'Instrument Sans',sans-serif;width:100%;margin-top:.25rem;}
-
-/* ── FOOTER ── */
+.cta-submit{background:#e8622a;color:white;border:none;border-radius:8px;padding:.65rem 1.5rem;font-weight:600;font-size:.8rem;cursor:pointer;font-family:'Instrument Sans',sans-serif;width:100%;}
 .new-footer{background:#060b16;border-top:1px solid rgba(255,255,255,.06);padding:2.5rem 2rem 1.5rem;}
 .new-footer-inner{max-width:900px;margin:0 auto;}
 .nf-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:.25rem;color:#fff;}
@@ -138,8 +113,6 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
 .nf-col a:hover{color:rgba(255,255,255,.9);}
 .nf-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
 .nf-bottom p{font-size:.66rem;color:rgba(255,255,255,.22);}
-
-/* ── LIFEBOARD SECTION ── */
 .lb-section{background:linear-gradient(135deg,#1a0e00 0%,#0c0c0c 100%);border:1px solid rgba(232,115,71,.15);border-radius:20px;padding:2rem;margin:0 2rem 2rem;}
 .lb-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(232,115,71,.12);border:1px solid rgba(232,115,71,.25);padding:.28rem .75rem;border-radius:100px;font-size:.65rem;font-weight:700;color:#e87347;margin-bottom:.75rem;}
 .lb-replaces{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin:.85rem 0;}
@@ -151,12 +124,11 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
 .lb-mod{font-size:.63rem;padding:.2rem .55rem;border-radius:4px;background:var(--bg3);color:var(--text2);}
 .lb-mod.lb-mod-free{background:rgba(34,197,94,.1);color:#22c55e;}
 .lb-mod.lb-mod-paid{background:rgba(232,115,71,.1);color:#e87347;}
-@media(max-width:700px){.lb-replaces{grid-template-columns:1fr 1fr;}.lb-section{margin:0 1rem 1.5rem;}}
+@media(max-width:700px){.lb-replaces{grid-template-columns:1fr 1fr;}.lb-section{margin:0 1rem 1.5rem;}.lb-inner{grid-template-columns:1fr!important;}}
 </style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
 <nav>
   <a class="nav-logo" href="/">AI BUSINESS SOLUTIONS <span>OS</span></a>
   <div class="nav-center">
@@ -164,13 +136,11 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
     <a class="ntab" href="/growth-engine.html">&#9889; Growth Engine</a>
     <a class="ntab wf-tab" href="/workforge.html">&#9881; WorkForge</a>
     <a class="ntab mkt-tab" href="/marketplace.html">&#9638; Marketplace</a>
-    <!-- CHANGE 1: LifeBoard nav tab (replaces duplicate Marketplace) -->
     <a class="ntab lb-tab" href="/lifeboard.html">&#9632; LifeBoard</a>
   </div>
   <a class="nav-cta" href="#contact-section">Get started</a>
 </nav>
 
-<!-- ═══ HOME PAGE ═══ -->
 <div class="page">
 
   <!-- HERO -->
@@ -200,13 +170,12 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
     </div>
   </section>
 
-  <!-- PRODUCTS — 4 cards -->
+  <!-- PRODUCTS -->
   <section class="home-section" id="prod-section">
     <div class="sec-eyebrow">Our products</div>
     <div class="sec-title">INTELLIGENCE FOR EVERY LEVEL.</div>
     <div class="prod-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:2.5rem;">
 
-      <!-- 01 Growth Engine -->
       <a class="phc-new" href="/growth-engine.html">
         <div class="phc-num">01</div>
         <div class="phc-new-name">GROWTH ENGINE</div>
@@ -220,7 +189,6 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
         <span class="phc-btn phc-btn-ge">Open &rarr;</span>
       </a>
 
-      <!-- 02 WorkForge -->
       <a class="phc-new" href="/workforge.html">
         <div class="phc-num">02</div>
         <div class="phc-new-name">WORKFORGE</div>
@@ -234,7 +202,6 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
         <span class="phc-btn phc-btn-wf">Open &rarr;</span>
       </a>
 
-      <!-- 03 Marketplace -->
       <a class="phc-new" href="/marketplace.html">
         <div class="phc-num">03</div>
         <div class="phc-new-name">MARKETPLACE</div>
@@ -248,14 +215,15 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
         <span class="phc-btn" style="background:#f59e0b;">Preview &rarr;</span>
       </a>
 
-      <!-- CHANGE 2: Card 04 — LifeBoard LIVE -->
+      <!-- CHANGE 2: LifeBoard LIVE — price updates with currency -->
       <a class="phc-new" href="/lifeboard.html">
         <div class="phc-num">04</div>
         <div class="phc-new-name" style="color:#e87347;">LIFEBOARD&#8482;</div>
         <div class="phc-new-tag">Your entire life, one dashboard.</div>
-        <div class="phc-new-desc">Finances, health, goals, career, investing &mdash; 11 modules in one file. Works offline. No account. 12 countries. Replaces $27/mo in apps for $29 once.</div>
+        <div class="phc-new-desc">Finances, health, goals, career, investing &mdash; 11 modules in one file. Works offline. No account. 12 countries. Replaces $27/mo in apps for a once-off payment.</div>
         <div class="phc-new-bottom">
-          <div class="phc-new-price" style="color:#e87347;">$29</div>
+          <!-- FIX: id="lb-card-price" so currency script can update it -->
+          <div class="phc-new-price" style="color:#e87347;" id="lb-card-price">$29</div>
           <div class="phc-new-note">one-time / lifetime</div>
         </div>
         <div class="phc-live-badge" style="color:#e87347;">&#9679; Live</div>
@@ -264,7 +232,6 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
 
     </div>
 
-    <!-- AIBS Studio CTA -->
     <div style="background:rgba(0,179,240,.06);border:1px solid rgba(0,179,240,.15);border-radius:14px;padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#00b3f0;margin-bottom:.3rem;">AIBS Studio &mdash; Custom builds</div>
@@ -275,29 +242,24 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
     </div>
   </section>
 
-  <!-- CHANGE 4 (inline): LifeBoard feature highlight -->
+  <!-- LIFEBOARD HIGHLIGHT SECTION -->
   <section class="home-section" style="padding-top:0;">
     <div class="lb-section">
       <div class="lb-badge">&#9679; Live now &mdash; LifeBoard&#8482;</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;">
+      <div class="lb-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;">
         <div>
           <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:.03em;color:#fff;margin-bottom:.4rem;">YOUR ENTIRE LIFE.<br>ONE DASHBOARD.</h2>
-          <p style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.65;margin-bottom:.75rem;">11 modules. Works offline. No account needed. 12 countries supported. Replaces $27/month in apps for a single $29 payment.</p>
+          <p style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.65;margin-bottom:.75rem;">11 modules. Works offline. No account needed. 12 countries supported. Replaces $27/month in apps for a single once-off payment.</p>
           <div class="lb-modules">
-            <span class="lb-mod lb-mod-free">Finances</span>
-            <span class="lb-mod lb-mod-free">Investing</span>
-            <span class="lb-mod lb-mod-free">Home &amp; Bills</span>
-            <span class="lb-mod lb-mod-free">Health</span>
-            <span class="lb-mod lb-mod-paid">Growth</span>
-            <span class="lb-mod lb-mod-paid">Emotional</span>
-            <span class="lb-mod lb-mod-paid">Career</span>
-            <span class="lb-mod lb-mod-paid">Insurance</span>
-            <span class="lb-mod lb-mod-paid">Taxes</span>
-            <span class="lb-mod lb-mod-paid">Hobbies</span>
+            <span class="lb-mod lb-mod-free">Finances</span><span class="lb-mod lb-mod-free">Investing</span>
+            <span class="lb-mod lb-mod-free">Home &amp; Bills</span><span class="lb-mod lb-mod-free">Health</span>
+            <span class="lb-mod lb-mod-paid">Growth</span><span class="lb-mod lb-mod-paid">Emotional</span>
+            <span class="lb-mod lb-mod-paid">Career</span><span class="lb-mod lb-mod-paid">Insurance</span>
+            <span class="lb-mod lb-mod-paid">Taxes</span><span class="lb-mod lb-mod-paid">Hobbies</span>
             <span class="lb-mod lb-mod-paid">Life Admin</span>
           </div>
           <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
-            <a class="hbtn-p" href="/lifeboard.html" style="background:#e87347;">Get Premium &mdash; $29 &rarr;</a>
+            <a class="hbtn-p" href="/lifeboard.html" style="background:#e87347;">Get Premium &mdash; <span class="lb-price-inline">$29</span> &rarr;</a>
             <a class="hbtn-s" href="/lifeboard.html">Try Free Version</a>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text3);margin-top:.6rem;">Secure via Paystack &middot; Instant download &middot; All future updates included</div>
@@ -311,7 +273,7 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
             <div class="lb-replace-item"><s>Habit tracker $3/mo</s> <span>&rarr; Included</span></div>
             <div class="lb-replace-item"><s>Notes app $4/mo</s> <span>&rarr; Included</span></div>
           </div>
-          <div class="lb-vs">Those apps cost $27/month ($324/year). LifeBoard costs $29 once.</div>
+          <div class="lb-vs">Those apps cost $27/month ($324/year). LifeBoard is one payment, yours forever.</div>
           <div style="margin-top:.75rem;display:grid;grid-template-columns:1fr 1fr;gap:.4rem;">
             <div style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:.5rem .7rem;font-size:.7rem;color:#22c55e;font-weight:600;">&#10003; Works offline</div>
             <div style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:.5rem .7rem;font-size:.7rem;color:#22c55e;font-weight:600;">&#10003; No account</div>
@@ -323,116 +285,38 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
     </div>
   </section>
 
-  <!-- GROWTH ENGINE TOOL GRID -->
+  <!-- GROWTH ENGINE TOOLS -->
   <section class="home-section">
     <div class="sec-eyebrow">Growth Engine &middot; Sales intelligence</div>
     <div class="sec-title">KNOW WHAT TO SELL. HOW TO PITCH. HOW TO CLOSE.</div>
     <div class="ge-grid-home" style="margin-bottom:1.25rem;">
-      <a class="tool-card tool-card-ge" href="/growth-engine.html#proposal">
-        <div class="card-icon">&#128196;</div>
-        <div class="card-name">PROPOSAL GEN</div>
-        <div class="card-desc">Complete, persuasive business proposal. Ready to send in seconds.</div>
-        <div class="card-price cp-ge">$17</div>
-      </a>
-      <a class="tool-card tool-card-ge" href="/growth-engine.html#sell">
-        <div class="card-icon">&#129302;</div>
-        <div class="card-name">WHAT DO I SELL?</div>
-        <div class="card-desc">CEO-level sell strategy &mdash; problem, impact, top solutions, revenue opportunity.</div>
-        <div class="card-price cp-ge">$17</div>
-      </a>
-      <a class="tool-card tool-card-ge" href="/growth-engine.html#objections">
-        <div class="card-icon">&#128737;</div>
-        <div class="card-name">OBJECTION HANDLER</div>
-        <div class="card-desc">Type what the client said. Get 3 confident, commercially grounded responses.</div>
-        <div class="card-price cp-ge">$17</div>
-      </a>
-      <a class="tool-card tool-card-ge" href="/client-prep.html">
-        <div class="card-icon">&#9889;</div>
-        <div class="card-name">CLIENT PREP</div>
-        <div class="card-desc">Pre-meeting sales pack. Pain points, questions, ROI, objections, follow-up email.</div>
-        <div class="card-price cp-ge">$17</div>
-      </a>
-      <a class="tool-card tool-card-ge" href="/growth-engine.html#pain">
-        <div class="card-icon">&#128269;</div>
-        <div class="card-name">PAIN FINDER</div>
-        <div class="card-desc">Identify pain points for any business. Matched recommendations with fit scores.</div>
-        <div class="card-price cp-ge">$17</div>
-      </a>
-      <a class="tool-card tool-card-ge" href="/competitive-intel.html">
-        <div class="card-icon">&#127919;</div>
-        <div class="card-name">COMPETITIVE INTEL</div>
-        <div class="card-desc">Your differentiators, competitor gaps, and the winning pitch.</div>
-        <div class="card-price cp-ge">$17</div>
-      </a>
+      <a class="tool-card tool-card-ge" href="/growth-engine.html"><div class="card-icon">&#128196;</div><div class="card-name">PROPOSAL GEN</div><div class="card-desc">Complete, persuasive business proposal. Ready to send in seconds.</div><div class="card-price cp-ge card-price-ge">$17</div></a>
+      <a class="tool-card tool-card-ge" href="/growth-engine.html"><div class="card-icon">&#129302;</div><div class="card-name">WHAT DO I SELL?</div><div class="card-desc">CEO-level sell strategy &mdash; problem, impact, top solutions, revenue opportunity.</div><div class="card-price cp-ge card-price-ge">$17</div></a>
+      <a class="tool-card tool-card-ge" href="/growth-engine.html"><div class="card-icon">&#128737;</div><div class="card-name">OBJECTION HANDLER</div><div class="card-desc">Type what the client said. Get 3 confident, commercially grounded responses.</div><div class="card-price cp-ge card-price-ge">$17</div></a>
+      <a class="tool-card tool-card-ge" href="/client-prep.html"><div class="card-icon">&#9889;</div><div class="card-name">CLIENT PREP</div><div class="card-desc">Pre-meeting sales pack. Pain points, questions, ROI, objections, follow-up email.</div><div class="card-price cp-ge card-price-ge">$17</div></a>
+      <a class="tool-card tool-card-ge" href="/growth-engine.html"><div class="card-icon">&#128269;</div><div class="card-name">PAIN FINDER</div><div class="card-desc">Identify pain points for any business. Matched recommendations with fit scores.</div><div class="card-price cp-ge card-price-ge">$17</div></a>
+      <a class="tool-card tool-card-ge" href="/competitive-intel.html"><div class="card-icon">&#127919;</div><div class="card-name">COMPETITIVE INTEL</div><div class="card-desc">Your differentiators, competitor gaps, and the winning pitch.</div><div class="card-price cp-ge card-price-ge">$17</div></a>
     </div>
     <a class="phc-btn phc-btn-ge" href="/growth-engine.html" style="width:auto;display:inline-block;padding:.55rem 1.5rem;">View all Growth Engine tools &rarr;</a>
   </section>
 
-  <!-- WORKFORGE TOOL GRID -->
+  <!-- WORKFORGE TOOLS -->
   <section class="home-section">
     <div class="sec-eyebrow">WorkForge &middot; 12 AI tools for everyday work</div>
     <div class="sec-title">WORK THAT TOOK HOURS. DONE IN 60 SECONDS.</div>
     <div class="wf-grid-home" style="margin-bottom:1.25rem;">
-      <a class="tool-card tool-card-wf" href="/replyright.html">
-        <div class="card-num">01</div><div class="card-name">REPLYRIGHT</div>
-        <div class="card-desc">3 perfect email replies in professional, direct, and warm tones.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/jobapply-ai.html">
-        <div class="card-num">02</div><div class="card-name">JOBAPPLY AI</div>
-        <div class="card-desc">Tailored cover letter from any job description. Land more interviews.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/captionforge.html">
-        <div class="card-num">03</div><div class="card-name">CAPTIONFORGE</div>
-        <div class="card-desc">5 scroll-stopping captions with hashtags for any platform.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/contractcheck.html">
-        <div class="card-num">04</div><div class="card-name">CONTRACTCHECK</div>
-        <div class="card-desc">Plain English, red flags, and what to negotiate in any contract.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/meetingmind.html">
-        <div class="card-num">05</div><div class="card-name">MEETINGMIND</div>
-        <div class="card-desc">Turn messy meeting notes into summary, actions &amp; follow-up email.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/docforge.html">
-        <div class="card-num">06</div><div class="card-name">DOCFORGE</div>
-        <div class="card-desc">Proposals, invoices, scopes, bios &amp; more. Ready to send in seconds.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/threadforge.html">
-        <div class="card-num">07</div><div class="card-name">THREADFORGE</div>
-        <div class="card-desc">Viral-ready X/Twitter thread from any article or idea.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/checklistai.html">
-        <div class="card-num">08</div><div class="card-name">CHECKLISTAI</div>
-        <div class="card-desc">Prioritised checklist with time estimates for any goal.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/pricemywork.html">
-        <div class="card-num">09</div><div class="card-name">PRICEMYWORK</div>
-        <div class="card-desc">Recommended rate with full justification. Stop leaving money on the table.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/reviewreply.html">
-        <div class="card-num">10</div><div class="card-name">REVIEWREPLY</div>
-        <div class="card-desc">Professional response to any review. Turn complaints into trust.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/studysnap.html">
-        <div class="card-num">11</div><div class="card-name">STUDYSNAP</div>
-        <div class="card-desc">Summary, flashcards &amp; quiz from your notes. Actually understand it.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
-      <a class="tool-card tool-card-wf" href="/dailybrief.html">
-        <div class="card-num">12</div><div class="card-name">DAILYBRIEF</div>
-        <div class="card-desc">Sharp 5-point daily briefing based on your role and priorities.</div>
-        <div class="card-price cp-wf">$4</div>
-      </a>
+      <a class="tool-card tool-card-wf" href="/replyright.html"><div class="card-num">01</div><div class="card-name">REPLYRIGHT</div><div class="card-desc">3 perfect email replies in professional, direct, and warm tones.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/jobapply-ai.html"><div class="card-num">02</div><div class="card-name">JOBAPPLY AI</div><div class="card-desc">Tailored cover letter from any job description. Land more interviews.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/captionforge.html"><div class="card-num">03</div><div class="card-name">CAPTIONFORGE</div><div class="card-desc">5 scroll-stopping captions with hashtags for any platform.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/contractcheck.html"><div class="card-num">04</div><div class="card-name">CONTRACTCHECK</div><div class="card-desc">Plain English, red flags, and what to negotiate in any contract.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/meetingmind.html"><div class="card-num">05</div><div class="card-name">MEETINGMIND</div><div class="card-desc">Turn messy meeting notes into summary, actions &amp; follow-up email.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/docforge.html"><div class="card-num">06</div><div class="card-name">DOCFORGE</div><div class="card-desc">Proposals, invoices, scopes, bios &amp; more. Ready to send in seconds.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/threadforge.html"><div class="card-num">07</div><div class="card-name">THREADFORGE</div><div class="card-desc">Viral-ready X/Twitter thread from any article or idea.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/checklistai.html"><div class="card-num">08</div><div class="card-name">CHECKLISTAI</div><div class="card-desc">Prioritised checklist with time estimates for any goal.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/pricemywork.html"><div class="card-num">09</div><div class="card-name">PRICEMYWORK</div><div class="card-desc">Recommended rate with full justification. Stop leaving money on the table.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/reviewreply.html"><div class="card-num">10</div><div class="card-name">REVIEWREPLY</div><div class="card-desc">Professional response to any review. Turn complaints into trust.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/studysnap.html"><div class="card-num">11</div><div class="card-name">STUDYSNAP</div><div class="card-desc">Summary, flashcards &amp; quiz from your notes. Actually understand it.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
+      <a class="tool-card tool-card-wf" href="/dailybrief.html"><div class="card-num">12</div><div class="card-name">DAILYBRIEF</div><div class="card-desc">Sharp 5-point daily briefing based on your role and priorities.</div><div class="card-price cp-wf card-price-wf">$4</div></a>
     </div>
     <a class="phc-btn phc-btn-wf" href="/workforge.html" style="width:auto;display:inline-block;padding:.55rem 1.5rem;">View all WorkForge tools &rarr;</a>
   </section>
@@ -443,7 +327,7 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
       <div>
         <div class="sec-eyebrow">How AIBSOS works</div>
         <div class="sec-title">SIMPLE OUTSIDE.<br>POWERFUL UNDERNEATH.</div>
-        <p style="font-size:.875rem;color:rgba(255,255,255,.55);line-height:1.7;margin-top:.5rem;max-width:380px;">The landing page stays clean. The intelligence lives inside each product &mdash; in the decisions it makes, the outputs it produces, and the time it saves you.</p>
+        <p style="font-size:.875rem;color:rgba(255,255,255,.55);line-height:1.7;margin-top:.5rem;max-width:380px;">The landing page stays clean. The intelligence lives inside each product — in the decisions it makes, the outputs it produces, and the time it saves you.</p>
         <div style="margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:.5rem;">
           <div style="background:rgba(232,98,42,.1);border:1px solid rgba(232,98,42,.2);border-radius:8px;padding:.45rem .8rem;font-size:.7rem;color:var(--ge);font-weight:600;">Pay per result</div>
           <div style="background:rgba(0,179,240,.1);border:1px solid rgba(0,179,240,.2);border-radius:8px;padding:.45rem .8rem;font-size:.7rem;color:#00b3f0;font-weight:600;">60-second output</div>
@@ -451,10 +335,10 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
         </div>
       </div>
       <div>
-        <div class="how-step-new"><div class="how-num-new">1</div><div><div class="how-st-title">Choose your system</div><div class="how-st-desc">Sales intelligence, everyday work tools, a premium bundle, or a custom build &mdash; pick what fits your need right now.</div></div></div>
+        <div class="how-step-new"><div class="how-num-new">1</div><div><div class="how-st-title">Choose your system</div><div class="how-st-desc">Sales intelligence, everyday work tools, a premium bundle, or a custom build — pick what fits your need right now.</div></div></div>
         <div class="how-step-new"><div class="how-num-new">2</div><div><div class="how-st-title">Pay once via Paystack</div><div class="how-st-desc">No subscription. No commitment. One payment unlocks one result, delivered immediately.</div></div></div>
-        <div class="how-step-new"><div class="how-num-new">3</div><div><div class="how-st-title">Get your result</div><div class="how-st-desc">A finished output in 60 seconds &mdash; a proposal, a strategy, a contract review. Ready to use.</div></div></div>
-        <div class="how-step-new"><div class="how-num-new">4</div><div><div class="how-st-title">Measure the difference</div><div class="how-st-desc">Every system is built around a real outcome &mdash; time saved, revenue found, decisions made faster.</div></div></div>
+        <div class="how-step-new"><div class="how-num-new">3</div><div><div class="how-st-title">Get your result</div><div class="how-st-desc">A finished output in 60 seconds — a proposal, a strategy, a contract review. Ready to use.</div></div></div>
+        <div class="how-step-new"><div class="how-num-new">4</div><div><div class="how-st-title">Measure the difference</div><div class="how-st-desc">Every system is built around a real outcome — time saved, revenue found, decisions made faster.</div></div></div>
       </div>
     </div>
   </section>
@@ -464,7 +348,7 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
     <div class="cta-box">
       <div class="cta-icon">&#9632;</div>
       <div class="cta-title">NEED A SYSTEM BUILT AROUND YOUR BUSINESS?</div>
-      <p class="cta-sub">For enterprise builds, internal tools, dashboards and team workflows &mdash; start with a consultation. We keep the scope clear and the outcome measurable. We build in weeks, not months.</p>
+      <p class="cta-sub">For enterprise builds, internal tools, dashboards and team workflows — start with a consultation. We keep the scope clear and the outcome measurable. We build in weeks, not months.</p>
       <div class="cta-actions">
         <a href="mailto:hello@aibsos.com?subject=AIBSOS Enterprise Enquiry" class="hbtn-p">Email AIBSOS directly</a>
         <a class="hbtn-s" href="#prod-section">Browse products</a>
@@ -475,7 +359,7 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
           <input id="cf-name" placeholder="Your name" type="text">
           <input id="cf-email" placeholder="Your email" type="email">
         </div>
-        <input id="cf-company" placeholder="Company name" type="text" style="width:100%;margin-bottom:.65rem;">
+        <input id="cf-company" placeholder="Company name" type="text">
         <select id="cf-need" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.55rem .85rem;font-size:.8rem;font-family:'Instrument Sans',sans-serif;color:rgba(255,255,255,.7);width:100%;margin-bottom:.65rem;outline:none;">
           <option value="" style="background:#0a0f1c;">What do you need built?</option>
           <option style="background:#0a0f1c;">Custom AI dashboard</option>
@@ -485,7 +369,7 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
           <option style="background:#0a0f1c;">Full AI business system</option>
           <option style="background:#0a0f1c;">Other</option>
         </select>
-        <textarea id="cf-detail" placeholder="Tell us about your business and what you need..." style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.55rem .85rem;font-size:.8rem;font-family:'Instrument Sans',sans-serif;color:white;margin-bottom:.65rem;outline:none;min-height:80px;resize:vertical;"></textarea>
+        <textarea id="cf-detail" placeholder="Tell us about your business and what you need..."></textarea>
         <button class="cta-submit" onclick="submitContact()">Send enquiry &rarr;</button>
         <div id="cf-msg" style="font-size:.75rem;margin-top:.5rem;color:#22c55e;display:none;">Message sent! We will be in touch within 2 business days.</div>
       </div>
@@ -498,40 +382,12 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
       <div class="nf-logo">AI BUSINESS SOLUTIONS <span>OS</span></div>
       <div class="nf-tag">Intelligent systems that think with your business &middot; AI Business Solutions (Pty) Ltd &middot; Reg: 2025/651953/07</div>
       <div class="nf-cols">
-        <div class="nf-col">
-          <h4>Live now</h4>
-          <a href="/growth-engine.html">Growth Engine</a>
-          <a href="/workforge.html">WorkForge</a>
-          <a href="/lifeboard.html">LifeBoard&#8482;</a>
-        </div>
-        <div class="nf-col">
-          <h4>Growth Engine</h4>
-          <a href="/competitive-intel.html">Competitive Intel</a>
-          <a href="/client-prep.html">Client Prep</a>
-          <a href="/growth-engine.html">All tools</a>
-        </div>
-        <div class="nf-col">
-          <h4>WorkForge</h4>
-          <a href="/captionforge.html">CaptionForge</a>
-          <a href="/jobapply-ai.html">JobApply AI</a>
-          <a href="/workforge.html">All tools</a>
-        </div>
-        <div class="nf-col">
-          <h4>Coming soon</h4>
-          <p>Marketplace Bundle</p>
-          <p>AIBS Studio</p>
-        </div>
-        <div class="nf-col">
-          <h4>Legal</h4>
-          <a href="/privacy.html">Privacy Policy</a>
-          <a href="/refund.html">Refund Policy</a>
-          <a href="/contact.html">Contact Us</a>
-        </div>
-        <div class="nf-col">
-          <h4>Contact</h4>
-          <a href="mailto:hello@aibsos.com">hello@aibsos.com</a>
-          <p>www.aibsos.com</p>
-        </div>
+        <div class="nf-col"><h4>Live now</h4><a href="/growth-engine.html">Growth Engine</a><a href="/workforge.html">WorkForge</a><a href="/lifeboard.html">LifeBoard&#8482;</a></div>
+        <div class="nf-col"><h4>Growth Engine</h4><a href="/competitive-intel.html">Competitive Intel</a><a href="/client-prep.html">Client Prep</a><a href="/growth-engine.html">All tools</a></div>
+        <div class="nf-col"><h4>WorkForge</h4><a href="/captionforge.html">CaptionForge</a><a href="/jobapply-ai.html">JobApply AI</a><a href="/workforge.html">All tools</a></div>
+        <div class="nf-col"><h4>Coming soon</h4><p>Marketplace Bundle</p><p>AIBS Studio</p></div>
+        <div class="nf-col"><h4>Legal</h4><a href="/privacy.html">Privacy Policy</a><a href="/refund.html">Refund Policy</a><a href="/contact.html">Contact Us</a></div>
+        <div class="nf-col"><h4>Contact</h4><a href="mailto:hello@aibsos.com">hello@aibsos.com</a><p>www.aibsos.com</p></div>
       </div>
       <div class="nf-bottom">
         <p>&copy; 2025 AI Business Solutions (Pty) Ltd &middot; All rights reserved</p>
@@ -542,36 +398,47 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255
 </div>
 
 <script>
-// Currency detection & price display
-const GE_DISPLAY={ZAR:'R317',USD:'$17',NGN:'&#8358;28,000',GBP:'&pound;13.50',EUR:'&euro;15.90'};
-const WF_DISPLAY={ZAR:'R75',USD:'$4',NGN:'&#8358;6,500',GBP:'&pound;3.20',EUR:'&euro;3.70'};
-const CC={'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR'};
+// ── CURRENCY DISPLAY (all 4 products + all tool cards) ──────────────────────
+const GE_DISPLAY = {ZAR:'R317',USD:'$17',NGN:'₦28,000',GBP:'£13.50',EUR:'€15.90'};
+const WF_DISPLAY = {ZAR:'R75', USD:'$4', NGN:'₦6,500', GBP:'£3.20', EUR:'€3.70'};
+// FIX: LB_DISPLAY added — was missing, causing $29 to always show for ZA users
+const LB_DISPLAY = {ZAR:'R529',USD:'$29',NGN:'₦47,000',GBP:'£23',EUR:'€27'};
+const CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
 
 fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
-  const cur=CC[d.country_code]||'USD';
-  const geEl=document.getElementById('ge-card-price');
-  const wfEl=document.getElementById('wf-card-price');
-  if(geEl)geEl.innerHTML=GE_DISPLAY[cur]||'$17';
-  if(wfEl)wfEl.innerHTML=WF_DISPLAY[cur]||'$4';
-  // Update tool card prices
-  document.querySelectorAll('.card-price.cp-ge').forEach(el=>{el.innerHTML=GE_DISPLAY[cur]||'$17';});
-  document.querySelectorAll('.card-price.cp-wf').forEach(el=>{el.innerHTML=WF_DISPLAY[cur]||'$4';});
-}).catch(()=>{});
+  const cur = CC[d.country_code] || 'USD';
 
-// Contact form
-function submitContact(){
-  const name=document.getElementById('cf-name').value.trim();
-  const email=document.getElementById('cf-email').value.trim();
-  if(!name||!email){alert('Please enter your name and email.');return;}
-  const btn=document.querySelector('.cta-submit');
-  btn.textContent='Sending...';btn.disabled=true;
-  setTimeout(()=>{
-    document.getElementById('cf-msg').style.display='block';
-    btn.textContent='Sent!';
-    ['cf-name','cf-email','cf-company','cf-detail'].forEach(id=>{
-      const el=document.getElementById(id);if(el)el.value='';
+  // Product card prices
+  const geEl = document.getElementById('ge-card-price');
+  const wfEl = document.getElementById('wf-card-price');
+  const lbEl = document.getElementById('lb-card-price'); // FIX: now exists
+  if(geEl) geEl.textContent = GE_DISPLAY[cur] || '$17';
+  if(wfEl) wfEl.textContent = WF_DISPLAY[cur] || '$4';
+  if(lbEl) lbEl.textContent = LB_DISPLAY[cur] || '$29'; // FIX: updates correctly
+
+  // Tool grid prices
+  document.querySelectorAll('.card-price-ge').forEach(el => { el.textContent = GE_DISPLAY[cur] || '$17'; });
+  document.querySelectorAll('.card-price-wf').forEach(el => { el.textContent = WF_DISPLAY[cur] || '$4'; });
+
+  // LifeBoard inline price in button text
+  document.querySelectorAll('.lb-price-inline').forEach(el => { el.textContent = LB_DISPLAY[cur] || '$29'; });
+
+}).catch(() => {});
+
+// ── CONTACT FORM ────────────────────────────────────────────────────────────
+function submitContact() {
+  const name = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  if(!name || !email){ alert('Please enter your name and email.'); return; }
+  const btn = document.querySelector('.cta-submit');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('cf-msg').style.display = 'block';
+    btn.textContent = 'Sent!';
+    ['cf-name','cf-email','cf-company','cf-detail'].forEach(id => {
+      const el = document.getElementById(id); if(el) el.value = '';
     });
-  },800);
+  }, 800);
 }
 </script>
 </body>
