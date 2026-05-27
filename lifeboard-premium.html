@@ -16,6 +16,10 @@
         .status-planning{background:#FEF3C7;color:#92400E}.status-in-progress{background:#DBEAFE;color:#1E40AF}
         .status-completed{background:#D1FAE5;color:#065F46}.status-on-hold{background:#FEE2E2;color:#991B1B}
         .divider{height:2px;background:linear-gradient(90deg,transparent,#E2E8F0,transparent);margin:2rem 0}
+        /* Hide AIBS nav and back button when loaded inside an iframe */
+        html:not(:root) nav,
+        html:not(:root) .aibs-back { display:none!important; }
+        html:not(:root) body { padding-top:0!important; }
     </style>
 </head>
 <body class="bg-cloud min-h-screen">
@@ -26,18 +30,18 @@
 <a href="/" class="aibs-back">← AIBS OS</a>
 <div id="locationModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl">
-            <h2 class="text-3xl font-semibold text-slate mb-4">🌍 Welcome to LifeBoard™</h2>
+            <h2 class="text-3xl font-semibold text-slate mb-4"> Welcome to LifeBoard™</h2>
             <p class="text-steel mb-6 leading-relaxed">Select your location to customise currency, examples, and guides for your region.</p>
             <div class="mb-6">
                 <label class="block text-slate font-medium mb-2">Country/Region</label>
                 <select id="countrySelect" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none transition">
                     <option value="">Choose your location...</option>
-                    <option value="US">🇺🇸 United States</option><option value="GB">🇬🇧 United Kingdom</option>
-                    <option value="CA">🇨🇦 Canada</option><option value="AU">🇦🇺 Australia</option>
-                    <option value="NZ">🇳🇿 New Zealand</option><option value="ZA">🇿🇦 South Africa</option>
-                    <option value="IE">🇮🇪 Ireland</option><option value="IN">🇮🇳 India</option>
-                    <option value="SG">🇸🇬 Singapore</option><option value="AE">🇦🇪 UAE</option>
-                    <option value="EU">🇪🇺 European Union</option><option value="OTHER">🌐 Other/International</option>
+                    <option value="US"> United States</option><option value="GB"> United Kingdom</option>
+                    <option value="CA"> Canada</option><option value="AU"> Australia</option>
+                    <option value="NZ"> New Zealand</option><option value="ZA"> South Africa</option>
+                    <option value="IE"> Ireland</option><option value="IN"> India</option>
+                    <option value="SG"> Singapore</option><option value="AE"> UAE</option>
+                    <option value="EU"> European Union</option><option value="OTHER"> Other/International</option>
                 </select>
             </div>
             <button onclick="saveLocation()" class="w-full bg-gradient-to-r from-sky to-lilac text-white font-medium py-3 rounded-xl hover:shadow-lg transition transform hover:-translate-y-0.5">Continue to LifeBoard™</button>
@@ -46,7 +50,7 @@
     </div>
     <div id="quickStartModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl text-center">
-            <div class="text-6xl mb-4">🚀</div>
+            <div class="text-6xl mb-4"></div>
             <h2 class="text-3xl font-semibold text-slate mb-3">Welcome to LifeBoard™</h2>
             <p class="text-steel mb-6 text-lg leading-relaxed">Your entire life in one place.</p>
             <div class="text-left bg-cloud rounded-xl p-6 mb-6 space-y-4">
@@ -96,7 +100,7 @@ const DEMO_DATA = {
         ]
     },
     health: {
-        weight:'78', height:'175', medications:[], 
+        weight:'78', height:'175', medications:[],
         workouts:[
             {date:'2026-03-27',type:'Gym — Upper Body',duration:'45',id:50},
             {date:'2026-03-25',type:'Running — 5km',duration:'32',id:51},
@@ -167,7 +171,6 @@ const AppState = {
     currency:'$', currencySymbol:'$',
     data:JSON.parse(localStorage.getItem('lifeboard_data'))||getDefaultData()
 };
-// Migrations
 if(!AppState.data.insurance) AppState.data.insurance={policies:[]};
 if(!AppState.data.taxes) AppState.data.taxes={documents:[]};
 if(!AppState.data.investing) AppState.data.investing={accounts:[],contributions:[]};
@@ -185,7 +188,6 @@ const locationConfig = {
     'EU':{currency:'EUR',symbol:'€',name:'European Union'},'OTHER':{currency:'USD',symbol:'$',name:'International'}
 };
 
-// ======================== UTILITY + FUNERAL DATA (verified 2025/2026) ========================
 const utilityData = {
     'ZA':[{u:'Electricity',c:'R800–R1,800/mo',d:'Lights, appliances, geyser, heating'},{u:'Water & Sewer',c:'R300–R600/mo',d:'Municipal water, sewage, refuse'},{u:'Internet (Fibre)',c:'R500–R1,200/mo',d:'Uncapped fibre, speed-dependent'},{u:'Municipal Rates',c:'R400–R1,500/mo',d:'Property rates & levies'},{u:'TOTAL',c:'R2,000–R5,100/mo',d:''}],
     'US':[{u:'Electricity',c:'$120–$200/mo',d:'Lights, appliances, AC/heating'},{u:'Gas',c:'$50–$120/mo',d:'Heat, stove, water heater'},{u:'Water/Sewer',c:'$40–$80/mo',d:'Water usage + sewage'},{u:'Internet',c:'$50–$100/mo',d:'WiFi'},{u:'TOTAL',c:'$260–$500/mo',d:''}],
@@ -229,7 +231,6 @@ const tiles = [
     {id:'admin',icon:'📋',title:'Life Admin',summary:'Contacts, tasks & organisation'}
 ];
 
-// ======================== CORE FUNCTIONS ========================
 function init(){
     if(!AppState.location){document.getElementById('locationModal').classList.remove('hidden')}
     else{updateCurrency();render();if(!localStorage.getItem('lifeboard_quickstart_done')){document.getElementById('quickStartModal').classList.remove('hidden')}}
@@ -238,8 +239,6 @@ function closeQuickStart(){document.getElementById('quickStartModal').classList.
 function saveLocation(){const c=document.getElementById('countrySelect').value;if(c){AppState.location=c;localStorage.setItem('lifeboard_location',c);document.getElementById('locationModal').classList.add('hidden');updateCurrency();render();if(!localStorage.getItem('lifeboard_quickstart_done')){document.getElementById('quickStartModal').classList.remove('hidden')}}}
 function updateCurrency(){if(AppState.location&&locationConfig[AppState.location]){const c=locationConfig[AppState.location];AppState.currency=c.currency;AppState.currencySymbol=c.symbol}}
 
-// CRITICAL FIX: Event delegation on #app - handles ALL button clicks
-// This means buttons work no matter how/when they're rendered
 document.addEventListener('click',function(e){
     const btn=e.target.closest('[data-action]');
     if(!btn) return;
@@ -256,7 +255,6 @@ function sH(icon,title){return '<div class="flex items-center gap-5 mb-8 pb-6 bo
 function tipBox(title,tips){return '<div class="divider"></div><div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6"><h4 class="text-lg font-semibold text-slate mb-4">'+title+'</h4><div class="space-y-2 text-slate text-sm">'+tips.map(function(t){return '<p>• '+t+'</p>'}).join('')+'</div></div>'}
 function getBlankData(){return {finances:{monthlyIncome:'',monthlyExpenses:'',savings:'',debts:'',expenses:[],savingsTx:[],debtTx:[]},home:{rent:'',mortgage:'',bills:[],maintenance:[]},health:{weight:'',height:'',medications:[],workouts:[]},growth:{goals:[],books:[],skills:[]},emotional:{journal:[],gratitude:[]},business:{projects:[]},insurance:{policies:[]},investing:{accounts:[],contributions:[]},taxes:{documents:[]},hobbies:{hobbies:[],equipment:[],goals:[]},admin:{contacts:[],errands:[],documents:[]}}}
 
-// START FRESH - uses window-level function + localStorage nuke + page reload as fallback
 window.startFresh=function(){
     if(confirm('Clear all data and start with a blank slate?\n\nThis removes all demo data so you can enter your own.')){
         try{
@@ -281,16 +279,17 @@ function renderHomePage(){
 
     c.innerHTML='<div class="text-center py-8 mb-8"><div class="flex justify-between items-start mb-6"><div class="flex-1"></div><div class="flex-1"><h1 class="text-4xl md:text-5xl font-semibold text-slate mb-2">LifeBoard™</h1><p class="text-steel text-lg">Universal Life Management System</p></div><div class="flex-1 flex justify-end gap-2"><button data-action="startFresh" class="text-xs bg-red-50 text-red-600 px-3 py-2 rounded-lg hover:bg-red-100 transition font-medium cursor-pointer">🔄 Start Fresh</button><button data-action="settings" class="p-2 hover:bg-mist rounded-lg transition cursor-pointer"><span class="text-2xl">⚙️</span></button></div></div><div class="inline-block bg-sky/10 px-4 py-2 rounded-full"><span class="text-sky font-medium">📍 '+(locationConfig[AppState.location]?.name||'Location not set')+'</span></div></div>'+
     (income>0?'<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📊 Monthly Snapshot</h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"><div class="text-center"><div class="text-xs text-steel mb-1">Income</div><div class="text-lg font-semibold text-slate">'+C+income.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Expenses</div><div class="text-lg font-semibold text-slate">'+C+expenses.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Net</div><div class="text-lg font-semibold '+(net>=0?'text-green-600':'text-red-600')+'">'+(net>=0?'+':'')+C+net.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Savings</div><div class="text-lg font-semibold text-green-600">'+C+savings.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Debt</div><div class="text-lg font-semibold '+(debts>0?'text-red-600':'text-green-600')+'">'+C+debts.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Net Worth</div><div class="text-lg font-bold '+(savings-debts>=0?'text-green-700':'text-red-700')+'">'+C+(savings-debts).toLocaleString()+'</div></div></div></div>':'')+
-    '<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📱 How to Use LifeBoard™</h3><div class="space-y-3 text-slate"><p><strong class="text-sky">Platform:</strong> Works on any device with a web browser. No internet required after downloading.</p><p><strong class="text-sky">Getting Started:</strong> Click any tile below. Each module has educational guides plus interactive trackers.</p><p><strong class="text-sky">Your Data:</strong> Everything stays on your device. Use Settings to export backups.</p></div></div>';
+    '<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📱 How to Use LifeBoard™</h3><div class="space-y-3 text-slate"><p><strong class="text-sky">Platform:</strong> Works on any device with a web browser. No internet required after loading.</p><p><strong class="text-sky">Getting Started:</strong> Click any tile below. Each module has educational guides plus interactive trackers.</p><p><strong class="text-sky">Your Data:</strong> Everything stays on your device and is never transmitted to any server. Use Settings to export regular backups. <strong class="text-red-500">⚠️ Important: Clearing your browser cache or site data will permanently erase all your LifeBoard data. Export a backup regularly from Settings to keep your information safe.</strong></p></div></div>';
 
     const g=document.createElement('div');g.className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8';
     tiles.forEach(function(t){const e=document.createElement('div');e.className='bg-mist rounded-2xl p-6 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg';e.onclick=function(){navigateTo(t.id)};e.innerHTML='<div class="text-4xl mb-3">'+t.icon+'</div><h3 class="text-xl font-semibold text-slate mb-2">'+t.title+'</h3><p class="text-steel text-sm leading-relaxed">'+t.summary+'</p>';g.appendChild(e)});
     c.appendChild(g);
 
-    const priv=document.createElement('div');priv.className='text-center text-xs text-steel py-4';priv.innerHTML='🔒 Your data stays on your device and is never transmitted.';
+    const priv=document.createElement('div');priv.className='text-center text-xs text-steel py-4';priv.innerHTML='🔒 Your data stays on your device and is never transmitted. Export backups regularly from Settings.';
     c.appendChild(priv);
     return c;
 }
+
 // ======================== FINANCES PAGE ========================
 function renderFinancesPage(){
     const p=document.createElement('div');p.className='animate-slide-in';
@@ -313,37 +312,25 @@ function renderFinancesPage(){
     '<h3 class="text-xl font-semibold text-slate mb-3">Monthly Overview</h3>'+
     '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"><div><label class="block text-slate font-medium mb-2">Monthly Income</label><input type="number" value="'+f.monthlyIncome+'" placeholder="Enter amount" oninput="saveField(\'finances.monthlyIncome\',this.value)" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none"></div><div><label class="block text-slate font-medium mb-2">Monthly Expenses</label><input type="number" value="'+f.monthlyExpenses+'" placeholder="Enter amount" oninput="saveField(\'finances.monthlyExpenses\',this.value)" class="w-full px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none"></div></div>'+
     '<div class="divider"></div>'+
-    // SAVINGS
     '<h3 class="text-xl font-semibold text-slate mb-3">💰 Savings</h3>'+
     '<div class="bg-green-50 border-2 border-green-200 rounded-xl p-4 mb-4 flex justify-between items-center"><div><div class="text-xs text-green-800">Current Balance</div><div class="text-2xl font-semibold text-green-700">'+C+savings.toLocaleString()+'</div></div><div class="text-xs text-steel">'+f.savingsTx.length+' transactions</div></div>'+
     '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><select id="savingsType" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="deposit">➕ Deposit</option><option value="withdrawal">➖ Withdrawal</option></select><input type="number" id="savingsAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="text" id="savingsNote" placeholder="Note" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="date" id="savingsDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addSavingsTx()" class="bg-green-600 text-white px-5 py-2.5 rounded-lg hover:bg-green-700 transition text-sm font-medium">Record</button></div>'+
     (f.savingsTx.length>0?'<div class="overflow-x-auto mb-6"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2 text-left font-semibold">Note</th><th class="px-3 py-2"></th></tr></thead><tbody>'+f.savingsTx.slice().reverse().slice(0,10).map((tx,ri)=>{const i=f.savingsTx.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+(tx.date||'—')+'</td><td class="px-3 py-2"><span class="text-xs font-semibold px-2 py-0.5 rounded-full '+(tx.type==='deposit'?'bg-green-100 text-green-700':'bg-red-100 text-red-700')+'">'+(tx.type==='deposit'?'+ Deposit':'− Out')+'</span></td><td class="px-3 py-2 font-medium">'+C+parseFloat(tx.amount).toLocaleString()+'</td><td class="px-3 py-2 text-steel">'+(tx.note||'—')+'</td><td class="px-3 py-2"><button onclick="deleteSavingsTx('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody></table></div>':'')+
     '<div class="divider"></div>'+
-    // DEBT
     '<h3 class="text-xl font-semibold text-slate mb-3">🏦 Debt</h3>'+
     '<div class="'+(debts>0?'bg-red-50 border-red-200':'bg-green-50 border-green-200')+' border-2 rounded-xl p-4 mb-4 flex justify-between items-center"><div><div class="text-xs '+(debts>0?'text-red-800':'text-green-800')+'">Outstanding</div><div class="text-2xl font-semibold '+(debts>0?'text-red-700':'text-green-700')+'">'+C+debts.toLocaleString()+'</div></div><div class="text-xs text-steel">'+f.debtTx.length+' transactions</div></div>'+
     '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><select id="debtType" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="payment">💳 Payment</option><option value="addition">➕ New debt</option></select><input type="number" id="debtAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="text" id="debtNote" placeholder="Note" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="date" id="debtDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addDebtTx()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 transition text-sm font-medium">Record</button></div>'+
     (f.debtTx.length>0?'<div class="overflow-x-auto mb-6"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2 text-left font-semibold">Note</th><th class="px-3 py-2"></th></tr></thead><tbody>'+f.debtTx.slice().reverse().slice(0,10).map((tx,ri)=>{const i=f.debtTx.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+(tx.date||'—')+'</td><td class="px-3 py-2"><span class="text-xs font-semibold px-2 py-0.5 rounded-full '+(tx.type==='payment'?'bg-green-100 text-green-700':'bg-red-100 text-red-700')+'">'+(tx.type==='payment'?'💳 Paid':'+ Added')+'</span></td><td class="px-3 py-2 font-medium">'+C+parseFloat(tx.amount).toLocaleString()+'</td><td class="px-3 py-2 text-steel">'+(tx.note||'—')+'</td><td class="px-3 py-2"><button onclick="deleteDebtTx('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody></table></div>':'')+
     '<div class="divider"></div>'+
-    // EXPENSES
     '<h3 class="text-xl font-semibold text-slate mb-3">📋 Expense Tracker</h3>'+
     '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><input type="text" id="expenseCategory" placeholder="Category" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="expenseAmount" placeholder="Amount" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="date" id="expenseDate" value="'+new Date().toISOString().split('T')[0]+'" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div><button onclick="addExpense()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 transition text-sm font-medium">Add Expense</button></div>'+
     (f.expenses.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Date</th><th class="px-3 py-2 text-left font-semibold">Category</th><th class="px-3 py-2 text-left font-semibold">Amount</th><th class="px-3 py-2"></th></tr></thead><tbody>'+f.expenses.slice().reverse().map((e,ri)=>{const i=f.expenses.length-1-ri;return '<tr class="border-b border-mist"><td class="px-3 py-2">'+(e.date||'—')+'</td><td class="px-3 py-2">'+e.category+'</td><td class="px-3 py-2 font-medium">'+C+parseFloat(e.amount).toLocaleString()+'</td><td class="px-3 py-2"><button onclick="deleteExpense('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>'}).join('')+'</tbody><tfoot class="bg-mist"><tr><td class="px-3 py-2 font-semibold" colspan="2">Total</td><td class="px-3 py-2 font-semibold">'+C+totalExp.toLocaleString()+'</td><td></td></tr></tfoot></table></div>':'')+
-    tipBox('💡 Money Tips',[
-        '<strong>50/30/20 Rule:</strong> 50% needs, 30% wants, 20% savings/investing',
-        '<strong>Emergency fund:</strong> Save 3–6 months of expenses before investing',
-        '<strong>Pay yourself first:</strong> Set up automatic transfers on payday',
-        '<strong>Track everything:</strong> Awareness is the first step to control',
-        '<strong>Avoid lifestyle creep:</strong> When income rises, save the difference',
-        '<strong>High-interest debt first:</strong> Pay off credit cards before saving'
-    ])+'</div>';
+    tipBox('💡 Money Tips',['<strong>50/30/20 Rule:</strong> 50% needs, 30% wants, 20% savings/investing','<strong>Emergency fund:</strong> Save 3–6 months of expenses before investing','<strong>Pay yourself first:</strong> Set up automatic transfers on payday','<strong>Track everything:</strong> Awareness is the first step to control','<strong>Avoid lifestyle creep:</strong> When income rises, save the difference','<strong>High-interest debt first:</strong> Pay off credit cards before saving'])+'</div>';
     return p;
 }
 
-// Savings Tx
 function addSavingsTx(){const t=document.getElementById('savingsType').value,a=parseFloat(document.getElementById('savingsAmount').value),n=document.getElementById('savingsNote').value,d=document.getElementById('savingsDate').value;if(a>0){AppState.data.finances.savingsTx.push({type:t,amount:a,note:n,date:d,id:Date.now()});let b=parseFloat(AppState.data.finances.savings)||0;if(t==='deposit')b+=a;else b=Math.max(0,b-a);AppState.data.finances.savings=b.toString();saveData();render()}}
 function deleteSavingsTx(i){const tx=AppState.data.finances.savingsTx[i];let b=parseFloat(AppState.data.finances.savings)||0;if(tx.type==='deposit')b=Math.max(0,b-parseFloat(tx.amount));else b+=parseFloat(tx.amount);AppState.data.finances.savings=b.toString();AppState.data.finances.savingsTx.splice(i,1);saveData();render()}
-// Debt Tx
 function addDebtTx(){const t=document.getElementById('debtType').value,a=parseFloat(document.getElementById('debtAmount').value),n=document.getElementById('debtNote').value,d=document.getElementById('debtDate').value;if(a>0){AppState.data.finances.debtTx.push({type:t,amount:a,note:n,date:d,id:Date.now()});let b=parseFloat(AppState.data.finances.debts)||0;if(t==='payment')b=Math.max(0,b-a);else b+=a;AppState.data.finances.debts=b.toString();saveData();render()}}
 function deleteDebtTx(i){const tx=AppState.data.finances.debtTx[i];let b=parseFloat(AppState.data.finances.debts)||0;if(tx.type==='payment')b+=parseFloat(tx.amount);else b=Math.max(0,b-parseFloat(tx.amount));AppState.data.finances.debts=b.toString();AppState.data.finances.debtTx.splice(i,1);saveData();render()}
 function addExpense(){const c=document.getElementById('expenseCategory').value,a=document.getElementById('expenseAmount').value,d=document.getElementById('expenseDate').value;if(c&&a){AppState.data.finances.expenses.push({category:c,amount:a,date:d,id:Date.now()});saveData();render()}}
@@ -432,7 +419,6 @@ function addErrand(){const t=document.getElementById('errandTask').value;if(t){A
 function toggleErrand(i){AppState.data.admin.errands[i].completed=!AppState.data.admin.errands[i].completed;saveData();render()}
 function deleteErrand(i){AppState.data.admin.errands.splice(i,1);saveData();render()}
 
-// ======================== CRUD for Home, Insurance, Taxes ========================
 function addBill(){const n=document.getElementById('billName').value,a=document.getElementById('billAmount').value,d=document.getElementById('billDue').value;if(n&&a){AppState.data.home.bills.push({name:n,amount:a,due:d,id:Date.now()});saveData();render()}}
 function deleteBill(i){AppState.data.home.bills.splice(i,1);saveData();render()}
 function addMaintenance(){const t=document.getElementById('maintenanceTask').value;if(t){AppState.data.home.maintenance.push({text:t,completed:false,id:Date.now()});saveData();render()}}
@@ -443,7 +429,7 @@ function deletePolicy(i){AppState.data.insurance.policies.splice(i,1);saveData()
 function addTaxDoc(){const n=document.getElementById('taxDocName').value,c=document.getElementById('taxDocCategory').value,y=document.getElementById('taxDocYear').value;if(n&&c){AppState.data.taxes.documents.push({name:n,category:c,year:y,id:Date.now()});saveData();render()}}
 function deleteTaxDoc(i){AppState.data.taxes.documents.splice(i,1);saveData();render()}
 
-// ======================== SIMPLE PAGES (Home&Bills, Insurance, Taxes) ========================
+// ======================== SIMPLE PAGES ========================
 function renderSimplePage(pageId){
     const tile=tiles.find(t=>t.id===pageId),p=document.createElement('div');p.className='animate-slide-in';
     const C=AppState.currencySymbol,loc=AppState.location||'OTHER';
@@ -462,10 +448,10 @@ function renderSimplePage(pageId){
         '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">Home Maintenance</h3>'+
         '<div class="bg-mist rounded-xl p-5 mb-4"><input type="text" id="maintenanceTask" placeholder="Service geyser, check gutters..." class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm mb-3" onkeypress="if(event.key===\'Enter\')addMaintenance()"><button onclick="addMaintenance()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Task</button></div>'+
         '<div class="space-y-2 mb-4">'+AppState.data.home.maintenance.map((t,i)=>'<div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-mist '+(t.completed?'opacity-60':'')+'"><input type="checkbox" '+(t.completed?'checked':'')+' onchange="toggleMaintenance('+i+')" class="w-4 h-4 accent-sky cursor-pointer"><span class="flex-1 text-sm '+(t.completed?'line-through text-steel':'text-slate')+'">'+t.text+'</span><button onclick="deleteMaintenance('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></div>').join('')+'</div>'+
-        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3"> Average Utilities — '+(locationConfig[loc]?.name||'')+'</h3>'+
+        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">Average Utilities — '+(locationConfig[loc]?.name||'')+'</h3>'+
         '<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Utility</th><th class="px-3 py-2 text-left font-semibold">Average Cost</th><th class="px-3 py-2 text-left font-semibold">Covers</th></tr></thead><tbody>'+utils.map(u=>'<tr class="border-b border-mist '+(u.u==='TOTAL'?'bg-sky/5 font-semibold':'')+'"><td class="px-3 py-2">'+u.u+'</td><td class="px-3 py-2">'+u.c+'</td><td class="px-3 py-2 text-steel">'+u.d+'</td></tr>').join('')+'</tbody></table></div>'+
         '<p class="text-xs text-steel mb-4">Approximate averages. Vary by city, household size, usage.</p>'+
-        tipBox(' Home & Bills Tips',['<strong>30% rule:</strong> Housing should ideally cost no more than 30% of gross income','<strong>Negotiate bills:</strong> Call providers annually to ask for better rates','<strong>Prepaid electricity:</strong> Buy in bulk at start of month when rates are lower','<strong>LED bulbs:</strong> Use 75% less energy than traditional bulbs','<strong>Fix leaks fast:</strong> A dripping tap wastes up to 15,000 litres per year','<strong>Compare insurance:</strong> Get quotes from 3+ providers before renewing','<strong>Seasonal maintenance:</strong> Service geyser before winter, clean gutters before rain'])+'</div>';
+        tipBox('Home & Bills Tips',['<strong>30% rule:</strong> Housing should ideally cost no more than 30% of gross income','<strong>Negotiate bills:</strong> Call providers annually to ask for better rates','<strong>Prepaid electricity:</strong> Buy in bulk at start of month when rates are lower','<strong>LED bulbs:</strong> Use 75% less energy than traditional bulbs','<strong>Fix leaks fast:</strong> A dripping tap wastes up to 15,000 litres per year','<strong>Compare insurance:</strong> Get quotes from 3+ providers before renewing','<strong>Seasonal maintenance:</strong> Service geyser before winter, clean gutters before rain'])+'</div>';
         return p;
     }
 
@@ -475,10 +461,10 @@ function renderSimplePage(pageId){
         '<h3 class="text-xl font-semibold text-slate mb-3">My Policies</h3>'+
         '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><select id="policyType" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Type</option><option value="Health">Health / Medical Aid</option><option value="Life">Life</option><option value="Car">Car / Vehicle</option><option value="Home">Home / Property</option><option value="Disability">Disability</option><option value="Funeral">Funeral Cover</option><option value="Other">Other</option></select><input type="text" id="policyProvider" placeholder="Provider" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="policyPremium" placeholder="Monthly premium" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><div><label class="block text-steel text-xs mb-1">Renewal Date</label><input type="date" id="policyRenewal" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div></div><button onclick="addPolicy()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Policy</button></div>'+
         (pol.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Provider</th><th class="px-3 py-2 text-left font-semibold">Premium</th><th class="px-3 py-2 text-left font-semibold">Renewal</th><th class="px-3 py-2"></th></tr></thead><tbody>'+pol.map((po,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+po.type+'</td><td class="px-3 py-2">'+po.provider+'</td><td class="px-3 py-2 font-medium">'+C+parseFloat(po.premium||0).toLocaleString()+'/mo</td><td class="px-3 py-2">'+(po.renewal||'—')+'</td><td class="px-3 py-2"><button onclick="deletePolicy('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody><tfoot class="bg-mist"><tr><td class="px-3 py-2 font-semibold" colspan="2">Total Premiums</td><td class="px-3 py-2 font-semibold">'+C+pol.reduce((s,po)=>s+(parseFloat(po.premium)||0),0).toLocaleString()+'/mo</td><td colspan="2"></td></tr></tfoot></table></div>':'')+
-        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3"> Funeral Costs — '+(locationConfig[loc]?.name||'')+'</h3>'+
+        '<div class="divider"></div><h3 class="text-xl font-semibold text-slate mb-3">Funeral Costs — '+(locationConfig[loc]?.name||'')+'</h3>'+
         '<div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-5 mb-4"><p class="font-semibold text-slate">Average: '+fun.avg+'</p><p class="text-sm text-steel mt-1">'+fun.tip+'</p></div>'+
         '<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">'+['burial','cremation','simple'].map(k=>'<div class="bg-mist rounded-xl p-5"><h5 class="font-semibold text-slate mb-1">'+fun[k].l+'</h5><p class="text-sm font-medium text-slate mb-1">'+fun[k].c+'</p><p class="text-xs text-steel">'+fun[k].n+'</p></div>').join('')+'</div>'+
-        tipBox(' Insurance & Planning Tips',['<strong>Review annually:</strong> Check if your cover still matches your life situation','<strong>Compare quotes:</strong> Get at least 3 quotes before renewing any policy','<strong>Understand excess:</strong> Know what you\'ll pay out of pocket before claiming','<strong>Life insurance:</strong> Get 10–12x your annual income in cover if you have dependents','<strong>Write a will:</strong> It costs '+C+'100–500 and takes an hour. Dying without one costs thousands','<strong>Power of attorney:</strong> Appoint someone to make decisions if you can\'t','<strong>Funeral cover:</strong> Protects your family from a sudden '+fun.avg+' expense','<strong>Emergency fund before insurance:</strong> Self-insure small risks, insure catastrophic ones'])+'</div>';
+        tipBox('Insurance & Planning Tips',['<strong>Review annually:</strong> Check if your cover still matches your life situation','<strong>Compare quotes:</strong> Get at least 3 quotes before renewing any policy','<strong>Understand excess:</strong> Know what you\'ll pay out of pocket before claiming','<strong>Life insurance:</strong> Get 10–12x your annual income in cover if you have dependents','<strong>Write a will:</strong> It costs '+C+'100–500 and takes an hour. Dying without one costs thousands','<strong>Power of attorney:</strong> Appoint someone to make decisions if you can\'t','<strong>Funeral cover:</strong> Protects your family from a sudden '+fun.avg+' expense','<strong>Emergency fund before insurance:</strong> Self-insure small risks, insure catastrophic ones'])+'</div>';
         return p;
     }
 
@@ -490,7 +476,7 @@ function renderSimplePage(pageId){
         (docs.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Document</th><th class="px-3 py-2 text-left font-semibold">Category</th><th class="px-3 py-2 text-left font-semibold">Year</th><th class="px-3 py-2"></th></tr></thead><tbody>'+docs.map((d,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+d.name+'</td><td class="px-3 py-2">'+d.category+'</td><td class="px-3 py-2">'+(d.year||'—')+'</td><td class="px-3 py-2"><button onclick="deleteTaxDoc('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody></table></div>':'')+
         '<div class="divider"></div>'+
         '<div class="bg-mist rounded-xl p-5 mb-4"><h4 class="font-semibold text-slate mb-3">Common Tax Myth</h4><div class="bg-red-50 rounded-lg p-3 mb-2"><p class="text-sm text-slate"><strong>MYTH:</strong> "A raise into a higher bracket means less money!"</p></div><div class="bg-green-50 rounded-lg p-3"><p class="text-sm text-slate"><strong>TRUTH:</strong> Only money ABOVE each threshold is taxed at the higher rate. You always take home more.</p></div></div>'+
-        tipBox(' Tax Tips',['<strong>File on time:</strong> Late filing incurs penalties in every country','<strong>Keep records 5–7 years:</strong> Tax authorities can audit several years back','<strong>Track deductions year-round:</strong> Don\'t scramble at tax time','<strong>Retirement contributions:</strong> Often tax-deductible — reduces your taxable income','<strong>Medical expenses:</strong> Many countries offer tax credits for medical costs','<strong>Use tax software:</strong> Catches deductions you might miss manually','<strong>Provisional tax:</strong> If self-employed, pay quarterly to avoid a year-end shock','<strong>Get professional help:</strong> A good tax advisor often saves more than they cost'])+'</div>';
+        tipBox('Tax Tips',['<strong>File on time:</strong> Late filing incurs penalties in every country','<strong>Keep records 5–7 years:</strong> Tax authorities can audit several years back','<strong>Track deductions year-round:</strong> Don\'t scramble at tax time','<strong>Retirement contributions:</strong> Often tax-deductible — reduces your taxable income','<strong>Medical expenses:</strong> Many countries offer tax credits for medical costs','<strong>Use tax software:</strong> Catches deductions you might miss manually','<strong>Provisional tax:</strong> If self-employed, pay quarterly to avoid a year-end shock','<strong>Get professional help:</strong> A good tax advisor often saves more than they cost'])+'</div>';
         return p;
     }
 
@@ -502,10 +488,12 @@ function renderSimplePage(pageId){
 function renderSettingsPage(){
     const p=document.createElement('div');p.className='animate-slide-in';
     p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-8 shadow-sm">'+sH('','Settings')+
-    '<div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4"> Location & Currency</h3><div class="space-y-4"><div><label class="block text-slate font-medium mb-2">Your Location</label><select id="settingsCountrySelect" class="w-full max-w-md px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none">'+Object.keys(locationConfig).map(k=>'<option value="'+k+'" '+(AppState.location===k?'selected':'')+'>'+locationConfig[k].name+' ('+locationConfig[k].symbol+')</option>').join('')+'</select></div><button onclick="updateLocationSetting()" class="bg-gradient-to-r from-sky to-lilac text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition">Save Changes</button><div class="mt-4 pt-4 border-t border-mist"><p class="text-steel text-sm"><strong>Current:</strong> '+(locationConfig[AppState.location]?.name||'')+' ('+AppState.currencySymbol+')</p></div></div></div>'+
-    '<div class="divider"></div><div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4"> Data Management</h3><div class="space-y-4"><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Export Backup</h4><p class="text-sm text-steel mb-3">Download all data as JSON. Your data never leaves your device.</p><button onclick="exportData()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium"> Export</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Import Data</h4><p class="text-sm text-steel mb-3">Restore from backup file.</p><input type="file" id="importFile" accept=".json" class="hidden"><button onclick="document.getElementById(\'importFile\').click()" class="bg-lilac text-white px-5 py-2.5 rounded-lg hover:bg-lilac/90 text-sm font-medium"> Import</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Load Demo Data</h4><p class="text-sm text-steel mb-3">Reset to sample data to explore all features.</p><button onclick="if(confirm(\'Load demo data? This replaces current data.\')){AppState.data=getDefaultData();saveData();render()}" class="bg-yellow-500 text-white px-5 py-2.5 rounded-lg hover:bg-yellow-600 text-sm font-medium"> Load Demo</button></div><div class="bg-red-50 border-2 border-red-200 rounded-xl p-5"><h4 class="font-semibold text-red-700 mb-2"> Clear All Data</h4><p class="text-sm text-slate mb-3">Permanently delete everything. Cannot be undone.</p><button onclick="clearAllData()" class="bg-red-500 text-white px-5 py-2.5 rounded-lg hover:bg-red-600 text-sm font-medium"> Clear All</button></div></div></div>'+
-    '<div class="divider"></div><div><h3 class="text-xl font-semibold text-slate mb-4"> About LifeBoard™</h3><p class="text-steel text-sm mb-1">Universal Life Management System</p><p class="text-steel text-sm mb-1">Version 3.0</p><p class="text-steel text-sm">Your data is stored locally and never transmitted.</p></div></div>';
-    setTimeout(()=>{const el=document.getElementById('importFile');if(el)el.onchange=(e)=>{const f=e.target.files[0];if(f){const r=new FileReader();r.onload=(ev)=>{try{const d=JSON.parse(ev.target.result);if(confirm('Replace all current data?')){AppState.data=d;saveData();alert('Imported!');navigateTo('home')}}catch(e){alert('Error. Check file format.')}};r.readAsText(f)}}},0);
+    '<div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4">Location & Currency</h3><div class="space-y-4"><div><label class="block text-slate font-medium mb-2">Your Location</label><select id="settingsCountrySelect" class="w-full max-w-md px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none">'+Object.keys(locationConfig).map(k=>'<option value="'+k+'" '+(AppState.location===k?'selected':'')+'>'+locationConfig[k].name+' ('+locationConfig[k].symbol+')</option>').join('')+'</select></div><button onclick="updateLocationSetting()" class="bg-gradient-to-r from-sky to-lilac text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition">Save Changes</button><div class="mt-4 pt-4 border-t border-mist"><p class="text-steel text-sm"><strong>Current:</strong> '+(locationConfig[AppState.location]?.name||'')+' ('+AppState.currencySymbol+')</p></div></div></div>'+
+    '<div class="divider"></div><div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4">Data Management</h3>'+
+    '<div class="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-5 mb-4"><p class="font-semibold text-yellow-800 mb-1"> Important: About your data</p><p class="text-sm text-yellow-700">LifeBoard stores all your data in your browser\'s localStorage. <strong>Clearing your browser cache, cookies, or site data will permanently erase all your LifeBoard information.</strong> Export a backup regularly using the button below to keep your data safe.</p></div>'+
+    '<div class="space-y-4"><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Export Backup</h4><p class="text-sm text-steel mb-3">Download all data as JSON. Your data never leaves your device.</p><button onclick="exportData()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Export Backup</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Import Data</h4><p class="text-sm text-steel mb-3">Restore from a previously exported backup file.</p><input type="file" id="importFile" accept=".json" class="hidden"><button onclick="document.getElementById(\'importFile\').click()" class="bg-lilac text-white px-5 py-2.5 rounded-lg hover:bg-lilac/90 text-sm font-medium">Import Backup</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Load Demo Data</h4><p class="text-sm text-steel mb-3">Reset to sample data to explore all features.</p><button onclick="if(confirm(\'Load demo data? This replaces current data.\')){AppState.data=getDefaultData();saveData();render()}" class="bg-yellow-500 text-white px-5 py-2.5 rounded-lg hover:bg-yellow-600 text-sm font-medium">Load Demo</button></div><div class="bg-red-50 border-2 border-red-200 rounded-xl p-5"><h4 class="font-semibold text-red-700 mb-2">Clear All Data</h4><p class="text-sm text-slate mb-3">Permanently delete everything. Cannot be undone.</p><button onclick="clearAllData()" class="bg-red-500 text-white px-5 py-2.5 rounded-lg hover:bg-red-600 text-sm font-medium">Clear All Data</button></div></div></div>'+
+    '<div class="divider"></div><div><h3 class="text-xl font-semibold text-slate mb-4">About LifeBoard™</h3><p class="text-steel text-sm mb-1">Universal Life Management System</p><p class="text-steel text-sm mb-1">Version 3.0</p><p class="text-steel text-sm">Your data is stored locally in your browser and is never transmitted to any server.</p></div></div>';
+    setTimeout(()=>{const el=document.getElementById('importFile');if(el)el.onchange=(e)=>{const f=e.target.files[0];if(f){const r=new FileReader();r.onload=(ev)=>{try{const d=JSON.parse(ev.target.result);if(confirm('Replace all current data?')){AppState.data=d;saveData();alert('Imported successfully!');navigateTo('home')}}catch(e){alert('Error reading file. Check the format.')}};r.readAsText(f)}}},0);
     return p;
 }
 function updateLocationSetting(){const l=document.getElementById('settingsCountrySelect').value;AppState.location=l;localStorage.setItem('lifeboard_location',l);updateCurrency();navigateTo('home')}
