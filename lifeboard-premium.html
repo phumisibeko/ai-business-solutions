@@ -294,7 +294,7 @@ function renderHomePage(){
         } else {
             e.className='bg-mist rounded-2xl p-6 cursor-pointer transition opacity-50 hover:opacity-70 relative lb-locked-tile';
             e.onclick=function(){ openPaystackFromTile(t.title); };
-            e.innerHTML='<div class="absolute top-3 right-3 text-lg lb-lock-icon">🔒</div><div class="text-4xl mb-3">'+t.icon+'</div><h3 class="text-xl font-semibold text-slate mb-2">'+t.title+'</h3><p class="text-steel text-sm leading-relaxed">'+t.summary+'</p><p class="text-xs text-sky font-semibold mt-2">Premium — unlock for '+C+'29</p>';
+            e.innerHTML='<div class="absolute top-3 right-3 text-lg lb-lock-icon">🔒</div><div class="text-4xl mb-3">'+t.icon+'</div><h3 class="text-xl font-semibold text-slate mb-2">'+t.title+'</h3><p class="text-steel text-sm leading-relaxed">'+t.summary+'</p><p class="text-xs text-sky font-semibold mt-2">🔒 Premium — one payment unlocks all</p>';
         }
         g.appendChild(e);
     });
@@ -565,7 +565,7 @@ function updatePriceDisplay(){
   const disp = LB_PS_DISPLAY[lbCur]||'$29';
   document.getElementById('lb-pay-price').textContent = disp + ' — one-time payment, yours forever';
   // Update any inline price text in locked tiles
-  document.querySelectorAll('.lb-tile-price').forEach(el=>{ el.textContent = 'Premium — unlock for ' + disp; });
+  // tile price text is static — no currency update needed
 }
 
 function openPaystackFromTile(moduleName){
