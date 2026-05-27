@@ -285,7 +285,8 @@ function renderHomePage(){
     const FREE_TILES = ['finances','investing','homeBills','health'];
     const g=document.createElement('div');g.className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8';
     tiles.forEach(function(t){
-        const isFree = FREE_TILES.includes(t.id);
+        const isPaid = localStorage.getItem('lifeboard_premium_paid') === '1';
+        const isFree = FREE_TILES.includes(t.id) || isPaid;
         const e=document.createElement('div');
         if(isFree){
             e.className='bg-mist rounded-2xl p-6 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg';
@@ -595,27 +596,16 @@ function doLBPaystack(){
     ]},
     callback: function(r){
       closeLBPay();
-      // Payment done — reload page, all modules now accessible
-      // In a real implementation this would set a token
-      // For now just show success and let them use the full app
-      alert('Payment successful! Welcome to LifeBoard™ Premium. All modules are now unlocked.');
       localStorage.setItem('lifeboard_premium_paid','1');
-      location.reload();
+      // Re-render home page with all tiles unlocked — no reload needed
+      AppState.currentPage = 'home';
+      render();
     },
     onClose: function(){}
   }).openIframe();
 }
 
-// If already paid, unlock all tiles
-if(localStorage.getItem('lifeboard_premium_paid')==='1'){
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('.lb-locked-tile').forEach(function(el){
-      el.classList.remove('opacity-50');
-      el.querySelector('.lb-lock-icon')?.remove();
-      el.querySelector('.lb-tile-price')?.remove();
-    });
-  });
-}
+// Unlock handled inside renderHomePage via isPaid check
 
 document.getElementById('lb-pay-modal').addEventListener('click', function(e){
   if(e.target===document.getElementById('lb-pay-modal')) closeLBPay();
