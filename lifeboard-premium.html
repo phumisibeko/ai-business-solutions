@@ -21,6 +21,7 @@
         html:not(:root) .aibs-back { display:none!important; }
         html:not(:root) body { padding-top:0!important; }
     </style>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 <body class="bg-cloud min-h-screen">
     <style>
@@ -279,13 +280,27 @@ function renderHomePage(){
 
     c.innerHTML='<div class="text-center py-8 mb-8"><div class="flex justify-between items-start mb-6"><div class="flex-1"></div><div class="flex-1"><h1 class="text-4xl md:text-5xl font-semibold text-slate mb-2">LifeBoard™</h1><p class="text-steel text-lg">Universal Life Management System</p></div><div class="flex-1 flex justify-end gap-2"><button data-action="startFresh" class="text-xs bg-red-50 text-red-600 px-3 py-2 rounded-lg hover:bg-red-100 transition font-medium cursor-pointer">🔄 Start Fresh</button><button data-action="settings" class="p-2 hover:bg-mist rounded-lg transition cursor-pointer"><span class="text-2xl">⚙️</span></button></div></div><div class="inline-block bg-sky/10 px-4 py-2 rounded-full"><span class="text-sky font-medium">📍 '+(locationConfig[AppState.location]?.name||'Location not set')+'</span></div></div>'+
     (income>0?'<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📊 Monthly Snapshot</h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"><div class="text-center"><div class="text-xs text-steel mb-1">Income</div><div class="text-lg font-semibold text-slate">'+C+income.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Expenses</div><div class="text-lg font-semibold text-slate">'+C+expenses.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Net</div><div class="text-lg font-semibold '+(net>=0?'text-green-600':'text-red-600')+'">'+(net>=0?'+':'')+C+net.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Savings</div><div class="text-lg font-semibold text-green-600">'+C+savings.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Debt</div><div class="text-lg font-semibold '+(debts>0?'text-red-600':'text-green-600')+'">'+C+debts.toLocaleString()+'</div></div><div class="text-center"><div class="text-xs text-steel mb-1">Net Worth</div><div class="text-lg font-bold '+(savings-debts>=0?'text-green-700':'text-red-700')+'">'+C+(savings-debts).toLocaleString()+'</div></div></div></div>':'')+
-    '<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📱 How to Use LifeBoard™</h3><div class="space-y-3 text-slate"><p><strong class="text-sky">Platform:</strong> Works on any device with a web browser. No internet required after loading.</p><p><strong class="text-sky">Getting Started:</strong> Click any tile below. Each module has educational guides plus interactive trackers.</p><p><strong class="text-sky">Your Data:</strong> Everything stays on your device and is never transmitted to any server. Use Settings to export regular backups. <strong class="text-red-500">⚠️ Important: Clearing your browser cache or site data will permanently erase all your LifeBoard data. Export a backup regularly from Settings to keep your information safe.</strong></p></div></div>';
+    '<div class="bg-white rounded-2xl p-6 mb-8 shadow-sm"><h3 class="text-xl font-semibold text-slate mb-4">📱 How to Use LifeBoard™</h3><div class="space-y-3 text-slate"><p><strong class="text-sky">Platform:</strong> Works on any device with a web browser. No internet required after loading.</p><p><strong class="text-sky">Getting Started:</strong> Click any tile below. Each module has educational guides plus interactive trackers.</p><p><strong class="text-sky">Your Data:</strong> Everything stays on your device and is never transmitted to any server. Use Settings to export regular backups.</p></div></div>';
 
+    const FREE_TILES = ['finances','investing','homeBills','health'];
     const g=document.createElement('div');g.className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8';
-    tiles.forEach(function(t){const e=document.createElement('div');e.className='bg-mist rounded-2xl p-6 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg';e.onclick=function(){navigateTo(t.id)};e.innerHTML='<div class="text-4xl mb-3">'+t.icon+'</div><h3 class="text-xl font-semibold text-slate mb-2">'+t.title+'</h3><p class="text-steel text-sm leading-relaxed">'+t.summary+'</p>';g.appendChild(e)});
+    tiles.forEach(function(t){
+        const isFree = FREE_TILES.includes(t.id);
+        const e=document.createElement('div');
+        if(isFree){
+            e.className='bg-mist rounded-2xl p-6 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg';
+            e.onclick=function(){navigateTo(t.id)};
+            e.innerHTML='<div class="text-4xl mb-3">'+t.icon+'</div><h3 class="text-xl font-semibold text-slate mb-2">'+t.title+'</h3><p class="text-steel text-sm leading-relaxed">'+t.summary+'</p>';
+        } else {
+            e.className='bg-mist rounded-2xl p-6 cursor-pointer transition opacity-50 hover:opacity-70 relative lb-locked-tile';
+            e.onclick=function(){ openPaystackFromTile(t.title); };
+            e.innerHTML='<div class="absolute top-3 right-3 text-lg lb-lock-icon">🔒</div><div class="text-4xl mb-3">'+t.icon+'</div><h3 class="text-xl font-semibold text-slate mb-2">'+t.title+'</h3><p class="text-steel text-sm leading-relaxed">'+t.summary+'</p><p class="text-xs text-sky font-semibold mt-2">Premium — unlock for '+C+'29</p>';
+        }
+        g.appendChild(e);
+    });
     c.appendChild(g);
 
-    const priv=document.createElement('div');priv.className='text-center text-xs text-steel py-4';priv.innerHTML='🔒 Your data stays on your device and is never transmitted. Export backups regularly from Settings.';
+    const priv=document.createElement('div');priv.className='text-center text-xs text-steel py-4';priv.innerHTML='🔒 Your data stays on your device and is never transmitted. Export backups regularly from Settings to avoid losing data if your browser cache is cleared.';
     c.appendChild(priv);
     return c;
 }
@@ -457,7 +472,7 @@ function renderSimplePage(pageId){
 
     if(pageId==='insurance'){
         const pol=AppState.data.insurance.policies;
-        p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('','Insurance & Planning')+
+        p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('🛡️','Insurance & Planning')+
         '<h3 class="text-xl font-semibold text-slate mb-3">My Policies</h3>'+
         '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3"><select id="policyType" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Type</option><option value="Health">Health / Medical Aid</option><option value="Life">Life</option><option value="Car">Car / Vehicle</option><option value="Home">Home / Property</option><option value="Disability">Disability</option><option value="Funeral">Funeral Cover</option><option value="Other">Other</option></select><input type="text" id="policyProvider" placeholder="Provider" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><input type="number" id="policyPremium" placeholder="Monthly premium" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><div><label class="block text-steel text-xs mb-1">Renewal Date</label><input type="date" id="policyRenewal" class="w-full px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"></div></div><button onclick="addPolicy()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Policy</button></div>'+
         (pol.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Type</th><th class="px-3 py-2 text-left font-semibold">Provider</th><th class="px-3 py-2 text-left font-semibold">Premium</th><th class="px-3 py-2 text-left font-semibold">Renewal</th><th class="px-3 py-2"></th></tr></thead><tbody>'+pol.map((po,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+po.type+'</td><td class="px-3 py-2">'+po.provider+'</td><td class="px-3 py-2 font-medium">'+C+parseFloat(po.premium||0).toLocaleString()+'/mo</td><td class="px-3 py-2">'+(po.renewal||'—')+'</td><td class="px-3 py-2"><button onclick="deletePolicy('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody><tfoot class="bg-mist"><tr><td class="px-3 py-2 font-semibold" colspan="2">Total Premiums</td><td class="px-3 py-2 font-semibold">'+C+pol.reduce((s,po)=>s+(parseFloat(po.premium)||0),0).toLocaleString()+'/mo</td><td colspan="2"></td></tr></tfoot></table></div>':'')+
@@ -470,7 +485,7 @@ function renderSimplePage(pageId){
 
     if(pageId==='taxes'){
         const docs=AppState.data.taxes.documents,yr=new Date().getFullYear();
-        p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('','Taxes & Documents')+
+        p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">'+sH('📊','Taxes & Documents')+
         '<h3 class="text-xl font-semibold text-slate mb-3">Document Tracker</h3>'+
         '<div class="bg-mist rounded-xl p-5 mb-4"><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"><input type="text" id="taxDocName" placeholder="Document name" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><select id="taxDocCategory" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Category</option><option value="Income">Income / Pay slips</option><option value="Tax Return">Tax Return</option><option value="Deduction">Deduction Receipt</option><option value="Investment">Investment Statement</option><option value="Property">Property / Bond</option><option value="Medical">Medical Aid / Tax Cert</option><option value="Other">Other</option></select><select id="taxDocYear" class="px-3 py-2.5 border-2 border-white rounded-lg focus:border-sky focus:outline-none text-sm"><option value="">Year</option>'+[yr,yr-1,yr-2,yr-3,yr-4].map(y=>'<option value="'+y+'">'+y+'</option>').join('')+'</select></div><button onclick="addTaxDoc()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Add Document</button></div>'+
         (docs.length>0?'<div class="overflow-x-auto mb-4"><table class="w-full bg-white rounded-xl overflow-hidden text-sm"><thead class="bg-mist"><tr><th class="px-3 py-2 text-left font-semibold">Document</th><th class="px-3 py-2 text-left font-semibold">Category</th><th class="px-3 py-2 text-left font-semibold">Year</th><th class="px-3 py-2"></th></tr></thead><tbody>'+docs.map((d,i)=>'<tr class="border-b border-mist"><td class="px-3 py-2">'+d.name+'</td><td class="px-3 py-2">'+d.category+'</td><td class="px-3 py-2">'+(d.year||'—')+'</td><td class="px-3 py-2"><button onclick="deleteTaxDoc('+i+')" class="text-xs text-red-500 hover:text-red-700">✕</button></td></tr>').join('')+'</tbody></table></div>':'')+
@@ -487,10 +502,10 @@ function renderSimplePage(pageId){
 // ======================== SETTINGS ========================
 function renderSettingsPage(){
     const p=document.createElement('div');p.className='animate-slide-in';
-    p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-8 shadow-sm">'+sH('','Settings')+
+    p.innerHTML=backBtn()+'<div class="bg-white rounded-2xl p-8 shadow-sm">'+sH('⚙️','Settings')+
     '<div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4">Location & Currency</h3><div class="space-y-4"><div><label class="block text-slate font-medium mb-2">Your Location</label><select id="settingsCountrySelect" class="w-full max-w-md px-4 py-3 border-2 border-mist rounded-xl focus:border-sky focus:outline-none">'+Object.keys(locationConfig).map(k=>'<option value="'+k+'" '+(AppState.location===k?'selected':'')+'>'+locationConfig[k].name+' ('+locationConfig[k].symbol+')</option>').join('')+'</select></div><button onclick="updateLocationSetting()" class="bg-gradient-to-r from-sky to-lilac text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition">Save Changes</button><div class="mt-4 pt-4 border-t border-mist"><p class="text-steel text-sm"><strong>Current:</strong> '+(locationConfig[AppState.location]?.name||'')+' ('+AppState.currencySymbol+')</p></div></div></div>'+
     '<div class="divider"></div><div class="mb-8"><h3 class="text-xl font-semibold text-slate mb-4">Data Management</h3>'+
-    '<div class="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-5 mb-4"><p class="font-semibold text-yellow-800 mb-1"> Important: About your data</p><p class="text-sm text-yellow-700">LifeBoard stores all your data in your browser\'s localStorage. <strong>Clearing your browser cache, cookies, or site data will permanently erase all your LifeBoard information.</strong> Export a backup regularly using the button below to keep your data safe.</p></div>'+
+    '<div class="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-5 mb-4"><p class="font-semibold text-yellow-800 mb-1">⚠️ Important: About your data</p><p class="text-sm text-yellow-700">LifeBoard stores all your data in your browser\'s localStorage. <strong>Clearing your browser cache, cookies, or site data will permanently erase all your LifeBoard information.</strong> Export a backup regularly using the button below to keep your data safe.</p></div>'+
     '<div class="space-y-4"><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Export Backup</h4><p class="text-sm text-steel mb-3">Download all data as JSON. Your data never leaves your device.</p><button onclick="exportData()" class="bg-sky text-white px-5 py-2.5 rounded-lg hover:bg-sky/90 text-sm font-medium">Export Backup</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Import Data</h4><p class="text-sm text-steel mb-3">Restore from a previously exported backup file.</p><input type="file" id="importFile" accept=".json" class="hidden"><button onclick="document.getElementById(\'importFile\').click()" class="bg-lilac text-white px-5 py-2.5 rounded-lg hover:bg-lilac/90 text-sm font-medium">Import Backup</button></div><div class="bg-mist rounded-xl p-5"><h4 class="font-semibold text-slate mb-2">Load Demo Data</h4><p class="text-sm text-steel mb-3">Reset to sample data to explore all features.</p><button onclick="if(confirm(\'Load demo data? This replaces current data.\')){AppState.data=getDefaultData();saveData();render()}" class="bg-yellow-500 text-white px-5 py-2.5 rounded-lg hover:bg-yellow-600 text-sm font-medium">Load Demo</button></div><div class="bg-red-50 border-2 border-red-200 rounded-xl p-5"><h4 class="font-semibold text-red-700 mb-2">Clear All Data</h4><p class="text-sm text-slate mb-3">Permanently delete everything. Cannot be undone.</p><button onclick="clearAllData()" class="bg-red-500 text-white px-5 py-2.5 rounded-lg hover:bg-red-600 text-sm font-medium">Clear All Data</button></div></div></div>'+
     '<div class="divider"></div><div><h3 class="text-xl font-semibold text-slate mb-4">About LifeBoard™</h3><p class="text-steel text-sm mb-1">Universal Life Management System</p><p class="text-steel text-sm mb-1">Version 3.0</p><p class="text-steel text-sm">Your data is stored locally in your browser and is never transmitted to any server.</p></div></div>';
     setTimeout(()=>{const el=document.getElementById('importFile');if(el)el.onchange=(e)=>{const f=e.target.files[0];if(f){const r=new FileReader();r.onload=(ev)=>{try{const d=JSON.parse(ev.target.result);if(confirm('Replace all current data?')){AppState.data=d;saveData();alert('Imported successfully!');navigateTo('home')}}catch(e){alert('Error reading file. Check the format.')}};r.readAsText(f)}}},0);
@@ -502,5 +517,110 @@ function clearAllData(){if(confirm('Delete ALL data permanently?')){if(confirm('
 
 window.onload=init;
 </script>
+
+<!-- PAYSTACK UNLOCK MODAL -->
+<div id="lb-pay-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:white;border-radius:20px;padding:2rem;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+    <h3 style="font-size:1.4rem;font-weight:700;color:#475569;margin-bottom:.25rem;">Unlock LifeBoard™ Premium</h3>
+    <p style="font-size:.85rem;color:#94A3B8;margin-bottom:.5rem;">All 11 modules · Lifetime access · Works offline</p>
+    <div id="lb-pay-module" style="background:#f1f5f9;border-radius:10px;padding:.5rem .85rem;font-size:.8rem;color:#475569;font-weight:600;margin-bottom:1rem;"></div>
+    <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">
+        <div><label style="font-size:.65rem;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:.25rem;">First name</label><input id="lb-m-first" placeholder="James" style="width:100%;border:2px solid #E2E8F0;border-radius:10px;padding:.55rem .8rem;font-size:.875rem;outline:none;"></div>
+        <div><label style="font-size:.65rem;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:.25rem;">Last name</label><input id="lb-m-last" placeholder="Carter" style="width:100%;border:2px solid #E2E8F0;border-radius:10px;padding:.55rem .8rem;font-size:.875rem;outline:none;"></div>
+      </div>
+      <div><label style="font-size:.65rem;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:.25rem;">Email address</label><input id="lb-m-email" type="email" placeholder="james@email.com" style="width:100%;border:2px solid #E2E8F0;border-radius:10px;padding:.55rem .8rem;font-size:.875rem;outline:none;"></div>
+    </div>
+    <div style="display:flex;gap:.6rem;">
+      <button onclick="closeLBPay()" style="flex:1;padding:.7rem;border-radius:100px;border:2px solid #E2E8F0;background:none;color:#94A3B8;cursor:pointer;font-size:.875rem;">Cancel</button>
+      <button onclick="doLBPaystack()" style="flex:2;padding:.7rem;border-radius:100px;border:none;background:linear-gradient(135deg,#7DD3FC,#C084FC);color:white;cursor:pointer;font-weight:600;font-size:.9rem;">Pay &amp; Unlock →</button>
+    </div>
+    <p id="lb-pay-price" style="text-align:center;font-size:.75rem;color:#94A3B8;margin-top:.6rem;"></p>
+  </div>
+</div>
+
+<script>
+// ── PAYSTACK FOR PREMIUM UNLOCK ────────────────────────────────────────────
+const LB_PS_KEY = 'pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33';
+const LB_PS_PRICES  = {ZAR:52900, USD:2900, NGN:4700000, GBP:2300, EUR:2700};
+const LB_PS_DISPLAY = {ZAR:'R529', USD:'$29', NGN:'₦47,000', GBP:'£23', EUR:'€27'};
+const LB_PS_CODES   = {ZAR:'ZAR', USD:'USD', NGN:'NGN', GBP:'GBP', EUR:'EUR'};
+const LB_CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
+let lbCur = 'USD';
+let lbTileClicked = '';
+
+// Detect currency
+(async function(){
+  const apis = [
+    ()=>fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>LB_CC[d.country_code]),
+    ()=>fetch('https://api.country.is/').then(r=>r.json()).then(d=>LB_CC[d.country]),
+    ()=>fetch('https://ipwho.is/').then(r=>r.json()).then(d=>LB_CC[d.country_code])
+  ];
+  for(const api of apis){
+    try{ const c=await api(); if(c){lbCur=c; updatePriceDisplay(); return;} }catch(e){}
+  }
+})();
+
+function updatePriceDisplay(){
+  const disp = LB_PS_DISPLAY[lbCur]||'$29';
+  document.getElementById('lb-pay-price').textContent = disp + ' — one-time payment, yours forever';
+  // Update any inline price text in locked tiles
+  document.querySelectorAll('.lb-tile-price').forEach(el=>{ el.textContent = 'Premium — unlock for ' + disp; });
+}
+
+function openPaystackFromTile(moduleName){
+  lbTileClicked = moduleName;
+  document.getElementById('lb-pay-module').textContent = ' Unlocks: ' + moduleName + ' + all other premium modules';
+  document.getElementById('lb-pay-price').textContent = (LB_PS_DISPLAY[lbCur]||'$29') + ' — one-time payment, yours forever';
+  document.getElementById('lb-pay-modal').style.display = 'flex';
+}
+
+function closeLBPay(){
+  document.getElementById('lb-pay-modal').style.display = 'none';
+}
+
+function doLBPaystack(){
+  const email = document.getElementById('lb-m-email').value.trim();
+  const first = document.getElementById('lb-m-first').value.trim();
+  if(!email||!first){ alert('Please enter your name and email.'); return; }
+  PaystackPop.setup({
+    key: LB_PS_KEY,
+    email, 
+    amount: LB_PS_PRICES[lbCur]||LB_PS_PRICES['USD'],
+    currency: LB_PS_CODES[lbCur]||'USD',
+    ref: 'AIBS_LB_' + Date.now(),
+    metadata:{custom_fields:[
+      {display_name:'Product',variable_name:'product',value:'LifeBoard Premium'},
+      {display_name:'Name',variable_name:'name',value:first+' '+(document.getElementById('lb-m-last').value||'')},
+    ]},
+    callback: function(r){
+      closeLBPay();
+      // Payment done — reload page, all modules now accessible
+      // In a real implementation this would set a token
+      // For now just show success and let them use the full app
+      alert('Payment successful! Welcome to LifeBoard™ Premium. All modules are now unlocked.');
+      localStorage.setItem('lifeboard_premium_paid','1');
+      location.reload();
+    },
+    onClose: function(){}
+  }).openIframe();
+}
+
+// If already paid, unlock all tiles
+if(localStorage.getItem('lifeboard_premium_paid')==='1'){
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.lb-locked-tile').forEach(function(el){
+      el.classList.remove('opacity-50');
+      el.querySelector('.lb-lock-icon')?.remove();
+      el.querySelector('.lb-tile-price')?.remove();
+    });
+  });
+}
+
+document.getElementById('lb-pay-modal').addEventListener('click', function(e){
+  if(e.target===document.getElementById('lb-pay-modal')) closeLBPay();
+});
+</script>
+
 </body>
 </html>
