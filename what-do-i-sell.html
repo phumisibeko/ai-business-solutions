@@ -373,8 +373,7 @@ Be specific to this company and industry. Include real job titles, realistic rev
     const handler = PaystackPop.setup({
       key: 'pk_live_915d85717736ad7b681582d0e833fa21b76cbbd3',
       email: email,
-      amount: 1700 * 100, // in kobo — adjust per tool
-      currency: 'USD',
+      amount: 1700,
       callback: function(response) {
         closePayModal();
         generate();
