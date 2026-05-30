@@ -705,16 +705,21 @@ AIBSOS.renderProposal = function(raw, formData) {
       html += meaningfulItems.map(i => i.type === 'bullet' ? AIBSOS.checkItem(i.text) : AIBSOS.renderProse(i)).join('');
 
     } else if (T.includes('TIMELINE') || T.includes('PHASE') || T.includes('MILESTONE') || T.includes('IMPLEMENTATION')) {
-      // Numbered phases as timeline cards
-      const colors = ['#e8622a','#0f0f0f','#22c55e','#3d6bff','#f59e0b'];
+      const colors = ['#e8622a','#22c55e','#3d6bff','#f59e0b','#0f0f0f'];
       const icons = ['📋','⚙️','🚀','📊','🏆'];
-      let phaseNum = 0;
       html += meaningfulItems.map((i,idx) => {
         if (i.type === 'bullet') {
-          const label = i.text.split(':')[0];
-          const detail = i.text.split(':').slice(1).join(':').trim();
-          return AIBSOS.card(icons[idx%5], label, detail || i.text, colors[idx%5]);
+          // Only use card if there is genuine sub-content after a colon
+          const colonIdx = i.text.indexOf(':');
+          if (colonIdx > 0 && colonIdx < i.text.length - 1) {
+            const label = i.text.substring(0, colonIdx).trim();
+            const detail = i.text.substring(colonIdx + 1).trim();
+            return AIBSOS.card(icons[idx%5], label, detail, colors[idx%5]);
+          }
+          // No colon = single milestone line, just show as a clean check item
+          return AIBSOS.checkItem(i.text);
         }
+        // Prose lines in timeline (quarter headings etc) = sublabel, not card
         return AIBSOS.renderProse(i);
       }).join('');
 
@@ -738,8 +743,11 @@ AIBSOS.renderProposal = function(raw, formData) {
     } else if (T.includes('WHY US') || T.includes('WHY CHOOSE') || T.includes('OUR ADVANTAGE') || T.includes('DIFFERENTIATOR')) {
       html += meaningfulItems.map(i => {
         if (i.type === 'bullet') {
-          const parts = i.text.split(':');
-          return AIBSOS.card('✅', parts[0], parts.slice(1).join(':').trim() || '', '#22c55e');
+          const colonIdx = i.text.indexOf(':');
+          if (colonIdx > 0 && colonIdx < i.text.length - 1) {
+            return AIBSOS.card('✅', i.text.substring(0, colonIdx).trim(), i.text.substring(colonIdx + 1).trim(), '#22c55e');
+          }
+          return AIBSOS.checkItem(i.text);
         }
         return AIBSOS.renderProse(i);
       }).join('');
@@ -761,7 +769,16 @@ AIBSOS.renderProposal = function(raw, formData) {
 
     } else {
       html += meaningfulItems.map(i => {
-        if (i.type === 'bullet') return AIBSOS.checkItem(i.text);
+        if (i.type === 'bullet') {
+          // If bullet has colon with content after it, render as card; otherwise checklist
+          const colonIdx = i.text.indexOf(':');
+          if (colonIdx > 0 && colonIdx < i.text.length - 2) {
+            const label = i.text.substring(0, colonIdx).trim();
+            const detail = i.text.substring(colonIdx + 1).trim();
+            if (detail.length > 3) return AIBSOS.card('', label, detail);
+          }
+          return AIBSOS.checkItem(i.text);
+        }
         return AIBSOS.renderProse(i);
       }).join('');
     }
