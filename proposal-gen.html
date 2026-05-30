@@ -432,9 +432,10 @@ AIBSOS.tag = function(text, color) {
 /* ── Render: Card ── */
 AIBSOS.card = function(icon, title, body, accent) {
   accent = accent || '#f97316';
+  const bodyHtml = (body && body.trim()) ? `<div class="abr-card-body">${body}</div>` : '';
   return `<div class="abr-card" style="border-left:3px solid ${accent}">
     <div class="abr-card-head"><span class="abr-card-icon">${icon}</span><strong>${title}</strong></div>
-    <div class="abr-card-body">${body}</div>
+    ${bodyHtml}
   </div>`;
 };
 
