@@ -245,7 +245,7 @@
   <div class="tool-form" id="toolForm">
 
     <div class="form-grid">
-      <div class="form-row"><label>Company Name</label><input id="f_company" type="text" placeholder="e.g. Shoprite, Standard Bank..."></div>
+      <div class="form-row"><label>Company Name</label><input id="f_company" type="text" placeholder="e.g. Target, JPMorgan Chase..."></div>
       <div class="form-row">
         <label>Industry</label>
         <select id="f_industry">
@@ -266,9 +266,9 @@
           <option>200–500 employees</option><option>500–2000 employees</option><option>2000+ employees</option>
         </select>
       </div>
-      <div class="form-row"><label>What You Sell</label><input id="f_yoursell" type="text" placeholder="e.g. AI automation, video production..."></div>
+      <div class="form-row"><label>What You Sell</label><input id="f_yoursell" type="text" placeholder="e.g. marketing automation, video production..."></div>
     </div>
-    <div class="form-row"><label>Additional Context (optional)</label><textarea id="f_context" placeholder="Any extra details about the company or your goal..."></textarea></div>
+    <div class="form-row"><label>Additional Context (optional)</label><textarea id="f_context" placeholder="e.g. They just opened 3 new locations and are expanding their digital presence..."></textarea></div>
 
     <button class="btn-generate" id="generateBtn" onclick="openPayModal()">
       Pay &amp; Generate →
@@ -371,7 +371,7 @@ Be specific to this company and industry. Include real job titles, realistic rev
     if (!email) { alert('Please enter your email address.'); return; }
 
     const handler = PaystackPop.setup({
-      key: 'pk_live_REPLACE_WITH_YOUR_KEY',
+      key: 'pk_live_915d85717736ad7b681582d0e833fa21b76cbbd3',
       email: email,
       amount: 1700 * 100, // in kobo — adjust per tool
       currency: 'USD',
