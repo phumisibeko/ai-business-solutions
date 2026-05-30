@@ -686,8 +686,13 @@ AIBSOS.renderProposal = function(raw, formData) {
   for (const s of sections) {
     const T = (s.title || '').toUpperCase();
     if (!s.title && s.items.length === 0) continue;
-    // Skip empty titled sections with only separator content
-    const meaningfulItems = s.items.filter(i => i.text && !i.text.match(/^-{2,}$/) && i.text.trim().length > 2);
+    // Filter out bare separator lines but keep everything else
+    const meaningfulItems = s.items.filter(i => {
+      if (!i.text) return false;
+      const t = i.text.trim();
+      if (t.match(/^-{2,}$/) || t.match(/^\*{2,}$/) || t === '---' || t === '***') return false;
+      return t.length > 0;
+    });
     if (!s.title && meaningfulItems.length === 0) continue;
 
     html += `<div class="abr-section"><div class="abr-section-title">${s.title || 'Overview'}</div>`;
