@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pitch & Win Bundle — Marketplace | AIBSOS | AIBSOS</title>
-<meta name="description" content="Complete business pitch system. Proposal, executive summary, ROI case, objection playbook & follow-up sequence. R497.">
+<meta name="description" content="Complete business pitch system. Proposal, ROI case, objection playbook and follow-up sequence.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@0,400;0,500;0,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -34,11 +34,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .ptabs::-webkit-scrollbar{height:0;}
 .ptab{padding:.28rem .7rem;border-radius:6px;font-size:.73rem;font-weight:500;border:1px solid transparent;color:var(--text2);background:none;font-family:'Instrument Sans',sans-serif;transition:all .18s;white-space:nowrap;text-decoration:none;display:inline-block;}
 .ptab:hover{color:var(--text);background:var(--bg3);}
-.ptopbar-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.28rem .75rem;border-radius:100px;border:1px solid var(--border2);color:var(--text2);white-space:nowrap;flex-shrink:0;}
+.ptopbar-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.28rem .75rem;border-radius:100px;border:1px solid var(--border2);color:#f59e0b;white-space:nowrap;flex-shrink:0;}
 .tpanel{padding:2rem 1.5rem;max-width:860px;margin:0 auto;width:100%;}
-.tool-title{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.03em;margin-bottom:.3rem;}
-.tool-desc{font-size:.875rem;color:var(--text2);margin-bottom:.75rem;line-height:1.6;}
-.pay-notice{display:flex;align-items:center;gap:.6rem;border-radius:8px;padding:.65rem 1rem;margin-bottom:1.25rem;font-size:.78rem;}
 .fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
 @media(max-width:580px){.fr{grid-template-columns:1fr;}}
@@ -46,8 +43,8 @@ label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3)
 input,select,textarea{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.65rem .9rem;font-size:.875rem;font-family:'Instrument Sans',sans-serif;color:var(--text);outline:none;width:100%;transition:border-color .2s;}
 input:focus,select:focus,textarea:focus{border-color:var(--border2);}
 select option{background:var(--bg2);}
-textarea{resize:vertical;min-height:90px;}
-.run-btn{padding:.72rem 1.75rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;}
+textarea{resize:vertical;min-height:85px;}
+.run-btn{padding:.72rem 1.75rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;color:white;background:var(--ge);}
 .run-btn:hover{transform:translateY(-1px);opacity:.9;}
 .sl{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.75rem;}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;z-index:500;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s;}
@@ -61,49 +58,28 @@ textarea{resize:vertical;min-height:90px;}
 .mrow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
 .mactions{display:flex;gap:.75rem;}
 .m-cancel{flex:1;padding:.7rem;border-radius:100px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:.875rem;}
-.m-pay{flex:2;padding:.7rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;color:white;transition:opacity .2s;}
+.m-pay{flex:2;padding:.7rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;color:white;background:var(--ge);transition:opacity .2s;}
 .m-pay:hover{opacity:.85;}
-.mkt-section{background:#1c1c1c;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px 24px;margin-bottom:12px;}
-.mkt-section-title{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06);}
-.mkt-doc-header{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.04em;color:var(--text);margin:1.5rem 0 .5rem;}
-.mkt-sublabel{font-size:.88rem;font-weight:700;color:var(--text);margin:14px 0 6px;}
-.mkt-prose{font-size:.9rem;color:var(--text2);line-height:1.8;margin-bottom:10px;}
-.mkt-prose strong{color:var(--text);}
-.mkt-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
-.mkt-check-box{width:16px;height:16px;border:2px solid #f59e0b;border-radius:4px;flex-shrink:0;margin-top:2px;}
-.mkt-check-num{width:22px;height:22px;background:#f59e0b;color:#0a0f1c;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:1px;}
-.mkt-check span{font-size:.875rem;color:var(--text2);line-height:1.55;}
-.mkt-check span strong{color:var(--text);}
-.mkt-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;}
-.mkt-action-btn{padding:.45rem 1rem;border-radius:6px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:.75rem;font-weight:600;transition:all .2s;}
-.mkt-action-btn:hover{background:var(--bg3);color:var(--text);}
-.mkt-result-bar{display:none;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.75rem 1.25rem;margin-bottom:1rem;}
-@media print{nav,.ptopbar,.run-btn,.pay-notice,.modal-bg,.mkt-actions,.mkt-result-bar{display:none!important;}body{background:white!important;color:black!important;}.mkt-section{background:white!important;border:1px solid #ccc!important;}}
-</style>
-<style>
-
-/* Marketplace output styles */
-.mkt-output { font-family: 'Instrument Sans', sans-serif; }
-.mkt-section { background:#ffffff; border:1px solid #ede9e3; border-radius:12px; padding:20px 24px; margin-bottom:12px; box-shadow:0 1px 4px rgba(0,0,0,.04); }
-.mkt-section-title { font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#f59e0b; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid #ede9e3; }
-.mkt-doc-header { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.04em; color:#1a1a1a; margin:1.5rem 0 .5rem; }
-.mkt-sublabel { font-size:.88rem; font-weight:700; color:#1a1a1a; margin:14px 0 6px; }
-.mkt-prose { font-size:.9rem; color:#3a3632; line-height:1.8; margin-bottom:10px; }
-.mkt-prose strong { color:#1a1a1a; }
-.mkt-check { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }
-.mkt-check-box { width:16px; height:16px; border:2px solid #f59e0b; border-radius:4px; flex-shrink:0; margin-top:2px; }
-.mkt-check-num { width:22px; height:22px; background:#f59e0b; color:#0a0f1c; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.65rem; font-weight:700; flex-shrink:0; margin-top:1px; }
-.mkt-check span { font-size:.875rem; color:#2a2826; line-height:1.55; }
-.mkt-check span strong { color:#1a1a1a; }
-.mkt-actions { display:flex; gap:.5rem; margin-top:1rem; flex-wrap:wrap; }
-.mkt-action-btn { padding:.45rem 1rem; border-radius:6px; border:1px solid rgba(255,255,255,.15); background:none; color:var(--text2); cursor:pointer; font-family:'Instrument Sans',sans-serif; font-size:.75rem; font-weight:600; transition:all .2s; }
-.mkt-action-btn:hover { background:var(--bg3); color:var(--text); }
-.mkt-result-bar { display:none; align-items:center; justify-content:space-between; background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:.75rem 1.25rem; margin-bottom:1rem; }
-.mkt-result-bar span { font-size:.82rem; color:var(--text2); }
-
+.generating-state{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;text-align:center;margin-top:1.5rem;display:none;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:40px;height:40px;border:3px solid rgba(245,158,11,.2);border-top-color:#f59e0b;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1.25rem;}
+.result-bar{display:none;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.75rem 1.25rem;margin-bottom:1rem;}
+.out-section{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:.75rem;}
+.out-section-title{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.out-prose{font-size:.875rem;color:var(--text2);line-height:1.8;margin-bottom:.5rem;}
+.out-prose strong{color:var(--text);}
+.out-sublabel{font-size:.85rem;font-weight:700;color:var(--text);margin:.75rem 0 .25rem;}
+.out-check{display:flex;align-items:flex-start;gap:8px;margin-bottom:.4rem;}
+.out-check-dot{width:6px;height:6px;background:#f59e0b;border-radius:50%;flex-shrink:0;margin-top:.45rem;}
+.out-check span{font-size:.875rem;color:var(--text2);line-height:1.6;}
+.out-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;}
+.out-btn{padding:.4rem .9rem;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:none;color:var(--text2);font-family:'Instrument Sans',sans-serif;transition:all .2s;}
+.out-btn:hover{background:var(--bg3);color:var(--text);}
+@media print{nav,.ptopbar,.run-btn,.modal-bg,.result-bar,.out-actions{display:none!important;}body{background:white!important;color:black!important;}.out-section{background:white!important;border:1px solid #ccc!important;}}
 </style>
 </head>
 <body>
+
 <nav>
   <a class="nav-logo" href="/">AI BUSINESS SOLUTIONS <span>OS</span></a>
   <div class="nav-center">
@@ -115,22 +91,21 @@ textarea{resize:vertical;min-height:90px;}
   </div>
   <a class="nav-cta" href="/#contact-section">Get started</a>
 </nav>
+
 <div class="pshell">
   <div class="ptopbar">
     <div class="ptopbar-name" style="color:#f59e0b;">MARKETPLACE BUNDLE</div>
-    <div class="ptabs"><a class="ptab" href="/marketplace.html">&#127968; All bundles</a>
-<a class="ptab" href="/pitch-and-win.html" style="background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.25);">Pitch &amp; Win</a>
-<a class="ptab" href="/scale-and-operate.html">Scale &amp; Operate</a>
-<a class="ptab" href="/lead-and-manage.html">Lead &amp; Manage</a>
-<a class="ptab" href="/price-and-position.html">Price &amp; Position</a>
-</div>
-    <div class="ptopbar-price" style="color:#f59e0b;"><span class="mkt-price-modal">R497</span> per bundle</div>
+    <div class="ptabs"><a class="ptab" href="/marketplace.html">&#127968; All bundles</a><a class="ptab" href="/pitch-and-win.html" style="background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.25);">Pitch &amp; Win</a><a class="ptab" href="/scale-and-operate.html">Scale &amp; Operate</a><a class="ptab" href="/lead-and-manage.html">Lead &amp; Manage</a><a class="ptab" href="/price-and-position.html">Price &amp; Position</a></div>
+    <div class="ptopbar-price">$27 per bundle</div>
   </div>
+
   <div class="tpanel">
-    <div id="form-area">
-      <div class="tool-title" style="color:var(--ge);">&#128196; Pitch & Win Bundle</div>
-      <div class="tool-desc">The complete business pitch system. Walk into any high-value meeting with a full set of AI-generated documents — tailored to your client, your offer, and your numbers.</div>
-      <div class="pay-notice" style="background:rgba(232,98,42,.08);border-color:rgba(232,98,42,.2);color:var(--ge2);">&#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.</div>
+    <div id="toolForm">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.03em;margin-bottom:.3rem;color:var(--ge);">&#128196; Pitch & Win Bundle</div>
+      <div style="font-size:.875rem;color:var(--text2);margin-bottom:.75rem;line-height:1.6;">The complete business pitch system. Walk into any high-value meeting with 5 AI-generated documents — tailored to your client, your offer, and your deal.</div>
+      <div style="display:flex;align-items:center;gap:.6rem;background:rgba(232,98,42,.08);border:1px solid rgba(232,98,42,.2);color:var(--ge2);border-radius:8px;padding:.65rem 1rem;margin-bottom:1.25rem;font-size:.78rem;">
+        &#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.
+      </div>
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;">
         <div class="sl">What you get in this bundle</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
@@ -139,275 +114,231 @@ textarea{resize:vertical;min-height:90px;}
       </div>
       
 <div class="fr">
-  <div class="fg"><label>Your business / offer</label><input id="pb1" placeholder="e.g. AI consulting firm, marketing agency"></div>
-  <div class="fg"><label>Target client / industry</label><input id="pb2" placeholder="e.g. Mid-size retail company, iLearn Training"></div>
+  <div class="fg"><label>Your business / offer</label><input id="pb1" placeholder="e.g. Marketing agency, SaaS company, consulting firm"></div>
+  <div class="fg"><label>Target client / industry</label><input id="pb2" placeholder="e.g. Mid-size tech company, retail chain, law firm"></div>
 </div>
 <div class="fr">
-  <div class="fg"><label>The problem you solve</label><textarea id="pb3" placeholder="What pain does your client have? What does it cost them?" style="min-height:80px;"></textarea></div>
-  <div class="fg"><label>Your solution &amp; differentiator</label><textarea id="pb4" placeholder="What you offer and why you win over competitors." style="min-height:80px;"></textarea></div>
+  <div class="fg"><label>The problem you solve</label><textarea id="pb3" placeholder="e.g. They're losing clients to competitors because of poor retention strategy"></textarea></div>
+  <div class="fg"><label>Your solution &amp; differentiator</label><textarea id="pb4" placeholder="e.g. AI-powered client retention system with guaranteed results"></textarea></div>
 </div>
 <div class="fr">
-  <div class="fg"><label>Deal size / proposed investment</label><input id="pb5" placeholder="e.g. R150,000 project, R25,000/month retainer"></div>
-  <div class="fg"><label>Decision maker name &amp; title</label><input id="pb6" placeholder="e.g. Sarah Miller, CEO"></div>
+  <div class="fg"><label>Deal size / investment</label><input id="pb5" placeholder="e.g. $15,000 project, $3,000/month retainer"></div>
+  <div class="fg"><label>Decision maker</label><input id="pb6" placeholder="e.g. Sarah Chen, CEO"></div>
 </div>
 <div class="fr">
-  <div class="fg"><label>Key expected outcome for client</label><input id="pb7" placeholder="e.g. 40% increase in qualified leads in 90 days"></div>
-  <div class="fg"><label>Timeline / start date</label><input id="pb8" placeholder="e.g. Start within 2 weeks, 6-month engagement"></div>
+  <div class="fg"><label>Expected outcome for client</label><input id="pb7" placeholder="e.g. 40% increase in client retention in 90 days"></div>
+  <div class="fg"><label>Timeline</label><input id="pb8" placeholder="e.g. Start within 2 weeks, 6-month engagement"></div>
 </div>
-      <button class="run-btn mkt-price-btn" style="background:var(--ge);color:white;" onclick="openPay()">&#128179; Pay R497 &amp; Generate Bundle &rarr;</button>
+      <button class="run-btn" onclick="openPayModal()">&#128179; Pay &amp; Generate Bundle &rarr;</button>
     </div>
-    <div class="mkt-result-bar" id="result-bar">
-      <span>&#10003; Your bundle is ready</span>
-      <button onclick="document.getElementById('form-area').style.display='block';document.getElementById('result-bar').style.display='none';document.getElementById('output').style.display='none';" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:.4rem .9rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'Instrument Sans',sans-serif;">&#8635; Generate Again</button>
+
+    <div class="generating-state" id="generatingState">
+      <div class="spinner"></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;margin-bottom:.4rem;">Generating your bundle...</div>
+      <div style="font-size:.78rem;color:var(--text2);">5 complete documents &mdash; this takes 30&ndash;60 seconds.</div>
     </div>
-    <div id="output" style="display:none;margin-top:1rem;"></div>
+
+    <div class="result-bar" id="resultBar">
+      <span style="font-size:.82rem;color:var(--text2);">&#10003; Your bundle is ready</span>
+      <button onclick="location.reload()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:.4rem .9rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'Instrument Sans',sans-serif;">&#8635; Generate Again</button>
+    </div>
+
+    <div id="outputArea"></div>
   </div>
 </div>
 
-<div class="modal-bg" id="pay-modal">
+<div class="modal-bg" id="payModal">
   <div class="modal">
-    <h3>Pay &amp; Generate</h3>
-    <div class="modal-sub">5 complete documents &middot; Delivered instantly after payment</div>
-    <div class="modal-price-line mkt-price-modal">R497 — one-time payment</div>
+    <h3>Pitch & Win Bundle</h3>
+    <div class="modal-sub">5 complete documents &middot; Delivered instantly</div>
+    <div class="modal-price-line" id="modalPriceLine">$27 &mdash; one-time payment</div>
     <div class="mfields">
       <div class="mrow">
-        <div class="fg"><label>First name</label><input id="m-first" placeholder="James"></div>
-        <div class="fg"><label>Last name</label><input id="m-last" placeholder="Carter"></div>
+        <div class="fg"><label>First name</label><input id="pm_first" placeholder="James" type="text"></div>
+        <div class="fg"><label>Last name</label><input id="pm_last" placeholder="Carter" type="text"></div>
       </div>
-      <div class="fg"><label>Email address</label><input id="m-email" type="email" placeholder="james@company.com"></div>
+      <div class="fg"><label>Email address</label><input id="pm_email" placeholder="james@company.com" type="email"></div>
     </div>
     <div class="mactions">
-      <button class="m-cancel" onclick="closePay()">Cancel</button>
-      <button class="m-pay" id="m-paybtn" onclick="doPaystack()">Pay &amp; Generate &rarr;</button>
+      <button class="m-cancel" onclick="closePayModal()">Cancel</button>
+      <button class="m-pay" onclick="processPayment()">Pay &amp; Generate &rarr;</button>
     </div>
   </div>
 </div>
 
 <script>
-const BUNDLE_NAME = 'Pitch & Win Bundle';
-const BTN_COLOR = 'var(--ge)';
+var savedFormData = {};
 
-const PAYSTACK_KEY = 'pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33';
-const MKT_PRICES  = {ZAR:49700, USD:2700, NGN:999000, GBP:2160, EUR:2511};
-const MKT_DISPLAY = {ZAR:'R497', USD:'$27', NGN:'₦18,000', GBP:'£22', EUR:'€25'};
-const CURR_CODES  = {ZAR:'ZAR', USD:'USD', NGN:'NGN', GBP:'GBP', EUR:'EUR'};
-const CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
-let cur = 'ZAR';
+// ── Currency detection ──
+var MKT_PRICES  = {ZAR:49700, USD:2700, NGN:999000, GBP:2200, EUR:2500};
+var MKT_DISPLAY = {ZAR:'R497', USD:'$27', NGN:'NGN 999', GBP:'GBP 22', EUR:'EUR 25'};
+var CURR_CODES  = {ZAR:'ZAR', USD:'USD', NGN:'NGN', GBP:'GBP', EUR:'EUR'};
+var CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
+var detectedCur = 'ZAR';
 
-(async function detectCurrency(){
-  const apis = [
-    ()=>fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>CC[d.country_code]),
-    ()=>fetch('https://api.country.is/').then(r=>r.json()).then(d=>CC[d.country]),
-    ()=>fetch('https://ipwho.is/').then(r=>r.json()).then(d=>CC[d.country_code]),
+(function detectCurrency() {
+  var apis = [
+    function() { return fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){return CC[d.country_code];}); },
+    function() { return fetch('https://api.country.is/').then(function(r){return r.json();}).then(function(d){return CC[d.country];}); },
+    function() { return fetch('https://ipwho.is/').then(function(r){return r.json();}).then(function(d){return CC[d.country_code];}); }
   ];
-  for(const api of apis){
-    try{ const c=await api(); if(c){ cur=c; applyPrices(); return; } }catch(e){}
+  function tryNext(i) {
+    if (i >= apis.length) return;
+    apis[i]().then(function(cur) {
+      if (cur) {
+        detectedCur = cur;
+        var disp = MKT_DISPLAY[cur] || '$27';
+        document.getElementById('modalPriceLine').textContent = disp + ' — one-time payment';
+        document.querySelector('.ptopbar-price').textContent = disp + ' per bundle';
+      }
+    }).catch(function() { tryNext(i + 1); });
   }
+  tryNext(0);
 })();
 
-function applyPrices(){
-  const d = MKT_DISPLAY[cur]||'R497';
-  document.querySelectorAll('.mkt-price-btn').forEach(el=>el.innerHTML='💳 Pay '+d+' & Generate Bundle →');
-  document.querySelectorAll('.mkt-price-modal').forEach(el=>el.textContent=d+' — one-time payment');
+// ── Form ──
+function getFormData() {
+  
+  var biz = (document.getElementById('pb1').value||'').trim();
+  var client = (document.getElementById('pb2').value||'').trim();
+  var problem = (document.getElementById('pb3').value||'').trim();
+  if (!biz || !client || !problem) {
+    alert('Please fill in your business, target client, and the problem you solve.');
+    return null;
+  }
+  return {
+    biz: biz, client: client, problem: problem,
+    solution: (document.getElementById('pb4').value||'').trim(),
+    deal: (document.getElementById('pb5').value||'').trim(),
+    dm: (document.getElementById('pb6').value||'').trim(),
+    outcome: (document.getElementById('pb7').value||'').trim(),
+    timeline: (document.getElementById('pb8').value||'').trim()
+  };
 }
 
-function openPay(){
-  if(!validateFields()) return;
-  document.getElementById('m-paybtn').style.background = BTN_COLOR;
-  document.getElementById('pay-modal').classList.add('open');
+function openPayModal() {
+  var fd = getFormData();
+  if (!fd) return;
+  savedFormData = fd;
+  document.getElementById('payModal').classList.add('open');
 }
-function closePay(){ document.getElementById('pay-modal').classList.remove('open'); }
 
-function doPaystack(){
-  const email = document.getElementById('m-email').value.trim();
-  const first = document.getElementById('m-first').value.trim();
-  if(!email||!first){ alert('Please enter your name and email.'); return; }
-  
-  // Save form data before Paystack opens
-  window._savedFormData = getFormData();
-  
+function closePayModal() {
+  document.getElementById('payModal').classList.remove('open');
+}
+
+// ── Payment ──
+function processPayment() {
+  var email = document.getElementById('pm_email').value.trim();
+  if (!email) { alert('Please enter your email address.'); return; }
+
+  var amount = MKT_PRICES[detectedCur] || MKT_PRICES['ZAR'];
+  var currency = CURR_CODES[detectedCur] || 'ZAR';
+
   PaystackPop.setup({
-    key: PAYSTACK_KEY,
-    email,
-    amount: MKT_PRICES[cur]||MKT_PRICES.ZAR,
-    currency: CURR_CODES[cur]||'ZAR',
+    key: 'pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33',
+    email: email,
+    amount: amount,
+    currency: currency,
     ref: 'AIBS_MKT_' + Date.now(),
-    metadata:{ custom_fields:[
-      {display_name:'Bundle', variable_name:'bundle', value: BUNDLE_NAME},
-      {display_name:'Name',   variable_name:'name',   value: first+' '+(document.getElementById('m-last').value||'')},
+    metadata: { custom_fields: [
+      { display_name: 'Bundle', variable_name: 'bundle', value: 'Pitch & Win Bundle' },
+      { display_name: 'Name', variable_name: 'name', value: (document.getElementById('pm_first').value + ' ' + document.getElementById('pm_last').value).trim() }
     ]},
-    callback: (r)=>{ closePay(); generate(r.reference); },
-    onClose: ()=>{}
+    callback: function(response) { closePayModal(); generate(); },
+    onClose: function() {}
   }).openIframe();
 }
 
-async function generate(ref){
-  // Hide form, show result area
-  document.getElementById('form-area').style.display = 'none';
-  document.getElementById('result-bar').style.display = 'flex';
-  
-  const out = document.getElementById('output');
-  out.style.display = 'block';
-  out.innerHTML = '<div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;text-align:center;"><div style="width:44px;height:44px;border:3px solid rgba(245,158,11,.2);border-top-color:#f59e0b;border-radius:50%;animation:mkt-spin .8s linear infinite;margin:0 auto 1.25rem;"></div><div style="font-family:\'Bebas Neue\',sans-serif;font-size:1.2rem;letter-spacing:.05em;margin-bottom:.5rem;">Generating your bundle...</div><div style="font-size:.8rem;color:var(--text2);line-height:1.6;">Our AI is building 5 complete documents.<br>This takes about 30–60 seconds.</div></div><style>@keyframes mkt-spin{to{transform:rotate(360deg)}}</style>';
-  out.scrollIntoView({behavior:'smooth', block:'start'});
-  
-  try{
-    const r = await fetch('/api/claude',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({messages:[{role:'user', content: buildPrompt()}]})
+// ── Generation ──
+async function generate() {
+  var fd = savedFormData;
+  var prompt = buildPrompt(fd);
+
+  document.getElementById('toolForm').style.display = 'none';
+  document.getElementById('generatingState').style.display = 'block';
+  document.getElementById('generatingState').scrollIntoView({behavior:'smooth', block:'center'});
+
+  try {
+    var r = await fetch('/api/claude', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({messages: [{role: 'user', content: prompt}]})
     });
-    if(!r.ok) throw new Error(r.status);
-    const d = await r.json();
-    const raw = d.content?.[0]?.text || '';
-    window._mktRaw = raw;
-    out.innerHTML = formatRaw(raw) + getActions();
-  } catch(e){
-    out.innerHTML = '<div style="background:rgba(255,40,40,.05);border:1px solid rgba(255,80,80,.15);border-radius:10px;padding:1.5rem;"><div style="color:#ff6b6b;font-family:\'JetBrains Mono\',monospace;font-size:.78rem;margin-bottom:.5rem;">Error generating bundle.</div><div style="font-size:.8rem;color:var(--text2);">Your payment was received. Reference: <strong style="color:var(--text);">'+ref+'</strong><br>Email <a href="mailto:hello@aibsos.com" style="color:#f59e0b;">hello@aibsos.com</a> with this reference.</div></div>';
+    if (!r.ok) throw new Error(r.status);
+    var d = await r.json();
+    var raw = (d.content && d.content[0] && d.content[0].text) || '';
+    window._bundleRaw = raw;
+
+    document.getElementById('generatingState').style.display = 'none';
+    document.getElementById('resultBar').style.display = 'flex';
+    document.getElementById('outputArea').innerHTML = renderOutput(raw) + getActionButtons();
+    document.getElementById('outputArea').scrollIntoView({behavior:'smooth', block:'start'});
+  } catch(e) {
+    document.getElementById('generatingState').style.display = 'none';
+    document.getElementById('outputArea').innerHTML = '<div style="background:rgba(255,40,40,.05);border:1px solid rgba(255,80,80,.15);border-radius:10px;padding:1.5rem;"><div style="color:#ff6b6b;font-size:.82rem;margin-bottom:.5rem;">Error generating bundle.</div><div style="font-size:.8rem;color:var(--text2);">Your payment was received. Email <a href=\"mailto:hello@aibsos.com\" style=\"color:#f59e0b;\">hello@aibsos.com</a> to get your result.</div></div>';
   }
 }
 
-function formatRaw(text){
-  const lines = text.split('\n');
-  let html = '<div class="mkt-output">';
-  let inSection = false;
-  
-  for(let line of lines){
-    const trimmed = line.trim();
-    if(!trimmed || trimmed === '---') { 
-      if(trimmed === '---') html += '<hr style="border:none;border-top:1px solid rgba(255,255,255,.06);margin:1.25rem 0;">';
-      continue; 
+// ── Output renderer ──
+function renderOutput(text) {
+  var lines = text.split('\n');
+  var html = '';
+  var inSection = false;
+
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (!line || line === '---' || line === '***') {
+      if (line === '---') html += '<hr style="border:none;border-top:1px solid rgba(255,255,255,.06);margin:.75rem 0;">';
+      continue;
     }
-    if(trimmed.match(/^## /)){
-      if(inSection) html += '</div>';
-      html += '<div class="mkt-section"><div class="mkt-section-title">' + trimmed.replace(/^## /,'') + '</div>';
+    if (line.match(/^## /)) {
+      if (inSection) html += '</div>';
+      html += '<div class="out-section"><div class="out-section-title">' + line.replace(/^## /, '') + '</div>';
       inSection = true;
-    } else if(trimmed.match(/^### /)){
-      html += '<p class="mkt-sublabel">' + trimmed.replace(/^### /,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>') + '</p>';
-    } else if(trimmed.match(/^# /)){
-      html += '<div class="mkt-doc-header">' + trimmed.replace(/^# /,'') + '</div>';
-    } else if(trimmed.match(/^- /) || trimmed.match(/^\* /)){
-      const t = trimmed.replace(/^[-*] /,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-      html += '<div class="mkt-check"><div class="mkt-check-box"></div><span>'+t+'</span></div>';
-    } else if(trimmed.match(/^\d+\. /)){
-      const t = trimmed.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-      html += '<div class="mkt-check"><div class="mkt-check-num">'+trimmed.match(/^(\d+)\.?/)[1]+'</div><span>'+t.replace(/^\d+\.\s*/,'')+'</span></div>';
+    } else if (line.match(/^### /)) {
+      html += '<p class="out-sublabel">' + line.replace(/^### /, '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') + '</p>';
+    } else if (line.match(/^# /)) {
+      html += '<p style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;color:var(--text);margin:.5rem 0;">' + line.replace(/^# /, '') + '</p>';
+    } else if (line.match(/^[-*] /) || line.match(/^\d+\. /)) {
+      var t = line.replace(/^[-*] /, '').replace(/^\d+\. /, '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html += '<div class="out-check"><div class="out-check-dot"></div><span>' + t + '</span></div>';
     } else {
-      const t = trimmed.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-      html += '<p class="mkt-prose">' + t + '</p>';
+      var t = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html += '<p class="out-prose">' + t + '</p>';
     }
   }
-  if(inSection) html += '</div>';
-  html += '</div>';
+  if (inSection) html += '</div>';
   return html;
 }
 
-function getActions(){
-  return `<div class="mkt-actions">
-    <button class="mkt-action-btn" onclick="navigator.clipboard.writeText(window._mktRaw||'').then(()=>{this.textContent='✓ Copied';setTimeout(()=>{this.textContent='📋 Copy All'},1800)})">📋 Copy All</button>
-    <button class="mkt-action-btn" onclick="downloadDoc()">⬇️ Download .doc</button>
-    <button class="mkt-action-btn" onclick="window.print()">🖨 Print</button>
-  </div>`;
+function getActionButtons() {
+  return '<div class="out-actions">' +
+    '<button class="out-btn" onclick="navigator.clipboard.writeText(window._bundleRaw||'')" >&#128203; Copy All</button>' +
+    '<button class="out-btn" onclick="downloadDoc()">&#11015; Download .doc</button>' +
+    '<button class="out-btn" onclick="window.print()">&#128438; Print</button>' +
+    '</div>';
 }
 
-function downloadDoc(){
-  const text = window._mktRaw || '';
-  const docHtml = `<html xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="UTF-8"><style>body{font-family:Calibri,sans-serif;font-size:11pt;line-height:1.7;margin:2.5cm;color:#1a1a1a;}h1{font-size:18pt;color:#f59e0b;margin-bottom:6pt;}h2{font-size:13pt;color:#1a1a1a;border-bottom:1px solid #e0dbd4;padding-bottom:4pt;margin-top:20pt;}h3{font-size:11pt;font-weight:700;margin:12pt 0 4pt;}p{margin-bottom:8pt;}li{margin-bottom:5pt;}hr{border:none;border-top:1px solid #e0dbd4;margin:16pt 0;}</style></head><body>${text.replace(/
-/g,'<br>').replace(/## (.+)/g,'<h2>$1</h2>').replace(/### (.+)/g,'<h3>$1</h3>').replace(/# (.+)/g,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^- (.+)/gm,'<li>$1</li>').replace(/---/g,'<hr>')}</body></html>`;
-  const blob = new Blob([docHtml], {type:'application/msword'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download=BUNDLE_NAME.replace(/ /g,'_')+'.doc';
+function downloadDoc() {
+  var text = window._bundleRaw || '';
+  var html = '<html><head><meta charset="UTF-8"><style>body{font-family:Calibri,sans-serif;font-size:11pt;line-height:1.7;margin:2.5cm;color:#1a1a1a;}h1{font-size:16pt;color:#f59e0b;}h2{font-size:13pt;border-bottom:1px solid #e0dbd4;padding-bottom:4pt;margin-top:16pt;}p{margin-bottom:8pt;}li{margin-bottom:4pt;}</style></head><body>' +
+    text.replace(/\n/g, '<br>').replace(/## (.+)/g, '<h2>$1</h2>').replace(/### (.+)/g, '<h3>$1</h3>').replace(/# (.+)/g, '<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') +
+    '</body></html>';
+  var blob = new Blob([html], {type: 'application/msword'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'Pitch_&_Win_Bundle.doc';
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('pay-modal').addEventListener('click',e=>{
-    if(e.target===document.getElementById('pay-modal')) closePay();
-  });
+document.getElementById('payModal').addEventListener('click', function(e) {
+  if (e.target === document.getElementById('payModal')) closePayModal();
 });
 
 
-function validateFields(){ 
-  if(!document.getElementById('pb1').value.trim()||!document.getElementById('pb2').value.trim()||!document.getElementById('pb3').value.trim()){
-    alert('Please fill in your business, target client, and the problem you solve.'); return false;
-  } return true;
-}
-function getFormData(){
-  return {
-    business: document.getElementById('pb1').value.trim(),
-    client: document.getElementById('pb2').value.trim(),
-    problem: document.getElementById('pb3').value.trim(),
-    solution: document.getElementById('pb4').value.trim(),
-    deal: document.getElementById('pb5').value.trim(),
-    dm: document.getElementById('pb6').value.trim(),
-    outcome: document.getElementById('pb7').value.trim(),
-    timeline: document.getElementById('pb8').value.trim(),
-  };
-}
-function buildPrompt(){
-  const f = window._savedFormData || getFormData();
-  return `You are a senior business development consultant generating a complete, high-value PITCH & WIN BUNDLE. Every section must be specific, commercially sharp, and ready to use. Minimum 1,200 words total across all 5 documents.
-
-BUSINESS: ${f.business}
-CLIENT: ${f.client}
-DECISION MAKER: ${f.dm||'The decision maker'}
-PROBLEM: ${f.problem}
-SOLUTION: ${f.solution||'Tailored solution'}
-DEAL VALUE: ${f.deal||'Significant investment'}
-EXPECTED OUTCOME: ${f.outcome||'Measurable business improvement'}
-TIMELINE: ${f.timeline||'To be agreed'}
-
-## 01. EXECUTIVE BUSINESS PROPOSAL
-Write a complete, persuasive business proposal with these sections:
-- Executive Summary (2 paragraphs — the situation and the opportunity)
-- The Problem (specific pain points, what this costs the client in time/money/risk)
-- Our Solution (detailed approach, what you will do, how it works, what they get)
-- Why Us (3–4 specific differentiators with proof points)
-- Investment & ROI (clear pricing, what's included, 3-month and 12-month ROI projection)
-- Implementation Timeline (phases with specific deliverables per phase)
-- Next Steps (3 specific action items with owners and deadlines)
-- Closing Statement (confident, relationship-focused)
-
-## 02. ONE-PAGE EXECUTIVE SUMMARY
-A tight, scan-friendly one-pager formatted for a busy decision-maker:
-- The situation (1 sentence)
-- The problem (2 sentences)
-- Our solution (2 sentences)
-- What you get (5 bullet points — specific deliverables)
-- The investment (clear number)
-- Expected outcome (specific, measurable)
-- Why act now (urgency without pressure)
-- Contact / next step
-
-## 03. ROI BUSINESS CASE
-Build a detailed financial justification:
-- What the problem costs them today (quantify in money, time, or risk)
-- Conservative, realistic, and optimistic ROI scenarios
-- Month 3, Month 6, Month 12 projected returns with specific numbers
-- Breakeven analysis
-- Risk of inaction (what happens if they don't solve this)
-- Investment vs. return summary table
-
-## 04. OBJECTION & RESPONSE PLAYBOOK
-The 8 most likely objections this specific client will raise, with 2 confident, commercially grounded responses for each:
-1. Price / budget objection
-2. "We need to think about it"
-3. "We're already working with someone"
-4. "We can do this ourselves"
-5. "It's not the right time"
-6. "We need to see results first"
-7. "I need to get sign-off from someone else"
-8. Industry-specific objection based on ${f.client}
-
-## 05. 5-TOUCH FOLLOW-UP EMAIL SEQUENCE
-5 emails: Day 1, Day 3, Day 7, Day 14, Day 28. Each email must have:
-- Subject line
-- Opening line (never start with "I hope this finds you well")
-- 3–4 sentence body that adds value, not just chasing
-- Clear single call to action
-- Sign-off
-
-Make every word count. This client is paying for results, not filler.`;
+function buildPrompt(f) {
+  return 'You are a senior business development consultant. Generate a complete PITCH & WIN BUNDLE for:\n\nBusiness: ' + f.biz + '\nClient: ' + f.client + '\nDecision Maker: ' + (f.dm||'The CEO') + '\nProblem: ' + f.problem + '\nSolution: ' + (f.solution||'Tailored solution') + '\nDeal Value: ' + (f.deal||'Significant investment') + '\nExpected Outcome: ' + (f.outcome||'Measurable improvement') + '\nTimeline: ' + (f.timeline||'To be agreed') + '\n\nGenerate all 5 documents. Each must be complete, specific, and immediately usable. Minimum 1,400 words total.\n\n## 01. EXECUTIVE BUSINESS PROPOSAL\nFour sections: Executive Summary (2 paragraphs), The Problem (specific pain and cost), Our Solution (detailed approach and deliverables), Investment & ROI (clear pricing, 3-month and 12-month projections), Implementation Timeline (phased with deliverables), Next Steps (3 specific actions), Closing Statement.\n\n## 02. ONE-PAGE EXECUTIVE SUMMARY\nFor a busy decision-maker: situation (1 sentence), problem (2 sentences), solution (2 sentences), what you get (5 bullets), investment, expected outcome, why act now, next step.\n\n## 03. ROI BUSINESS CASE\nWhat the problem costs them today. Conservative, realistic, optimistic ROI scenarios. Month 3, 6, 12 projections with specific numbers. Breakeven analysis. Risk of inaction.\n\n## 04. OBJECTION & RESPONSE PLAYBOOK\n8 objections with 2 confident responses each: price/budget, need to think about it, already working with someone, can do it ourselves, wrong timing, need to see results first, need approval, industry-specific objection.\n\n## 05. 5-TOUCH FOLLOW-UP EMAIL SEQUENCE\nDay 1, 3, 7, 14, 28. Each email: subject line, opening line (never "I hope this finds you well"), 3-4 sentence body that adds value, single call to action, sign-off.';
 }
 </script>
 </body>
