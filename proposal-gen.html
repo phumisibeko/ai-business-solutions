@@ -349,10 +349,13 @@ Write persuasively. Be specific. Use the client's name and industry context thro
   }
 
   // ── Modal controls ──
+  let savedFormData = {};
+
   function openPayModal() {
     const fd = getFormData();
     const missing = validateForm(fd);
     if (missing) { alert('Please fill in: ' + missing); return; }
+    savedFormData = fd;
     document.getElementById('payModal').classList.add('open');
   }
   function closePayModal() {
@@ -392,7 +395,7 @@ Write persuasively. Be specific. Use the client's name and industry context thro
 
   // ── AI generation ──
   async function generate() {
-    const fd = getFormData();
+    const fd = savedFormData;
     const prompt = buildPrompt(fd);
 
     document.getElementById('toolForm').style.display = 'none';
@@ -418,8 +421,10 @@ Write persuasively. Be specific. Use the client's name and industry context thro
 
     } catch(err) {
       document.getElementById('generatingState').classList.remove('visible');
-      document.getElementById('toolForm').style.display = 'block';
-      alert('Something went wrong. Please try again.');
+      document.getElementById('startOverBar').classList.add('visible');
+      const outputArea = document.getElementById('outputArea');
+      outputArea.classList.add('visible');
+      outputArea.innerHTML = '<div style="background:#1c1c1c;border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:20px 24px;color:#ef4444;font-family:monospace;font-size:.82rem">Error: ' + (err.message||'API call failed') + '<br><br>Your payment was received. Email <a href="mailto:hello@aibsos.com" style="color:#e8622a">hello@aibsos.com</a> with reference to get your result.</div>';
     }
   }
 
