@@ -589,6 +589,21 @@ AIBSOS.injectCSS = function() {
     .abr-caption-card p { font-size:.9rem; line-height:1.6; color:#222; margin:0 0 12px; white-space:pre-wrap; }
     .abr-caption-card .hashtags { font-size:.8rem; color:#f97316; line-height:1.6; }
 
+    /* Price stat — single clean display */
+    .abr-price-stat { display:inline-flex; flex-direction:column; background:#1a1a1a; border-radius:12px; padding:18px 28px; margin-bottom:16px; min-width:160px; }
+    .abr-price-num { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:.03em; color:#e8622a; line-height:1; }
+    .abr-price-lbl { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; color:#888; margin-top:4px; }
+    /* ROI strip */
+    .abr-roi-strip { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+    .abr-roi-chip { background:#1a1a1a; border-radius:10px; padding:14px 18px; flex:1; min-width:110px; text-align:center; }
+    .abr-roi-chip-num { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:#e8622a; letter-spacing:.03em; }
+    .abr-roi-chip-lbl { font-size:.6rem; text-transform:uppercase; letter-spacing:.08em; color:#888; margin-top:3px; }
+    /* Sub-label (### in prose) */
+    .abr-sublabel { font-size:.88rem; font-weight:700; color:#1a1a1a; margin:14px 0 6px; }
+    /* Info box for validity/contact */
+    .abr-info-box { background:#f5f3ef; border-radius:10px; padding:16px 20px; border-left:3px solid #e8622a; }
+    .abr-info-box .abr-prose { color:#4a4540; }
+
     @media (max-width:600px) {
       .abr-section { padding:18px; }
       .abr-header { padding:20px; }
@@ -604,6 +619,55 @@ AIBSOS.injectCSS = function() {
    Each returns an HTML string from the raw AI response text
    ═══════════════════════════════════════════════════════════ */
 
+/* ── SHARED: Smart prose renderer ── */
+AIBSOS.renderProse = function(item) {
+  let t = (item.text || item).toString();
+  // Convert sub-headings to bold labels, not section titles
+  t = t.replace(/^###\s+(.+)/, '<p class="abr-sublabel">$1</p>');
+  t = t.replace(/^##\s+(.+)/, '<p class="abr-sublabel">$1</p>');
+  // Bold inline **text**
+  t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // Hide lone separator lines
+  if (t.match(/^-{2,}$/) || t.match(/^\*{2,}$/)) return '';
+  if (t.startsWith('<p')) return t;
+  return `<p class="abr-prose">${t}</p>`;
+};
+
+/* ── SHARED: Smart price display — clean single stat bar ── */
+AIBSOS.renderPriceSection = function(items, formPrice) {
+  // Extract the best price from items or formData — never show both
+  let displayPrice = formPrice || '';
+  let otherLines = [];
+
+  for (const i of items) {
+    const t = i.text || '';
+    // Try to extract a clean price from item text
+    const priceMatch = t.match(/\$[\d,]+(?:\.\d+)?(?:\/month|\/mo|per month)?|R[\d,]+(?:\.\d+)?(?:\/month|\/mo)?/i);
+    if (priceMatch && !displayPrice) {
+      displayPrice = priceMatch[0];
+    }
+    // Only add as prose if it adds meaningful context beyond the price itself
+    const clean = t.replace(/\*\*/g,'').trim();
+    if (clean.length > 5 && !clean.match(/^\$[\d,]+\/?/) && !clean.match(/^R[\d,]+\/?/)) {
+      otherLines.push(clean);
+    }
+  }
+
+  let html = '';
+  if (displayPrice) {
+    // Clean up the price for display — remove slashes, keep compact
+    const priceLabel = displayPrice.replace(/\/month|\/mo/i,'').trim();
+    const periodLabel = displayPrice.toLowerCase().includes('month') ? 'per month' :
+                        displayPrice.toLowerCase().includes('year') ? 'per year' : 'investment';
+    html += `<div class="abr-price-stat">
+      <div class="abr-price-num">${priceLabel}</div>
+      <div class="abr-price-lbl">${periodLabel}</div>
+    </div>`;
+  }
+  html += otherLines.map(l => `<p class="abr-prose">${l.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</p>`).join('');
+  return html;
+};
+
 /* ── 1. PROPOSAL GEN ── */
 AIBSOS.renderProposal = function(raw, formData) {
   const sections = AIBSOS.parse(raw);
@@ -616,42 +680,88 @@ AIBSOS.renderProposal = function(raw, formData) {
       <div class="abr-header-badge">Ready to Send</div>
     </div>`;
 
+  // Track if we've already shown price to avoid duplication
+  let priceShown = false;
+
   for (const s of sections) {
-    const title = s.title.toUpperCase();
+    const T = (s.title || '').toUpperCase();
     if (!s.title && s.items.length === 0) continue;
+    // Skip empty titled sections with only separator content
+    const meaningfulItems = s.items.filter(i => i.text && !i.text.match(/^-{2,}$/) && i.text.trim().length > 2);
+    if (!s.title && meaningfulItems.length === 0) continue;
 
     html += `<div class="abr-section"><div class="abr-section-title">${s.title || 'Overview'}</div>`;
 
-    if (title.includes('EXECUTIVE') || title.includes('SUMMARY') || title.includes('OVERVIEW') || title === '') {
-      html += s.items.map(i => `<p class="abr-prose">${i.text}</p>`).join('');
-    } else if (title.includes('DELIVERABLE') || title.includes('SCOPE') || title.includes('INCLUD') || title.includes('WHAT')) {
-      html += s.items.map(i => AIBSOS.checkItem(i.text)).join('');
-    } else if (title.includes('TIMELINE') || title.includes('PHASE') || title.includes('MILESTONE')) {
-      html += s.items.map((i, idx) => AIBSOS.card('📅', `Phase ${idx+1}`, i.text, idx===0?'#f97316':idx===1?'#0f0f0f':'#22c55e')).join('');
-    } else if (title.includes('INVESTMENT') || title.includes('PRICING') || title.includes('COST') || title.includes('PRICE')) {
-      html += `<div class="abr-roi-grid">
-        ${formData.price ? `<div class="abr-roi-stat"><div class="num">${formData.price}</div><div class="lbl">Investment</div></div>` : ''}
-      </div>`;
-      html += s.items.map(i => `<p class="abr-prose">${i.text}</p>`).join('');
-    } else if (title.includes('NEXT') || title.includes('STEP') || title.includes('ACTION')) {
-      html += s.items.map((i,n) => AIBSOS.checkItem(`${i.text}`)).join('');
+    if (T.includes('EXECUTIVE') || T.includes('SUMMARY') || T === '') {
+      html += meaningfulItems.map(i => AIBSOS.renderProse(i)).join('');
+
+    } else if (T.includes('DELIVERABLE') || T.includes('SCOPE') || T.includes('INCLUD') || (T.includes('WHAT') && T.includes('GET'))) {
+      html += meaningfulItems.map(i => i.type === 'bullet' ? AIBSOS.checkItem(i.text) : AIBSOS.renderProse(i)).join('');
+
+    } else if (T.includes('TIMELINE') || T.includes('PHASE') || T.includes('MILESTONE') || T.includes('IMPLEMENTATION')) {
+      // Numbered phases as timeline cards
+      const colors = ['#e8622a','#0f0f0f','#22c55e','#3d6bff','#f59e0b'];
+      const icons = ['📋','⚙️','🚀','📊','🏆'];
+      let phaseNum = 0;
+      html += meaningfulItems.map((i,idx) => {
+        if (i.type === 'bullet') {
+          const label = i.text.split(':')[0];
+          const detail = i.text.split(':').slice(1).join(':').trim();
+          return AIBSOS.card(icons[idx%5], label, detail || i.text, colors[idx%5]);
+        }
+        return AIBSOS.renderProse(i);
+      }).join('');
+
+    } else if ((T.includes('INVESTMENT') || T.includes('PRICING') || T.includes('COST') || T.includes('PRICE') || T.includes('FEE')) && !priceShown) {
+      priceShown = true;
+      html += AIBSOS.renderPriceSection(meaningfulItems, formData.price);
+
+    } else if (T.includes('INVESTMENT') || T.includes('PRICING') || T.includes('COST') || T.includes('PRICE') || T.includes('FEE')) {
+      // Already showed price — just render as prose, skip duplicate stat
+      html += meaningfulItems.map(i => i.type === 'bullet' ? AIBSOS.checkItem(i.text) : AIBSOS.renderProse(i)).join('');
+
+    } else if (T.includes('NEXT STEP') || T.includes('ACTION') || T.includes('IMMEDIATE')) {
+      // Next steps as interactive checklist
+      html += meaningfulItems.map(i => {
+        if (i.type === 'bullet' || i.text.match(/^\d+\./)) return AIBSOS.checkItem(i.text);
+        // Prose lines in next steps that are actual action items
+        if (i.text.match(/^[A-Z]/) && i.text.length < 120) return AIBSOS.checkItem(i.text);
+        return AIBSOS.renderProse(i);
+      }).join('');
+
+    } else if (T.includes('WHY US') || T.includes('WHY CHOOSE') || T.includes('OUR ADVANTAGE') || T.includes('DIFFERENTIATOR')) {
+      html += meaningfulItems.map(i => {
+        if (i.type === 'bullet') {
+          const parts = i.text.split(':');
+          return AIBSOS.card('✅', parts[0], parts.slice(1).join(':').trim() || '', '#22c55e');
+        }
+        return AIBSOS.renderProse(i);
+      }).join('');
+
+    } else if (T.includes('ROI') || T.includes('RETURN') || T.includes('REVENUE IMPACT') || T.includes('EXPECTED RETURN')) {
+      // ROI section — extract numbers into a clean summary row, then prose
+      const roiNums = raw.match(/[\$R][\d,]+(?:\.\d+)?[KkMmBb%]?(?:\+)?/g) || [];
+      if (roiNums.length >= 2) {
+        const labels = ['Year 1 Return','Net ROI','Break-even','Annual Value'];
+        html += `<div class="abr-roi-strip">${roiNums.slice(0,4).map((n,i) =>
+          `<div class="abr-roi-chip"><div class="abr-roi-chip-num">${n}</div><div class="abr-roi-chip-lbl">${labels[i]||'Key Metric'}</div></div>`
+        ).join('')}</div>`;
+      }
+      html += meaningfulItems.map(i => AIBSOS.renderProse(i)).join('');
+
+    } else if (T.includes('VALIDITY') || T.includes('AUTHORIZATION') || T.includes('SIGNING') || T.includes('CONTACT INFORMATION') || T.includes('COMMITMENT')) {
+      // Validity/contact — clean info box
+      html += `<div class="abr-info-box">${meaningfulItems.map(i => AIBSOS.renderProse(i)).join('')}</div>`;
+
     } else {
-      html += s.items.map(i => i.type === 'bullet'
-        ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-        : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-      ).join('');
+      html += meaningfulItems.map(i => {
+        if (i.type === 'bullet') return AIBSOS.checkItem(i.text);
+        return AIBSOS.renderProse(i);
+      }).join('');
     }
     html += `</div>`;
   }
 
-  // Store raw text safely for copy/download
   const safeId = 'abrRaw_' + Date.now();
   window[safeId] = raw;
 
