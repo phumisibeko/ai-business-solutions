@@ -189,7 +189,7 @@ const BTN_COLOR = 'var(--ge)';
 
 const PAYSTACK_KEY = 'pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33';
 const MKT_PRICES  = {ZAR:49700, USD:2700, NGN:999000, GBP:2160, EUR:2511};
-const MKT_DISPLAY = {ZAR:'R497', USD:'$27', NGN:'&#8358;18,000', GBP:'&pound;22', EUR:'&euro;25'};
+const MKT_DISPLAY = {ZAR:'R497', USD:'$27', NGN:'₦18,000', GBP:'£22', EUR:'€25'};
 const CURR_CODES  = {ZAR:'ZAR', USD:'USD', NGN:'NGN', GBP:'GBP', EUR:'EUR'};
 const CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
 let cur = 'ZAR';
@@ -207,7 +207,7 @@ let cur = 'ZAR';
 
 function applyPrices(){
   const d = MKT_DISPLAY[cur]||'R497';
-  document.querySelectorAll('.mkt-price-btn').forEach(el=>el.innerHTML='&#128179; Pay '+d+' &amp; Generate Bundle &rarr;');
+  document.querySelectorAll('.mkt-price-btn').forEach(el=>el.innerHTML='💳 Pay '+d+' & Generate Bundle →');
   document.querySelectorAll('.mkt-price-modal').forEach(el=>el.textContent=d+' — one-time payment');
 }
 
