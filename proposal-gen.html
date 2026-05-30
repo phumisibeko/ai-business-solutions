@@ -372,17 +372,22 @@ Write persuasively. Be specific. Use the client's name and industry context thro
     const email = document.getElementById('pm_email').value.trim();
     if (!email) { alert('Please enter your email address.'); return; }
 
-    const handler = PaystackPop.setup({
+    const GE_PRICES = {ZAR:31700, USD:1700, NGN:2800000, GBP:1350, EUR:1590};
+    const CURR_CODES = {ZAR:'ZAR', USD:'USD', NGN:'NGN', GBP:'GBP', EUR:'EUR'};
+    const CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
+    let detectedCur = 'ZAR';
+    fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{ detectedCur = CC[d.country_code] || 'ZAR'; }).catch(()=>{});
+
+    const amount = GE_PRICES[detectedCur] || GE_PRICES['ZAR'];
+    PaystackPop.setup({
       key: 'pk_live_915d85717736ad7b681582d0e833fa21b76cbbd3',
       email: email,
-      amount: 1700,
-      callback: function(response) {
-        closePayModal();
-        generate();
-      },
+      amount: amount,
+      currency: CURR_CODES[detectedCur] || 'ZAR',
+      ref: 'AIBS_' + Date.now(),
+      callback: function(response) { closePayModal(); generate(); },
       onClose: function() {}
-    });
-    handler.openIframe();
+    }).openIframe();
   }
 
   // ── AI generation ──
