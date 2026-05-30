@@ -3,235 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pitch & Win Bundle — Marketplace | AIBSOS | AIBSOS</title>
-<meta name="description" content="Complete business pitch system. Proposal, executive summary, ROI case, objection playbook & follow-up sequence. R497.">
+<title>Scale & Operate Bundle — Marketplace | AIBSOS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@0,400;0,500;0,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
-
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --orange: #f97316;
-    --black:  #0f0f0f;
-    --white:  #ffffff;
-    --bg:     #f7f5f2;
-    --border: #e8e3db;
-    --muted:  #888;
-    --text:   #1a1a1a;
-  }
-
-  html { font-size: 16px; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
-
-  /* NAV */
-  .tool-nav {
-    background: var(--black);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    height: 56px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-brand a { color: #fff; text-decoration: none; font-size: .78rem; font-weight: 700; letter-spacing: .06em; }
-  .nav-brand span { color: var(--orange); }
-  .nav-links { display: flex; gap: 20px; }
-  .nav-links a { color: #aaa; text-decoration: none; font-size: .8rem; font-weight: 500; transition: .15s; white-space: nowrap; }
-  .nav-links a:hover, .nav-links .active-suite { color: #fff; }
-
-  .sub-nav {
-    background: #1a1a1a;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0 32px;
-    height: 42px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    border-bottom: 1px solid #2a2a2a;
-  }
-  .sub-nav::-webkit-scrollbar { display: none; }
-  .suite-label { color: var(--orange); font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding-right: 10px; white-space: nowrap; }
-  .sub-nav a { color: #777; text-decoration: none; font-size: .78rem; padding: 4px 10px; border-radius: 4px; white-space: nowrap; transition: .15s; }
-  .sub-nav a:hover { color: #fff; background: rgba(255,255,255,.07); }
-  .ppr-badge { margin-left: auto; background: rgba(249,115,22,.15); color: var(--orange); font-size: .65rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; white-space: nowrap; }
-
-  /* MAIN LAYOUT */
-  .page-wrap { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
-
-  /* TOOL HEADER */
-  .tool-header { margin-bottom: 32px; }
-  .tool-header h1 { font-size: 1.7rem; font-weight: 800; margin-bottom: 6px; }
-  .tool-header p { color: var(--muted); font-size: .92rem; }
-  .pay-notice { display: inline-flex; align-items: center; gap: 8px; background: #fff8f0; border: 1.5px solid #fed7aa; color: #92400e; font-size: .82rem; font-weight: 600; padding: 10px 16px; border-radius: 8px; margin-bottom: 24px; }
-
-  /* FORM */
-  .tool-form { background: #fff; border-radius: 16px; border: 1px solid var(--border); padding: 32px; }
-  .form-row { margin-bottom: 20px; }
-  .form-row label { display: block; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .form-row input, .form-row textarea, .form-row select {
-    width: 100%;
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .9rem;
-    color: var(--text);
-    transition: .15s;
-    outline: none;
-    -webkit-appearance: none;
-  }
-  .form-row input:focus, .form-row textarea:focus, .form-row select:focus { border-color: var(--orange); background: #fff; }
-  .form-row textarea { resize: vertical; min-height: 90px; }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-  /* Quick tags */
-  .quick-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-  .qtag { background: #f5f5f5; border: 1.5px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: .78rem; font-weight: 600; cursor: pointer; color: #555; transition: .15s; }
-  .qtag:hover, .qtag.selected { background: var(--orange); color: #fff; border-color: var(--orange); }
-
-  /* SUBMIT BUTTON */
-  .btn-generate {
-    width: 100%;
-    background: var(--orange);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: .2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  .btn-generate:hover { background: #ea6c0a; transform: translateY(-1px); }
-  .btn-generate:active { transform: none; }
-  .btn-generate:disabled { background: #ccc; cursor: default; transform: none; }
-
-  /* PAYSTACK MODAL */
-  .pay-modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.7);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-  }
-  .pay-modal-overlay.open { display: flex; }
-  .pay-modal {
-    background: #1a1a1a;
-    border-radius: 16px;
-    padding: 36px 32px;
-    width: 90%;
-    max-width: 440px;
-    animation: modalIn .25s ease;
-  }
-  @keyframes modalIn { from { opacity:0; transform:scale(.95); } to { opacity:1; transform:none; } }
-  .pay-modal h3 { color: #fff; font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
-  .pay-modal p { color: #aaa; font-size: .85rem; margin-bottom: 24px; }
-  .pay-modal .form-row label { color: #888; }
-  .pay-modal .form-row input { background: #2a2a2a; border-color: #333; color: #fff; }
-  .pay-modal .form-grid { grid-template-columns: 1fr 1fr; }
-  .pay-modal-actions { display: flex; gap: 12px; margin-top: 8px; }
-  .btn-pay { flex: 1; background: var(--orange); color: #fff; border: none; border-radius: 8px; padding: 14px; font-size: .92rem; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-  .btn-pay:hover { background: #ea6c0a; }
-  .btn-cancel { background: transparent; color: #777; border: 1.5px solid #333; border-radius: 8px; padding: 14px 20px; font-size: .88rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-  .btn-cancel:hover { border-color: #555; color: #aaa; }
-
-  /* GENERATING STATE */
-  .generating-state {
-    display: none;
-    background: #fff;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    padding: 48px 32px;
-    text-align: center;
-  }
-  .generating-state.visible { display: block; }
-  .gen-spinner {
-    width: 48px; height: 48px;
-    border: 3px solid #f0ede8;
-    border-top-color: var(--orange);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 20px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .generating-state h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-  .generating-state p { color: var(--muted); font-size: .88rem; }
-
-  /* OUTPUT AREA */
-  #outputArea { display: none; }
-  #outputArea.visible { display: block; }
-
-  /* Start over */
-  .start-over-bar {
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    padding: 14px 20px;
-    margin-bottom: 16px;
-  }
-  .start-over-bar.visible { display: flex; }
-  .start-over-bar span { font-size: .85rem; color: var(--muted); }
-  .btn-restart { background: var(--black); color: #fff; border: none; border-radius: 6px; padding: 8px 18px; font-size: .82rem; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-  .btn-restart:hover { background: var(--orange); }
-
-  @media (max-width: 640px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .tool-nav { padding: 0 16px; }
-    .page-wrap { padding: 24px 16px 60px; }
-    .tool-form { padding: 20px; }
-    .nav-links { display: none; }
-    .sub-nav { padding: 0 16px; }
-  }
-
-  </style>
+:root{--bg:#0c0c0c;--bg2:#141414;--bg3:#1c1c1c;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0ede8;--text2:#a09a90;--text3:#5a5550;--ge:#e8622a;--ge2:#ff8c5a;--wf:#3d6bff;--wf2:#7090ff;--green:#22c55e;--radius:12px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+a{text-decoration:none;color:inherit;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.85rem 2.5rem;background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,.12);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.04em;color:var(--text);}
+.nav-logo span{color:var(--ge);}
+.nav-center{display:flex;gap:.25rem;}
+.ntab{padding:.32rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600;cursor:pointer;border:1.5px solid #777;color:#d0d0d0;background:#2a2a2a;font-family:'Instrument Sans',sans-serif;transition:all .2s;text-decoration:none;display:inline-block;}
+.ntab:hover{color:#e8622a;border-color:#e8622a;}
+.ntab.wf-tab:hover{color:#3d6bff;border-color:#3d6bff;}
+.ntab.mkt-tab:hover{color:#f59e0b;border-color:#f59e0b;}
+.ntab.lb-tab:hover{color:#e87347;border-color:#e87347;}
+.nav-cta{padding:.38rem 1.1rem;border-radius:100px;font-size:.72rem;font-weight:600;background:var(--ge);color:white;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:opacity .2s;text-decoration:none;display:inline-block;}
+.nav-cta:hover{opacity:.85;}
+@media(max-width:768px){nav{padding:.75rem 1rem;}.nav-center{display:none;}}
+.page-shell{padding-top:60px;}
+.ptopbar{display:flex;align-items:center;gap:.6rem;padding:.55rem 1.25rem;border-bottom:1px solid var(--border);background:var(--bg2);flex-wrap:wrap;position:sticky;top:60px;z-index:100;}
+.ptopbar-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;flex-shrink:0;color:#f59e0b;}
+.ptabs{display:flex;gap:.2rem;flex-wrap:nowrap;flex:1;overflow-x:auto;}
+.ptabs::-webkit-scrollbar{height:0;}
+.ptab{padding:.28rem .7rem;border-radius:6px;font-size:.73rem;font-weight:500;border:1px solid transparent;color:var(--text2);background:none;font-family:'Instrument Sans',sans-serif;transition:all .18s;white-space:nowrap;text-decoration:none;display:inline-block;}
+.ptab:hover{color:var(--text);background:var(--bg3);}
+.ptopbar-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.28rem .75rem;border-radius:100px;border:1px solid rgba(245,158,11,.3);color:#f59e0b;white-space:nowrap;flex-shrink:0;}
+.mkt-form{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
+.mkt-title{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.03em;margin-bottom:.3rem;}
+.mkt-desc{font-size:.875rem;color:var(--text2);margin-bottom:.75rem;line-height:1.6;}
+.mkt-notice{display:flex;align-items:center;gap:.6rem;border-radius:8px;padding:.65rem 1rem;margin-bottom:1.25rem;font-size:.78rem;}
+.mkt-bundle-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;}
+.mkt-items{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.mkt-btn{padding:.72rem 1.75rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;}
+.mkt-btn:hover{transform:translateY(-1px);opacity:.9;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:580px){.fr{grid-template-columns:1fr;}.mkt-items{grid-template-columns:1fr;}}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.75rem;}
+label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;}
+input,select,textarea{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.65rem .9rem;font-size:.875rem;font-family:'Instrument Sans',sans-serif;color:var(--text);outline:none;width:100%;transition:border-color .2s;}
+input:focus,select:focus,textarea:focus{border-color:var(--border2);}
+select option{background:var(--bg2);}
+textarea{resize:vertical;min-height:85px;}
+.pay-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;z-index:500;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s;}
+.pay-modal-overlay.open{opacity:1;pointer-events:all;}
+.mkt-pay-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:2rem;max-width:400px;width:100%;transform:translateY(16px);transition:transform .2s;}
+.pay-modal-overlay.open .mkt-pay-modal{transform:translateY(0);}
+.mkt-pay-modal h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;margin-bottom:.2rem;}
+.mkt-pay-modal p{font-size:.8rem;color:var(--text2);margin-bottom:.5rem;}
+.mkt-price-line{font-family:'JetBrains Mono',monospace;font-size:.9rem;margin-bottom:1.25rem;padding:.5rem .75rem;background:var(--bg3);border-radius:6px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem;}
+.form-row{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.75rem;}
+.mkt-pay-actions{display:flex;gap:.75rem;margin-top:1.25rem;}
+.mkt-cancel{flex:1;padding:.7rem;border-radius:100px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:.875rem;}
+.mkt-pay-btn{flex:2;padding:.7rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:opacity .2s;}
+.mkt-pay-btn:hover{opacity:.85;}
+.generating-state{display:none;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:48px 32px;text-align:center;margin-top:1.5rem;}
+.generating-state.visible{display:block;}
+.gen-spinner{width:48px;height:48px;border:3px solid rgba(255,255,255,.1);border-top-color:#f59e0b;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.generating-state h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.03em;margin-bottom:.5rem;}
+.generating-state p{font-size:.82rem;color:var(--text2);}
+.start-over-bar{display:none;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.75rem 1.25rem;margin-top:1rem;}
+.start-over-bar.visible{display:flex;}
+.btn-restart{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:.4rem .9rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'Instrument Sans',sans-serif;}
+#outputArea.visible{display:block;}
+#outputArea{display:none;margin-top:.5rem;}
+.out-section{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:.75rem;}
+.out-sec-title{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.out-prose{font-size:.875rem;color:var(--text2);line-height:1.8;margin-bottom:.5rem;}
+.out-prose strong{color:var(--text);}
+.out-sublabel{font-size:.85rem;font-weight:700;color:var(--text);margin:.75rem 0 .25rem;display:block;}
+.out-check{display:flex;align-items:flex-start;gap:8px;margin-bottom:.4rem;}
+.out-dot{width:6px;height:6px;background:#f59e0b;border-radius:50%;flex-shrink:0;margin-top:.45rem;}
+.out-check span{font-size:.875rem;color:var(--text2);line-height:1.6;}
+.out-check span strong{color:var(--text);}
+.out-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;}
+.out-btn{padding:.4rem .9rem;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:none;color:var(--text2);font-family:'Instrument Sans',sans-serif;transition:all .2s;}
+.out-btn:hover{background:var(--bg3);color:var(--text);}
+@media print{nav,.ptopbar,.mkt-btn,.pay-modal-overlay,.start-over-bar,.out-actions{display:none!important;}body{background:white!important;color:black!important;}.out-section{background:white!important;border:1px solid #ccc!important;}.generating-state,.start-over-bar{display:none!important;}}
+</style>
 <style>
-
-/* Marketplace output styles */
-.mkt-output { font-family: 'Instrument Sans', sans-serif; }
-.mkt-section { background:#ffffff; border:1px solid #ede9e3; border-radius:12px; padding:20px 24px; margin-bottom:12px; box-shadow:0 1px 4px rgba(0,0,0,.04); }
-.mkt-section-title { font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#f59e0b; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid #ede9e3; }
-.mkt-doc-header { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.04em; color:#1a1a1a; margin:1.5rem 0 .5rem; }
-.mkt-sublabel { font-size:.88rem; font-weight:700; color:#1a1a1a; margin:14px 0 6px; }
-.mkt-prose { font-size:.9rem; color:#3a3632; line-height:1.8; margin-bottom:10px; }
-.mkt-prose strong { color:#1a1a1a; }
-.mkt-check { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }
-.mkt-check-box { width:16px; height:16px; border:2px solid #f59e0b; border-radius:4px; flex-shrink:0; margin-top:2px; }
-.mkt-check-num { width:22px; height:22px; background:#f59e0b; color:#0a0f1c; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.65rem; font-weight:700; flex-shrink:0; margin-top:1px; }
-.mkt-check span { font-size:.875rem; color:#2a2826; line-height:1.55; }
-.mkt-check span strong { color:#1a1a1a; }
-.mkt-actions { display:flex; gap:.5rem; margin-top:1rem; flex-wrap:wrap; }
-.mkt-action-btn { padding:.45rem 1rem; border-radius:6px; border:1px solid rgba(255,255,255,.15); background:none; color:var(--text2); cursor:pointer; font-family:'Instrument Sans',sans-serif; font-size:.75rem; font-weight:600; transition:all .2s; }
-.mkt-action-btn:hover { background:var(--bg3); color:var(--text); }
-.mkt-result-bar { display:none; align-items:center; justify-content:space-between; background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:.75rem 1.25rem; margin-bottom:1rem; }
-.mkt-result-bar span { font-size:.82rem; color:var(--text2); }
-
+  .ptopbar{display:flex;align-items:center;gap:.6rem;padding:.55rem 1.25rem;border-bottom:1px solid var(--border);background:var(--bg2);flex-wrap:wrap;position:sticky;top:64px;z-index:100;}
+  .ptopbar-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;flex-shrink:0;color:#f59e0b;}
+  .ptabs{display:flex;gap:.2rem;flex-wrap:nowrap;flex:1;overflow-x:auto;}
+  .ptabs::-webkit-scrollbar{height:0;}
+  .ptab{padding:.28rem .7rem;border-radius:6px;font-size:.73rem;font-weight:500;border:1px solid transparent;color:var(--text2);background:none;font-family:'Instrument Sans',sans-serif;transition:all .18s;white-space:nowrap;text-decoration:none;display:inline-block;}
+  .ptab:hover{color:var(--text);background:var(--bg3);}
+  .ptopbar-price{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.28rem .75rem;border-radius:100px;border:1px solid rgba(245,158,11,.3);color:#f59e0b;white-space:nowrap;flex-shrink:0;}
+  .mkt-form{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
+  .mkt-title{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.03em;margin-bottom:.3rem;color:var(--wf);}
+  .mkt-desc{font-size:.875rem;color:var(--text2);margin-bottom:.75rem;line-height:1.6;}
+  .mkt-notice{display:flex;align-items:center;gap:.6rem;border-radius:8px;padding:.65rem 1rem;margin-bottom:1.25rem;font-size:.78rem;background:rgba(61,107,255,.08);border:1px solid rgba(61,107,255,.2);color:var(--wf2);}
+  .mkt-bundle-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;}
+  .mkt-items{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+  .mkt-btn{padding:.72rem 1.75rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;background:var(--wf);color:white;}
+  .mkt-btn:hover{transform:translateY(-1px);opacity:.9;}
+  .fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+  @media(max-width:580px){.fr{grid-template-columns:1fr;}.mkt-items{grid-template-columns:1fr;}}
+  .fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;}
+  label{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;}
+  input,select,textarea{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.65rem .9rem;font-size:.875rem;font-family:'Instrument Sans',sans-serif;color:var(--text);outline:none;width:100%;transition:border-color .2s;}
+  input:focus,select:focus,textarea:focus{border-color:var(--border2);}
+  select option{background:var(--bg2);}
+  textarea{resize:vertical;min-height:85px;}
+  .mkt-pay-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:2rem;max-width:400px;width:100%;}
+  .mkt-pay-modal h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;margin-bottom:.2rem;}
+  .mkt-pay-modal p{font-size:.8rem;color:var(--text2);margin-bottom:.5rem;}
+  .mkt-price-line{font-family:'JetBrains Mono',monospace;font-size:.9rem;margin-bottom:1.25rem;padding:.5rem .75rem;background:var(--bg3);border-radius:6px;}
+  .mkt-pay-actions{display:flex;gap:.75rem;margin-top:1.25rem;}
+  .mkt-cancel{flex:1;padding:.7rem;border-radius:100px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:.875rem;}
+  .mkt-pay-btn{flex:2;padding:.7rem;border-radius:100px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;color:white;background:var(--wf);transition:opacity .2s;}
+  .mkt-pay-btn:hover{opacity:.85;}
+  .out-section{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:.75rem;}
+  .out-sec-title{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+  .out-prose{font-size:.875rem;color:var(--text2);line-height:1.8;margin-bottom:.5rem;}
+  .out-prose strong,.out-sublabel{color:var(--text);}
+  .out-sublabel{font-size:.85rem;font-weight:700;margin:.75rem 0 .25rem;display:block;}
+  .out-check{display:flex;align-items:flex-start;gap:8px;margin-bottom:.4rem;}
+  .out-dot{width:6px;height:6px;background:#f59e0b;border-radius:50%;flex-shrink:0;margin-top:.45rem;}
+  .out-check span{font-size:.875rem;color:var(--text2);line-height:1.6;}
+  .out-check span strong{color:var(--text);}
+  .out-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;}
+  .out-btn{padding:.4rem .9rem;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:none;color:var(--text2);font-family:'Instrument Sans',sans-serif;transition:all .2s;}
+  .out-btn:hover{background:var(--bg3);color:var(--text);}
 </style>
 </head>
 <body>
+
 <nav>
   <a class="nav-logo" href="/">AI BUSINESS SOLUTIONS <span>OS</span></a>
   <div class="nav-center">
@@ -243,1694 +147,309 @@
   </div>
   <a class="nav-cta" href="/#contact-section">Get started</a>
 </nav>
-<div class="pshell">
+
+<div class="page-shell">
   <div class="ptopbar">
-    <div class="ptopbar-name" style="color:#f59e0b;">MARKETPLACE BUNDLE</div>
-    <div class="ptabs"><a class="ptab" href="/marketplace.html">&#127968; All bundles</a>
-<a class="ptab" href="/pitch-and-win.html">Pitch &amp; Win</a>
-<a class="ptab" href="/scale-and-operate.html" style="background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.25);">Scale &amp; Operate</a>
-<a class="ptab" href="/lead-and-manage.html">Lead &amp; Manage</a>
-<a class="ptab" href="/price-and-position.html">Price &amp; Position</a>
-</div>
-    <div class="ptopbar-price" style="color:#f59e0b;"><span class="mkt-price-modal">R497</span> per bundle</div>
+    <div class="ptopbar-name">MARKETPLACE BUNDLE</div>
+    <div class="ptabs"><a class="ptab" href="/marketplace.html">&#127968; All bundles</a><a class="ptab" href="/pitch-and-win.html">Pitch &amp; Win</a><a class="ptab" href="/scale-and-operate.html" style="background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.25);">Scale &amp; Operate</a><a class="ptab" href="/lead-and-manage.html">Lead &amp; Manage</a><a class="ptab" href="/price-and-position.html">Price &amp; Position</a></div>
+    <div class="ptopbar-price" id="mkt-price-display">$27 per bundle</div>
   </div>
-  <div class="tpanel">
-    <div id="form-area">
-      <div class="tool-title" style="color:var(--ge);">&#128196; Pitch & Win Bundle</div>
-      <div class="tool-desc">The business operations bundle. Stop running your business from your head. Get complete infrastructure — SOPs, onboarding, KPIs, and a 90-day roadmap.</div>
-      <div class="pay-notice" style="background:rgba(61,107,255,.08);border-color:rgba(61,107,255,.2);color:var(--wf2);">&#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.</div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.25rem;">
+
+  <div class="mkt-form">
+
+    <!-- FORM -->
+    <div id="toolForm">
+      <div class="mkt-title">&#9881; Scale & Operate Bundle</div>
+      <div class="mkt-desc">The business operations bundle. Stop running your business from your head. Get complete infrastructure — SOPs, onboarding, KPIs, and a 90-day roadmap built for your business.</div>
+      <div class="mkt-notice">&#128179; Pay via Paystack to generate your full bundle &mdash; 5 complete documents delivered instantly.</div>
+      <div class="mkt-bundle-box">
         <div class="sl">What you get in this bundle</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
-          <div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Core SOP Library (5 key processes)</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Team Onboarding Pack</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; KPI Dashboard &amp; Scorecard (12 metrics)</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Objection & Response Playbook (8 objections)</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; 90-Day Scaling Roadmap</div>
-        </div>
+        <div class="mkt-items"><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Core SOP Library (5 key processes)</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Team Onboarding Pack</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; KPI Dashboard & Scorecard (12 metrics)</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; Process Audit & Gap Report</div><div style="font-size:.78rem;color:var(--text2);padding:.4rem 0;border-bottom:1px solid var(--border);">&#10003; 90-Day Scaling Roadmap</div></div>
       </div>
       
 <div class="fr">
-  <div class="fg"><label>Business type &amp; industry</label><input id="so1" placeholder="e.g. Digital marketing agency, 12 staff"></div>
-  <div class="fg"><label>Biggest operational challenge</label><input id="so2" placeholder="e.g. No documented processes, inconsistent delivery"></div>
+  <div class="fg"><label>Business type and industry</label><input id="so1" placeholder="e.g. Digital agency, e-commerce brand, professional services firm"></div>
+  <div class="fg"><label>Biggest operational challenge</label><input id="so2" placeholder="e.g. No documented processes, inconsistent delivery quality"></div>
 </div>
 <div class="fr">
-  <div class="fg"><label>Team size &amp; structure</label><input id="so3" placeholder="e.g. 8 people across sales, ops and delivery"></div>
-  <div class="fg"><label>Revenue stage</label><select id="so4"><option>Pre-revenue</option><option>R0-R500k/year</option><option>R500k-R2M/year</option><option>R2M-R10M/year</option><option>R10M+/year</option></select></div>
+  <div class="fg"><label>Team size and structure</label><input id="so3" placeholder="e.g. 12 people across sales, operations and delivery"></div>
+  <div class="fg"><label>Revenue stage</label><select id="so4"><option>Pre-revenue / early stage</option><option>$0 to $100k/year</option><option>$100k to $500k/year</option><option>$500k to $2M/year</option><option>$2M+/year</option></select></div>
 </div>
-<div class="fg"><label>Core services / products you deliver</label><textarea id="so5" placeholder="What does your business actually do day to day? Be specific." style="min-height:80px;"></textarea></div>
+<div class="fg"><label>Core services or products you deliver</label><textarea id="so5" placeholder="e.g. We build custom websites and run digital marketing campaigns for retail brands"></textarea></div>
 <div class="fr">
-  <div class="fg"><label>What breaks down most often?</label><input id="so6" placeholder="e.g. Client onboarding, project handoffs, invoicing"></div>
-  <div class="fg"><label>90-day goal</label><input id="so7" placeholder="e.g. Hire 3 people, double revenue, launch new service"></div>
+  <div class="fg"><label>What breaks down most often?</label><input id="so6" placeholder="e.g. Client onboarding, project handoffs, invoicing, quality control"></div>
+  <div class="fg"><label>90-day goal</label><input id="so7" placeholder="e.g. Hire 3 people, launch new service line, double revenue"></div>
 </div>
-<button class="run-btn mkt-price-btn" style="background:var(--wf);color:white;" onclick="openPay()">&#128179; Pay R497 &amp; Generate Bundle &rarr;</button>
+      <button class="mkt-btn" onclick="openPayModal()">&#128179; Pay &amp; Generate Bundle &#8594;</button>
     </div>
-    <div class="mkt-result-bar" id="result-bar">
-      <span>&#10003; Your bundle is ready</span>
-      <button onclick="document.getElementById('form-area').style.display='block';document.getElementById('result-bar').style.display='none';document.getElementById('output').style.display='none';" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:.4rem .9rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'Instrument Sans',sans-serif;">&#8635; Generate Again</button>
-    </div>
-    <div id="output" style="display:none;margin-top:1rem;"></div>
-  </div>
-</div>
 
-<div class="modal-bg" id="pay-modal">
-  <div class="modal">
-    <h3>Pay &amp; Generate</h3>
-    <div class="modal-sub">5 complete documents &middot; Delivered instantly after payment</div>
-    <div class="modal-price-line mkt-price-modal">R497 — one-time payment</div>
-    <div class="mfields">
-      <div class="mrow">
-        <div class="fg"><label>First name</label><input id="m-first" placeholder="James"></div>
-        <div class="fg"><label>Last name</label><input id="m-last" placeholder="Carter"></div>
-      </div>
-      <div class="fg"><label>Email address</label><input id="m-email" type="email" placeholder="james@company.com"></div>
-    </div>
-    <div class="mactions">
-      <button class="m-cancel" onclick="closePay()">Cancel</button>
-      <button class="m-pay" id="m-paybtn" onclick="doPaystack()">Pay &amp; Generate &rarr;</button>
-    </div>
-  </div>
-</div>
-<script>
-/* ============================================================
-   AIBSOS OUTPUT RENDERER  v2.0
-   Shared across all tools. Include after Paystack script.
-   ============================================================ */
-
-window.AIBSOS = window.AIBSOS || {};
-
-/* ── Utility: parse markdown-ish text into structured sections ── */
-AIBSOS.parse = function(raw) {
-  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  const sections = [];
-  let current = null;
-
-  for (const line of lines) {
-    // Detect headings: ##, #, or ALL CAPS lines or **bold** headings
-    const h1 = line.match(/^#{1,2}\s+(.+)/);
-    const bold = line.match(/^\*\*(.+)\*\*\s*:?\s*$/);
-    const allcaps = line.match(/^([A-Z][A-Z\s&:\/\-]{4,})$/) && !line.startsWith('-');
-
-    if (h1 || bold || allcaps) {
-      current = { title: (h1?.[1] || bold?.[1] || line).replace(/\*\*/g, '').replace(/#/g,'').trim(), items: [], type: 'section' };
-      sections.push(current);
-    } else if (line.match(/^[-•]\s+/) || line.match(/^\d+\.\s+/)) {
-      const text = line.replace(/^[-•]\s+/, '').replace(/^\d+\.\s+/, '').replace(/\*\*/g,'').trim();
-      if (!current) { current = { title: 'Key Points', items: [], type: 'section' }; sections.push(current); }
-      current.items.push({ type: 'bullet', text });
-    } else if (line.match(/\|\s/)) {
-      // table row
-      if (!current) { current = { title: 'Data', items: [], type: 'section' }; sections.push(current); }
-      current.items.push({ type: 'table-row', text: line });
-    } else {
-      // prose
-      if (!current) { current = { title: '', items: [], type: 'prose' }; sections.push(current); }
-      current.items.push({ type: 'prose', text: line.replace(/\*\*/g, '') });
-    }
-  }
-  return sections;
-};
-
-/* ── Utility: extract score/percentage from text ── */
-AIBSOS.extractScore = function(text) {
-  const m = text.match(/(\d{1,3})\s*[%\/]/);
-  return m ? parseInt(m[1]) : null;
-};
-
-/* ── Utility: clean text of markdown chars ── */
-AIBSOS.clean = function(t) {
-  return t.replace(/\*\*/g,'').replace(/\*/g,'').replace(/`/g,'').replace(/^#+\s*/,'').trim();
-};
-
-/* ── Copy to clipboard helper ── */
-AIBSOS.copy = function(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = '✓ Copied';
-    btn.style.opacity = '0.6';
-    setTimeout(() => { btn.textContent = orig; btn.style.opacity = '1'; }, 1800);
-  }).catch(() => {
-    // Fallback for browsers that block clipboard
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    const orig = btn.textContent;
-    btn.textContent = '✓ Copied';
-    setTimeout(() => { btn.textContent = orig; }, 1800);
-  });
-};
-
-/* Safe copy using stored window variable - avoids JSON in onclick attrs */
-AIBSOS.safeCopy = function(btn, storeKey) {
-  const text = window[storeKey] || '';
-  AIBSOS.copy(btn, text);
-};
-
-/* Download as .doc (Word-compatible HTML) */
-AIBSOS.downloadDoc = function(storeKey, filename) {
-  const text = window[storeKey] || '';
-  const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
-<head><meta charset="UTF-8"><title>${filename}</title>
-<style>
-  body { font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.6; margin: 2cm; color: #1a1a1a; }
-  h1 { font-size: 18pt; color: #e8622a; margin-bottom: 6pt; }
-  h2 { font-size: 13pt; color: #1a1a1a; border-bottom: 1px solid #e0dbd4; padding-bottom: 4pt; margin-top: 18pt; }
-  p { margin-bottom: 8pt; }
-  ul { margin-left: 18pt; }
-  li { margin-bottom: 4pt; }
-</style></head>
-<body>${text.replace(/\n/g,'<br>').replace(/## (.+)/g,'<h2>$1</h2>').replace(/# (.+)/g,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</body></html>`;
-  const blob = new Blob([html], { type: 'application/msword' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = (filename || 'document') + '.doc';
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a); URL.revokeObjectURL(url);
-};
-
-/* ── Render: Score bar ── */
-AIBSOS.scoreBar = function(score, label, color) {
-  color = color || '#f97316';
-  return `<div class="abr-score-row">
-    <span class="abr-score-label">${label}</span>
-    <div class="abr-bar-wrap"><div class="abr-bar" style="width:${score}%;background:${color}"></div></div>
-    <span class="abr-score-num">${score}%</span>
-  </div>`;
-};
-
-/* ── Render: Checklist item ── */
-AIBSOS.checkItem = function(text, done) {
-  done = done || false;
-  return `<div class="abr-check-item ${done?'done':''}">
-    <div class="abr-checkbox">${done?'✓':''}</div>
-    <span>${AIBSOS.clean(text)}</span>
-  </div>`;
-};
-
-/* ── Render: Tag pill ── */
-AIBSOS.tag = function(text, color) {
-  return `<span class="abr-tag" style="background:${color||'#fff7ed'};color:${color?'#fff':'#92400e'}">${text}</span>`;
-};
-
-/* ── Render: Card ── */
-AIBSOS.card = function(icon, title, body, accent) {
-  accent = accent || '#f97316';
-  const bodyHtml = (body && body.trim()) ? `<div class="abr-card-body">${body}</div>` : '';
-  return `<div class="abr-card" style="border-left:3px solid ${accent}">
-    <div class="abr-card-head"><span class="abr-card-icon">${icon}</span><strong>${title}</strong></div>
-    ${bodyHtml}
-  </div>`;
-};
-
-/* ── Render: Tweet card ── */
-AIBSOS.tweet = function(num, text) {
-  const clean = AIBSOS.clean(text);
-  return `<div class="abr-tweet">
-    <div class="abr-tweet-num">${num}</div>
-    <div class="abr-tweet-body">
-      <p>${clean}</p>
-      <div class="abr-tweet-foot">
-        <span class="abr-tweet-chars">${clean.length}/280</span>
-        <button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${clean.replace(/'/g,"\\'")}')">Copy</button>
-      </div>
-    </div>
-  </div>`;
-};
-
-/* ── Render: Flashcard ── */
-AIBSOS.flashcard = function(q, a) {
-  const id = 'fc_' + Math.random().toString(36).slice(2);
-  return `<div class="abr-flashcard" id="${id}" onclick="this.classList.toggle('flipped')">
-    <div class="abr-fc-inner">
-      <div class="abr-fc-front"><span class="abr-fc-label">Q</span><p>${AIBSOS.clean(q)}</p></div>
-      <div class="abr-fc-back"><span class="abr-fc-label">A</span><p>${AIBSOS.clean(a)}</p></div>
-    </div>
-  </div>`;
-};
-
-/* ── BASE CSS injected once ── */
-AIBSOS.injectCSS = function() {
-  if (document.getElementById('aibsos-renderer-css')) return;
-  const style = document.createElement('style');
-  style.id = 'aibsos-renderer-css';
-  style.textContent = `
-    /* ── AIBSOS Renderer Shared CSS ── */
-    .abr-output { font-family: 'DM Sans', 'Segoe UI', sans-serif; color: #1a1a1a; max-width: 780px; margin: 0 auto; animation: abrFadeIn .4s ease; }
-    @keyframes abrFadeIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform:none; } }
-
-    .abr-header { background: #0f0f0f; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
-    .abr-header-left h2 { color:#fff; font-size:1.25rem; font-weight:700; margin:0 0 4px; }
-    .abr-header-left p { color:#888; font-size:.82rem; margin:0; }
-    .abr-header-badge { background:rgba(249,115,22,.15); color:#f97316; font-size:.65rem; font-weight:700; padding:4px 12px; border-radius:20px; letter-spacing:.08em; text-transform:uppercase; border:1px solid rgba(249,115,22,.3); cursor:default; }
-
-    .abr-section { background:#fff; border-radius:12px; border:1px solid #f0ede8; padding:24px 28px; margin-bottom:16px; }
-    .abr-section-title { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#f97316; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
-    .abr-section-title::after { content:''; flex:1; height:1px; background:#f0ede8; }
-
-    .abr-prose { color:#444; line-height:1.7; font-size:.93rem; margin-bottom:10px; }
-
-    /* Checklist */
-    .abr-check-item { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid #fafaf9; }
-    .abr-check-item:last-child { border-bottom:none; }
-    .abr-checkbox { width:20px; height:20px; min-width:20px; border-radius:5px; border:2px solid #e5e0d8; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:#fff; cursor:pointer; transition:.15s; }
-    .abr-check-item.done .abr-checkbox { background:#22c55e; border-color:#22c55e; }
-    .abr-check-item span { font-size:.9rem; color:#333; line-height:1.5; padding-top:1px; }
-
-    /* Cards */
-    .abr-card { background:#fafaf9; border-radius:10px; padding:16px 18px; margin-bottom:12px; }
-    .abr-card-head { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-    .abr-card-icon { font-size:1.1rem; }
-    .abr-card-head strong { font-size:.95rem; color:#1a1a1a; }
-    .abr-card-body { font-size:.88rem; color:#555; line-height:1.6; }
-
-    /* Score bars */
-    .abr-score-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
-    .abr-score-label { font-size:.82rem; color:#555; width:160px; min-width:120px; }
-    .abr-bar-wrap { flex:1; background:#f0ede8; border-radius:20px; height:8px; overflow:hidden; }
-    .abr-bar { height:8px; border-radius:20px; transition: width 1s cubic-bezier(.22,1,.36,1); }
-    .abr-score-num { font-size:.82rem; font-weight:700; color:#1a1a1a; width:36px; text-align:right; }
-
-    /* Tags */
-    .abr-tag { display:inline-block; padding:3px 10px; border-radius:20px; font-size:.75rem; font-weight:600; margin:3px 3px 0 0; }
-    .abr-tags { margin-top:10px; }
-
-    /* Tabs */
-    .abr-tabs { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
-    .abr-tab { padding:7px 16px; border-radius:20px; border:1.5px solid #e5e0d8; background:transparent; font-size:.82rem; font-weight:600; cursor:pointer; color:#777; transition:.15s; }
-    .abr-tab.active { background:#0f0f0f; color:#fff; border-color:#0f0f0f; }
-
-    /* Tweet */
-    .abr-tweet { display:flex; gap:14px; padding:16px 0; border-bottom:1px solid #f0ede8; }
-    .abr-tweet:last-child { border-bottom:none; }
-    .abr-tweet-num { width:28px; height:28px; min-width:28px; background:#0f0f0f; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; margin-top:2px; }
-    .abr-tweet-body { flex:1; }
-    .abr-tweet-body p { font-size:.9rem; color:#222; line-height:1.55; margin:0 0 8px; }
-    .abr-tweet-foot { display:flex; align-items:center; justify-content:space-between; }
-    .abr-tweet-chars { font-size:.75rem; color:#aaa; }
-
-    /* Copy button */
-    .abr-copy-btn { background:transparent; border:1.5px solid #e5e0d8; border-radius:6px; padding:4px 12px; font-size:.75rem; font-weight:600; cursor:pointer; color:#777; transition:.15s; }
-    .abr-copy-btn:hover { background:#0f0f0f; color:#fff; border-color:#0f0f0f; }
-
-    /* Flashcards */
-    .abr-fc-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:14px; }
-    .abr-flashcard { height:160px; perspective:800px; cursor:pointer; }
-    .abr-fc-inner { width:100%; height:100%; position:relative; transform-style:preserve-3d; transition:.45s; }
-    .abr-flashcard.flipped .abr-fc-inner { transform:rotateY(180deg); }
-    .abr-fc-front, .abr-fc-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; padding:20px; display:flex; flex-direction:column; justify-content:center; }
-    .abr-fc-front { background:#0f0f0f; }
-    .abr-fc-back { background:#f97316; transform:rotateY(180deg); }
-    .abr-fc-label { font-size:.65rem; font-weight:700; letter-spacing:.1em; color:rgba(255,255,255,.5); margin-bottom:8px; }
-    .abr-fc-front p, .abr-fc-back p { color:#fff; font-size:.88rem; line-height:1.5; margin:0; }
-
-    /* Quiz */
-    .abr-quiz-q { background:#fafaf9; border-radius:10px; padding:18px; margin-bottom:12px; }
-    .abr-quiz-q p { font-size:.92rem; font-weight:600; margin:0 0 12px; }
-    .abr-quiz-opt { display:flex; align-items:center; gap:10px; padding:8px 12px; border:1.5px solid #e5e0d8; border-radius:8px; margin-bottom:8px; cursor:pointer; transition:.15s; font-size:.88rem; }
-    .abr-quiz-opt:hover { border-color:#f97316; background:#fff7ed; }
-    .abr-quiz-opt.correct { background:#f0fdf4; border-color:#22c55e; color:#15803d; }
-    .abr-quiz-opt.wrong { background:#fef2f2; border-color:#ef4444; color:#dc2626; }
-
-    /* ROI highlight numbers */
-    .abr-roi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; margin-bottom:16px; }
-    .abr-roi-stat { background:#0f0f0f; border-radius:12px; padding:20px 16px; text-align:center; }
-    .abr-roi-stat .num { font-size:1.6rem; font-weight:800; color:#f97316; }
-    .abr-roi-stat .lbl { font-size:.72rem; color:#aaa; margin-top:4px; text-transform:uppercase; letter-spacing:.07em; }
-
-    /* Email/Doc block */
-    .abr-doc-block { background:#fafaf9; border-radius:10px; padding:20px 22px; font-size:.88rem; line-height:1.75; color:#333; white-space:pre-wrap; font-family:'DM Mono', 'Courier New', monospace; position:relative; }
-    .abr-doc-copy { position:absolute; top:12px; right:12px; }
-
-    /* 3-col objections */
-    .abr-obj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
-    .abr-obj-card { background:#fafaf9; border-radius:12px; padding:20px; border-top:3px solid #f97316; }
-    .abr-obj-card:nth-child(2) { border-top-color:#0f0f0f; }
-    .abr-obj-card:nth-child(3) { border-top-color:#22c55e; }
-    .abr-obj-card .tone { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:#aaa; margin-bottom:8px; }
-    .abr-obj-card p { font-size:.88rem; line-height:1.6; color:#333; margin:0 0 10px; }
-
-    /* Footer actions */
-    .abr-footer { display:flex; gap:10px; margin-top:24px; flex-wrap:wrap; }
-    .abr-btn-primary { background:#0f0f0f; color:#fff; border:none; padding:12px 24px; border-radius:8px; font-size:.88rem; font-weight:700; cursor:pointer; transition:.15s; }
-    .abr-btn-primary:hover { background:#f97316; }
-    .abr-btn-ghost { background:transparent; color:#777; border:1.5px solid #e5e0d8; padding:12px 24px; border-radius:8px; font-size:.88rem; font-weight:600; cursor:pointer; transition:.15s; }
-    .abr-btn-ghost:hover { border-color:#0f0f0f; color:#0f0f0f; }
-
-    /* Priority flags */
-    .abr-priority { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:4px; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
-    .abr-priority.high { background:#fef2f2; color:#dc2626; }
-    .abr-priority.med  { background:#fff7ed; color:#c2410c; }
-    .abr-priority.low  { background:#f0fdf4; color:#15803d; }
-
-    /* Red flag */
-    .abr-flag { display:flex; gap:12px; align-items:flex-start; padding:12px 16px; background:#fef2f2; border-radius:8px; margin-bottom:8px; border-left:3px solid #ef4444; }
-    .abr-flag-icon { font-size:1rem; }
-    .abr-flag p { margin:0; font-size:.88rem; color:#333; line-height:1.5; }
-
-    /* Caption cards */
-    .abr-caption-card { background:#fafaf9; border-radius:12px; padding:18px 20px; margin-bottom:12px; position:relative; }
-    .abr-caption-card .cap-num { position:absolute; top:16px; right:18px; font-size:.7rem; font-weight:700; color:#ccc; }
-    .abr-caption-card p { font-size:.9rem; line-height:1.6; color:#222; margin:0 0 12px; white-space:pre-wrap; }
-    .abr-caption-card .hashtags { font-size:.8rem; color:#f97316; line-height:1.6; }
-
-    /* Price stat — single clean display */
-    .abr-price-stat { display:inline-flex; flex-direction:column; background:#1a1a1a; border-radius:12px; padding:18px 28px; margin-bottom:16px; min-width:160px; }
-    .abr-price-num { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:.03em; color:#e8622a; line-height:1; }
-    .abr-price-lbl { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; color:#888; margin-top:4px; }
-    /* ROI strip */
-    .abr-roi-strip { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
-    .abr-roi-chip { background:#1a1a1a; border-radius:10px; padding:14px 18px; flex:1; min-width:110px; text-align:center; }
-    .abr-roi-chip-num { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:#e8622a; letter-spacing:.03em; }
-    .abr-roi-chip-lbl { font-size:.6rem; text-transform:uppercase; letter-spacing:.08em; color:#888; margin-top:3px; }
-    /* Sub-label (### in prose) */
-    .abr-sublabel { font-size:.88rem; font-weight:700; color:#1a1a1a; margin:14px 0 6px; }
-    /* Info box for validity/contact */
-    .abr-info-box { background:#f5f3ef; border-radius:10px; padding:16px 20px; border-left:3px solid #e8622a; }
-    .abr-info-box .abr-prose { color:#4a4540; }
-
-    @media (max-width:600px) {
-      .abr-section { padding:18px; }
-      .abr-header { padding:20px; }
-      .abr-obj-grid { grid-template-columns:1fr; }
-      .abr-roi-grid { grid-template-columns:1fr 1fr; }
-    }
-  `;
-  document.head.appendChild(style);
-};
-
-/* ═══════════════════════════════════════════════════════════
-   TOOL-SPECIFIC RENDERERS
-   Each returns an HTML string from the raw AI response text
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── SHARED: Smart prose renderer ── */
-AIBSOS.renderProse = function(item) {
-  let t = (item.text || item).toString();
-  // Convert sub-headings to bold labels, not section titles
-  t = t.replace(/^###\s+(.+)/, '<p class="abr-sublabel">$1</p>');
-  t = t.replace(/^##\s+(.+)/, '<p class="abr-sublabel">$1</p>');
-  // Bold inline **text**
-  t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  // Hide lone separator lines
-  if (t.match(/^-{2,}$/) || t.match(/^\*{2,}$/)) return '';
-  if (t.startsWith('<p')) return t;
-  return `<p class="abr-prose">${t}</p>`;
-};
-
-/* ── SHARED: Smart price display — clean single stat bar ── */
-AIBSOS.renderPriceSection = function(items, formPrice) {
-  // Extract the best price from items or formData — never show both
-  let displayPrice = formPrice || '';
-  let otherLines = [];
-
-  for (const i of items) {
-    const t = i.text || '';
-    // Try to extract a clean price from item text
-    const priceMatch = t.match(/\$[\d,]+(?:\.\d+)?(?:\/month|\/mo|per month)?|R[\d,]+(?:\.\d+)?(?:\/month|\/mo)?/i);
-    if (priceMatch && !displayPrice) {
-      displayPrice = priceMatch[0];
-    }
-    // Only add as prose if it adds meaningful context beyond the price itself
-    const clean = t.replace(/\*\*/g,'').trim();
-    if (clean.length > 5 && !clean.match(/^\$[\d,]+\/?/) && !clean.match(/^R[\d,]+\/?/)) {
-      otherLines.push(clean);
-    }
-  }
-
-  let html = '';
-  if (displayPrice) {
-    // Clean up the price for display — remove slashes, keep compact
-    const priceLabel = displayPrice.replace(/\/month|\/mo/i,'').trim();
-    const periodLabel = displayPrice.toLowerCase().includes('month') ? 'per month' :
-                        displayPrice.toLowerCase().includes('year') ? 'per year' : 'investment';
-    html += `<div class="abr-price-stat">
-      <div class="abr-price-num">${priceLabel}</div>
-      <div class="abr-price-lbl">${periodLabel}</div>
-    </div>`;
-  }
-  html += otherLines.map(l => {
-    // Clean ### and ## sub-headings into bold labels
-    l = l.replace(/^###\s+(.+)/, '<strong>$1</strong>');
-    l = l.replace(/^##\s+(.+)/, '<strong>$1</strong>');
-    l = l.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    if (l.startsWith('<strong>')) return `<p class="abr-sublabel">${l}</p>`;
-    return `<p class="abr-prose">${l}</p>`;
-  }).join('');
-  return html;
-};
-
-/* ── 1. PROPOSAL GEN ── */
-AIBSOS.renderProposal = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>📄 Business Proposal</h2>
-        <p>${formData.company || 'Your Company'} → ${formData.client || 'Client'}</p>
-      </div>
-      <div class="abr-header-badge">Ready to Send</div>
-    </div>`;
-
-  // Track if we've already shown price to avoid duplication
-  let priceShown = false;
-
-  for (const s of sections) {
-    const T = (s.title || '').toUpperCase();
-    if (!s.title && s.items.length === 0) continue;
-    // Filter out bare separator lines but keep everything else
-    const meaningfulItems = s.items.filter(i => {
-      if (!i.text) return false;
-      const t = i.text.trim();
-      if (t.match(/^-{2,}$/) || t.match(/^\*{2,}$/) || t === '---' || t === '***') return false;
-      return t.length > 0;
-    });
-    if (!s.title && meaningfulItems.length === 0) continue;
-
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title || 'Overview'}</div>`;
-
-    if (T.includes('EXECUTIVE') || T.includes('SUMMARY') || T === '') {
-      html += meaningfulItems.map(i => AIBSOS.renderProse(i)).join('');
-
-    } else if (T.includes('DELIVERABLE') || T.includes('SCOPE') || T.includes('INCLUD') || (T.includes('WHAT') && T.includes('GET'))) {
-      html += meaningfulItems.map(i => i.type === 'bullet' ? AIBSOS.checkItem(i.text) : AIBSOS.renderProse(i)).join('');
-
-    } else if (T.includes('TIMELINE') || T.includes('PHASE') || T.includes('MILESTONE') || T.includes('IMPLEMENTATION')) {
-      const colors = ['#e8622a','#22c55e','#3d6bff','#f59e0b','#0f0f0f'];
-      const icons = ['📋','⚙️','🚀','📊','🏆'];
-      html += meaningfulItems.map((i,idx) => {
-        if (i.type === 'bullet') {
-          // Only use card if there is genuine sub-content after a colon
-          const colonIdx = i.text.indexOf(':');
-          if (colonIdx > 0 && colonIdx < i.text.length - 1) {
-            const label = i.text.substring(0, colonIdx).trim();
-            const detail = i.text.substring(colonIdx + 1).trim();
-            return AIBSOS.card(icons[idx%5], label, detail, colors[idx%5]);
-          }
-          // No colon = single milestone line, just show as a clean check item
-          return AIBSOS.checkItem(i.text);
-        }
-        // Prose lines in timeline (quarter headings etc) = sublabel, not card
-        return AIBSOS.renderProse(i);
-      }).join('');
-
-    } else if ((T.includes('INVESTMENT') || T.includes('PRICING') || T.includes('COST') || T.includes('PRICE') || T.includes('FEE')) && !priceShown) {
-      priceShown = true;
-      html += AIBSOS.renderPriceSection(meaningfulItems, formData.price);
-
-    } else if (T.includes('INVESTMENT') || T.includes('PRICING') || T.includes('COST') || T.includes('PRICE') || T.includes('FEE')) {
-      // Already showed price — just render as prose, skip duplicate stat
-      html += meaningfulItems.map(i => i.type === 'bullet' ? AIBSOS.checkItem(i.text) : AIBSOS.renderProse(i)).join('');
-
-    } else if (T.includes('NEXT STEP') || T.includes('ACTION') || T.includes('IMMEDIATE')) {
-      // Next steps as interactive checklist
-      html += meaningfulItems.map(i => {
-        if (i.type === 'bullet' || i.text.match(/^\d+\./)) return AIBSOS.checkItem(i.text);
-        // Prose lines in next steps that are actual action items
-        if (i.text.match(/^[A-Z]/) && i.text.length < 120) return AIBSOS.checkItem(i.text);
-        return AIBSOS.renderProse(i);
-      }).join('');
-
-    } else if (T.includes('WHY US') || T.includes('WHY CHOOSE') || T.includes('OUR ADVANTAGE') || T.includes('DIFFERENTIATOR')) {
-      html += meaningfulItems.map(i => {
-        if (i.type === 'bullet') {
-          const colonIdx = i.text.indexOf(':');
-          if (colonIdx > 0 && colonIdx < i.text.length - 1) {
-            return AIBSOS.card('✅', i.text.substring(0, colonIdx).trim(), i.text.substring(colonIdx + 1).trim(), '#22c55e');
-          }
-          return AIBSOS.checkItem(i.text);
-        }
-        return AIBSOS.renderProse(i);
-      }).join('');
-
-    } else if (T.includes('ROI') || T.includes('RETURN') || T.includes('REVENUE IMPACT') || T.includes('EXPECTED RETURN')) {
-      // ROI section — extract numbers into a clean summary row, then prose
-      const roiNums = raw.match(/[\$R][\d,]+(?:\.\d+)?[KkMmBb%]?(?:\+)?/g) || [];
-      if (roiNums.length >= 2) {
-        const labels = ['Year 1 Return','Net ROI','Break-even','Annual Value'];
-        html += `<div class="abr-roi-strip">${roiNums.slice(0,4).map((n,i) =>
-          `<div class="abr-roi-chip"><div class="abr-roi-chip-num">${n}</div><div class="abr-roi-chip-lbl">${labels[i]||'Key Metric'}</div></div>`
-        ).join('')}</div>`;
-      }
-      html += meaningfulItems.map(i => AIBSOS.renderProse(i)).join('');
-
-    } else if (T.includes('VALIDITY') || T.includes('AUTHORIZATION') || T.includes('SIGNING') || T.includes('CONTACT INFORMATION') || T.includes('COMMITMENT')) {
-      // Validity/contact — clean info box
-      html += `<div class="abr-info-box">${meaningfulItems.map(i => AIBSOS.renderProse(i)).join('')}</div>`;
-
-    } else {
-      html += meaningfulItems.map(i => {
-        if (i.type === 'bullet') {
-          // If bullet has colon with content after it, render as card; otherwise checklist
-          const colonIdx = i.text.indexOf(':');
-          if (colonIdx > 0 && colonIdx < i.text.length - 2) {
-            const label = i.text.substring(0, colonIdx).trim();
-            const detail = i.text.substring(colonIdx + 1).trim();
-            if (detail.length > 3) return AIBSOS.card('', label, detail);
-          }
-          return AIBSOS.checkItem(i.text);
-        }
-        return AIBSOS.renderProse(i);
-      }).join('');
-    }
-    html += `</div>`;
-  }
-
-  const safeId = 'abrRaw_' + Date.now();
-  window[safeId] = raw;
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,'${safeId}')">📋 Copy Full Proposal</button>
-    <button class="abr-btn-ghost" onclick="AIBSOS.downloadDoc('${safeId}','Business_Proposal')">⬇️ Download .doc</button>
-    <button class="abr-btn-ghost" onclick="window.print()">🖨 Print</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 2. WHAT DO I SELL ── */
-AIBSOS.renderWhatDoISell = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>🤖 Sales Strategy</h2>
-        <p>${formData.company || 'Your Company'} · ${formData.industry || ''}</p>
-      </div>
-      <div class="abr-header-badge">CEO-Level Intel</div>
-    </div>`;
-
-  const icons = ['🎯','💡','📈','🔑','⚡','💰','🏆'];
-  let iconIdx = 0;
-
-  for (const s of sections) {
-    if (!s.title && s.items.length === 0) continue;
-    const title = s.title.toUpperCase();
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title}</div>`;
-
-    if (title.includes('SELL') || title.includes('SOLUTION') || title.includes('OFFER') || title.includes('PRODUCT')) {
-      html += s.items.map(i => AIBSOS.card(icons[iconIdx++ % icons.length], AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '')).join('');
-    } else if (title.includes('TARGET') || title.includes('WHO') || title.includes('AUDIENCE') || title.includes('PROSPECT')) {
-      html += s.items.map(i => `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`).join('');
-    } else if (title.includes('REVENUE') || title.includes('OPPORTUNITY') || title.includes('IMPACT')) {
-      html += `<div class="abr-section" style="background:#fff7ed;border:1.5px solid #fed7aa;">`;
-      html += s.items.map(i => `<p class="abr-prose" style="color:#92400e;font-weight:500">${i.text}</p>`).join('');
-      html += `</div>`;
-    } else if (title.includes('PITCH') || title.includes('OPEN') || title.includes('SCRIPT') || title.includes('MESSAGE')) {
-      html += `<div class="abr-doc-block" style="position:relative">${s.items.map(i=>i.text).join('\n')}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this, '${s.items.map(i=>i.text).join('\\n').replace(/'/g,"\\'")}')">Copy</button></div>
-      </div>`;
-    } else {
-      html += s.items.map(i => i.type==='bullet'
-        ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-        : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-      ).join('');
-    }
-    html += `</div>`;
-  }
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Strategy</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 3. OBJECTION HANDLER ── */
-AIBSOS.renderObjections = function(raw, formData) {
-  // Extract up to 3 objection responses - look for numbered sections or clear breaks
-  const sections = AIBSOS.parse(raw);
-  const responses = [];
-  const tones = ['🎯 Direct & Confident', '🤝 Empathetic & Warm', '💡 Strategic & Reframing'];
-  const colors = ['#f97316','#0f0f0f','#22c55e'];
-
-  // Group sections into 3 responses
-  let chunk = [];
-  let chunkIdx = 0;
-  for (const s of sections) {
-    const t = (s.title||'').toUpperCase();
-    if (t.match(/RESPONSE\s*[123]|OPTION\s*[123]|#\s*[123]|REPLY\s*[123]/)) {
-      if (chunk.length) responses.push(chunk);
-      chunk = [s];
-      chunkIdx++;
-    } else {
-      chunk.push(s);
-    }
-  }
-  if (chunk.length) responses.push(chunk);
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>🛡 Objection Handler</h2>
-        <p>3 responses ready to say out loud</p>
-      </div>
-      <div class="abr-header-badge">Say It Now</div>
-    </div>
-    <div class="abr-section">
-      <div class="abr-section-title">The Objection</div>
-      <p class="abr-prose" style="font-size:1rem;font-style:italic;color:#555">"${formData.objection || 'Client objection'}"</p>
-    </div>
-    <div class="abr-obj-grid">`;
-
-  if (responses.length >= 3) {
-    responses.slice(0,3).forEach((resp, i) => {
-      const bodyText = resp.flatMap(s => s.items).map(it => it.text).join(' ');
-      html += `<div class="abr-obj-card">
-        <div class="tone">${tones[i]}</div>
-        <p>${bodyText || resp.map(s=>s.title).join(' ')}</p>
-        <button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${bodyText.replace(/'/g,"\\'")}')">Copy</button>
-      </div>`;
-    });
-  } else {
-    // fallback: render all sections as cards
-    const allText = sections.flatMap(s=>s.items).map(i=>i.text);
-    const third = Math.ceil(allText.length/3);
-    [0,1,2].forEach(i => {
-      const chunk = allText.slice(i*third, (i+1)*third).join(' ');
-      html += `<div class="abr-obj-card">
-        <div class="tone">${tones[i]}</div>
-        <p>${chunk}</p>
-        <button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${chunk.replace(/'/g,"\\'")}')">Copy</button>
-      </div>`;
-    });
-  }
-
-  html += `</div><div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All Responses</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 4. CLIENT PREP ── */
-AIBSOS.renderClientPrep = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  const tabOrder = ['pain','questions','roi','objections','email'];
-  const tabLabels = ['💔 Pain Points','❓ Questions','💰 ROI','🛡 Objections','📧 Follow-up'];
-
-  let tabContent = { pain:[], questions:[], roi:[], objections:[], email:[] };
-
-  for (const s of sections) {
-    const t = (s.title||'').toUpperCase();
-    if (t.includes('PAIN') || t.includes('CHALLENGE') || t.includes('PROBLEM')) tabContent.pain.push(s);
-    else if (t.includes('QUESTION') || t.includes('ASK')) tabContent.questions.push(s);
-    else if (t.includes('ROI') || t.includes('VALUE') || t.includes('RETURN') || t.includes('IMPACT') || t.includes('REVENUE') || t.includes('COST')) tabContent.roi.push(s);
-    else if (t.includes('OBJECTION') || t.includes('PUSHBACK') || t.includes('HANDLE')) tabContent.objections.push(s);
-    else if (t.includes('EMAIL') || t.includes('FOLLOW') || t.includes('SUBJECT')) tabContent.email.push(s);
-    else tabContent.pain.push(s); // fallback
-  }
-
-  const renderSection = (key) => {
-    const secs = tabContent[key];
-    if (!secs.length) return '<p class="abr-prose" style="color:#aaa">No content for this section.</p>';
-    let out = '';
-    for (const s of secs) {
-      if (s.title) out += `<div class="abr-section-title" style="margin-top:14px">${s.title}</div>`;
-      if (key === 'email') {
-        out += `<div class="abr-doc-block" style="position:relative">${s.items.map(i=>i.text).join('\n')}
-          <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${s.items.map(i=>i.text).join('\\n').replace(/'/g,"\\'")}')">Copy</button></div>
-        </div>`;
-      } else if (key === 'questions') {
-        out += s.items.map(i => `<div class="abr-check-item"><div class="abr-checkbox">?</div><span>${AIBSOS.clean(i.text)}</span></div>`).join('');
-      } else if (key === 'roi') {
-        out += s.items.map(i => AIBSOS.card('💰', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '')).join('');
-      } else {
-        out += s.items.map(i => i.type==='bullet'
-          ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-          : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-        ).join('');
-      }
-    }
-    return out;
-  };
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>⚡ Client Prep Pack</h2>
-        <p>${formData.company||'Client'} · ${formData.industry||''}</p>
-      </div>
-      <div class="abr-header-badge">Pre-Meeting Intel</div>
-    </div>
-    <div class="abr-tabs" id="cpTabs">
-      ${tabLabels.map((l,i)=>`<button class="abr-tab ${i===0?'active':''}" onclick="AIBSOS.switchTab('cp','${tabOrder[i]}',this)">${l}</button>`).join('')}
-    </div>`;
-
-  for (const key of tabOrder) {
-    html += `<div id="cp_tab_${key}" class="abr-section" style="${key!=='pain'?'display:none':''}">
-      ${renderSection(key)}
-    </div>`;
-  }
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Full Pack</button>
-  </div></div>`;
-  return html;
-};
-
-/* Tab switcher shared */
-AIBSOS.switchTab = function(prefix, key, btn) {
-  document.querySelectorAll(`[id^="${prefix}_tab_"]`).forEach(el => el.style.display = 'none');
-  document.getElementById(`${prefix}_tab_${key}`).style.display = 'block';
-  document.querySelectorAll('#cpTabs .abr-tab, #pfTabs .abr-tab, #wdTabs .abr-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-};
-
-/* ── 5. PAIN FINDER ── */
-AIBSOS.renderPainFinder = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>🔍 Pain Finder Report</h2>
-        <p>${formData.company||'Company'} · ${formData.industry||''}</p>
-      </div>
-      <div class="abr-header-badge">Fit-Scored</div>
-    </div>`;
-
-  let scoreSection = false;
-  for (const s of sections) {
-    const title = (s.title||'').toUpperCase();
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title||'Analysis'}</div>`;
-
-    if (title.includes('FIT') || title.includes('SCORE') || title.includes('MATCH') || title.includes('RECOMMENDATION')) {
-      html += s.items.map(i => {
-        const score = AIBSOS.extractScore(i.text);
-        const label = AIBSOS.clean(i.text).split(':')[0];
-        const scoreColor = score >= 80 ? '#22c55e' : score >= 60 ? '#f97316' : '#ef4444';
-        return score ? AIBSOS.scoreBar(score, label, scoreColor) : AIBSOS.card('🎯', label, AIBSOS.clean(i.text).split(':').slice(1).join(':'));
-      }).join('');
-    } else if (title.includes('PAIN') || title.includes('CHALLENGE') || title.includes('PROBLEM') || title.includes('ISSUE')) {
-      const priorities = ['high','high','med','med','low'];
-      html += s.items.map((i,idx) => {
-        const p = priorities[idx] || 'low';
-        return `<div class="abr-card" style="border-left:3px solid ${p==='high'?'#ef4444':p==='med'?'#f97316':'#22c55e'}">
-          <div class="abr-card-head">
-            <span class="abr-priority ${p}">${p==='high'?'🔴 High':p==='med'?'🟠 Medium':'🟢 Low'}</span>
-          </div>
-          <div class="abr-card-body">${AIBSOS.clean(i.text)}</div>
-        </div>`;
-      }).join('');
-    } else if (title.includes('YOUR SOLUTION') || title.includes('YOUR OFFER') || title.includes('HOW YOU')) {
-      html += s.items.map(i => AIBSOS.card('💡', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '')).join('');
-    } else {
-      html += s.items.map(i => i.type==='bullet'
-        ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-        : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-      ).join('');
-    }
-    html += `</div>`;
-  }
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Report</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 6. COMPETITIVE INTEL ── */
-AIBSOS.renderCompetitive = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>🎯 Competitive Intel</h2>
-        <p>Your edge. Their gaps. The winning pitch.</p>
-      </div>
-      <div class="abr-header-badge">Battle-Ready</div>
-    </div>`;
-
-  for (const s of sections) {
-    const title = (s.title||'').toUpperCase();
-    if (!s.title && !s.items.length) continue;
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title||'Analysis'}</div>`;
-
-    if (title.includes('YOUR STRENGTH') || title.includes('DIFFERENTIATOR') || title.includes('ADVANTAGE') || title.includes('YOUR EDGE')) {
-      html += s.items.map(i => AIBSOS.card('✅', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '', '#22c55e')).join('');
-    } else if (title.includes('COMPETITOR') || title.includes('THEIR WEAKNESS') || title.includes('GAP') || title.includes('WEAKNESS')) {
-      html += s.items.map(i => `<div class="abr-flag"><div class="abr-flag-icon">⚠️</div><p>${AIBSOS.clean(i.text)}</p></div>`).join('');
-    } else if (title.includes('PITCH') || title.includes('WINNING') || title.includes('POSITIONING') || title.includes('MESSAGE')) {
-      const txt = s.items.map(i=>i.text).join('\n');
-      html += `<div class="abr-doc-block" style="position:relative">${txt}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${txt.replace(/'/g,"\\'")}')">Copy Pitch</button></div>
-      </div>`;
-    } else {
-      html += s.items.map(i => i.type==='bullet'
-        ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-        : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-      ).join('');
-    }
-    html += `</div>`;
-  }
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Intel Report</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 7. ROI CALCULATOR ── */
-AIBSOS.renderROI = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>💰 ROI Report</h2>
-        <p>${formData.client||'Client'} · Numbers that close deals</p>
-      </div>
-      <div class="abr-header-badge">Deal Closer</div>
-    </div>`;
-
-  // Extract any numbers for the ROI stats strip
-  const allText = raw;
-  const numbers = [];
-  const patterns = [
-    /\$[\d,]+(?:\.\d+)?[KkMmBb]?/g,
-    /[\d,]+%/g,
-    /[\d,]+x\s*ROI/gi,
-    /R[\d,]+(?:\.\d+)?[KkMmBb]?/g
-  ];
-  for (const pat of patterns) {
-    const matches = allText.match(pat);
-    if (matches) numbers.push(...matches.slice(0,2));
-  }
-
-  if (numbers.length) {
-    html += `<div class="abr-roi-grid">`;
-    const roiLabels = ['Projected Return','Cost Saving','Revenue Uplift','ROI Multiple','Payback Period'];
-    numbers.slice(0,4).forEach((n,i) => {
-      html += `<div class="abr-roi-stat"><div class="num">${n}</div><div class="lbl">${roiLabels[i]||'Key Metric'}</div></div>`;
-    });
-    html += `</div>`;
-  }
-
-  for (const s of sections) {
-    const title = (s.title||'').toUpperCase();
-    if (!s.title && !s.items.length) continue;
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title||'Analysis'}</div>`;
-
-    if (title.includes('ASSUMPTION') || title.includes('BASELINE') || title.includes('CURRENT')) {
-      html += s.items.map(i => AIBSOS.card('📊', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '', '#94a3b8')).join('');
-    } else if (title.includes('RESULT') || title.includes('IMPACT') || title.includes('RETURN') || title.includes('BENEFIT')) {
-      html += s.items.map(i => AIBSOS.card('💰', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '', '#22c55e')).join('');
-    } else if (title.includes('CLOSING') || title.includes('PITCH') || title.includes('PRESENT')) {
-      const txt = s.items.map(i=>i.text).join('\n');
-      html += `<div class="abr-doc-block" style="position:relative">${txt}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${txt.replace(/'/g,"\\'")}')">Copy</button></div>
-      </div>`;
-    } else {
-      html += s.items.map(i => i.type==='bullet'
-        ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-        : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-      ).join('');
-    }
-    html += `</div>`;
-  }
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy ROI Report</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 8. REPLYRIGHT ── */
-AIBSOS.renderReplyRight = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  const tones = ['🎯 Professional','⚡ Direct','🤝 Warm'];
-  const colors = ['#0f0f0f','#f97316','#22c55e'];
-
-  // Split into 3 replies
-  const replies = [];
-  let cur = [];
-  for (const s of sections) {
-    const t = (s.title||'').toUpperCase();
-    if (t.match(/REPLY\s*[123]|OPTION\s*[123]|VERSION\s*[123]|PROFESSIONAL|DIRECT|WARM/)) {
-      if (cur.length) replies.push(cur);
-      cur = [s];
-    } else cur.push(s);
-  }
-  if (cur.length) replies.push(cur);
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>✉️ ReplyRight</h2>
-        <p>3 replies — pick the one that fits</p>
-      </div>
-      <div class="abr-header-badge">Ready to Send</div>
-    </div>`;
-
-  if (replies.length >= 2) {
-    replies.slice(0,3).forEach((rep, i) => {
-      const txt = rep.flatMap(s=>s.items).map(it=>it.text).join('\n\n');
-      const title = rep[0]?.title || tones[i] || `Reply ${i+1}`;
-      html += `<div class="abr-section">
-        <div class="abr-section-title" style="color:${colors[i]}">${tones[i]||title}</div>
-        <div class="abr-doc-block" style="position:relative">${txt}
-          <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${txt.replace(/'/g,"\\'")}')">Copy</button></div>
+    <!-- PAY MODAL -->
+    <div class="pay-modal-overlay" id="payModal">
+      <div class="mkt-pay-modal">
+        <h3>Scale & Operate Bundle</h3>
+        <p>5 complete documents &middot; Delivered instantly after payment</p>
+        <div class="mkt-price-line" id="modalPriceLine">$27 &mdash; one-time payment</div>
+        <div class="form-grid">
+          <div class="form-row"><label>First Name</label><input id="pm_first" type="text" placeholder="James"></div>
+          <div class="form-row"><label>Last Name</label><input id="pm_last" type="text" placeholder="Carter"></div>
         </div>
-      </div>`;
-    });
-  } else {
-    // Single doc output
-    const txt = raw;
-    html += `<div class="abr-section">
-      <div class="abr-doc-block" style="position:relative">${txt}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${txt.replace(/'/g,"\\'")}')">Copy</button></div>
-      </div>
-    </div>`;
-  }
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 9. JOBAPPLY AI ── */
-AIBSOS.renderJobApply = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>📝 Cover Letter</h2>
-        <p>${formData.name||'Applicant'} · Tailored to role</p>
-      </div>
-      <div class="abr-header-badge">Interview-Ready</div>
-    </div>
-    <div class="abr-section">
-      <div class="abr-section-title">Your Cover Letter</div>
-      <div class="abr-doc-block" style="position:relative">${raw.replace(/\*\*/g,'')}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.safeCopy(this,_abrKey)">Copy</button></div>
-      </div>
-    </div>`;
-
-  // Tips section
-  html += `<div class="abr-section">
-    <div class="abr-section-title">Why This Works</div>
-    ${AIBSOS.card('🎯','Tailored to role','The letter mirrors the job description language, increasing ATS match rate.','#f97316')}
-    ${AIBSOS.card('💡','Shows outcomes','Focuses on what you deliver, not just what you did.','#0f0f0f')}
-    ${AIBSOS.card('✅','Ready to send','Review once for accuracy, then paste into your application.','#22c55e')}
-  </div>`;
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Letter</button>
-    <button class="abr-btn-ghost" onclick="window.print()">🖨 Print</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 10. CAPTIONFORGE ── */
-AIBSOS.renderCaptionForge = function(raw, formData) {
-  // Split into individual captions
-  const blocks = raw.split(/\n(?=Caption\s*[1-5]|\d+[\.\)]\s|##\s*\d)/i).filter(Boolean);
-  const captions = blocks.length >= 3 ? blocks : raw.split(/\n\n+/).filter(b=>b.trim().length > 20);
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>✍️ CaptionForge</h2>
-        <p>${formData.platform||'Social Media'} · ${formData.tone||'Your tone'}</p>
-      </div>
-      <div class="abr-header-badge">5 Captions</div>
-    </div>`;
-
-  captions.slice(0,5).forEach((cap, i) => {
-    const lines = cap.trim().split('\n').filter(Boolean);
-    const mainText = lines.filter(l => !l.startsWith('#')).join('\n').replace(/^Caption\s*\d+:?\s*/i,'').replace(/^\d+[\.\)]\s*/,'').trim();
-    const hashtags = mainText.match(/#\w+/g) || [];
-    const body = mainText.replace(/#\w+/g,'').trim();
-
-    html += `<div class="abr-caption-card">
-      <span class="cap-num">Caption ${i+1}</span>
-      <p>${body}</p>
-      ${hashtags.length ? `<div class="hashtags">${hashtags.join(' ')}</div>` : ''}
-      <div style="margin-top:10px">
-        <button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${(body+' '+hashtags.join(' ')).replace(/'/g,"\\'")}')">Copy</button>
-        <span style="font-size:.75rem;color:#aaa;margin-left:10px">${body.length} chars</span>
-      </div>
-    </div>`;
-  });
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All Captions</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 11. CONTRACTCHECK ── */
-AIBSOS.renderContractCheck = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>📜 Contract Analysis</h2>
-        <p>Plain English · Red flags · What to negotiate</p>
-      </div>
-      <div class="abr-header-badge">AI Analysis Only</div>
-    </div>`;
-
-  for (const s of sections) {
-    const title = (s.title||'').toUpperCase();
-    if (!s.title && !s.items.length) continue;
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title||'Overview'}</div>`;
-
-    if (title.includes('RED FLAG') || title.includes('WARNING') || title.includes('RISK') || title.includes('CONCERN') || title.includes('WATCH OUT')) {
-      html += s.items.map(i => `<div class="abr-flag"><div class="abr-flag-icon">🚩</div><p>${AIBSOS.clean(i.text)}</p></div>`).join('');
-    } else if (title.includes('NEGOTIAT') || title.includes('PUSH BACK') || title.includes('CHANGE') || title.includes('REQUEST')) {
-      html += s.items.map(i => AIBSOS.card('⚡', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '', '#f97316')).join('');
-    } else if (title.includes('PLAIN') || title.includes('SUMMARY') || title.includes('OVERVIEW') || title.includes('WHAT')) {
-      html += s.items.map(i => `<p class="abr-prose">${i.text}</p>`).join('');
-    } else if (title.includes('CLAUSE') || title.includes('TERM') || title.includes('SECTION')) {
-      html += s.items.map(i => AIBSOS.card('📄', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '')).join('');
-    } else {
-      html += s.items.map(i => i.type==='bullet'
-        ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-        : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-      ).join('');
-    }
-    html += `</div>`;
-  }
-
-  html += `<div class="abr-section" style="background:#fef2f2;border-color:#fecaca">
-    <p class="abr-prose" style="color:#dc2626;font-size:.82rem">⚠️ This is AI analysis only. Always consult a qualified lawyer before signing any legal contract.</p>
-  </div>`;
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Analysis</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 12. MEETINGMIND ── */
-AIBSOS.renderMeetingMind = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  const tabOrder = ['summary','actions','questions','email'];
-  const tabLabels = ['📋 Summary','✅ Actions','❓ Open Items','📧 Follow-up Email'];
-  let tabContent = { summary:[], actions:[], questions:[], email:[] };
-
-  for (const s of sections) {
-    const t = (s.title||'').toUpperCase();
-    if (t.includes('SUMMAR') || t.includes('OVERVIEW') || t.includes('KEY POINT') || t.includes('DECISION')) tabContent.summary.push(s);
-    else if (t.includes('ACTION') || t.includes('TASK') || t.includes('TODO') || t.includes('OWNER') || t.includes('NEXT STEP')) tabContent.actions.push(s);
-    else if (t.includes('OPEN') || t.includes('QUESTION') || t.includes('UNRESOLVED') || t.includes('PENDING')) tabContent.questions.push(s);
-    else if (t.includes('EMAIL') || t.includes('FOLLOW') || t.includes('SUBJECT')) tabContent.email.push(s);
-    else tabContent.summary.push(s);
-  }
-
-  const renderTab = (key) => {
-    const secs = tabContent[key];
-    if (!secs.length) return '<p class="abr-prose" style="color:#aaa">No content extracted.</p>';
-    let out = '';
-    for (const s of secs) {
-      if (s.title) out += `<div class="abr-section-title" style="margin-top:14px">${s.title}</div>`;
-      if (key==='email') {
-        const txt = s.items.map(i=>i.text).join('\n');
-        out += `<div class="abr-doc-block" style="position:relative">${txt}
-          <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${txt.replace(/'/g,"\\'")}')">Copy Email</button></div>
-        </div>`;
-      } else if (key==='actions') {
-        out += s.items.map(i => `<div class="abr-check-item" onclick="this.classList.toggle('done');this.querySelector('.abr-checkbox').textContent=this.classList.contains('done')?'✓':''">
-          <div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span>
-        </div>`).join('');
-      } else if (key==='questions') {
-        out += s.items.map(i => `<div class="abr-check-item"><div class="abr-checkbox" style="color:#f97316;border-color:#f97316">?</div><span>${AIBSOS.clean(i.text)}</span></div>`).join('');
-      } else {
-        out += s.items.map(i => i.type==='bullet'
-          ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-          : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-        ).join('');
-      }
-    }
-    return out;
-  };
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>🧠 MeetingMind</h2>
-        <p>${formData.type||'Meeting'} · ${formData.name||''}</p>
-      </div>
-      <div class="abr-header-badge">Meeting Decoded</div>
-    </div>
-    <div class="abr-tabs" id="mmTabs">
-      ${tabLabels.map((l,i)=>`<button class="abr-tab ${i===0?'active':''}" onclick="AIBSOS.switchTabMM('${tabOrder[i]}',this)">${l}</button>`).join('')}
-    </div>`;
-
-  for (const key of tabOrder) {
-    html += `<div id="mm_tab_${key}" class="abr-section" style="${key!=='summary'?'display:none':''}">
-      ${renderTab(key)}
-    </div>`;
-  }
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Full Notes</button>
-  </div></div>`;
-  return html;
-};
-
-AIBSOS.switchTabMM = function(key, btn) {
-  document.querySelectorAll('[id^="mm_tab_"]').forEach(el => el.style.display='none');
-  document.getElementById(`mm_tab_${key}`).style.display='block';
-  document.querySelectorAll('#mmTabs .abr-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-};
-
-/* ── 13. DOCFORGE ── */
-AIBSOS.renderDocForge = function(raw, formData) {
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>📄 DocForge</h2>
-        <p>${formData.docType||'Document'} · ${formData.company||''} → ${formData.recipient||''}</p>
-      </div>
-      <div class="abr-header-badge">Ready to Send</div>
-    </div>
-    <div class="abr-section">
-      <div class="abr-section-title">Your Document</div>
-      <div class="abr-doc-block" style="position:relative">${raw.replace(/\*\*/g,'').replace(/#{1,3}\s*/g,'')}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,${JSON.stringify(raw.replace(/\*\*/g,'').replace(/#{1,3}\s*/g,''))})">Copy</button></div>
+        <div class="form-row"><label>Email Address</label><input id="pm_email" type="email" placeholder="james@company.com"></div>
+        <div class="mkt-pay-actions">
+          <button class="mkt-cancel" onclick="closePayModal()">Cancel</button>
+          <button class="mkt-pay-btn" onclick="processPayment()">Pay &amp; Generate &#8594;</button>
+        </div>
       </div>
     </div>
-    <div class="abr-footer">
-      <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Document</button>
-      <button class="abr-btn-ghost" onclick="window.print()">🖨 Print</button>
-    </div></div>`;
-  return html;
-};
 
-/* ── 14. THREADFORGE ── */
-AIBSOS.renderThreadForge = function(raw, formData) {
-  // Split into tweets by numbered lines or double newlines
-  const tweetBlocks = raw.split(/\n(?=\d+[\.\)\/]|\[\d+\]|Tweet\s*\d)/i).filter(Boolean);
-  const tweets = tweetBlocks.length >= 4
-    ? tweetBlocks
-    : raw.split(/\n\n+/).filter(b=>b.trim().length > 10 && b.trim().length < 400);
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>🧵 ThreadForge</h2>
-        <p>${tweets.length} tweets · ${formData.niche||'Your niche'}</p>
-      </div>
-      <div class="abr-header-badge">Post-Ready</div>
+    <!-- GENERATING -->
+    <div class="generating-state" id="generatingState">
+      <div class="gen-spinner"></div>
+      <h3>Generating your bundle...</h3>
+      <p>Our AI is building 5 complete documents &mdash; this takes about 30&ndash;60 seconds.</p>
     </div>
-    <div class="abr-section">
-      <div class="abr-section-title">Your Thread</div>`;
 
-  tweets.slice(0, 15).forEach((t, i) => {
-    const clean = AIBSOS.clean(t).replace(/^\d+[\.\)\/]\s*/, '').replace(/^\[?\d+\]?\s*/,'');
-    if (clean.length > 5) html += AIBSOS.tweet(i+1, clean);
-  });
-
-  html += `</div>
-    <div class="abr-footer">
-      <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Full Thread</button>
-    </div></div>`;
-  return html;
-};
-
-/* ── 15. CHECKLISTAI ── */
-AIBSOS.renderChecklistAI = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>✅ ChecklistAI</h2>
-        <p>Prioritised · Time-boxed · Actionable</p>
-      </div>
-      <div class="abr-header-badge">${formData.timeframe||'Your Timeline'}</div>
-    </div>`;
-
-  // Count total tasks
-  const allItems = sections.flatMap(s=>s.items).filter(i=>i.type==='bullet');
-  html += `<div class="abr-section" style="display:flex;gap:16px;flex-wrap:wrap">
-    <div class="abr-roi-stat" style="flex:1;min-width:100px"><div class="num">${allItems.length}</div><div class="lbl">Total Tasks</div></div>
-    <div class="abr-roi-stat" style="flex:1;min-width:100px;background:#fff7ed"><div class="num" style="color:#f97316">0/${allItems.length}</div><div class="lbl">Complete</div></div>
-  </div>`;
-
-  for (const s of sections) {
-    if (!s.items.length && !s.title) continue;
-    const title = (s.title||'').toUpperCase();
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title||'Tasks'}</div>`;
-
-    const priorityColor = title.includes('PRIORITY') || title.includes('CRITICAL') || title.includes('MUST')
-      ? '#ef4444' : title.includes('SECONDARY') || title.includes('SHOULD')
-      ? '#f97316' : '#22c55e';
-
-    html += s.items.map(i => {
-      if (i.type!=='bullet') return `<p class="abr-prose">${i.text}</p>`;
-      return `<div class="abr-check-item" onclick="this.classList.toggle('done');this.querySelector('.abr-checkbox').textContent=this.classList.contains('done')?'✓':''">
-        <div class="abr-checkbox" style="border-color:${priorityColor}"></div>
-        <span>${AIBSOS.clean(i.text)}</span>
-      </div>`;
-    }).join('');
-    html += `</div>`;
-  }
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Checklist</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 16. PRICEMYWORK ── */
-AIBSOS.renderPriceMyWork = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  // Extract price numbers
-  const prices = raw.match(/\$[\d,]+(?:\.\d+)?|\R[\d,]+(?:\.\d+)?|[\d,]+\s*(?:per hour|\/hr|\/h|pm|per month)/gi) || [];
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>💰 PriceMyWork</h2>
-        <p>Stop undercharging. Here's your rate.</p>
-      </div>
-      <div class="abr-header-badge">Market Rate</div>
-    </div>`;
-
-  if (prices.length) {
-    html += `<div class="abr-roi-grid">`;
-    const labels = ['Recommended Rate','Minimum Rate','Premium Rate','Retainer'];
-    prices.slice(0,4).forEach((p,i) => {
-      html += `<div class="abr-roi-stat"><div class="num">${p}</div><div class="lbl">${labels[i]||'Rate'}</div></div>`;
-    });
-    html += `</div>`;
-  }
-
-  for (const s of sections) {
-    const title = (s.title||'').toUpperCase();
-    if (!s.title && !s.items.length) continue;
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title||'Analysis'}</div>`;
-
-    if (title.includes('JUSTIF') || title.includes('WHY') || title.includes('REASON') || title.includes('BECAUSE')) {
-      html += s.items.map(i => AIBSOS.card('✅', AIBSOS.clean(i.text).split(':')[0], AIBSOS.clean(i.text).split(':').slice(1).join(':') || '', '#22c55e')).join('');
-    } else if (title.includes('SCRIPT') || title.includes('SAY') || title.includes('PITCH') || title.includes('HOW TO')) {
-      const txt = s.items.map(i=>i.text).join('\n');
-      html += `<div class="abr-doc-block" style="position:relative">${txt}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,'${txt.replace(/'/g,"\\'")}')">Copy Script</button></div>
-      </div>`;
-    } else {
-      html += s.items.map(i => i.type==='bullet'
-        ? `<div class="abr-check-item"><div class="abr-checkbox"></div><span>${AIBSOS.clean(i.text)}</span></div>`
-        : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-      ).join('');
-    }
-    html += `</div>`;
-  }
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Rate Report</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── 17. REVIEWREPLY ── */
-AIBSOS.renderReviewReply = function(raw, formData) {
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>⭐ ReviewReply</h2>
-        <p>Turn ${formData.sentiment||'reviews'} into trust</p>
-      </div>
-      <div class="abr-header-badge">Ready to Post</div>
+    <!-- START OVER BAR -->
+    <div class="start-over-bar" id="startOverBar">
+      <span>&#10003; Your bundle is ready</span>
+      <button class="btn-restart" onclick="startOver()">&#8635; Generate Again</button>
     </div>
-    <div class="abr-section">
-      <div class="abr-section-title">Your Response</div>
-      <div class="abr-doc-block" style="position:relative">${raw.replace(/\*\*/g,'')}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.safeCopy(this,_abrKey)">Copy</button></div>
-      </div>
-    </div>
-    ${AIBSOS.card('💡','Why this works','Acknowledges the reviewer directly, addresses the concern without being defensive, and invites them back — the formula that converts complaints into loyalty.','#f97316')}
-    <div class="abr-footer">
-      <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Response</button>
-    </div></div>`;
-  return html;
-};
 
-/* ── 18. STUDYSNAP ── */
-AIBSOS.renderStudySnap = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  const tabOrder = ['summary','flashcards','quiz'];
-  const tabLabels = ['📋 Summary','🃏 Flashcards','❓ Quiz'];
-  let tabContent = { summary:[], flashcards:[], quiz:[] };
+    <!-- OUTPUT -->
+    <div id="outputArea"></div>
 
-  for (const s of sections) {
-    const t = (s.title||'').toUpperCase();
-    if (t.includes('FLASHCARD') || t.includes('CARD')) tabContent.flashcards.push(s);
-    else if (t.includes('QUIZ') || t.includes('QUESTION') || t.includes('Q:') || t.includes('TEST')) tabContent.quiz.push(s);
-    else tabContent.summary.push(s);
-  }
+  </div>
+</div>
 
-  const renderTab = (key) => {
-    const secs = tabContent[key];
-    if (!secs.length) return '<p class="abr-prose" style="color:#aaa">Not in your output — try requesting it in the format field.</p>';
-    let out = '';
-
-    if (key === 'flashcards') {
-      out += '<div class="abr-fc-grid">';
-      let qBuf = '', aBuf = '';
-      for (const s of secs) {
-        for (const i of s.items) {
-          const txt = AIBSOS.clean(i.text);
-          if (txt.startsWith('Q:') || txt.startsWith('Question:')) {
-            if (qBuf) out += AIBSOS.flashcard(qBuf, aBuf || '(flip for answer)');
-            qBuf = txt.replace(/^Q(uestion)?:\s*/i,'');
-            aBuf = '';
-          } else if (txt.startsWith('A:') || txt.startsWith('Answer:')) {
-            aBuf = txt.replace(/^A(nswer)?:\s*/i,'');
-          } else {
-            // treat as standalone card
-            out += AIBSOS.flashcard(txt, 'Tap to reveal');
-          }
-        }
-      }
-      if (qBuf) out += AIBSOS.flashcard(qBuf, aBuf || '(flip for answer)');
-      out += '</div><p class="abr-prose" style="color:#aaa;font-size:.78rem;margin-top:12px">Tap a card to flip it</p>';
-    } else if (key === 'quiz') {
-      for (const s of secs) {
-        for (const i of s.items) {
-          out += `<div class="abr-quiz-q"><p>${AIBSOS.clean(i.text)}</p></div>`;
-        }
-      }
-    } else {
-      for (const s of secs) {
-        if (s.title) out += `<div class="abr-section-title" style="margin-top:14px">${s.title}</div>`;
-        out += s.items.map(i => i.type==='bullet'
-          ? `<div class="abr-check-item"><div class="abr-checkbox">•</div><span>${AIBSOS.clean(i.text)}</span></div>`
-          : (() => {
-          let t = i.text
-            .replace(/^###\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>')
-            .replace(/^##\s+(.+)/, '<p class="abr-prose"><strong style="color:#1a1a1a;font-size:.95rem">$1</strong></p>');
-          if (t.startsWith('<p')) return t;
-          t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return `<p class="abr-prose">${t}</p>`;
-        })()
-        ).join('');
-      }
-    }
-    return out;
-  };
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>📚 StudySnap</h2>
-        <p>${formData.subject||'Your subject'}</p>
-      </div>
-      <div class="abr-header-badge">Study Smart</div>
-    </div>
-    <div class="abr-tabs" id="ssTabs">
-      ${tabLabels.map((l,i)=>`<button class="abr-tab ${i===0?'active':''}" onclick="AIBSOS.switchTabSS('${tabOrder[i]}',this)">${l}</button>`).join('')}
-    </div>`;
-
-  for (const key of tabOrder) {
-    html += `<div id="ss_tab_${key}" class="abr-section" style="${key!=='summary'?'display:none':''}">
-      ${renderTab(key)}
-    </div>`;
-  }
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All</button>
-  </div></div>`;
-  return html;
-};
-
-AIBSOS.switchTabSS = function(key, btn) {
-  document.querySelectorAll('[id^="ss_tab_"]').forEach(el=>el.style.display='none');
-  document.getElementById(`ss_tab_${key}`).style.display='block';
-  document.querySelectorAll('#ssTabs .abr-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-};
-
-/* ── 19. DAILYBRIEF ── */
-AIBSOS.renderDailyBrief = function(raw, formData) {
-  const sections = AIBSOS.parse(raw);
-  const today = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
-
-  let html = `<div class="abr-output">
-    <div class="abr-header">
-      <div class="abr-header-left">
-        <h2>☀️ Daily Brief</h2>
-        <p>${today} · ${formData.role||'Your role'}</p>
-      </div>
-      <div class="abr-header-badge">5 Points</div>
-    </div>`;
-
-  const icons = ['🎯','⚡','💡','🔑','🏆'];
-  const colors = ['#f97316','#0f0f0f','#22c55e','#f97316','#0f0f0f'];
-  let pointIdx = 0;
-
-  for (const s of sections) {
-    if (!s.title && !s.items.length) continue;
-    const title = (s.title||'').toUpperCase();
-    html += `<div class="abr-section"><div class="abr-section-title">${s.title||'Brief'}</div>`;
-
-    if (title.match(/POINT\s*[1-5]|FOCUS|PRIORITY|ACTION|INSIGHT|MOVE/)) {
-      html += s.items.map(i => AIBSOS.card(icons[pointIdx], s.title||`Point ${pointIdx+1}`, i.text, colors[pointIdx++])).join('');
-    } else if (title.includes('WIN') || title.includes('CELEBRATE') || title.includes('ACCOMPLISH')) {
-      html += `<div class="abr-card" style="border-left:3px solid #22c55e;background:#f0fdf4">
-        <div class="abr-card-body">${s.items.map(i=>i.text).join(' ')}</div>
-      </div>`;
-    } else if (title.includes('AFFIRMATION') || title.includes('MINDSET') || title.includes('ENERGY')) {
-      html += `<div class="abr-card" style="background:#0f0f0f;border-left:none">
-        <div class="abr-card-body" style="color:#fff;font-size:1rem;font-weight:600;text-align:center">${s.items.map(i=>i.text).join(' ')}</div>
-      </div>`;
-    } else {
-      html += s.items.map((i,idx) => AIBSOS.card(icons[pointIdx%5], s.title ? '' : `Point ${++pointIdx}`, i.text, colors[(pointIdx-1)%5])).join('');
-    }
-    html += `</div>`;
-  }
-
-  html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Brief</button>
-  </div></div>`;
-  return html;
-};
-
-/* ── Master dispatcher ── */
-AIBSOS.render = function(toolKey, raw, formData) {
-  AIBSOS.injectCSS();
-  const map = {
-    'proposal':     AIBSOS.renderProposal,
-    'whatdoisell':  AIBSOS.renderWhatDoISell,
-    'objections':   AIBSOS.renderObjections,
-    'clientprep':   AIBSOS.renderClientPrep,
-    'painfinder':   AIBSOS.renderPainFinder,
-    'competitive':  AIBSOS.renderCompetitive,
-    'roi':          AIBSOS.renderROI,
-    'replyright':   AIBSOS.renderReplyRight,
-    'jobapply':     AIBSOS.renderJobApply,
-    'captionforge': AIBSOS.renderCaptionForge,
-    'contractcheck':AIBSOS.renderContractCheck,
-    'meetingmind':  AIBSOS.renderMeetingMind,
-    'docforge':     AIBSOS.renderDocForge,
-    'threadforge':  AIBSOS.renderThreadForge,
-    'checklistai':  AIBSOS.renderChecklistAI,
-    'pricemywork':  AIBSOS.renderPriceMyWork,
-    'reviewreply':  AIBSOS.renderReviewReply,
-    'studysnap':    AIBSOS.renderStudySnap,
-    'dailybrief':   AIBSOS.renderDailyBrief,
-  };
-  const fn = map[toolKey];
-  if (!fn) return `<div class="abr-output"><pre>${raw}</pre></div>`;
-  return fn(raw, formData || {});
-};
-
-</script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
-const BUNDLE_NAME = 'Pitch & Win Bundle';
-const BTN_COLOR = 'var(--ge)';
 
-const PAYSTACK_KEY = 'pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33';
-const MKT_PRICES  = {ZAR:49700, USD:2700, NGN:999000, GBP:2160, EUR:2511};
-const MKT_DISPLAY = {ZAR:'R497', USD:'$27', NGN:'&#8358;18,000', GBP:'&pound;22', EUR:'&euro;25'};
-const CURR_CODES  = {ZAR:'ZAR', USD:'USD', NGN:'NGN', GBP:'GBP', EUR:'EUR'};
-const CC = {'ZA':'ZAR','NG':'NGN','GB':'GBP','US':'USD','DE':'EUR','FR':'EUR','NL':'EUR','BE':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','AT':'EUR','CH':'EUR','SE':'EUR','NO':'EUR','DK':'EUR','FI':'EUR','PL':'EUR'};
-let cur = 'ZAR';
+  // -- Prices --
+  const MKT_PRICES  = {"ZAR": 49700, "USD": 2700, "NGN": 999000, "GBP": 2200, "EUR": 2500};
+  const MKT_DISPLAY = {"ZAR":"R497","USD":"$27","NGN":"NGN 999","GBP":"GBP 22","EUR":"EUR 25"};
+  const CURR_CODES  = {"ZAR":"ZAR","USD":"USD","NGN":"NGN","GBP":"GBP","EUR":"EUR"};
+  const CC = {"ZA":"ZAR","NG":"NGN","GB":"GBP","US":"USD","DE":"EUR","FR":"EUR","NL":"EUR","BE":"EUR","IT":"EUR","ES":"EUR","PT":"EUR","AT":"EUR","CH":"EUR","SE":"EUR","NO":"EUR","DK":"EUR","FI":"EUR","PL":"EUR"};
+  let detectedCur = 'ZAR';
 
-(async function detectCurrency(){
-  const apis = [
-    ()=>fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>CC[d.country_code]),
-    ()=>fetch('https://api.country.is/').then(r=>r.json()).then(d=>CC[d.country]),
-    ()=>fetch('https://ipwho.is/').then(r=>r.json()).then(d=>CC[d.country_code]),
-  ];
-  for(const api of apis){
-    try{ const c=await api(); if(c){ cur=c; applyPrices(); return; } }catch(e){}
-  }
-})();
-
-function applyPrices(){
-  const d = MKT_DISPLAY[cur]||'R497';
-  document.querySelectorAll('.mkt-price-btn').forEach(el=>el.innerHTML='&#128179; Pay '+d+' &amp; Generate Bundle &rarr;');
-  document.querySelectorAll('.mkt-price-modal').forEach(el=>el.textContent=d+' — one-time payment');
-}
-
-function openPay(){
-  if(!validateFields()) return;
-  document.getElementById('m-paybtn').style.background = BTN_COLOR;
-  document.getElementById('pay-modal').classList.add('open');
-}
-function closePay(){ document.getElementById('pay-modal').classList.remove('open'); }
-
-function doPaystack(){
-  const email = document.getElementById('m-email').value.trim();
-  const first = document.getElementById('m-first').value.trim();
-  if(!email||!first){ alert('Please enter your name and email.'); return; }
-  
-  // Save form data before Paystack opens
-  window._savedFormData = getFormData();
-  
-  PaystackPop.setup({
-    key: PAYSTACK_KEY,
-    email,
-    amount: MKT_PRICES[cur]||MKT_PRICES.ZAR,
-    currency: CURR_CODES[cur]||'ZAR',
-    ref: 'AIBS_MKT_' + Date.now(),
-    metadata:{ custom_fields:[
-      {display_name:'Bundle', variable_name:'bundle', value: BUNDLE_NAME},
-      {display_name:'Name',   variable_name:'name',   value: first+' '+(document.getElementById('m-last').value||'')},
-    ]},
-    callback: (r)=>{ closePay(); generate(r.reference); },
-    onClose: ()=>{}
-  }).openIframe();
-}
-
-async function generate(ref){
-  // Hide form, show result area
-  document.getElementById('form-area').style.display = 'none';
-  document.getElementById('result-bar').style.display = 'flex';
-  
-  const out = document.getElementById('output');
-  out.style.display = 'block';
-  out.innerHTML = '<div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;text-align:center;"><div style="width:44px;height:44px;border:3px solid rgba(245,158,11,.2);border-top-color:#f59e0b;border-radius:50%;animation:mkt-spin .8s linear infinite;margin:0 auto 1.25rem;"></div><div style="font-family:\'Bebas Neue\',sans-serif;font-size:1.2rem;letter-spacing:.05em;margin-bottom:.5rem;">Generating your bundle...</div><div style="font-size:.8rem;color:var(--text2);line-height:1.6;">Our AI is building 5 complete documents.<br>This takes about 30–60 seconds.</div></div><style>@keyframes mkt-spin{to{transform:rotate(360deg)}}</style>';
-  out.scrollIntoView({behavior:'smooth', block:'start'});
-  
-  try{
-    const r = await fetch('/api/claude',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({messages:[{role:'user', content: buildPrompt()}]})
-    });
-    if(!r.ok) throw new Error(r.status);
-    const d = await r.json();
-    const raw = d.content?.[0]?.text || '';
-    window._mktRaw = raw;
-    out.innerHTML = formatRaw(raw) + getActions();
-  } catch(e){
-    out.innerHTML = '<div style="background:rgba(255,40,40,.05);border:1px solid rgba(255,80,80,.15);border-radius:10px;padding:1.5rem;"><div style="color:#ff6b6b;font-family:\'JetBrains Mono\',monospace;font-size:.78rem;margin-bottom:.5rem;">Error generating bundle.</div><div style="font-size:.8rem;color:var(--text2);">Your payment was received. Reference: <strong style="color:var(--text);">'+ref+'</strong><br>Email <a href="mailto:hello@aibsos.com" style="color:#f59e0b;">hello@aibsos.com</a> with this reference.</div></div>';
-  }
-}
-
-function formatRaw(text){
-  const lines = text.split('\n');
-  let html = '<div class="mkt-output">';
-  let inSection = false;
-  
-  for(let line of lines){
-    const trimmed = line.trim();
-    if(!trimmed || trimmed === '---') { 
-      if(trimmed === '---') html += '<hr style="border:none;border-top:1px solid rgba(255,255,255,.06);margin:1.25rem 0;">';
-      continue; 
+  (async function() {
+    const apis = [
+      () => fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>CC[d.country_code]),
+      () => fetch('https://api.country.is/').then(r=>r.json()).then(d=>CC[d.country]),
+      () => fetch('https://ipwho.is/').then(r=>r.json()).then(d=>CC[d.country_code]),
+    ];
+    for (const api of apis) {
+      try {
+        const c = await api();
+        if (c) {
+          detectedCur = c;
+          const disp = MKT_DISPLAY[c] || '$27';
+          document.getElementById('mkt-price-display').textContent = disp + ' per bundle';
+          document.getElementById('modalPriceLine').textContent = disp + '  -  one-time payment';
+          break;
+        }
+      } catch(e) {}
     }
-    if(trimmed.match(/^## /)){
-      if(inSection) html += '</div>';
-      html += '<div class="mkt-section"><div class="mkt-section-title">' + trimmed.replace(/^## /,'') + '</div>';
-      inSection = true;
-    } else if(trimmed.match(/^### /)){
-      html += '<p class="mkt-sublabel">' + trimmed.replace(/^### /,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>') + '</p>';
-    } else if(trimmed.match(/^# /)){
-      html += '<div class="mkt-doc-header">' + trimmed.replace(/^# /,'') + '</div>';
-    } else if(trimmed.match(/^- /) || trimmed.match(/^\* /)){
-      const t = trimmed.replace(/^[-*] /,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-      html += '<div class="mkt-check"><div class="mkt-check-box"></div><span>'+t+'</span></div>';
-    } else if(trimmed.match(/^\d+\. /)){
-      const t = trimmed.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-      html += '<div class="mkt-check"><div class="mkt-check-num">'+trimmed.match(/^(\d+)\.?/)[1]+'</div><span>'+t.replace(/^\d+\.\s*/,'')+'</span></div>';
-    } else {
-      const t = trimmed.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-      html += '<p class="mkt-prose">' + t + '</p>';
+  })();
+
+  // -- Form --
+  let savedFormData = {};
+
+  
+  function getFormData() {
+    const biz = (document.getElementById('so1').value||'').trim();
+    const svc = (document.getElementById('so5').value||'').trim();
+    if (!biz || !svc) {
+      alert('Please fill in your business type and the services you deliver.');
+      return null;
+    }
+    return {
+      biz: biz,
+      chal: (document.getElementById('so2').value||'').trim(),
+      team: (document.getElementById('so3').value||'').trim(),
+      rev: (document.getElementById('so4').value||'').trim(),
+      svc: svc,
+      brk: (document.getElementById('so6').value||'').trim(),
+      goal: (document.getElementById('so7').value||'').trim()
+    };
+  }
+
+  function buildPrompt(f) {
+    return `You are a senior operations consultant. Generate a complete SCALE AND OPERATE BUNDLE. Every document must be specific to this business and immediately usable. Minimum 1,400 words total.
+
+Business: ${f.biz}
+Services: ${f.svc}
+Team: ${f.team || "Growing team"}
+Revenue stage: ${f.rev}
+Challenge: ${f.chal || "Scaling operations"}
+What breaks down: ${f.brk || "Various processes"}
+90-day goal: ${f.goal || "Scale efficiently"}
+
+## 01. CORE SOP LIBRARY - 5 KEY PROCESSES
+Write 5 complete Standard Operating Procedures for the most critical recurring processes. For EACH SOP: name, owner, trigger, 10+ numbered steps, quality checkpoints, common mistakes to avoid, time estimate, tools needed.
+
+## 02. TEAM ONBOARDING PACK
+Company overview and values in practice, 30/60/90 day expectations by role, communication protocols, who does what, systems access checklist, first week day-by-day schedule, performance review process.
+
+## 03. KPI DASHBOARD AND SCORECARD
+12 KPIs across revenue, client success, operations and growth. For each: name, what it measures, target, how to track, review frequency, owner, action if off-track.
+
+## 04. PROCESS AUDIT AND GAP REPORT
+Diagnostic across 6 areas: strategy, people, process, systems, finance, client delivery. For each gap: severity (Critical/High/Medium), specific fix, effort, impact, timeline. Include 3 immediate 30-day wins.
+
+## 05. 90-DAY SCALING ROADMAP
+Week-by-week plan. Month 1: Stabilise. Month 2: Systematise. Month 3: Scale. For each week: specific actions, owner, success metric.`;
+  }
+
+  // -- Modal --
+  function openPayModal() {
+    const fd = getFormData();
+    if (!fd) return;
+    savedFormData = fd;
+    document.getElementById('payModal').classList.add('open');
+  }
+  function closePayModal() {
+    document.getElementById('payModal').classList.remove('open');
+  }
+
+  // -- Payment --
+  function processPayment() {
+    const email = document.getElementById('pm_email').value.trim();
+    if (!email) { alert('Please enter your email address.'); return; }
+    const amount = MKT_PRICES[detectedCur] || MKT_PRICES['ZAR'];
+    const currency = CURR_CODES[detectedCur] || 'ZAR';
+    PaystackPop.setup({
+      key: 'pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33',
+      email: email,
+      amount: amount,
+      currency: currency,
+      ref: 'AIBS_MKT_' + Date.now(),
+      callback: function(response) { closePayModal(); generate(); },
+      onClose: function() {}
+    }).openIframe();
+  }
+
+  // -- Generation --
+  async function generate() {
+    const fd = savedFormData;
+    const prompt = buildPrompt(fd);
+
+    document.getElementById('toolForm').style.display = 'none';
+    document.getElementById('generatingState').classList.add('visible');
+    document.getElementById('generatingState').scrollIntoView({behavior:'smooth',block:'center'});
+
+    try {
+      const res = await fetch('/api/claude', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 4000, messages: [{ role: 'user', content: prompt }] })
+      });
+      const data = await res.json();
+      const raw = (data.content && data.content[0] && data.content[0].text) || '';
+      window._bundleRaw = raw;
+
+      document.getElementById('generatingState').classList.remove('visible');
+      document.getElementById('startOverBar').classList.add('visible');
+      const outputArea = document.getElementById('outputArea');
+      outputArea.classList.add('visible');
+      outputArea.innerHTML = renderOutput(raw) + actionButtons();
+      outputArea.scrollIntoView({behavior:'smooth',block:'start'});
+    } catch(err) {
+      document.getElementById('generatingState').classList.remove('visible');
+      document.getElementById('startOverBar').classList.add('visible');
+      document.getElementById('outputArea').classList.add('visible');
+      document.getElementById('outputArea').innerHTML = '<div style="background:#1c1c1c;border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:20px 24px;color:#ef4444;font-size:.82rem;">Error generating bundle. Your payment was received. Email <a href=\"mailto:hello@aibsos.com\" style=\"color:#f59e0b;\">hello@aibsos.com</a> to get your result.</div>';
     }
   }
-  if(inSection) html += '</div>';
-  html += '</div>';
-  return html;
-}
 
-function getActions(){
-  return `<div class="mkt-actions">
-    <button class="mkt-action-btn" onclick="navigator.clipboard.writeText(window._mktRaw||'').then(()=>{this.textContent='✓ Copied';setTimeout(()=>{this.textContent='📋 Copy All'},1800)})">📋 Copy All</button>
-    <button class="mkt-action-btn" onclick="downloadDoc()">⬇️ Download .doc</button>
-    <button class="mkt-action-btn" onclick="window.print()">🖨 Print</button>
-  </div>`;
-}
+  // -- Start over --
+  function startOver() {
+    document.getElementById('outputArea').classList.remove('visible');
+    document.getElementById('outputArea').innerHTML = '';
+    document.getElementById('startOverBar').classList.remove('visible');
+    document.getElementById('toolForm').style.display = 'block';
+  }
 
-function downloadDoc(){
-  const text = window._mktRaw || '';
-  const docHtml = `<html xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="UTF-8"><style>body{font-family:Calibri,sans-serif;font-size:11pt;line-height:1.7;margin:2.5cm;color:#1a1a1a;}h1{font-size:18pt;color:#f59e0b;margin-bottom:6pt;}h2{font-size:13pt;color:#1a1a1a;border-bottom:1px solid #e0dbd4;padding-bottom:4pt;margin-top:20pt;}h3{font-size:11pt;font-weight:700;margin:12pt 0 4pt;}p{margin-bottom:8pt;}li{margin-bottom:5pt;}hr{border:none;border-top:1px solid #e0dbd4;margin:16pt 0;}</style></head><body>${text.replace(/
-/g,'<br>').replace(/## (.+)/g,'<h2>$1</h2>').replace(/### (.+)/g,'<h3>$1</h3>').replace(/# (.+)/g,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^- (.+)/gm,'<li>$1</li>').replace(/---/g,'<hr>')}</body></html>`;
-  const blob = new Blob([docHtml], {type:'application/msword'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download=BUNDLE_NAME.replace(/ /g,'_')+'.doc';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-}
+  // -- Output renderer --
+  function renderOutput(text) {
+    const lines = text.split('\n');
+    let html = '<div style="margin-top:.5rem;">';
+    let inSection = false;
 
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('pay-modal').addEventListener('click',e=>{
-    if(e.target===document.getElementById('pay-modal')) closePay();
+    for (let i = 0; i < lines.length; i++) {
+      const raw = lines[i];
+      const line = raw.trim();
+      if (!line) continue;
+      if (line === '---' || line === '***') continue;
+
+      if (line.startsWith('## ')) {
+        if (inSection) html += '</div>';
+        const title = line.slice(3);
+        html += '<div class="out-section"><div class="out-sec-title">' + title + '</div>';
+        inSection = true;
+      } else if (line.startsWith('### ')) {
+        const t = line.slice(4).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        html += '<p class="out-sublabel">' + t + '</p>';
+      } else if (line.startsWith('# ')) {
+        if (inSection) html += '</div>';
+        html += '<div class="out-section"><div class="out-sec-title">' + line.slice(2) + '</div>';
+        inSection = true;
+      } else if (line.match(/^\d+\.\s/) && !line.match(/^\d+\.\s+[A-Z][a-z].*:/)) {
+        // Numbered list item
+        const t = line.replace(/^\d+\.\s*/,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        html += '<div class="out-check"><div class="out-dot"></div><span>' + t + '</span></div>';
+      } else if (line.match(/^[-*]\s/)) {
+        // Bullet
+        const t = line.replace(/^[-*]\s/,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        html += '<div class="out-check"><div class="out-dot"></div><span>' + t + '</span></div>';
+      } else if (line.match(/^(Response [AB]|Subject:|Day \d|Week \d|Month \d):/i)) {
+        // Email/response labels
+        const colon = line.indexOf(':');
+        const label = line.slice(0, colon);
+        const body = line.slice(colon+1).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        html += '<p class="out-prose"><strong style="color:var(--text);">' + label + ':</strong> ' + body + '</p>';
+      } else {
+        const t = line.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        // Check if it looks like a heading (short, ends with colon, all words capitalized)
+        if (line.length < 60 && line.endsWith(':') && !line.includes('.')) {
+          html += '<p class="out-sublabel">' + t + '</p>';
+        } else {
+          html += '<p class="out-prose">' + t + '</p>';
+        }
+      }
+    }
+    if (inSection) html += '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  function actionButtons() {
+    return [
+      '<div class="out-actions">',
+      '<button class="out-btn" onclick="copyBundle()">Copy All</button>',
+      '<button class="out-btn" onclick="downloadDoc()">Download .doc</button>',
+      '<button class="out-btn" onclick="window.print()">Print</button>',
+      '</div>'
+    ].join('');
+  }
+
+  function copyBundle() {
+    navigator.clipboard.writeText(window._bundleRaw || '');
+  }
+
+  function downloadDoc() {
+    const text = window._bundleRaw || '';
+    const h = '<html><head><meta charset="UTF-8"><style>body{font-family:Calibri,sans-serif;font-size:11pt;line-height:1.7;margin:2.5cm;color:#1a1a1a;}h2{font-size:13pt;border-bottom:1px solid #e0dbd4;margin-top:16pt;}p{margin-bottom:8pt;}</style></head><body>' +
+      text.replace(/\n/g,'<br>').replace(/## (.+)/g,'<h2>$1</h2>').replace(/### (.+)/g,'<h3>$1</h3>').replace(/# (.+)/g,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>') +
+      '</body></html>';
+    const blob = new Blob([h],{type:'application/msword'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='Scale & Operate Bundle.doc';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('payModal').addEventListener('click', function(e) {
+    if (e.target === document.getElementById('payModal')) closePayModal();
   });
-});
 
-
-function validateFields(){const v=id=>document.getElementById(id)?.value?.trim()||'';if(!v('so1')||!v('so5')){alert('Please fill in your business type and services.');return false;}return true;}
-function getFormData(){const v=id=>document.getElementById(id)?.value?.trim()||'';return{biz:v('so1'),chal:v('so2'),team:v('so3'),rev:v('so4'),svc:v('so5'),brk:v('so6'),goal:v('so7')};}
-function buildPrompt(){const f=window._savedFormData||getFormData();return 'You are a senior operations consultant generating a complete SCALE & OPERATE BUNDLE for: '+f.biz+'\nServices: '+f.svc+' | Team: '+(f.team||'Growing')+' | Revenue: '+f.rev+' | Challenge: '+(f.chal||'Scaling')+' | What breaks: '+(f.brk||'Various')+' | Goal: '+(f.goal||'Scale efficiently')+'\n\nGenerate 5 complete, immediately usable documents. Minimum 1,400 words total.\n\n## 01. CORE SOP LIBRARY - 5 KEY PROCESSES\n5 complete SOPs for the most critical recurring processes. For EACH: name, owner, trigger, 10+ numbered steps, quality checkpoints, common mistakes, time estimate, tools needed.\n\n## 02. TEAM ONBOARDING PACK\nCompany overview, values in practice, 30/60/90 day expectations by role, communication protocols, who does what, systems checklist, first week day-by-day schedule, performance review process.\n\n## 03. KPI DASHBOARD & SCORECARD\n12 KPIs across revenue, client success, operations, growth. For each: name, what it measures, target, how to track, frequency, owner, action if off-track.\n\n## 04. PROCESS AUDIT & GAP REPORT\nDiagnostic across: strategy, people, process, systems, finance, client delivery. Severity, fix, effort, impact, timeline for each gap. 3 immediate 30-day wins.\n\n## 05. 90-DAY SCALING ROADMAP\nWeek-by-week. Month 1: Stabilise. Month 2: Systematise. Month 3: Scale. Specific actions, owners, success metrics for each week.';}
 </script>
 </body>
 </html>
