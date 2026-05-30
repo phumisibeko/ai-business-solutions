@@ -364,7 +364,45 @@ AIBSOS.copy = function(btn, text) {
     btn.textContent = '✓ Copied';
     btn.style.opacity = '0.6';
     setTimeout(() => { btn.textContent = orig; btn.style.opacity = '1'; }, 1800);
+  }).catch(() => {
+    // Fallback for browsers that block clipboard
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
   });
+};
+
+/* Safe copy using stored window variable - avoids JSON in onclick attrs */
+AIBSOS.safeCopy = function(btn, storeKey) {
+  const text = window[storeKey] || '';
+  AIBSOS.copy(btn, text);
+};
+
+/* Download as .doc (Word-compatible HTML) */
+AIBSOS.downloadDoc = function(storeKey, filename) {
+  const text = window[storeKey] || '';
+  const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="UTF-8"><title>${filename}</title>
+<style>
+  body { font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.6; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 18pt; color: #e8622a; margin-bottom: 6pt; }
+  h2 { font-size: 13pt; color: #1a1a1a; border-bottom: 1px solid #e0dbd4; padding-bottom: 4pt; margin-top: 18pt; }
+  p { margin-bottom: 8pt; }
+  ul { margin-left: 18pt; }
+  li { margin-bottom: 4pt; }
+</style></head>
+<body>${text.replace(/\n/g,'<br>').replace(/## (.+)/g,'<h2>$1</h2>').replace(/# (.+)/g,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</body></html>`;
+  const blob = new Blob([html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = (filename || 'document') + '.doc';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
 };
 
 /* ── Render: Score bar ── */
@@ -606,8 +644,13 @@ AIBSOS.renderProposal = function(raw, formData) {
     html += `</div>`;
   }
 
+  // Store raw text safely for copy/download
+  const safeId = 'abrRaw_' + Date.now();
+  window[safeId] = raw;
+
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this, ${JSON.stringify(raw)})">📋 Copy Full Proposal</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,'${safeId}')">📋 Copy Full Proposal</button>
+    <button class="abr-btn-ghost" onclick="AIBSOS.downloadDoc('${safeId}','Business_Proposal')">⬇️ Download .doc</button>
     <button class="abr-btn-ghost" onclick="window.print()">🖨 Print</button>
   </div></div>`;
   return html;
@@ -654,7 +697,7 @@ AIBSOS.renderWhatDoISell = function(raw, formData) {
     html += `</div>`;
   }
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Strategy</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Strategy</button>
   </div></div>`;
   return html;
 };
@@ -720,7 +763,7 @@ AIBSOS.renderObjections = function(raw, formData) {
   }
 
   html += `</div><div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy All Responses</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All Responses</button>
   </div></div>`;
   return html;
 };
@@ -786,7 +829,7 @@ AIBSOS.renderClientPrep = function(raw, formData) {
   }
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Full Pack</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Full Pack</button>
   </div></div>`;
   return html;
 };
@@ -845,7 +888,7 @@ AIBSOS.renderPainFinder = function(raw, formData) {
     html += `</div>`;
   }
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Report</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Report</button>
   </div></div>`;
   return html;
 };
@@ -885,7 +928,7 @@ AIBSOS.renderCompetitive = function(raw, formData) {
     html += `</div>`;
   }
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Intel Report</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Intel Report</button>
   </div></div>`;
   return html;
 };
@@ -948,7 +991,7 @@ AIBSOS.renderROI = function(raw, formData) {
     html += `</div>`;
   }
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy ROI Report</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy ROI Report</button>
   </div></div>`;
   return html;
 };
@@ -1002,7 +1045,7 @@ AIBSOS.renderReplyRight = function(raw, formData) {
   }
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy All</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All</button>
   </div></div>`;
   return html;
 };
@@ -1021,7 +1064,7 @@ AIBSOS.renderJobApply = function(raw, formData) {
     <div class="abr-section">
       <div class="abr-section-title">Your Cover Letter</div>
       <div class="abr-doc-block" style="position:relative">${raw.replace(/\*\*/g,'')}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,${JSON.stringify(raw.replace(/\*\*/g,''))})">Copy</button></div>
+        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.safeCopy(this,_abrKey)">Copy</button></div>
       </div>
     </div>`;
 
@@ -1034,7 +1077,7 @@ AIBSOS.renderJobApply = function(raw, formData) {
   </div>`;
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw.replace(/\*\*/g,''))})">📋 Copy Letter</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Letter</button>
     <button class="abr-btn-ghost" onclick="window.print()">🖨 Print</button>
   </div></div>`;
   return html;
@@ -1073,7 +1116,7 @@ AIBSOS.renderCaptionForge = function(raw, formData) {
   });
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy All Captions</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All Captions</button>
   </div></div>`;
   return html;
 };
@@ -1117,7 +1160,7 @@ AIBSOS.renderContractCheck = function(raw, formData) {
   </div>`;
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Analysis</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Analysis</button>
   </div></div>`;
   return html;
 };
@@ -1184,7 +1227,7 @@ AIBSOS.renderMeetingMind = function(raw, formData) {
   }
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Full Notes</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Full Notes</button>
   </div></div>`;
   return html;
 };
@@ -1213,7 +1256,7 @@ AIBSOS.renderDocForge = function(raw, formData) {
       </div>
     </div>
     <div class="abr-footer">
-      <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw.replace(/\*\*/g,''))})">📋 Copy Document</button>
+      <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Document</button>
       <button class="abr-btn-ghost" onclick="window.print()">🖨 Print</button>
     </div></div>`;
   return html;
@@ -1245,7 +1288,7 @@ AIBSOS.renderThreadForge = function(raw, formData) {
 
   html += `</div>
     <div class="abr-footer">
-      <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Full Thread</button>
+      <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Full Thread</button>
     </div></div>`;
   return html;
 };
@@ -1289,7 +1332,7 @@ AIBSOS.renderChecklistAI = function(raw, formData) {
   }
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Checklist</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Checklist</button>
   </div></div>`;
   return html;
 };
@@ -1339,7 +1382,7 @@ AIBSOS.renderPriceMyWork = function(raw, formData) {
     html += `</div>`;
   }
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Rate Report</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Rate Report</button>
   </div></div>`;
   return html;
 };
@@ -1357,12 +1400,12 @@ AIBSOS.renderReviewReply = function(raw, formData) {
     <div class="abr-section">
       <div class="abr-section-title">Your Response</div>
       <div class="abr-doc-block" style="position:relative">${raw.replace(/\*\*/g,'')}
-        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.copy(this,${JSON.stringify(raw.replace(/\*\*/g,''))})">Copy</button></div>
+        <div class="abr-doc-copy"><button class="abr-copy-btn" onclick="AIBSOS.safeCopy(this,_abrKey)">Copy</button></div>
       </div>
     </div>
     ${AIBSOS.card('💡','Why this works','Acknowledges the reviewer directly, addresses the concern without being defensive, and invites them back — the formula that converts complaints into loyalty.','#f97316')}
     <div class="abr-footer">
-      <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw.replace(/\*\*/g,''))})">📋 Copy Response</button>
+      <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Response</button>
     </div></div>`;
   return html;
 };
@@ -1443,7 +1486,7 @@ AIBSOS.renderStudySnap = function(raw, formData) {
   }
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy All</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy All</button>
   </div></div>`;
   return html;
 };
@@ -1495,7 +1538,7 @@ AIBSOS.renderDailyBrief = function(raw, formData) {
   }
 
   html += `<div class="abr-footer">
-    <button class="abr-btn-primary" onclick="AIBSOS.copy(this,${JSON.stringify(raw)})">📋 Copy Brief</button>
+    <button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,_abrKey)">📋 Copy Brief</button>
   </div></div>`;
   return html;
 };
@@ -1606,7 +1649,7 @@ Write persuasively. Be specific. Use the client's name and industry context thro
 
     const amount = GE_PRICES[detectedCur] || GE_PRICES['ZAR'];
     PaystackPop.setup({
-      key: 'pk_live_915d85717736ad7b681582d0e833fa21b76cbbd3',
+      key: 'pk_test_bb2beaf62ad52654917a69cdd881c53c09a08d33',
       email: email,
       amount: amount,
       currency: CURR_CODES[detectedCur] || 'ZAR',
