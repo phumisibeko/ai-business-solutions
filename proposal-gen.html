@@ -665,7 +665,14 @@ AIBSOS.renderPriceSection = function(items, formPrice) {
       <div class="abr-price-lbl">${periodLabel}</div>
     </div>`;
   }
-  html += otherLines.map(l => `<p class="abr-prose">${l.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</p>`).join('');
+  html += otherLines.map(l => {
+    // Clean ### and ## sub-headings into bold labels
+    l = l.replace(/^###\s+(.+)/, '<strong>$1</strong>');
+    l = l.replace(/^##\s+(.+)/, '<strong>$1</strong>');
+    l = l.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    if (l.startsWith('<strong>')) return `<p class="abr-sublabel">${l}</p>`;
+    return `<p class="abr-prose">${l}</p>`;
+  }).join('');
   return html;
 };
 
