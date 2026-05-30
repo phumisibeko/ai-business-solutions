@@ -344,7 +344,7 @@ Day 1, Day 3, Day 7, Day 14, Day 28. Each email must have: subject line, opening
       const res = await fetch('/api/claude', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] })
+        body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 4000, messages: [{ role: 'user', content: prompt }] })
       });
       const data = await res.json();
       const raw = (data.content && data.content[0] && data.content[0].text) || '';
@@ -375,30 +375,53 @@ Day 1, Day 3, Day 7, Day 14, Day 28. Each email must have: subject line, opening
   // -- Output renderer --
   function renderOutput(text) {
     const lines = text.split('\n');
-    let html = '';
+    let html = '<div style="margin-top:.5rem;">';
     let inSection = false;
+
     for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line || line === '---') {
-        if (line === '---') html += '<hr style="border:none;border-top:1px solid rgba(255,255,255,.06);margin:.5rem 0;">';
-        continue;
-      }
+      const raw = lines[i];
+      const line = raw.trim();
+      if (!line) continue;
+      if (line === '---' || line === '***') continue;
+
       if (line.startsWith('## ')) {
         if (inSection) html += '</div>';
-        html += '<div class="out-section"><div class="out-sec-title">' + line.slice(3) + '</div>';
+        const title = line.slice(3);
+        html += '<div class="out-section"><div class="out-sec-title">' + title + '</div>';
         inSection = true;
       } else if (line.startsWith('### ')) {
-        html += '<span class="out-sublabel">' + line.slice(4).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>') + '</span>';
+        const t = line.slice(4).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        html += '<p class="out-sublabel">' + t + '</p>';
       } else if (line.startsWith('# ')) {
-        html += '<p style="font-family:Bebas Neue,sans-serif;font-size:1.2rem;letter-spacing:.04em;color:var(--text);margin:.5rem 0;">' + line.slice(2) + '</p>';
-      } else if (line.match(/^[-*] /) || line.match(/^\d+\. /)) {
-        const t = line.replace(/^[-*] /,'').replace(/^\d+\. /,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        if (inSection) html += '</div>';
+        html += '<div class="out-section"><div class="out-sec-title">' + line.slice(2) + '</div>';
+        inSection = true;
+      } else if (line.match(/^\d+\.\s/) && !line.match(/^\d+\.\s+[A-Z][a-z].*:/)) {
+        // Numbered list item
+        const t = line.replace(/^\d+\.\s*/,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
         html += '<div class="out-check"><div class="out-dot"></div><span>' + t + '</span></div>';
+      } else if (line.match(/^[-*]\s/)) {
+        // Bullet
+        const t = line.replace(/^[-*]\s/,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        html += '<div class="out-check"><div class="out-dot"></div><span>' + t + '</span></div>';
+      } else if (line.match(/^(Response [AB]|Subject:|Day \d|Week \d|Month \d):/i)) {
+        // Email/response labels
+        const colon = line.indexOf(':');
+        const label = line.slice(0, colon);
+        const body = line.slice(colon+1).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        html += '<p class="out-prose"><strong style="color:var(--text);">' + label + ':</strong> ' + body + '</p>';
       } else {
-        html += '<p class="out-prose">' + line.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>') + '</p>';
+        const t = line.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        // Check if it looks like a heading (short, ends with colon, all words capitalized)
+        if (line.length < 60 && line.endsWith(':') && !line.includes('.')) {
+          html += '<p class="out-sublabel">' + t + '</p>';
+        } else {
+          html += '<p class="out-prose">' + t + '</p>';
+        }
       }
     }
     if (inSection) html += '</div>';
+    html += '</div>';
     return html;
   }
 
