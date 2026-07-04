@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.aibsos.com/sitemap.xml
+Sitemap: https://aibsos.com/sitemap.xml
