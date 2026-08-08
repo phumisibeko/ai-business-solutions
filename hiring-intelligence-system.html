@@ -675,8 +675,21 @@ function setOutput(id,text){
     .replace(/^(\d+)\. (.+)$/gm,'<li style="margin-bottom:.3rem"><strong>$1.</strong> $2</li>')
     .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
   const el=document.getElementById(id);
-  el.innerHTML=fmt+'<div class="out-actions"><button class="out-btn" onclick="copyOut(\''+id+'\')">&#9166; Copy text</button><button class="out-btn" onclick="window.print()">&#9113; Print / PDF</button><button class="out-btn '+(prod==='ge'?'primary-ge':'primary-wf')+'" onclick="initPay(\''+pendingTool+'\',\''+pendingProduct+'\')">&#8635; Generate again</button></div>';
+  el.innerHTML=fmt+'<div class="out-actions"><button class="out-btn" onclick="copyOut(\''+id+'\')">📋 Copy Full Result</button><button class="out-btn" onclick="downloadOutput(\''+id+'\')">⬇️ Download .doc</button><button class="out-btn" onclick="window.print()">🖨 Print</button><button class="out-btn '+(prod==='ge'?'primary-ge':'primary-wf')+'" onclick="initPay(\''+pendingTool+'\',\''+pendingProduct+'\')">&#8635; Generate again</button></div>';
   el.classList.add('show');
+}
+
+function downloadOutput(id){
+  const el=document.getElementById(id);
+  const c=el.cloneNode(true);
+  c.querySelector('.out-actions')&&c.querySelector('.out-actions').remove();
+  const text=c.innerText.trim();
+  const safeTitle=(document.title||'AIBSOS Result').replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+  const escaped=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  const html='<html><head><meta charset="UTF-8"><style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;line-height:1.6;margin:2.5cm;color:#1a1a1a;}</style></head><body>'+escaped+'</body></html>';
+  const blob=new Blob([html],{type:'application/msword'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=safeTitle+'_Result.doc'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 }
 
 function copyOut(id){
