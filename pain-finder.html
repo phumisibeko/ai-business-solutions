@@ -1912,6 +1912,24 @@ Make the pain points feel real and specific — not generic. This is intelligenc
       outputArea.classList.add('visible');
       outputArea.innerHTML = AIBSOS.render(TOOL_KEY, raw, fd);
 
+      // Standard export actions across all AIBSOS result tools
+      window._aibsosStandardExportRaw = raw;
+      const _btnText = Array.from(outputArea.querySelectorAll('button')).map(b => b.textContent || '').join(' | ');
+      const _missingCopy = !/Copy/i.test(_btnText);
+      const _missingDownload = !/Download\s*\.doc/i.test(_btnText);
+      const _missingPrint = !/Print/i.test(_btnText);
+      if (_missingCopy || _missingDownload || _missingPrint) {
+        const _exportBar = document.createElement('div');
+        _exportBar.className = 'abr-footer';
+        _exportBar.setAttribute('data-aibsos-standard-export','true');
+        let _exportHtml = '';
+        if (_missingCopy) _exportHtml += `<button class="abr-btn-primary" onclick="AIBSOS.safeCopy(this,'_aibsosStandardExportRaw')">📋 Copy Full Result</button>`;
+        if (_missingDownload) _exportHtml += `<button class="abr-btn-ghost" onclick="AIBSOS.downloadDoc('_aibsosStandardExportRaw','AIBSOS_${TOOL_KEY}_Result')">⬇️ Download .doc</button>`;
+        if (_missingPrint) _exportHtml += `<button class="abr-btn-ghost" onclick="window.print()">🖨 Print</button>`;
+        _exportBar.innerHTML = _exportHtml;
+        outputArea.appendChild(_exportBar);
+      }
+
     } catch(err) {
       document.getElementById('generatingState').classList.remove('visible');
       document.getElementById('startOverBar').classList.add('visible');
