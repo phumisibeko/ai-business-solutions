@@ -100,6 +100,10 @@ textarea{resize:vertical;min-height:90px;}
 .rbtn-ge{background:var(--ge);color:white;}.rbtn-wf{background:var(--wf);color:white;}
 .out{margin-top:1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;display:none;font-size:.875rem;line-height:1.75;color:var(--text2);}
 .out.show{display:block;}
+/* Proposal result-only mode */
+#ge-proposal.proposal-result-only > :not(#out-proposal){display:none!important;}
+#ge-proposal.proposal-result-only{max-width:1040px;padding-top:1.5rem;}
+#ge-proposal.proposal-result-only #out-proposal{margin-top:0;}
 .out h3{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--text);letter-spacing:.05em;margin:1rem 0 .35rem;}
 .out h3:first-child{margin-top:0;}
 .out .doc-section:first-child h3{margin-top:0;}
@@ -705,12 +709,12 @@ async function callAIRaw(messages,system,maxTokens){
 // rewrite of just this chunk instead.
 async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
   const heading=sections.map(s=>'## '+s).join('\n');
-  const partPrompt=basePrompt+'\n\nFor this request, write ONLY the following section(s) — full, substantive content for each, not a summary — as these exact headings, in this exact order:\n'+heading
+  const partPrompt=basePrompt+'\n\nQUALITY BAR: Write as an experienced commercial proposal strategist. Prioritise decisions and buyer value over length. Use concrete deliverables tied to the supplied problem; where quantities or schedules are unknown, describe them as options requiring agreement. Differentiate the manufacturing industry from the retail client name: do not assume consumer marketing, sales channels, platforms, or buyers. Use concise paragraphs, useful bullets, and no filler. Never imply a meeting, audit, contract, guarantee, credential, timeline or service was agreed unless explicitly provided. Do not add any dollar sign or currency to an unlabelled price. Every section must add NEW information, not repeat earlier sections. Use proposed rather than promised language for unconfirmed deliverables.\n\nFor this request, write ONLY the following section(s) — full, substantive content for each, not a summary — as these exact headings, in this exact order:\n'+heading
     +(isFinalPart
       ?'\n\nThis is the final part of the document. It must end with the ACCEPTANCE & SIGNATURE section, containing a real signature line, printed name, title and date for both parties, as the very last content. Add nothing after it.'
       :'\n\nDo not write any other section, and do not add a preamble or a closing remark — output only the requested section(s).');
-  const maxTokens=1800;
-  const MAX_ATTEMPTS=3;
+  const maxTokens=2600;
+  const MAX_ATTEMPTS=4;
   let messages=[{role:'user',content:partPrompt}];
   let text='';
   for(let attempt=0;attempt<MAX_ATTEMPTS;attempt++){
@@ -720,6 +724,7 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
     if(!res.text) break;
     text+=res.text;
     const chk=validateChunk(text,sections,isFinalPart,supplied);
+    chk.accuracyIssues.push(...proposalCommercialIssues(text));
     if(chk.complete) return {text:text,complete:true};
     const structural=chk.missing.length||chk.thin.length||!chk.endsOk||(isFinalPart&&!chk.acceptanceOk);
     if(structural){
@@ -744,6 +749,28 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
   return {text:text,complete:validateChunk(text,sections,isFinalPart,supplied).complete};
 }
 
+// Additional commercial guardrails: checks do not replace editorial review.
+function proposalCommercialIssues(text){
+  const issues=[];
+  const price=v('prop-price').trim();
+  const t=String(text||'');
+  if(price){
+    const hasCurrency=/\b(?:USD|ZAR|EUR|GBP|AUD|CAD)\b|[$€£₹₦₨]/i.test(price);
+    if(!hasCurrency && /(?:\$|\bUSD\b|\bZAR\b|\bEUR\b|\bGBP\b)\s*[\d,]+|[\d,]+\s*(?:USD|ZAR|EUR|GBP)\b/i.test(t)) issues.push('Currency was inferred although none was supplied');
+    const amount=(price.match(/\d[\d,]*(?:\.\d+)?/)||[])[0];
+    if(amount && !t.includes(amount)) issues.push('Exact supplied price amount is missing');
+  }
+  const commitments=[
+    [/\b(?:14|30|7)\s*days?\s*(?:of|from|after)\s*(?:invoice|payment)/i,'Unapproved payment due date'],
+    [/\b(?:three|3|six|6|twelve|12)[ -]month\s+(?:minimum|contract|commitment|term)/i,'Unapproved contract duration'],
+    [/\b(?:30|60|90)\s*days?['’]?\s*(?:written\s+)?notice/i,'Unapproved notice period'],
+    [/\b(?:no hidden (?:fees|charges)|all[- ]in|no additional (?:fees|costs))\b/i,'Unverified all-inclusive pricing'],
+    [/\b(?:we have worked with|our clients include|our proven track record|we work with a focused client roster)\b/i,'Unverified provider credentials']
+  ];
+  for(const [pattern,issue] of commitments) if(pattern.test(t)) issues.push(issue);
+  return issues;
+}
+
 // Orchestrates the whole document as PROPOSAL_PARTS groups instead of one
 // long response: each part is generated and validated on its own (so a
 // truncation or a fabricated claim only ever costs a small, targeted
@@ -764,8 +791,10 @@ async function generateProposalChunked(basePrompt,system,supplied){
   for(let pass=0;pass<2;pass++){
     const fullText=partTexts.join('\n\n');
     const chk=validateProposal(fullText,supplied);
-    if(chk.complete) return {text:fullText,complete:true};
+    chk.accuracyIssues.push(...proposalCommercialIssues(fullText));
+    if(chk.complete && !chk.accuracyIssues.length) return {text:fullText,complete:true};
     const gapSections=new Set(chk.missing.concat(chk.thin));
+    if(chk.accuracyIssues.length){ for(let i=0;i<PROPOSAL_PARTS.length;i++) if(proposalCommercialIssues(partTexts[i]).length) PROPOSAL_PARTS[i].forEach(x=>gapSections.add(x)); }
     let anyRerun=false;
     for(let i=0;i<PROPOSAL_PARTS.length;i++){
       if(PROPOSAL_PARTS[i].some(s=>gapSections.has(s))){
@@ -776,7 +805,7 @@ async function generateProposalChunked(basePrompt,system,supplied){
     if(!anyRerun) break;
   }
   const fullText=partTexts.join('\n\n');
-  return {text:fullText,complete:validateProposal(fullText,supplied).complete};
+  return {text:fullText,complete:validateProposal(fullText,supplied).complete && !proposalCommercialIssues(fullText).length};
 }
 
 function setLoading(id){
@@ -972,19 +1001,27 @@ function setOutput(id,text,meta){
   let statusHtml='';
   if(meta&&meta.tool==='proposal'){
     const chk=validateProposal(text,proposalSuppliedFacts());
+    if(proposalCommercialIssues(text).length) chk.complete=false;
     const from=v('prop-you')||'Your company';
     const to=v('prop-cl')||'Your client';
     if(chk.complete){
-      statusHtml='<div class="result-status-row"><span class="result-ok">&#9989; Proposal generated \u2014 review, edit, copy or export below.</span><button class="result-restart-btn" onclick="initPay(\'proposal\',\'ge\')">&#8635; Start Over</button></div>'
+      statusHtml='<div class="result-status-row"><span class="result-ok">&#9989; Proposal generated \u2014 review, edit, copy or export below.</span><button class="result-restart-btn" onclick="resetProposalView()">&#8635; Start Over</button></div>'
         +'<div class="doc-card"><div><div class="doc-card-title">Business Proposal</div><div class="doc-card-sub">'+escHtml(from)+' &rarr; '+escHtml(to)+'</div></div><div class="doc-card-badge">GENERATED</div></div>';
     } else {
-      statusHtml='<div class="result-status-row"><span class="result-warn">&#9888; Some sections may need a quick review</span><button class="result-restart-btn" onclick="initPay(\'proposal\',\'ge\')">&#8635; Generate again</button></div>'
+      statusHtml='<div class="result-status-row"><span class="result-warn">&#9888; Some sections may need a quick review</span><button class="result-restart-btn" onclick="resetProposalView()">&#8635; Generate again</button></div>'
         +'<div class="doc-card"><div><div class="doc-card-title">Business Proposal</div><div class="doc-card-sub">'+escHtml(from)+' &rarr; '+escHtml(to)+'</div></div><div class="doc-card-badge warn">NEEDS REVIEW</div></div>';
     }
   }
   const el=document.getElementById(id);
   el.innerHTML=statusHtml+bodyHtml+'<div class="out-actions"><button class="out-btn" onclick="copyOut(\''+id+'\')">📋 Copy Full Result</button><button class="out-btn" onclick="downloadOutput(\''+id+'\')">⬇️ Download .doc</button><button class="out-btn" onclick="printClean(\''+id+'\')">🖨 Print</button><button class="out-btn '+(prod==='ge'?'primary-ge':'primary-wf')+'" onclick="initPay(\''+pendingTool+'\',\''+pendingProduct+'\')">&#8635; Generate again</button></div>';
   el.classList.add('show');
+  if(meta&&meta.tool==='proposal'){document.getElementById('ge-proposal').classList.add('proposal-result-only');window.scrollTo({top:0,behavior:'smooth'});}
+}
+
+function resetProposalView(){
+  document.getElementById('ge-proposal').classList.remove('proposal-result-only');
+  const out=document.getElementById('out-proposal');out.classList.remove('show');out.innerHTML='';
+  document.getElementById('ge-proposal').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // Builds a fully standalone HTML document for this result — no nav, no app
@@ -1124,6 +1161,9 @@ const PROMPT_META={
       +'C. Illustrative assumptions or scenarios — allowed, but must be explicitly labelled as an "illustrative scenario", an "assumption", or "to be confirmed with client data". Never state these as established fact.\n'
       +'D. Anything else you do not actually know — do not invent it. This means: no industry benchmarks, no named-competitor performance, no customer/database counts, no unsubscribe/spam/deliverability rates, no conversion rates, no ROI percentages or ratios, no customer lifetime value multiples, no transaction values, no operational details about the client\u2019s business — unless it was supplied (A), calculated from supplied numbers (B), or clearly labelled per (C).\n'
       +'Never write "according to industry benchmarks", "industry data shows", "our research shows", "our analysis identified", "we found", or any similar claim of a source or study that was not actually supplied to you.\n\n'
+      +'COMMERCIAL TERMS RULE — preserve the exact proposed price string and currency as supplied. If no currency symbol or code is supplied, never infer one: repeat the amount verbatim and identify currency as to be confirmed. Never invent payment due dates, contract lengths, cancellation notice, penalties, included advertising budgets, service guarantees, meeting schedules, staff allocations, or fee inclusions. Present these as items for agreement only. Do not assert client discussions or supplier credentials that were not supplied. Avoid contradictions between included and excluded costs.\n\n'
+      +'QUALITY RULE — write clearly and concisely; avoid repeating the same problem across sections. Make recommendations appropriate to the stated industry while distinguishing proposed activities from confirmed scope. Specify measurable deliverables only when agreed; otherwise label them as proposed for confirmation.\n\n'
+      +'EDITORIAL RULE — Each section must answer a distinct buyer question. Focus on decision-ready scope, relevant industry context, a realistic implementation approach, proposed KPIs with baseline and measurement method, and an explicit approval next step. Do not invent a supplier track record, resources, service cadence, content volumes, platforms, client decisions, or operational capabilities. When not provided, frame these as recommendations for agreement. Keep the document concise; eliminate generic hype and duplicated paragraphs. Distinguish the client\u2019s named industry from assumptions about its target customers.\n\n'
       +'OUTCOME RULE — do not present desired results as guaranteed. Use phrasing like "designed to improve", "intended to strengthen", "a proposed performance target", "subject to baseline validation", "to be confirmed using client data", "potential contributing factors". The proposal must still read as persuasive, specific, and commercially sharp — do not go vague or generic, just do not claim false certainty.\n\n'
       +'FORMAT RULE — for each request, write ONLY the section(s) it names, each as a "## SECTION NAME" heading with full, substantive content (never a one-line stub, never "[to be written]"). Do not write any other section. Do not add a preamble or a closing remark — output only the requested content. Finish every section fully; never stop mid-sentence.\n\n'
       +'DEPTH RULES — match depth to the stated client/deal size:\n'
@@ -1153,6 +1193,7 @@ async function generateResult(tool,prod,ref){
       // complete" — only generateProposalChunked's own completeness check is.
       const supplied=proposalSuppliedFacts();
       const{text,complete}=await generateProposalChunked(prompt,meta.system,supplied);
+      if(!complete){ document.getElementById(outId).innerHTML='<span class="result-warn">Proposal requires review before delivery. Your payment reference: '+escHtml(ref)+'. Please contact hello@aibsos.com for assistance.</span>'; return; }
       setOutput(outId,text,{tool:tool,complete:complete});
     } else {
       const result=await callAI(prompt);
@@ -1275,7 +1316,7 @@ function buildPrompt(tool){
   const P={
     proposal:()=>{const cl=v('prop-cl'),prob=v('prop-prob');if(!cl||!prob)return null;
       const today=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-      return `You are writing a client-ready business proposal using ONLY the facts below. Do not invent facts that are not given here.\n\nFrom: ${v('prop-you')||'The provider'} | To: ${cl} | Contact: ${v('prop-con')||'The decision maker'} | Industry: ${v('prop-ind')||'Not specified'} | Client/deal size: ${v('prop-size')||'SME'} | Today's date: ${today}\nProblem stated by the user (treat only what is written here as confirmed; anything not stated is unconfirmed): ${prob}\nProposed solution: ${v('prop-sol')||'A tailored solution to be scoped with the client'}\nProposed price: ${v('prop-price')||'To be confirmed with the client'}\n\nFollow the facts rule, outcome rule, format rule, and depth rules in your instructions exactly.`;},
+      return `You are writing a client-ready business proposal using ONLY the facts below. Do not invent facts that are not given here.\n\nFrom: ${v('prop-you')||'The provider'} | To: ${cl} | Contact: ${v('prop-con')||'The decision maker'} | Industry: ${v('prop-ind')||'Not specified'} | Client/deal size: ${v('prop-size')||'SME'} | Today's date: ${today}\nProblem stated by the user (treat only what is written here as confirmed; anything not stated is unconfirmed): ${prob}\nProposed solution: ${v('prop-sol')||'A tailored solution to be scoped with the client'}\nProposed price: ${v('prop-price')||'To be confirmed with the client'}\n\nFollow the facts, commercial terms, quality, outcome, format and depth rules exactly. IMPORTANT: price is a literal user-entered string; never prepend a currency or infer USD, ZAR or any other currency. Do not fabricate commercial terms or commitments.`;},
     sell:()=>{const co=v('sell-co'),ind=v('sell-ind');if(!co||!ind)return null;return `You are Growth Engine. CEO-level sell strategy:\nCompany: ${co} | Industry: ${ind} | Size: ${v('sell-sz')} | What I sell: ${v('sell-off')||'AI solutions'} | Context: ${v('sell-ctx')||'None'}\n\n## THEIR LIKELY PROBLEMS\n## BUSINESS IMPACT\n## TOP 3 SOLUTIONS TO PITCH\n## HOW TO OPEN THE CONVERSATION\n## REVENUE OPPORTUNITY\nSpecific, commercially sharp. Minimum 400 words.`;},
     objections:()=>{const said=v('obj-said');if(!said)return null;return `You are Growth Engine Objection Handler. Client said: "${said}"\nSelling: ${v('obj-off')||'AI solution'} | Context: ${v('obj-ctx')||'B2B sales'}\n\n## RESPONSE 1 - REFRAME\n## RESPONSE 2 - EMPATHISE AND REDIRECT\n## RESPONSE 3 - DIRECT AND CONFIDENT\n## FOLLOW-UP QUESTION\nEach response 3-5 sentences.`;},
     prep:()=>{const co=v('prep-co');if(!co)return null;return `You are Growth Engine Client Prep Engine:\nCompany: ${co} | Industry: ${v('prep-ind')} | Size: ${v('prep-sz')} | Selling: ${v('prep-off')||'AI solutions'} | Context: ${v('prep-ctx')||'None'}\n\n## PAIN POINTS TO REFERENCE\n## SMART QUESTIONS TO ASK\n## ROI FRAMING\n## LIKELY OBJECTIONS AND HOW TO HANDLE THEM\n## FOLLOW-UP EMAIL TEMPLATE\nMinimum 400 words. Include a complete follow-up email.`;},
