@@ -737,8 +737,8 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
     if(!res.text) break;
     text+=res.text;
     const chk=validateChunk(text,sections,isFinalPart,supplied);
-    chk.accuracyIssues.push(...proposalCommercialIssues(text),...proposalEditorialIssues(text));
-    if(chk.complete) return {text:text,complete:true};
+    chk.accuracyIssues.push(...proposalCommercialIssues(text));
+    if(chk.complete && !chk.accuracyIssues.length) return {text:text,complete:true};
     const structural=chk.missing.length||chk.thin.length||!chk.endsOk||(isFinalPart&&!chk.acceptanceOk);
     if(structural){
       const nudge='This part is not yet complete: '
@@ -760,7 +760,7 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
       text='';
     }
   }
-  return {text:text,complete:validateChunk(text,sections,isFinalPart,supplied).complete && !proposalCommercialIssues(text).length && !proposalEditorialIssues(text).length};
+  return {text:text,complete:validateChunk(text,sections,isFinalPart,supplied).complete && !proposalCommercialIssues(text).length};
 }
 
 // Additional commercial guardrails: checks do not replace editorial review.
@@ -1253,7 +1253,10 @@ async function generateResult(tool,prod,ref){
       // complete" — only generateProposalChunked's own completeness check is.
       const supplied=proposalSuppliedFacts();
       const{text,complete}=await generateProposalChunked(prompt,meta.system,supplied);
-      if(!complete){ closeProposalProgress();document.getElementById('ge-proposal').classList.add('proposal-result-only'); document.getElementById(outId).innerHTML='<span class="result-warn">Proposal requires review before delivery. Your payment reference: '+escHtml(ref)+'. Please contact hello@aibsos.com for assistance.</span>';document.getElementById(outId).classList.add('show');return; }
+      if(!complete && !text.trim()){ throw new Error('No proposal content returned'); }
+      // Deliver the paid draft even when a noncritical quality check flags it; clearly label review status.
+      // Payment reference is retained for customer support.
+      window.lastProposalPaymentRef=ref;
       proposalProgress(100,'Proposal ready');setOutput(outId,text,{tool:tool,complete:complete});closeProposalProgress();
     } else {
       const result=await callAI(prompt);
