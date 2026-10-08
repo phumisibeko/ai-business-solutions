@@ -322,6 +322,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
   .wf-grid,.ge-grid{grid-template-columns:1fr!important;}
 }
 
+
+/* Full-screen proposal generation state */
+#proposal-progress{display:none;position:fixed;inset:0;z-index:1000;background:#0c0c0c;color:#f0ede8;align-items:center;justify-content:center;padding:24px;}
+#proposal-progress.active{display:flex;}
+.prog-inner{width:min(600px,100%);text-align:center;font-family:'Instrument Sans',sans-serif;}
+.prog-eyebrow{color:#e8622a;font-size:12px;letter-spacing:2px;font-weight:700;margin-bottom:18px;}
+.prog-inner h2{font-size:clamp(28px,5vw,44px);margin-bottom:12px;}
+.prog-inner p{color:#a09a90;line-height:1.6;margin-bottom:30px;}
+.prog-track{height:12px;background:#292929;border-radius:20px;overflow:hidden;}
+#proposal-progress-fill{height:100%;width:3%;background:linear-gradient(90deg,#e8622a,#ff9b65);transition:width .5s ease;border-radius:20px;}
+.prog-meta{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:#a09a90;gap:12px;}
+#proposal-progress-pct{color:#fff;font-weight:700;}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0TGWBQH60Q"></script>
@@ -335,6 +347,7 @@ gtag('config','G-0TGWBQH60Q');
 <link rel="canonical" href="https://www.aibsos.com/proposal-gen">
 </head>
 <body>
+<div id="proposal-progress" role="status" aria-live="polite" aria-label="Generating business proposal"><div class="prog-inner"><div class="prog-eyebrow">AIBSOS · PROPOSAL GENERATOR</div><h2>Building your proposal</h2><p>Your tailored business proposal is being drafted, checked and prepared for delivery.</p><div class="prog-track"><div id="proposal-progress-fill"></div></div><div class="prog-meta"><span id="proposal-progress-step">Preparing your brief</span><span id="proposal-progress-pct">3%</span></div></div></div>
 
 <nav>
   <div class="nav-logo" onclick="showView('home',null)">AI BUSINESS SOLUTIONS <span>OS</span></div>
@@ -778,6 +791,16 @@ function proposalCommercialIssues(text){
 // validated one more time as a safety net — and if any specific section is
 // still missing at that point, only the part(s) that section belongs to are
 // regenerated, never the entire proposal.
+function proposalProgress(percent,label){
+  const modal=document.getElementById('proposal-progress');
+  if(!modal)return;
+  modal.classList.add('active');
+  const n=Math.max(3,Math.min(99,Math.round(percent)));
+  document.getElementById('proposal-progress-fill').style.width=n+'%';
+  document.getElementById('proposal-progress-pct').textContent=n+'%';
+  document.getElementById('proposal-progress-step').textContent=label;
+}
+function closeProposalProgress(){document.getElementById('proposal-progress')?.classList.remove('active');}
 async function generateProposalChunked(basePrompt,system,supplied){
   const partTexts=new Array(PROPOSAL_PARTS.length).fill('');
   async function runPart(i){
@@ -786,9 +809,14 @@ async function generateProposalChunked(basePrompt,system,supplied){
     const result=await generatePart(basePrompt,system,sections,isFinal,supplied);
     partTexts[i]=result.text;
   }
-  for(let i=0;i<PROPOSAL_PARTS.length;i++) await runPart(i);
+  for(let i=0;i<PROPOSAL_PARTS.length;i++){
+    proposalProgress(8+Math.round(75*i/PROPOSAL_PARTS.length),['Analysing your brief','Drafting the commercial case','Building the implementation plan','Preparing terms and acceptance','Checking document quality'][i]||'Drafting proposal');
+    await runPart(i);
+    proposalProgress(8+Math.round(75*(i+1)/PROPOSAL_PARTS.length),'Completed section '+(i+1)+' of '+PROPOSAL_PARTS.length);
+  }
 
   for(let pass=0;pass<2;pass++){
+    proposalProgress(86+pass*5,'Validating accuracy and completeness');
     const fullText=partTexts.join('\n\n');
     const chk=validateProposal(fullText,supplied);
     chk.accuracyIssues.push(...proposalCommercialIssues(fullText));
@@ -812,7 +840,7 @@ function setLoading(id){
   const el=document.getElementById(id);
   el.classList.add('show');
   el.innerHTML='<span class="loading-txt">&#9889; Generating your result...</span>';
-  el.scrollIntoView({behavior:'smooth',block:'center'});
+  if(id==='out-proposal'){proposalProgress(3,'Preparing your brief');}else{el.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 
 function escHtml(s){
@@ -1182,7 +1210,7 @@ async function generateResult(tool,prod,ref){
   const outId='out-'+tool;
   setLoading(outId);
   const prompt=buildPrompt(tool);
-  if(!prompt){document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Error. Please try again.</span>';return;}
+  if(!prompt){if(tool==='proposal')closeProposalProgress();document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Error. Please try again.</span>';return;}
   const meta=PROMPT_META[tool];
   try{
     if(tool==='proposal'&&meta){
@@ -1193,14 +1221,14 @@ async function generateResult(tool,prod,ref){
       // complete" — only generateProposalChunked's own completeness check is.
       const supplied=proposalSuppliedFacts();
       const{text,complete}=await generateProposalChunked(prompt,meta.system,supplied);
-      if(!complete){ document.getElementById(outId).innerHTML='<span class="result-warn">Proposal requires review before delivery. Your payment reference: '+escHtml(ref)+'. Please contact hello@aibsos.com for assistance.</span>'; return; }
-      setOutput(outId,text,{tool:tool,complete:complete});
+      if(!complete){ closeProposalProgress();document.getElementById('ge-proposal').classList.add('proposal-result-only'); document.getElementById(outId).innerHTML='<span class="result-warn">Proposal requires review before delivery. Your payment reference: '+escHtml(ref)+'. Please contact hello@aibsos.com for assistance.</span>';document.getElementById(outId).classList.add('show');return; }
+      proposalProgress(100,'Proposal ready');setOutput(outId,text,{tool:tool,complete:complete});closeProposalProgress();
     } else {
       const result=await callAI(prompt);
       setOutput(outId,result);
     }
   }
-  catch(e){document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Connection error. Ref: <strong>'+ref+'</strong> \u2014 email hello@aibsos.com and we will process your result or refund you.</span>';}
+  catch(e){if(tool==='proposal'){closeProposalProgress();document.getElementById('ge-proposal').classList.add('proposal-result-only');}document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Connection error. Ref: <strong>'+ref+'</strong> \u2014 email hello@aibsos.com and we will process your result or refund you.</span>';document.getElementById(outId).classList.add('show');}
 }
 
 function showMKT(id, btn) {
