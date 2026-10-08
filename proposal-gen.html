@@ -328,7 +328,7 @@ gtag('js',new Date());
 gtag('config','G-0TGWBQH60Q');
 </script>
 
-<link rel="canonical" href="https://www.aibsos.com/proposal-generator.html">
+<link rel="canonical" href="https://www.aibsos.com/proposal-gen">
 </head>
 <body>
 
@@ -1585,13 +1585,14 @@ Candidate 2: Emily &mdash; 5 years, high performer, no management experience..."
 /* AIBSOS FINAL ROUTER + MARKETPLACE + LIFEBOARD PATCH */
 const AIBSOS_URLS = {
   'wf-home':'/workforge','wf-replyright':'/replyright','wf-jobapply':'/jobapply-ai','wf-captionforge':'/captionforge','wf-contractcheck':'/contractcheck','wf-meetingmind':'/meetingmind','wf-docforge':'/docforge','wf-threadforge':'/threadforge','wf-checklistai':'/checklistai','wf-pricemywork':'/pricemywork','wf-reviewreply':'/reviewreply','wf-studysnap':'/studysnap','wf-dailybrief':'/dailybrief',
-  'ge-home':'/growth-engine','ge-proposal':'/proposal-generator','ge-sell':'/what-do-i-sell','ge-obj':'/objection-handler','ge-prep':'/client-prep','ge-pain':'/pain-finder','ge-comp':'/competitive-intel','ge-roi':'/roi-calculator',
+  'ge-home':'/growth-engine','ge-proposal':'/proposal-gen','ge-sell':'/what-do-i-sell','ge-obj':'/objection-handler','ge-prep':'/client-prep','ge-pain':'/pain-finder','ge-comp':'/competitive-intel','ge-roi':'/roi-calculator',
   'mkt-home':'/marketplace','mkt-sales':'/sales-domination-system','mkt-exec':'/executive-decision-pack','mkt-retain':'/client-retention-engine','mkt-brand':'/brand-authority-content-system','mkt-hire':'/hiring-intelligence-system','mkt-launch':'/launch-accelerator',
   'life-home':'/lifeboard','life-daily':'/daily-reset','life-priorities':'/priority-planner','life-journal':'/clarity-journal'
 };
 
 const AIBSOS_ROUTE_MAP = {};
 Object.keys(AIBSOS_URLS).forEach(id => AIBSOS_ROUTE_MAP[AIBSOS_URLS[id]] = id);
+AIBSOS_ROUTE_MAP['/proposal-generator'] = 'ge-proposal'; // Legacy URL
 
 const MKT_DISPLAY = {
   sales:{ZAR:'R4,997',USD:'$270',NGN:'₦450,000',GBP:'£220',EUR:'€250'},
