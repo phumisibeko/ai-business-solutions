@@ -1077,6 +1077,7 @@ function setOutput(id,text,meta){
 }
 
 function resetProposalView(){
+  closeProposalProgress();
   document.getElementById('ge-proposal').classList.remove('proposal-result-only');
   const out=document.getElementById('out-proposal');out.classList.remove('show');out.innerHTML='';
   document.getElementById('ge-proposal').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1263,7 +1264,7 @@ async function generateResult(tool,prod,ref){
       setOutput(outId,result);
     }
   }
-  catch(e){if(tool==='proposal'){closeProposalProgress();document.getElementById('ge-proposal').classList.add('proposal-result-only');}document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Connection error. Ref: <strong>'+ref+'</strong> \u2014 email hello@aibsos.com and we will process your result or refund you.</span>';document.getElementById(outId).classList.add('show');}
+  catch(e){if(tool==='proposal'){closeProposalProgress();document.getElementById('ge-proposal').classList.remove('proposal-result-only');}document.getElementById(outId).innerHTML='<span style="color:#ff6b6b">Generation could not complete. Payment reference: <strong>'+escHtml(ref)+'<\/strong>. Do not pay again for this attempt; contact hello@aibsos.com to recover the result or arrange a refund.</span>';document.getElementById(outId).classList.add('show');}
 }
 
 function showMKT(id, btn) {
@@ -1823,6 +1824,9 @@ function routeAIBS(){
   const id = AIBSOS_ROUTE_MAP[path];
 
   if(!id) { if(path === '/' || path === '/index.html') originalShowView('home',null); return; }
+  // A direct visit to Proposal Generator always starts on its input form.
+  // Never restore an old review/error panel as the landing screen.
+  if(id === 'ge-proposal') resetProposalView();
 
   if(id.startsWith('wf-')){
     originalShowView('wf',null);
