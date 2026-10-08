@@ -723,7 +723,7 @@ async function callAIRaw(messages,system,maxTokens){
 async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
   const heading=sections.map(s=>'## '+s).join('\n');
   const challengeAnchor='\n\nCANONICAL CLIENT CHALLENGES (do not add or split into extra challenges): '+v('prop-prob')+'. Supplier: '+v('prop-you')+'. Client: '+v('prop-cl')+'. Price exactly as entered: '+v('prop-price')+'.';
-  const partPrompt=basePrompt+challengeAnchor+'\n\nQUALITY BAR: Write as an experienced commercial proposal strategist. Prioritise decisions and buyer value over length. Use concrete deliverables tied to the supplied problem; where quantities or schedules are unknown, describe them as options requiring agreement. Differentiate the manufacturing industry from the retail client name: do not assume consumer marketing, sales channels, platforms, or buyers. Use concise paragraphs, useful bullets, and no filler. Never imply a meeting, audit, contract, guarantee, credential, timeline or service was agreed unless explicitly provided. Do not add any dollar sign or currency to an unlabelled price. Every section must add NEW information, not repeat earlier sections. The provider is EXACTLY the company named after From:, NEVER AIBSOS unless From: explicitly says AIBSOS. AIBSOS is only the software platform and must NEVER appear in the proposal body. Never say the provider was engaged, selected or appointed. Proposal validity must be stated as validity period to be agreed unless explicitly supplied. In NEXT STEPS put approval and signature BEFORE onboarding, payment or launch. Keep each section brief and decision-useful: 100-180 words except signature and commercial terms. Offer 2-4 clearly labelled illustrative deliverables, not invented contractual promises. Never use generic supplier credentials. Use proposed rather than promised language for unconfirmed deliverables. QUALITY REQUIREMENTS: (1) In OUR SOLUTION, include a compact Proposed Deliverables table with 3-5 distinct rows: deliverable, what it does, client benefit, and status Proposed—subject to scope approval. Name actual workflow components (trigger, action, handoff), not vague AI capabilities. (2) In INVESTMENT JUSTIFICATION include a transparent illustrative break-even formula: additional gross profit needed = monthly fee; incremental orders needed = monthly fee divided by assumed gross profit per order. If currency unspecified, use the supplied number without any symbol; clearly label example assumptions and never imply actual client data. (3) Do not invent new client challenges: every challenge in the problem, solution, KPI and summary must be traceable to the supplied brief; do not change three challenges into four. (4) Put ALL outstanding commercial questions in PAYMENT TERMS and scope questions in ASSUMPTIONS & CLIENT RESPONSIBILITIES; elsewhere refer once to the scope-confirmation step rather than repeating to be confirmed. (5) In ACCEPTANCE & SIGNATURE, if material terms remain open, label the section PROPOSED ACCEPTANCE SUBJECT TO FINAL AGREEMENT and say signing the proposal alone does not commence services or create payment obligations; retain signature fields. (6) Keep total output lean: aim for a 4-6 page business proposal, not an essay. Avoid repeating the problem in WHY US, INVESTMENT JUSTIFICATION and REPORTING. (7) Never claim an ROI, actual results, or signed agreement without evidence.\n\nFor this request, write ONLY the following section(s) — full, substantive content for each, not a summary — as these exact headings, in this exact order:\n'+heading
+  const partPrompt=basePrompt+challengeAnchor+'\nSECTION DIVISION: INVESTMENT JUSTIFICATION owns the one and only illustrative break-even table and formula. INVESTMENT shows only the supplied fee, frequency, and concise scope note. No duplicate ROI or break-even in INVESTMENT. WHY US must not claim supplier expertise unless provided. Never print commentary about completion or instructions.\n'+'\n\nQUALITY BAR: Write as an experienced commercial proposal strategist. Prioritise decisions and buyer value over length. Use concrete deliverables tied to the supplied problem; where quantities or schedules are unknown, describe them as options requiring agreement. Differentiate the manufacturing industry from the retail client name: do not assume consumer marketing, sales channels, platforms, or buyers. Use concise paragraphs, useful bullets, and no filler. Never imply a meeting, audit, contract, guarantee, credential, timeline or service was agreed unless explicitly provided. Do not add any dollar sign or currency to an unlabelled price. Every section must add NEW information, not repeat earlier sections. The provider is EXACTLY the company named after From:, NEVER AIBSOS unless From: explicitly says AIBSOS. AIBSOS is only the software platform and must NEVER appear in the proposal body. Never say the provider was engaged, selected or appointed. Proposal validity must be stated as validity period to be agreed unless explicitly supplied. In NEXT STEPS put approval and signature BEFORE onboarding, payment or launch. Keep each section brief and decision-useful: 100-180 words except signature and commercial terms. Offer 2-4 clearly labelled illustrative deliverables, not invented contractual promises. Never use generic supplier credentials. Use proposed rather than promised language for unconfirmed deliverables. QUALITY REQUIREMENTS: (1) In OUR SOLUTION, include a compact Proposed Deliverables table with 3-5 distinct rows: deliverable, what it does, client benefit, and status Proposed—subject to scope approval. Name actual workflow components (trigger, action, handoff), not vague AI capabilities. (2) In INVESTMENT JUSTIFICATION include a transparent illustrative break-even formula: additional gross profit needed = monthly fee; incremental orders needed = monthly fee divided by assumed gross profit per order. If currency unspecified, use the supplied number without any symbol; clearly label example assumptions and never imply actual client data. (3) Do not invent new client challenges: every challenge in the problem, solution, KPI and summary must be traceable to the supplied brief; do not change three challenges into four. (4) Put ALL outstanding commercial questions in PAYMENT TERMS and scope questions in ASSUMPTIONS & CLIENT RESPONSIBILITIES; elsewhere refer once to the scope-confirmation step rather than repeating to be confirmed. (5) In ACCEPTANCE & SIGNATURE, if material terms remain open, retain the exact heading ACCEPTANCE & SIGNATURE and label its first line Proposed acceptance subject to final agreement and say signing the proposal alone does not commence services or create payment obligations; retain signature fields. (6) Keep total output lean: aim for a 4-6 page business proposal, not an essay. Avoid repeating the problem in WHY US, INVESTMENT JUSTIFICATION and REPORTING. (7) Never claim an ROI, actual results, or signed agreement without evidence.\n\nFor this request, write ONLY the following section(s) — full, substantive content for each, not a summary — as these exact headings, in this exact order:\n'+heading
     +(isFinalPart
       ?'\n\nThis is the final part of the document. It must end with the ACCEPTANCE & SIGNATURE section, containing a real signature line, printed name, title and date for both parties, as the very last content. Add nothing after it.'
       :'\n\nDo not write any other section, and do not add a preamble or a closing remark — output only the requested section(s).');
@@ -736,19 +736,15 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
     try{ res=await callAIRaw(messages,system,maxTokens); }
     catch(e){ break; }
     if(!res.text) break;
-    text+=res.text;
+    text=cleanProposalPart(text+res.text,sections);
     const chk=validateChunk(text,sections,isFinalPart,supplied);
     chk.accuracyIssues.push(...proposalCommercialIssues(text));
     if(chk.complete && !chk.accuracyIssues.length) return {text:text,complete:true};
     const structural=chk.missing.length||chk.thin.length||!chk.endsOk||(isFinalPart&&!chk.acceptanceOk);
     if(structural){
-      const nudge='This part is not yet complete: '
-        +(chk.missing.length?('missing section(s) ('+chk.missing.join(', ')+'). '):'')
-        +(chk.thin.length?('these need substantive content, not just a heading ('+chk.thin.join(', ')+'). '):'')
-        +(!chk.endsOk?'The text ends mid-sentence. ':'')
-        +(isFinalPart&&!chk.acceptanceOk?'ACCEPTANCE & SIGNATURE must be the final, fully-written section. ':'')
-        +'Continue immediately from the exact stopping point, only for this part\u2019s required section(s) — do not repeat any earlier content, do not add commentary.';
-      messages=[{role:'user',content:partPrompt},{role:'assistant',content:text},{role:'user',content:nudge}];
+      const rewrite='Produce a COMPLETE replacement for ONLY these headings in order: '+sections.map(x=>'## '+x).join(', ')+'. Previous attempt was incomplete or malformed. Start at the first heading, finish each section, include no process commentary, and do not duplicate headings. Keep the complete response within 1200 words.';
+      messages=[{role:'user',content:partPrompt+'\n\n'+rewrite}];
+      text='';
     } else {
       const problems=[];
       if(chk.hasPlaceholder) problems.push('leftover placeholder text (like "[insert...]")');
@@ -764,6 +760,31 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
   return {text:text,complete:validateChunk(text,sections,isFinalPart,supplied).complete && !proposalCommercialIssues(text).length};
 }
 
+// Deterministic output assembly: accept exactly one copy of each requested heading.
+function cleanProposalPart(raw, requested){
+  const names=PROPOSAL_SECTIONS;
+  const aliases={'PROPOSED ACCEPTANCE SUBJECT TO FINAL AGREEMENT':'ACCEPTANCE & SIGNATURE'};
+  const lines=String(raw||'').replace(/\r\n/g,'\n').split('\n');
+  const buckets={}; let current=null;
+  const isMeta=line=>/^(?:the stopping point|no continuation is required|the section labelled|if a separately headed version|no further content follows|all (?:three|four|five) sections are fully written|the output above|this completes the|note to (?:user|reviewer)|as an ai|i have (?:completed|included))\b/i.test(line.trim());
+  for(const line of lines){
+    const match=line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
+    if(match){const rawName=match[1].replace(/\*\*/g,'').trim().toUpperCase();const name=aliases[rawName]||rawName;
+      if(names.includes(name)){current=requested.includes(name)&&!buckets[name]?name:null;if(current)buckets[current]=[];continue;}
+      // Treat unexpected top-level headings as model commentary, not a new section.
+      if(/^##\s/.test(line)){current=null;continue;}
+    }
+    if(current&&!isMeta(line))buckets[current].push(line);
+  }
+  return requested.filter(n=>buckets[n]).map(n=>'## '+n+'\n'+buckets[n].join('\n').trim().replace(/(?:\n\s*---\s*)+$/,'').trim()).join('\n\n');
+}
+function proposalAssemblyIssues(text){
+ const headings=[...String(text).matchAll(/^##\s+(.+)$/gm)].map(x=>x[1].trim().toUpperCase());
+ const issues=[];for(const name of PROPOSAL_SECTIONS){if(headings.filter(x=>x===name).length!==1)issues.push('Heading count for '+name+' is not one');}
+ if(headings.join('|')!==PROPOSAL_SECTIONS.join('|'))issues.push('Section order mismatch');
+ if(/the stopping point|no continuation is required|the section labelled .* in the output above|if a separately headed version|no further content follows/i.test(text))issues.push('Internal model commentary detected');
+ return issues;
+}
 // Additional commercial guardrails: checks do not replace editorial review.
 function proposalCommercialIssues(text){
   const issues=[];
@@ -846,7 +867,7 @@ async function generateProposalChunked(basePrompt,system,supplied){
     const sections=PROPOSAL_PARTS[i];
     const isFinal=i===PROPOSAL_PARTS.length-1;
     const result=await generatePart(basePrompt,system,sections,isFinal,supplied);
-    partTexts[i]=result.text;
+    partTexts[i]=cleanProposalPart(result.text,sections);
   }
   for(let i=0;i<PROPOSAL_PARTS.length;i++){
     proposalProgress(8+Math.round(75*i/PROPOSAL_PARTS.length),['Analysing your brief','Drafting the commercial case','Building the implementation plan','Preparing terms and acceptance','Checking document quality'][i]||'Drafting proposal');
@@ -858,7 +879,7 @@ async function generateProposalChunked(basePrompt,system,supplied){
     proposalProgress(86+pass*5,'Validating accuracy and completeness');
     const fullText=partTexts.join('\n\n');
     const chk=validateProposal(fullText,supplied);
-    chk.accuracyIssues.push(...proposalCommercialIssues(fullText),...proposalEditorialIssues(fullText));
+    chk.accuracyIssues.push(...proposalCommercialIssues(fullText),...proposalEditorialIssues(fullText),...proposalAssemblyIssues(fullText));
     if(chk.complete && !chk.accuracyIssues.length) return {text:fullText,complete:true};
     const gapSections=new Set(chk.missing.concat(chk.thin));
     if(chk.accuracyIssues.length){ for(let i=0;i<PROPOSAL_PARTS.length;i++) if(proposalCommercialIssues(partTexts[i]).length || proposalEditorialIssues(partTexts[i]).length) PROPOSAL_PARTS[i].forEach(x=>gapSections.add(x)); if(!gapSections.size) { ['OUR SOLUTION','INVESTMENT JUSTIFICATION','SUCCESS METRICS'].forEach(x=>gapSections.add(x)); } }
@@ -872,7 +893,7 @@ async function generateProposalChunked(basePrompt,system,supplied){
     if(!anyRerun) break;
   }
   const fullText=partTexts.join('\n\n');
-  return {text:fullText,complete:validateProposal(fullText,supplied).complete && !proposalCommercialIssues(fullText).length && !proposalEditorialIssues(fullText).length};
+  return {text:fullText,complete:validateProposal(fullText,supplied).complete && !proposalCommercialIssues(fullText).length && !proposalEditorialIssues(fullText).length && !proposalAssemblyIssues(fullText).length};
 }
 
 function setLoading(id){
@@ -1068,7 +1089,7 @@ function setOutput(id,text,meta){
   let statusHtml='';
   if(meta&&meta.tool==='proposal'){
     const chk=validateProposal(text,proposalSuppliedFacts());
-    if(proposalCommercialIssues(text).length || proposalEditorialIssues(text).length) chk.complete=false;
+    if(proposalCommercialIssues(text).length || proposalEditorialIssues(text).length || proposalAssemblyIssues(text).length) chk.complete=false;
     const from=v('prop-you')||'Your company';
     const to=v('prop-cl')||'Your client';
     if(chk.complete){
