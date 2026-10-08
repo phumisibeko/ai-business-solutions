@@ -722,11 +722,11 @@ async function callAIRaw(messages,system,maxTokens){
 // rewrite of just this chunk instead.
 async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
   const heading=sections.map(s=>'## '+s).join('\n');
-  const partPrompt=basePrompt+'\n\nQUALITY BAR: Write as an experienced commercial proposal strategist. Prioritise decisions and buyer value over length. Use concrete deliverables tied to the supplied problem; where quantities or schedules are unknown, describe them as options requiring agreement. Differentiate the manufacturing industry from the retail client name: do not assume consumer marketing, sales channels, platforms, or buyers. Use concise paragraphs, useful bullets, and no filler. Never imply a meeting, audit, contract, guarantee, credential, timeline or service was agreed unless explicitly provided. Do not add any dollar sign or currency to an unlabelled price. Every section must add NEW information, not repeat earlier sections. Use proposed rather than promised language for unconfirmed deliverables.\n\nFor this request, write ONLY the following section(s) — full, substantive content for each, not a summary — as these exact headings, in this exact order:\n'+heading
+  const partPrompt=basePrompt+'\n\nQUALITY BAR: Write as an experienced commercial proposal strategist. Prioritise decisions and buyer value over length. Use concrete deliverables tied to the supplied problem; where quantities or schedules are unknown, describe them as options requiring agreement. Differentiate the manufacturing industry from the retail client name: do not assume consumer marketing, sales channels, platforms, or buyers. Use concise paragraphs, useful bullets, and no filler. Never imply a meeting, audit, contract, guarantee, credential, timeline or service was agreed unless explicitly provided. Do not add any dollar sign or currency to an unlabelled price. Every section must add NEW information, not repeat earlier sections. The provider is EXACTLY the company named after From:, NEVER AIBSOS unless From: explicitly says AIBSOS. AIBSOS is only the software platform and must NEVER appear in the proposal body. Never say the provider was engaged, selected or appointed. Proposal validity must be stated as validity period to be agreed unless explicitly supplied. In NEXT STEPS put approval and signature BEFORE onboarding, payment or launch. Keep each section brief and decision-useful: 100-180 words except signature and commercial terms. Offer 2-4 clearly labelled illustrative deliverables, not invented contractual promises. Never use generic supplier credentials. Use proposed rather than promised language for unconfirmed deliverables.\n\nFor this request, write ONLY the following section(s) — full, substantive content for each, not a summary — as these exact headings, in this exact order:\n'+heading
     +(isFinalPart
       ?'\n\nThis is the final part of the document. It must end with the ACCEPTANCE & SIGNATURE section, containing a real signature line, printed name, title and date for both parties, as the very last content. Add nothing after it.'
       :'\n\nDo not write any other section, and do not add a preamble or a closing remark — output only the requested section(s).');
-  const maxTokens=2600;
+  const maxTokens=1900;
   const MAX_ATTEMPTS=4;
   let messages=[{role:'user',content:partPrompt}];
   let text='';
@@ -737,7 +737,7 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
     if(!res.text) break;
     text+=res.text;
     const chk=validateChunk(text,sections,isFinalPart,supplied);
-    chk.accuracyIssues.push(...proposalCommercialIssues(text));
+    chk.accuracyIssues.push(...proposalCommercialIssues(text),...proposalEditorialIssues(text));
     if(chk.complete) return {text:text,complete:true};
     const structural=chk.missing.length||chk.thin.length||!chk.endsOk||(isFinalPart&&!chk.acceptanceOk);
     if(structural){
@@ -754,12 +754,13 @@ async function generatePart(basePrompt,system,sections,isFinalPart,supplied){
       if(chk.accuracyIssues.length) problems.push.apply(problems,chk.accuracyIssues);
       if(!problems.length) break;
       const rewrite='Rewrite ONLY this part, fixing these problems: '+problems.join('; ')+'. '
+        +'The provider is ONLY the named From: company; AIBSOS is the platform, not the supplier. Never invent validity periods or previous engagement. '
         +'Keep the exact same "## SECTION NAME" heading(s), same order, full substantive content, no shortening. Return only the corrected section(s) — no preamble, no commentary.\n\n---\n\n'+text;
       messages=[{role:'user',content:rewrite}];
       text='';
     }
   }
-  return {text:text,complete:validateChunk(text,sections,isFinalPart,supplied).complete};
+  return {text:text,complete:validateChunk(text,sections,isFinalPart,supplied).complete && !proposalCommercialIssues(text).length && !proposalEditorialIssues(text).length};
 }
 
 // Additional commercial guardrails: checks do not replace editorial review.
@@ -781,6 +782,35 @@ function proposalCommercialIssues(text){
     [/\b(?:we have worked with|our clients include|our proven track record|we work with a focused client roster)\b/i,'Unverified provider credentials']
   ];
   for(const [pattern,issue] of commitments) if(pattern.test(t)) issues.push(issue);
+  return issues;
+}
+
+// Editorial gate: supplier identity, invented validity, section order, repetition and buyer specificity.
+function proposalEditorialIssues(text){
+  const t=String(text||''), issues=[];
+  const supplier=v('prop-you').trim(), client=v('prop-cl').trim();
+  const clean=x=>x.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  if(supplier && clean(supplier)!=='aibsos' && clean(supplier)!=='ai business solutions' && /\b(?:AIBSOS|AI Business Solutions)\s+(?:was engaged|has been engaged|proposes|will deliver|is pleased|offers|was selected)\b/i.test(t)) issues.push('Supplier identity contamination: AIBSOS presented as the provider');
+  if(/\b(?:was engaged|has been engaged|was selected|has already been appointed|following our (?:meeting|audit|discussions))\b/i.test(t)) issues.push('Unverified prior engagement or discussion');
+  const validity=t.match(/## PROPOSAL VALIDITY\b([\s\S]*?)(?=\n## |$)/i)?.[1]||'';
+  if(/\b(?:valid for|validity period of|expires? on|expiring on|valid until)\b[^\n]{0,65}\b(?:\d{1,3}\s*days?|\w+\s+\d{1,2},?\s+20\d\d)\b/i.test(validity)||/\bvalid for\s+\d+\s+days?\b/i.test(validity)) issues.push('Unapproved proposal validity period');
+  const headings=PROPOSAL_SECTIONS.map(x=>findHeadingIndex(t,x));
+  if(headings.some((x,i)=>i>0&&x>=0&&headings[i-1]>=0&&x<=headings[i-1])) issues.push('Proposal headings out of order');
+  if(supplier && !clean(t).includes(clean(supplier))) issues.push('Supplier name absent');
+  if(client && !clean(t).includes(clean(client))) issues.push('Client name absent');
+  const sections=t.split(/^##\s+[^\n]+/m).slice(1);
+  const normalize=x=>x.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+  const sentences=sections.flatMap(x=>x.split(/[.!?]\s+/)).map(normalize).filter(x=>x.split(' ').length>=14);
+  const seen=new Set();let duplicates=0;
+  for(const sentence of sentences){if(seen.has(sentence))duplicates++;seen.add(sentence);}
+  if(duplicates>=2)issues.push('Repeated substantial sentences across sections');
+  const solution=t.match(/## OUR SOLUTION\b([\s\S]*?)(?=\n## |$)/i)?.[1]||'';
+  if(solution && !/(?:workflow|deliverable|lead capture|follow.up|content|integration|implementation|automation|campaign)/i.test(solution)) issues.push('Solution lacks practical deliverables or workflows');
+  const next=t.match(/## NEXT STEPS\b([\s\S]*?)(?=\n## |$)/i)?.[1]||'';
+  if(next && /(?:commence|launch|go.live)/i.test(next) && /(?:accept|approv|sign)/i.test(next)){
+    const approval=next.search(/(?:accept|approv|sign)/i), start=next.search(/(?:commence|launch|go.live)/i);
+    if(start>=0&&approval>=0&&start<approval)issues.push('Launch listed before approval');
+  }
   return issues;
 }
 
@@ -819,10 +849,10 @@ async function generateProposalChunked(basePrompt,system,supplied){
     proposalProgress(86+pass*5,'Validating accuracy and completeness');
     const fullText=partTexts.join('\n\n');
     const chk=validateProposal(fullText,supplied);
-    chk.accuracyIssues.push(...proposalCommercialIssues(fullText));
+    chk.accuracyIssues.push(...proposalCommercialIssues(fullText),...proposalEditorialIssues(fullText));
     if(chk.complete && !chk.accuracyIssues.length) return {text:fullText,complete:true};
     const gapSections=new Set(chk.missing.concat(chk.thin));
-    if(chk.accuracyIssues.length){ for(let i=0;i<PROPOSAL_PARTS.length;i++) if(proposalCommercialIssues(partTexts[i]).length) PROPOSAL_PARTS[i].forEach(x=>gapSections.add(x)); }
+    if(chk.accuracyIssues.length){ for(let i=0;i<PROPOSAL_PARTS.length;i++) if(proposalCommercialIssues(partTexts[i]).length || proposalEditorialIssues(partTexts[i]).length) PROPOSAL_PARTS[i].forEach(x=>gapSections.add(x)); if(!gapSections.size) { for(let i=0;i<PROPOSAL_PARTS.length;i++) PROPOSAL_PARTS[i].forEach(x=>gapSections.add(x)); } }
     let anyRerun=false;
     for(let i=0;i<PROPOSAL_PARTS.length;i++){
       if(PROPOSAL_PARTS[i].some(s=>gapSections.has(s))){
@@ -833,7 +863,7 @@ async function generateProposalChunked(basePrompt,system,supplied){
     if(!anyRerun) break;
   }
   const fullText=partTexts.join('\n\n');
-  return {text:fullText,complete:validateProposal(fullText,supplied).complete && !proposalCommercialIssues(fullText).length};
+  return {text:fullText,complete:validateProposal(fullText,supplied).complete && !proposalCommercialIssues(fullText).length && !proposalEditorialIssues(fullText).length};
 }
 
 function setLoading(id){
@@ -1029,7 +1059,7 @@ function setOutput(id,text,meta){
   let statusHtml='';
   if(meta&&meta.tool==='proposal'){
     const chk=validateProposal(text,proposalSuppliedFacts());
-    if(proposalCommercialIssues(text).length) chk.complete=false;
+    if(proposalCommercialIssues(text).length || proposalEditorialIssues(text).length) chk.complete=false;
     const from=v('prop-you')||'Your company';
     const to=v('prop-cl')||'Your client';
     if(chk.complete){
@@ -1194,6 +1224,7 @@ const PROMPT_META={
       +'EDITORIAL RULE — Each section must answer a distinct buyer question. Focus on decision-ready scope, relevant industry context, a realistic implementation approach, proposed KPIs with baseline and measurement method, and an explicit approval next step. Do not invent a supplier track record, resources, service cadence, content volumes, platforms, client decisions, or operational capabilities. When not provided, frame these as recommendations for agreement. Keep the document concise; eliminate generic hype and duplicated paragraphs. Distinguish the client\u2019s named industry from assumptions about its target customers.\n\n'
       +'OUTCOME RULE — do not present desired results as guaranteed. Use phrasing like "designed to improve", "intended to strengthen", "a proposed performance target", "subject to baseline validation", "to be confirmed using client data", "potential contributing factors". The proposal must still read as persuasive, specific, and commercially sharp — do not go vague or generic, just do not claim false certainty.\n\n'
       +'FORMAT RULE — for each request, write ONLY the section(s) it names, each as a "## SECTION NAME" heading with full, substantive content (never a one-line stub, never "[to be written]"). Do not write any other section. Do not add a preamble or a closing remark — output only the requested content. Finish every section fully; never stop mid-sentence.\n\n'
+      +'SUPPLIER IDENTITY — The provider is exactly the company in the From field. AIBSOS is the software engine and must NEVER be named as a supplier, contractor, partner, author or engaged party in the proposal. Never claim the provider was already appointed or engaged. VALIDITY — unless the user provided a validity period, state that it is to be agreed, never invent 30 days. NEXT STEPS — acceptance and signed agreement must precede commencement. COMMERCIAL VALUE — propose a specific workflow and a small example deliverable package clearly labelled illustrative, without promising unapproved volumes. Make the document concise and avoid re-explaining the same problem in every section. Do not use vague claims of provider experience.\n\n'
       +'DEPTH RULES — match depth to the stated client/deal size:\n'
       +'- Small business: concise, plain language, minimal jargon, lighter implementation detail.\n'
       +'- SME: moderate detail, clear process and timeline structure.\n'
